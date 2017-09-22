@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ProjectMapper">
+	 <resultMap id="BaseResultMap" type="com.stock.pojo.Project" >
+    <id column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+    <result column="pj_name" property="pjName" jdbcType="VARCHAR" />
+    <result column="pj_period" property="pjPeriod" jdbcType="VARCHAR" />
+    <result column="pj_industry" property="pjIndustry" jdbcType="VARCHAR" />
+    <result column="pj_background" property="pjBackground" jdbcType="VARCHAR" />
+    <result column="pj_shortplan" property="pjShortplan" jdbcType="VARCHAR" />
+    <result column="pj_mlplan" property="pjMlplan" jdbcType="VARCHAR" />
+    <result column="pj_team" property="pjTeam" jdbcType="VARCHAR" />
+    <result column="pj_targetfinance" property="pjTargetfinance" jdbcType="VARCHAR" />
+    <result column="pj_production" property="pjProduction" jdbcType="VARCHAR" />
+    <result column="pj_support" property="pjSupport" jdbcType="VARCHAR" />
+    <result column="pj_marketing" property="pjMarketing" jdbcType="VARCHAR" />
+    <result column="pj_logo" property="pjLogo" jdbcType="VARCHAR" />
+    <result column="pj_url" property="pjUrl" jdbcType="VARCHAR" />
+    <result column="pj_manual_evalue" property="pjManualEvalue" jdbcType="VARCHAR" />
+    <result column="pj_auto_evalue" property="pjAutoEvalue" jdbcType="VARCHAR" />
+    <result column="pj_protime" property="pjProtime" jdbcType="VARCHAR" />
+    <result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+     <result column="pj_evatimes" property="pjEvatimes" jdbcType="VARCHAR" />
+  </resultMap>
+	<sql id="Base_Column_List" >
+    project_uuid, pj_name, pj_period, pj_industry, pj_background, pj_shortplan, pj_mlplan, 
+    pj_team, pj_targetfinance, pj_production, pj_support, pj_marketing, pj_logo, pj_url, 
+    pj_manual_evalue, pj_auto_evalue, pj_protime, user_uuid, pj_evatimes
+  </sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from project
+		where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		project
+		where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.stock.pojo.Project" >
+    insert into project (project_uuid, pj_name, pj_period, 
+      pj_industry, pj_background, pj_shortplan, 
+      pj_mlplan, pj_team, pj_targetfinance, 
+      pj_production, pj_support, pj_marketing, 
+      pj_logo, pj_url, pj_manual_evalue, pj_auto_evalue, 
+      pj_protime, user_uuid, pj_evatimes)
+    values (#{projectUuid,jdbcType=VARCHAR}, #{pjName,jdbcType=VARCHAR}, #{pjPeriod,jdbcType=VARCHAR}, 
+      #{pjIndustry,jdbcType=VARCHAR}, #{pjBackground,jdbcType=VARCHAR}, #{pjShortplan,jdbcType=VARCHAR}, 
+      #{pjMlplan,jdbcType=VARCHAR}, #{pjTeam,jdbcType=VARCHAR}, #{pjTargetfinance,jdbcType=VARCHAR}, 
+      #{pjProduction,jdbcType=VARCHAR}, #{pjSupport,jdbcType=VARCHAR}, #{pjMarketing,jdbcType=VARCHAR}, 
+      #{pjLogo,jdbcType=VARCHAR}, #{pjUrl,jdbcType=VARCHAR}, #{pjManualEvalue,jdbcType=VARCHAR}, #{pjAutoEvalue,jdbcType=VARCHAR},
+      #{pjProtime,jdbcType=VARCHAR}, #{userUuid,jdbcType=VARCHAR}), #{pjEvatimes.jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Project" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+      <if test="pjName != null" >
+        pj_name,
+      </if>
+      <if test="pjPeriod != null" >
+        pj_period,
+      </if>
+      <if test="pjIndustry != null" >
+        pj_industry,
+      </if>
+      <if test="pjBackground != null" >
+        pj_background,
+      </if>
+      <if test="pjShortplan != null" >
+        pj_shortplan,
+      </if>
+      <if test="pjMlplan != null" >
+        pj_mlplan,
+      </if>
+      <if test="pjTeam != null" >
+        pj_team,
+      </if>
+      <if test="pjTargetfinance != null" >
+        pj_targetfinance,
+      </if>
+      <if test="pjProduction != null" >
+        pj_production,
+      </if>
+      <if test="pjSupport != null" >
+        pj_support,
+      </if>
+      <if test="pjMarketing != null" >
+        pj_marketing,
+      </if>
+      <if test="pjLogo != null" >
+        pj_logo,
+      </if>
+      <if test="pjUrl != null" >
+        pj_url,
+      </if> 
+      <if test="pjManualEvalue != null" >
+        pj_manual_evalue,
+      </if>
+      <if test="pjAutoEvalue != null" >
+        pj_auto_evalue,
+      </if>
+      <if test="pjProtime != null" >
+        pj_protime,
+      </if>
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+       <if test="pjEvatimes != null" >
+        pj_evatimes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pjName != null" >
+        #{pjName,jdbcType=VARCHAR},
+      </if>
+      <if test="pjPeriod != null" >
+        #{pjPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="pjIndustry != null" >
+        #{pjIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="pjBackground != null" >
+        #{pjBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="pjShortplan != null" >
+        #{pjShortplan,jdbcType=VARCHAR},
+      </if>
+      <if test="pjMlplan != null" >
+        #{pjMlplan,jdbcType=VARCHAR},
+      </if>
+      <if test="pjTeam != null" >
+        #{pjTeam,jdbcType=VARCHAR},
+      </if>
+      <if test="pjTargetfinance != null" >
+        #{pjTargetfinance,jdbcType=VARCHAR},
+      </if>
+      <if test="pjProduction != null" >
+        #{pjProduction,jdbcType=VARCHAR},
+      </if>
+      <if test="pjSupport != null" >
+        #{pjSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="pjMarketing != null" >
+        #{pjMarketing,jdbcType=VARCHAR},
+      </if>
+      <if test="pjLogo != null" >
+        #{pjLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="pjUrl != null" >
+        #{pjUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pjManualEvalue != null" >
+        #{pjManualEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pjAutoEvalue != null" >
+        #{pjAutoEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pjProtime != null" >
+        #{pjProtime,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+       <if test="pjEvatimes != null" >
+        #{pjEvatimes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+<update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Project" >
+    update project
+    <set >
+      <if test="pjName != null" >
+        pj_name = #{pjName,jdbcType=VARCHAR},
+      </if>
+      <if test="pjPeriod != null" >
+        pj_period = #{pjPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="pjIndustry != null" >
+        pj_industry = #{pjIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="pjBackground != null" >
+        pj_background = #{pjBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="pjShortplan != null" >
+        pj_shortplan = #{pjShortplan,jdbcType=VARCHAR},
+      </if>
+      <if test="pjMlplan != null" >
+        pj_mlplan = #{pjMlplan,jdbcType=VARCHAR},
+      </if>
+      <if test="pjTeam != null" >
+        pj_team = #{pjTeam,jdbcType=VARCHAR},
+      </if>
+      <if test="pjTargetfinance != null" >
+        pj_targetfinance = #{pjTargetfinance,jdbcType=VARCHAR},
+      </if>
+      <if test="pjProduction != null" >
+        pj_production = #{pjProduction,jdbcType=VARCHAR},
+      </if>
+      <if test="pjSupport != null" >
+        pj_support = #{pjSupport,jdbcType=VARCHAR},
+      </if>
+      <if test="pjMarketing != null" >
+        pj_marketing = #{pjMarketing,jdbcType=VARCHAR},
+      </if>
+      <if test="pjLogo != null" >
+        pj_logo = #{pjLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="pjUrl != null" >
+        pj_url = #{pjUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pjManualEvalue != null" >
+        pj_manual_evalue = #{pjManualEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pjAutoEvalue != null" >
+        pj_auto_evalue = #{pjAutoEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pjProtime != null" >
+        pj_protime = #{pjProtime,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+       <if test="pjEvatimes != null" >
+        pj_evatimes = #{pjEvatimes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+  </update>
+	<update id="updateByPrimaryKey" parameterType="com.stock.pojo.Project" >
+    update project
+    set pj_name = #{pjName,jdbcType=VARCHAR},
+      pj_period = #{pjPeriod,jdbcType=VARCHAR},
+      pj_industry = #{pjIndustry,jdbcType=VARCHAR},
+      pj_background = #{pjBackground,jdbcType=VARCHAR},
+      pj_shortplan = #{pjShortplan,jdbcType=VARCHAR},
+      pj_mlplan = #{pjMlplan,jdbcType=VARCHAR},
+      pj_team = #{pjTeam,jdbcType=VARCHAR},
+      pj_targetfinance = #{pjTargetfinance,jdbcType=VARCHAR},
+      pj_production = #{pjProduction,jdbcType=VARCHAR},
+      pj_support = #{pjSupport,jdbcType=VARCHAR},
+      pj_marketing = #{pjMarketing,jdbcType=VARCHAR},
+      pj_logo = #{pjLogo,jdbcType=VARCHAR},
+      pj_url = #{pjUrl,jdbcType=VARCHAR},
+      pj_manual_evalue = #{pjManualEvalue,jdbcType=VARCHAR},
+      pj_auto_evalue = #{pjAutoEvalue,jdbcType=VARCHAR},
+      pj_protime = #{pjProtime,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+       pj_evatimes = #{pjEvatimes,jdbcType=VARCHAR}
+    where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+  </update>
+	<!-- 查看所有的项目 -->
+	<select id="selectAllProject" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from project
+		order by pj_protime DESC
+	</select>
+	<!-- 查看所有的项目-分页 -->
+	<select id="selectAllProjectByPager" parameterType="hashMap"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from project
+		order by pj_protime DESC
+		limit #{start},#{pagesize}
+	</select>
+	<!-- 查询最近一个礼拜提交的项目 -->
+	<select id="selectLastWeekProject" parameterType="hashMap"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from project
+		where
+		pj_protime
+		between #{lastWeekDate} and #{today}
+		order by pj_protime DESC
+	</select>
+	<!-- 根据用户ID查找自己创建的项目 -->
+	<select id="selectAllProByUserUuid" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from project
+		where user_uuid = #{userUuid,jdbcType=VARCHAR}
+	</select>
+	<!-- 按照项目名称查询项目 -->
+	<select id="selectByProjectName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from project
+  	where pj_name = #{pjName, jdbcType=VARCHAR} 
+  </select>
+  <!-- 2017-6-23合并  作者：张玉筱  合并者：刘禄霞 -->
+  <select id="listAllProByPage" resultMap="BaseResultMap"  parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    order by pj_protime DESC
+    limit #{start},#{pagesize} 
+    </select>
+    <select id="selectMyProject" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+    order by pj_protime DESC
+  </select>
+</mapper>

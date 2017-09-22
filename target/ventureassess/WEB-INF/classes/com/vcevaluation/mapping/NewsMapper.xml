@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.NewsMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.News">
+		<id column="news_id" property="news_id" jdbcType="INTEGER" />
+		<result column="news_title" property="news_title" jdbcType="VARCHAR" />
+		<result column="news_time" property="news_time" jdbcType="VARCHAR" />
+		<result column="news_author" property="news_author" jdbcType="VARCHAR" />
+		<result column="news_text" property="news_text" jdbcType="VARCHAR" />
+		<result column="news_type" property="news_type" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		news_id, news_title,news_time, news_author, news_text, news_type
+	</sql>
+	<insert id="addNews" parameterType="com.vcevaluation.pojo.News">
+		insert into news ( news_title, news_time,news_author, news_text, news_type)
+		values ( #{news_title,jdbcType=VARCHAR}, 
+		#{news_time,jdbcType=VARCHAR}, 
+		#{news_author,jdbcType=VARCHAR},
+		#{news_text,jdbcType=VARCHAR}, 
+		#{news_type,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateNews" parameterType="com.vcevaluation.pojo.News" >
+    update news
+    set news_title = #{news_title,jdbcType=VARCHAR},
+      news_time = #{news_time,jdbcType=VARCHAR},
+      news_author = #{news_author,jdbcType=VARCHAR},
+      news_text = #{news_text,jdbcType=VARCHAR},
+      news_type = #{news_type,jdbcType=INTEGER}
+   </update>
+    <delete id="deleteNews" parameterType="java.lang.Integer" >
+    delete from news
+    where news_id = #{news_id,jdbcType=INTEGER}
+    </delete>
+  <!-- 根据新闻名字查询新闻 -->
+  <select id="selectAllNewsByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from news where true
+    <if test="news_title!=null"> AND news_title LIKE #{news_title}</if>
+  </select>
+  <!-- 查询所有新闻 -->
+  <select id="selectAllNews" resultMap="BaseResultMap">
+  	select * 
+  	from news 
+  </select>
+ 
+  <!-- 带分页的新闻 -->
+  <select id="selectAllNewsByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from news 
+  		limit #{start},#{pagesize} 
+   </select>
+   <!-- 根据新闻的news_id查找新闻 -->
+   <select id="selectNewsById" parameterType="java.lang.Integer" resultType="com.vcevaluation.pojo.News">
+  	select * 
+  	from news 
+  	 where news_id = #{news_id,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.RelationMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.Relation" >
+    <id column="re_uuid" property="reUuid" jdbcType="VARCHAR" />
+    <result column="re_type" property="reType" jdbcType="VARCHAR" />
+    <result column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+    <result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+    <result column="re_operation" property="reOperation" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    re_uuid, re_type, project_uuid, user_uuid, re_operation
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where re_uuid = #{reUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from relation
+    where re_uuid = #{reUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ventureassess.pojo.Relation" >
+    insert into relation (re_uuid, re_type, project_uuid, 
+      user_uuid, re_operation)
+    values (#{reUuid,jdbcType=VARCHAR}, #{reType,jdbcType=VARCHAR}, #{projectUuid,jdbcType=VARCHAR}, 
+      #{userUuid,jdbcType=VARCHAR}, #{reOperation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.Relation" >
+    insert into relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reUuid != null" >
+        re_uuid,
+      </if>
+      <if test="reType != null" >
+        re_type,
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+      <if test="reOperation != null" >
+        re_operation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reUuid != null" >
+        #{reUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="reType != null" >
+        #{reType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="reOperation != null" >
+        #{reOperation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.Relation" >
+    update relation
+    <set >
+      <if test="reType != null" >
+        re_type = #{reType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="reOperation != null" >
+        re_operation = #{reOperation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where re_uuid = #{reUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.Relation" >
+    update relation
+    set re_type = #{reType,jdbcType=VARCHAR},
+      project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      re_operation = #{reOperation,jdbcType=VARCHAR}
+    where re_uuid = #{reUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

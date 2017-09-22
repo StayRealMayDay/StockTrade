@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.IndicatorMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.Indicator" >
+    <id column="in_uuid" property="inUuid" jdbcType="VARCHAR" />
+    <result column="in_name" property="inName" jdbcType="VARCHAR" />
+    <result column="in_optiontype" property="inOptiontype" jdbcType="VARCHAR" />
+    <result column="in_optioncategory" property="inOptioncategory" jdbcType="VARCHAR" />
+    <result column="in_flag" property="inFlag" jdbcType="VARCHAR" />
+    <result column="in_parent" property="inParent" jdbcType="VARCHAR" />
+    <result column="in_level" property="inLevel" jdbcType="VARCHAR" />
+    <result column="in_weight" property="inWeight" jdbcType="VARCHAR" />
+    <result column="in_benchmark" property="inBenchmark" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    in_uuid, in_name, in_optiontype, in_optioncategory, in_flag, in_parent, in_level, 
+    in_weight, in_benchmark
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from indicator
+    where in_uuid = #{inUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from indicator
+    where in_uuid = #{inUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.ventureassess.pojo.Indicator" >
+    insert into indicator (in_uuid, in_name, in_optiontype, 
+      in_optioncategory, in_flag, in_parent, 
+      in_level, in_weight, in_benchmark
+      )
+    values (#{inUuid,jdbcType=VARCHAR}, #{inName,jdbcType=VARCHAR}, #{inOptiontype,jdbcType=VARCHAR}, 
+      #{inOptioncategory,jdbcType=VARCHAR}, #{inFlag,jdbcType=VARCHAR}, #{inParent,jdbcType=VARCHAR}, 
+      #{inLevel,jdbcType=VARCHAR}, #{inWeight,jdbcType=VARCHAR}, #{inBenchmark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.Indicator" >
+    insert into indicator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inUuid != null" >
+        in_uuid,
+      </if>
+      <if test="inName != null" >
+        in_name,
+      </if>
+      <if test="inOptiontype != null" >
+        in_optiontype,
+      </if>
+      <if test="inOptioncategory != null" >
+        in_optioncategory,
+      </if>
+      <if test="inFlag != null" >
+        in_flag,
+      </if>
+      <if test="inParent != null" >
+        in_parent,
+      </if>
+      <if test="inLevel != null" >
+        in_level,
+      </if>
+      <if test="inWeight != null" >
+        in_weight,
+      </if>
+      <if test="inBenchmark != null" >
+        in_benchmark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inUuid != null" >
+        #{inUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="inName != null" >
+        #{inName,jdbcType=VARCHAR},
+      </if>
+      <if test="inOptiontype != null" >
+        #{inOptiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="inOptioncategory != null" >
+        #{inOptioncategory,jdbcType=VARCHAR},
+      </if>
+      <if test="inFlag != null" >
+        #{inFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="inParent != null" >
+        #{inParent,jdbcType=VARCHAR},
+      </if>
+      <if test="inLevel != null" >
+        #{inLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="inWeight != null" >
+        #{inWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="inBenchmark != null" >
+        #{inBenchmark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.Indicator" >
+    update indicator
+    <set >
+      <if test="inName != null" >
+        in_name = #{inName,jdbcType=VARCHAR},
+      </if>
+      <if test="inOptiontype != null" >
+        in_optiontype = #{inOptiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="inOptioncategory != null" >
+        in_optioncategory = #{inOptioncategory,jdbcType=VARCHAR},
+      </if>
+      <if test="inFlag != null" >
+        in_flag = #{inFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="inParent != null" >
+        in_parent = #{inParent,jdbcType=VARCHAR},
+      </if>
+      <if test="inLevel != null" >
+        in_level = #{inLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="inWeight != null" >
+        in_weight = #{inWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="inBenchmark != null" >
+        in_benchmark = #{inBenchmark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where in_uuid = #{inUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.Indicator" >
+    update indicator
+    set in_name = #{inName,jdbcType=VARCHAR},
+      in_optiontype = #{inOptiontype,jdbcType=VARCHAR},
+      in_optioncategory = #{inOptioncategory,jdbcType=VARCHAR},
+      in_flag = #{inFlag,jdbcType=VARCHAR},
+      in_parent = #{inParent,jdbcType=VARCHAR},
+      in_level = #{inLevel,jdbcType=VARCHAR},
+      in_weight = #{inWeight,jdbcType=VARCHAR},
+      in_benchmark = #{inBenchmark,jdbcType=VARCHAR}
+    where in_uuid = #{inUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

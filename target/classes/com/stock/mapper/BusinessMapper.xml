@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.BusinessMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Business" >
+    <id column="bus_uuid" property="busUuid" jdbcType="VARCHAR" />
+    <result column="bus_customer" property="busCustomer" jdbcType="VARCHAR" />
+    <result column="bus_product" property="busProduct" jdbcType="VARCHAR" />
+    <result column="bus_price" property="busPrice" jdbcType="VARCHAR" />
+    <result column="bus_channel" property="busChannel" jdbcType="VARCHAR" />
+    <result column="bus_sales" property="busSales" jdbcType="VARCHAR" />
+    <result column="bus_service" property="busService" jdbcType="VARCHAR" />
+    <result column="bus_cusclass" property="busCusclass" jdbcType="VARCHAR" />
+    <result column="bus_locate" property="busLocate" jdbcType="VARCHAR" />
+    <result column="bus_target" property="busTarget" jdbcType="VARCHAR" />
+    <result column="bus_function" property="busFunction" jdbcType="VARCHAR" />
+    <result column="bus_package" property="busPackage" jdbcType="VARCHAR" />
+    <result column="bus_usefullife" property="busUsefullife" jdbcType="VARCHAR" />
+    <result column="bus_pricemethod" property="busPricemethod" jdbcType="VARCHAR" />
+    <result column="bus_pricerationality" property="busPricerationality" jdbcType="VARCHAR" />
+    <result column="bus_pricecompete" property="busPricecompete" jdbcType="VARCHAR" />
+    <result column="bus_channelstrategy" property="busChannelstrategy" jdbcType="VARCHAR" />
+    <result column="bus_channelsmooth" property="busChannelsmooth" jdbcType="VARCHAR" />
+    <result column="bus_value" property="busValue" jdbcType="VARCHAR" />
+    <result column="product_uuid" property="productUuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bus_uuid, bus_customer, bus_product, bus_price, bus_channel, bus_sales, bus_service, 
+    bus_cusclass, bus_locate, bus_target, bus_function, bus_package, bus_usefullife, 
+    bus_pricemethod, bus_pricerationality, bus_pricecompete, bus_channelstrategy, bus_channelsmooth, 
+    bus_value, product_uuid
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from business
+    where bus_uuid = #{busUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from business
+    where bus_uuid = #{busUuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.stock.pojo.Business" >
+    insert into business (bus_uuid, bus_customer, bus_product, 
+      bus_price, bus_channel, bus_sales, 
+      bus_service, bus_cusclass, bus_locate, 
+      bus_target, bus_function, bus_package, 
+      bus_usefullife, bus_pricemethod, bus_pricerationality, 
+      bus_pricecompete, bus_channelstrategy, bus_channelsmooth, 
+      bus_value, product_uuid)
+    values (#{busUuid,jdbcType=VARCHAR}, #{busCustomer,jdbcType=VARCHAR}, #{busProduct,jdbcType=VARCHAR}, 
+      #{busPrice,jdbcType=VARCHAR}, #{busChannel,jdbcType=VARCHAR}, #{busSales,jdbcType=VARCHAR}, 
+      #{busService,jdbcType=VARCHAR}, #{busCusclass,jdbcType=VARCHAR}, #{busLocate,jdbcType=VARCHAR}, 
+      #{busTarget,jdbcType=VARCHAR}, #{busFunction,jdbcType=VARCHAR}, #{busPackage,jdbcType=VARCHAR}, 
+      #{busUsefullife,jdbcType=VARCHAR}, #{busPricemethod,jdbcType=VARCHAR}, #{busPricerationality,jdbcType=VARCHAR}, 
+      #{busPricecompete,jdbcType=VARCHAR}, #{busChannelstrategy,jdbcType=VARCHAR}, #{busChannelsmooth,jdbcType=VARCHAR}, 
+      #{busValue,jdbcType=VARCHAR}, #{productUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Business" >
+    insert into business
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="busUuid != null" >
+        bus_uuid,
+      </if>
+      <if test="busCustomer != null" >
+        bus_customer,
+      </if>
+      <if test="busProduct != null" >
+        bus_product,
+      </if>
+      <if test="busPrice != null" >
+        bus_price,
+      </if>
+      <if test="busChannel != null" >
+        bus_channel,
+      </if>
+      <if test="busSales != null" >
+        bus_sales,
+      </if>
+      <if test="busService != null" >
+        bus_service,
+      </if>
+      <if test="busCusclass != null" >
+        bus_cusclass,
+      </if>
+      <if test="busLocate != null" >
+        bus_locate,
+      </if>
+      <if test="busTarget != null" >
+        bus_target,
+      </if>
+      <if test="busFunction != null" >
+        bus_function,
+      </if>
+      <if test="busPackage != null" >
+        bus_package,
+      </if>
+      <if test="busUsefullife != null" >
+        bus_usefullife,
+      </if>
+      <if test="busPricemethod != null" >
+        bus_pricemethod,
+      </if>
+      <if test="busPricerationality != null" >
+        bus_pricerationality,
+      </if>
+      <if test="busPricecompete != null" >
+        bus_pricecompete,
+      </if>
+      <if test="busChannelstrategy != null" >
+        bus_channelstrategy,
+      </if>
+      <if test="busChannelsmooth != null" >
+        bus_channelsmooth,
+      </if>
+      <if test="busValue != null" >
+        bus_value,
+      </if>
+      <if test="productUuid != null" >
+        product_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="busUuid != null" >
+        #{busUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="busCustomer != null" >
+        #{busCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="busProduct != null" >
+        #{busProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="busPrice != null" >
+        #{busPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="busChannel != null" >
+        #{busChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="busSales != null" >
+        #{busSales,jdbcType=VARCHAR},
+      </if>
+      <if test="busService != null" >
+        #{busService,jdbcType=VARCHAR},
+      </if>
+      <if test="busCusclass != null" >
+        #{busCusclass,jdbcType=VARCHAR},
+      </if>
+      <if test="busLocate != null" >
+        #{busLocate,jdbcType=VARCHAR},
+      </if>
+      <if test="busTarget != null" >
+        #{busTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="busFunction != null" >
+        #{busFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="busPackage != null" >
+        #{busPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="busUsefullife != null" >
+        #{busUsefullife,jdbcType=VARCHAR},
+      </if>
+      <if test="busPricemethod != null" >
+        #{busPricemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="busPricerationality != null" >
+        #{busPricerationality,jdbcType=VARCHAR},
+      </if>
+      <if test="busPricecompete != null" >
+        #{busPricecompete,jdbcType=VARCHAR},
+      </if>
+      <if test="busChannelstrategy != null" >
+        #{busChannelstrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="busChannelsmooth != null" >
+        #{busChannelsmooth,jdbcType=VARCHAR},
+      </if>
+      <if test="busValue != null" >
+        #{busValue,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Business" >
+    update business
+    <set >
+      <if test="busCustomer != null" >
+        bus_customer = #{busCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="busProduct != null" >
+        bus_product = #{busProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="busPrice != null" >
+        bus_price = #{busPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="busChannel != null" >
+        bus_channel = #{busChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="busSales != null" >
+        bus_sales = #{busSales,jdbcType=VARCHAR},
+      </if>
+      <if test="busService != null" >
+        bus_service = #{busService,jdbcType=VARCHAR},
+      </if>
+      <if test="busCusclass != null" >
+        bus_cusclass = #{busCusclass,jdbcType=VARCHAR},
+      </if>
+      <if test="busLocate != null" >
+        bus_locate = #{busLocate,jdbcType=VARCHAR},
+      </if>
+      <if test="busTarget != null" >
+        bus_target = #{busTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="busFunction != null" >
+        bus_function = #{busFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="busPackage != null" >
+        bus_package = #{busPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="busUsefullife != null" >
+        bus_usefullife = #{busUsefullife,jdbcType=VARCHAR},
+      </if>
+      <if test="busPricemethod != null" >
+        bus_pricemethod = #{busPricemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="busPricerationality != null" >
+        bus_pricerationality = #{busPricerationality,jdbcType=VARCHAR},
+      </if>
+      <if test="busPricecompete != null" >
+        bus_pricecompete = #{busPricecompete,jdbcType=VARCHAR},
+      </if>
+      <if test="busChannelstrategy != null" >
+        bus_channelstrategy = #{busChannelstrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="busChannelsmooth != null" >
+        bus_channelsmooth = #{busChannelsmooth,jdbcType=VARCHAR},
+      </if>
+      <if test="busValue != null" >
+        bus_value = #{busValue,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        product_uuid = #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bus_uuid = #{busUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Business" >
+    update business
+    set bus_customer = #{busCustomer,jdbcType=VARCHAR},
+      bus_product = #{busProduct,jdbcType=VARCHAR},
+      bus_price = #{busPrice,jdbcType=VARCHAR},
+      bus_channel = #{busChannel,jdbcType=VARCHAR},
+      bus_sales = #{busSales,jdbcType=VARCHAR},
+      bus_service = #{busService,jdbcType=VARCHAR},
+      bus_cusclass = #{busCusclass,jdbcType=VARCHAR},
+      bus_locate = #{busLocate,jdbcType=VARCHAR},
+      bus_target = #{busTarget,jdbcType=VARCHAR},
+      bus_function = #{busFunction,jdbcType=VARCHAR},
+      bus_package = #{busPackage,jdbcType=VARCHAR},
+      bus_usefullife = #{busUsefullife,jdbcType=VARCHAR},
+      bus_pricemethod = #{busPricemethod,jdbcType=VARCHAR},
+      bus_pricerationality = #{busPricerationality,jdbcType=VARCHAR},
+      bus_pricecompete = #{busPricecompete,jdbcType=VARCHAR},
+      bus_channelstrategy = #{busChannelstrategy,jdbcType=VARCHAR},
+      bus_channelsmooth = #{busChannelsmooth,jdbcType=VARCHAR},
+      bus_value = #{busValue,jdbcType=VARCHAR},
+      product_uuid = #{productUuid,jdbcType=VARCHAR}
+    where bus_uuid = #{busUuid,jdbcType=VARCHAR}
+  </update>
+  <!-- 根据产品UUID获取商业模式 -->
+   <select id="selectBusByProductUuid" resultMap="BaseResultMap" parameterType="java.lang.String"  >
+    select 
+    <include refid="Base_Column_List" />
+    from business
+     where product_uuid = #{productUuid,jdbcType=VARCHAR}
+  </select>
+  <!-- 2017-6-23合并  作者：张玉筱   合并者：刘禄霞 -->
+   <select id="selectBusinessByProduct" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from business
+    where product_uuid = #{productUuid,jdbcType=VARCHAR}
+  </select>
+</mapper>

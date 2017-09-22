@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.MilestoneMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Milestone" >
+    <id column="ms_uuid" property="msUuid" jdbcType="VARCHAR" />
+    <result column="ms_event" property="msEvent" jdbcType="VARCHAR" />
+    <result column="ms_happentime" property="msHappentime" jdbcType="VARCHAR" />
+    <result column="ms_description" property="msDescription" jdbcType="VARCHAR" />
+    <result column="ms_needresource" property="msNeedresource" jdbcType="VARCHAR" />
+    <result column="ms_profitstatus" property="msProfitstatus" jdbcType="VARCHAR" />
+    <result column="ms_profitamount" property="msProfitamount" jdbcType="VARCHAR" />
+    <result column="ms_costcontrol" property="msCostcontrol" jdbcType="VARCHAR" />
+    <result column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    ms_uuid, ms_event, ms_happentime, ms_description, ms_needresource, ms_profitstatus, 
+    ms_profitamount, ms_costcontrol, project_uuid
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from milestone
+    where ms_uuid = #{msUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from milestone
+    where ms_uuid = #{msUuid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.stock.pojo.Milestone" >
+    insert into milestone (ms_uuid, ms_event, ms_happentime, 
+      ms_description, ms_needresource, ms_profitstatus, 
+      ms_profitamount, ms_costcontrol, project_uuid
+      )
+    values (#{msUuid,jdbcType=VARCHAR}, #{msEvent,jdbcType=VARCHAR}, #{msHappentime,jdbcType=VARCHAR}, 
+      #{msDescription,jdbcType=VARCHAR}, #{msNeedresource,jdbcType=VARCHAR}, #{msProfitstatus,jdbcType=VARCHAR}, 
+      #{msProfitamount,jdbcType=VARCHAR}, #{msCostcontrol,jdbcType=VARCHAR}, #{projectUuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Milestone" >
+    insert into milestone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msUuid != null" >
+        ms_uuid,
+      </if>
+      <if test="msEvent != null" >
+        ms_event,
+      </if>
+      <if test="msHappentime != null" >
+        ms_happentime,
+      </if>
+      <if test="msDescription != null" >
+        ms_description,
+      </if>
+      <if test="msNeedresource != null" >
+        ms_needresource,
+      </if>
+      <if test="msProfitstatus != null" >
+        ms_profitstatus,
+      </if>
+      <if test="msProfitamount != null" >
+        ms_profitamount,
+      </if>
+      <if test="msCostcontrol != null" >
+        ms_costcontrol,
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msUuid != null" >
+        #{msUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="msEvent != null" >
+        #{msEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="msHappentime != null" >
+        #{msHappentime,jdbcType=VARCHAR},
+      </if>
+      <if test="msDescription != null" >
+        #{msDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="msNeedresource != null" >
+        #{msNeedresource,jdbcType=VARCHAR},
+      </if>
+      <if test="msProfitstatus != null" >
+        #{msProfitstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="msProfitamount != null" >
+        #{msProfitamount,jdbcType=VARCHAR},
+      </if>
+      <if test="msCostcontrol != null" >
+        #{msCostcontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Milestone" >
+    update milestone
+    <set >
+      <if test="msEvent != null" >
+        ms_event = #{msEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="msHappentime != null" >
+        ms_happentime = #{msHappentime,jdbcType=VARCHAR},
+      </if>
+      <if test="msDescription != null" >
+        ms_description = #{msDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="msNeedresource != null" >
+        ms_needresource = #{msNeedresource,jdbcType=VARCHAR},
+      </if>
+      <if test="msProfitstatus != null" >
+        ms_profitstatus = #{msProfitstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="msProfitamount != null" >
+        ms_profitamount = #{msProfitamount,jdbcType=VARCHAR},
+      </if>
+      <if test="msCostcontrol != null" >
+        ms_costcontrol = #{msCostcontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ms_uuid = #{msUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Milestone" >
+    update milestone
+    set ms_event = #{msEvent,jdbcType=VARCHAR},
+      ms_happentime = #{msHappentime,jdbcType=VARCHAR},
+      ms_description = #{msDescription,jdbcType=VARCHAR},
+      ms_needresource = #{msNeedresource,jdbcType=VARCHAR},
+      ms_profitstatus = #{msProfitstatus,jdbcType=VARCHAR},
+      ms_profitamount = #{msProfitamount,jdbcType=VARCHAR},
+      ms_costcontrol = #{msCostcontrol,jdbcType=VARCHAR},
+      project_uuid = #{projectUuid,jdbcType=VARCHAR}
+    where ms_uuid = #{msUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

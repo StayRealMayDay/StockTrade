@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.FileRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.FileRelation" >
+    <id column="fr_uuid" property="frUuid" jdbcType="VARCHAR" />
+    <result column="file_uuid" property="fileUuid" jdbcType="VARCHAR" />
+    <result column="object_uuid" property="objectUuid" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    fr_uuid, file_uuid, object_uuid, type
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_relation
+    where fr_uuid = #{frUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from file_relation
+    where fr_uuid = #{frUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.stock.pojo.FileRelation" >
+    insert into file_relation (fr_uuid, file_uuid, object_uuid, type
+      )
+    values (#{frUuid,jdbcType=VARCHAR}, #{fileUuid,jdbcType=VARCHAR}, #{objectUuid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.FileRelation" >
+    insert into file_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="frUuid != null" >
+        fr_uuid,
+      </if>
+      <if test="fileUuid != null" >
+        file_uuid,
+      </if>
+      <if test="objectUuid != null" >
+        object_uuid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="frUuid != null" >
+        #{frUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUuid != null" >
+        #{fileUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="objectUuid != null" >
+        #{objectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.FileRelation" >
+    update file_relation
+    <set >
+      <if test="fileUuid != null" >
+        file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="objectUuid != null" >
+        object_uuid = #{objectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fr_uuid = #{frUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.FileRelation" >
+    update file_relation
+    set file_uuid = #{fileUuid,jdbcType=VARCHAR},
+      object_uuid = #{objectUuid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where fr_uuid = #{frUuid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByObject" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select *
+  	from file_relation
+  	where object_uuid = #{objectUuid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByType" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select *
+  	from file_relation
+  	where type = #{type,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ProspectMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Prospect" >
+    <id column="pros_uuid" property="prosUuid" jdbcType="VARCHAR" />
+    <result column="pros_general" property="prosGeneral" jdbcType="VARCHAR" />
+    <result column="pros_capacity" property="prosCapacity" jdbcType="VARCHAR" />
+    <result column="pros_analysis" property="prosAnalysis" jdbcType="VARCHAR" />
+    <result column="pros_evalue" property="prosEvalue" jdbcType="VARCHAR" />
+    <result column="ma_uuid" property="maUuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pros_uuid, pros_general, pros_capacity, pros_analysis, pros_evalue, ma_uuid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from prospect
+    where pros_uuid = #{prosUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from prospect
+    where pros_uuid = #{prosUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Prospect" >
+    insert into prospect (pros_uuid, pros_general, pros_capacity, 
+      pros_analysis, pros_evalue, ma_uuid
+      )
+    values (#{prosUuid,jdbcType=VARCHAR}, #{prosGeneral,jdbcType=VARCHAR}, #{prosCapacity,jdbcType=VARCHAR}, 
+      #{prosAnalysis,jdbcType=VARCHAR}, #{prosEvalue,jdbcType=VARCHAR}, #{maUuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Prospect" >
+    insert into prospect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prosUuid != null" >
+        pros_uuid,
+      </if>
+      <if test="prosGeneral != null" >
+        pros_general,
+      </if>
+      <if test="prosCapacity != null" >
+        pros_capacity,
+      </if>
+      <if test="prosAnalysis != null" >
+        pros_analysis,
+      </if>
+      <if test="prosEvalue != null" >
+        pros_evalue,
+      </if>
+      <if test="maUuid != null" >
+        ma_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prosUuid != null" >
+        #{prosUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="prosGeneral != null" >
+        #{prosGeneral,jdbcType=VARCHAR},
+      </if>
+      <if test="prosCapacity != null" >
+        #{prosCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="prosAnalysis != null" >
+        #{prosAnalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="prosEvalue != null" >
+        #{prosEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="maUuid != null" >
+        #{maUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Prospect" >
+    update prospect
+    <set >
+      <if test="prosGeneral != null" >
+        pros_general = #{prosGeneral,jdbcType=VARCHAR},
+      </if>
+      <if test="prosCapacity != null" >
+        pros_capacity = #{prosCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="prosAnalysis != null" >
+        pros_analysis = #{prosAnalysis,jdbcType=VARCHAR},
+      </if>
+      <if test="prosEvalue != null" >
+        pros_evalue = #{prosEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="maUuid != null" >
+        ma_uuid = #{maUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pros_uuid = #{prosUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Prospect" >
+    update prospect
+    set pros_general = #{prosGeneral,jdbcType=VARCHAR},
+      pros_capacity = #{prosCapacity,jdbcType=VARCHAR},
+      pros_analysis = #{prosAnalysis,jdbcType=VARCHAR},
+      pros_evalue = #{prosEvalue,jdbcType=VARCHAR},
+      ma_uuid = #{maUuid,jdbcType=VARCHAR}
+    where pros_uuid = #{prosUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.EvaRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.EvaRecord" >
+    <id column="er_uuid" property="erUuid" jdbcType="VARCHAR" />
+    <result column="er_value" property="erValue" jdbcType="VARCHAR" />
+    <result column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+    <result column="product_uuid" property="productUuid" jdbcType="VARCHAR" />
+    <result column="er_option_uuid" property="erOptionUuid" jdbcType="VARCHAR" />
+    <result column="er_in_parent" property="erInParent" jdbcType="VARCHAR" />
+    <result column="er_type" property="erType" jdbcType="VARCHAR" />
+    <result column="er_eva_uuid" property="erEvaUuid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    er_uuid, er_value, project_uuid, product_uuid, er_option_uuid, er_in_parent, er_type, er_eva_uuid
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eva_record
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByEvaRecord" resultType="java.util.Map" parameterType="java.lang.String" >
+   select e.er_in_parent,e.er_value,op.op_name,ind.in_name,ind.in_parent
+	    from eva_record as e,eva_option as op,indicator as ind
+	    where   e.er_option_uuid = op.op_uuid
+                and ind.in_uuid = op.in_uuid and e.project_uuid = #{projectUuid,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByEvaRecordOfIndicator" resultType="java.util.Map" parameterType="java.util.Map" >
+   select e.er_value,o.op_name,i.in_name,i.in_parent,i.in_weight
+	    from eva_record as e,eva_option as o,indicator as i
+	    where   e.er_option_uuid = o.op_uuid and i.in_uuid = o.in_uuid 
+                and e.project_uuid = #{projectUuid,jdbcType=VARCHAR}
+                and e.er_in_parent = #{erInParent,jdbcType=VARCHAR}
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eva_record
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.stock.pojo.EvaRecord" >
+    insert into eva_record (er_uuid, er_value, project_uuid, 
+      product_uuid, er_option_uuid, er_in_parent)
+    values (#{erUuid,jdbcType=VARCHAR}, #{erValue,jdbcType=VARCHAR}, #{projectUuid,jdbcType=VARCHAR}, 
+      #{productUuid,jdbcType=VARCHAR}, #{erOptionUuid,jdbcType=VARCHAR}, 
+      #{erInParent,jdbcType=VARCHAR},#{erType,jdbcType=VARCHAR},#{erEvaUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.EvaRecord" >
+    insert into eva_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="erUuid != null" >
+        er_uuid,
+      </if>
+      <if test="erValue != null" >
+        er_value,
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+      <if test="productUuid != null" >
+        product_uuid,
+      </if>
+      <if test="erOptionUuid != null" >
+        er_option_uuid,
+      </if>
+      <if test="erInParent != null" >
+        er_in_parent,
+      </if>
+      <if test="erType != null" >
+        er_type,
+      </if>
+      <if test="erEvaUuid != null" >
+        er_eva_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="erUuid != null" >
+        #{erUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="erValue != null" >
+        #{erValue,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        #{productUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="erOptionUuid != null" >
+        #{erOptionUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="erInParent != null" >
+        #{erInParent,jdbcType=VARCHAR},
+      </if>
+      <if test="erType != null" >
+        #{erType,jdbcType=VARCHAR},
+      </if>
+      <if test="erEvaUuid != null" >
+        #{erEvaUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.EvaRecord" >
+    update eva_record
+    <set >
+      <if test="erValue != null" >
+        er_value = #{erValue,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        product_uuid = #{productUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="erOptionUuid != null" >
+        er_option_uuid = #{erOptionUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="erInParent != null" >
+        er_in_parent = #{erInParent,jdbcType=VARCHAR},
+      </if>
+      <if test="erType != null" >
+        er_type = #{erType,jdbcType=VARCHAR},
+      </if>
+      <if test="erEvaUuid != null" >
+        er_eva_uuid = #{erEvaUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.EvaRecord" >
+    update eva_record
+    set er_value = #{erValue,jdbcType=VARCHAR},
+      project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      product_uuid = #{productUuid,jdbcType=VARCHAR},
+      er_option_uuid = #{erOptionUuid,jdbcType=VARCHAR},
+      er_in_parent = #{erInParent,jdbcType=VARCHAR},
+      er_type = #{erType,jdbcType=VARCHAR},
+      er_eva_uuid = #{erEvaUuid,jdbcType=VARCHAR}
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </update>
+  <!-- 2017-6-23合并  作者：张玉筱   合并者：刘禄霞 -->
+  <select id="selectInofESrecord" resultMap="BaseResultMap" parameterType="com.stock.pojo.EvaRecord">
+	    select *
+	    from eva_record as er
+	    where  er.er_eva_uuid = #{erEvaUuid,jdbcType=VARCHAR} and er.er_in_parent = #{erInParent,jdbcType=VARCHAR}
+	</select>
+</mapper>

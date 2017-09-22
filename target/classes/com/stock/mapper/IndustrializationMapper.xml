@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.IndustrializationMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Industrialization" >
+    <id column="indus_uuid" property="indusUuid" jdbcType="VARCHAR" />
+    <result column="sample_size" property="sampleSize" jdbcType="VARCHAR" />
+    <result column="rd_intensity" property="rdIntensity" jdbcType="VARCHAR" />
+    <result column="unrd_intensity" property="unrdIntensity" jdbcType="VARCHAR" />
+    <result column="mechanism" property="mechanism" jdbcType="VARCHAR" />
+    <result column="strategic" property="strategic" jdbcType="VARCHAR" />
+    <result column="tech_research" property="techResearch" jdbcType="VARCHAR" />
+    <result column="scientist_engineer" property="scientistEngineer" jdbcType="VARCHAR" />
+    <result column="tech_ spread" property="techSpread" jdbcType="VARCHAR" />
+    <result column="tech_bring_in" property="techBringIn" jdbcType="VARCHAR" />
+    <result column="awards_patents" property="awardsPatents" jdbcType="VARCHAR" />
+    <result column="indus_evalue" property="indusEvalue" jdbcType="VARCHAR" />
+    <result column="pro_uuid" property="proUuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    indus_uuid, sample_size, rd_intensity, unrd_intensity, mechanism, strategic, tech_research, 
+    scientist_engineer, "tech_ spread", tech_bring_in, awards_patents, indus_evalue, 
+    pro_uuid
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from industrialization
+    where indus_uuid = #{indusUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from industrialization
+    where indus_uuid = #{indusUuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.stock.pojo.Industrialization" >
+    insert into industrialization (indus_uuid, sample_size, rd_intensity, 
+      unrd_intensity, mechanism, strategic, 
+      tech_research, scientist_engineer, "tech_ spread", 
+      tech_bring_in, awards_patents, indus_evalue, 
+      pro_uuid)
+    values (#{indusUuid,jdbcType=VARCHAR}, #{sampleSize,jdbcType=VARCHAR}, #{rdIntensity,jdbcType=VARCHAR}, 
+      #{unrdIntensity,jdbcType=VARCHAR}, #{mechanism,jdbcType=VARCHAR}, #{strategic,jdbcType=VARCHAR}, 
+      #{techResearch,jdbcType=VARCHAR}, #{scientistEngineer,jdbcType=VARCHAR}, #{techSpread,jdbcType=VARCHAR}, 
+      #{techBringIn,jdbcType=VARCHAR}, #{awardsPatents,jdbcType=VARCHAR}, #{indusEvalue,jdbcType=VARCHAR}, 
+      #{proUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Industrialization" >
+    insert into industrialization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indusUuid != null" >
+        indus_uuid,
+      </if>
+      <if test="sampleSize != null" >
+        sample_size,
+      </if>
+      <if test="rdIntensity != null" >
+        rd_intensity,
+      </if>
+      <if test="unrdIntensity != null" >
+        unrd_intensity,
+      </if>
+      <if test="mechanism != null" >
+        mechanism,
+      </if>
+      <if test="strategic != null" >
+        strategic,
+      </if>
+      <if test="techResearch != null" >
+        tech_research,
+      </if>
+      <if test="scientistEngineer != null" >
+        scientist_engineer,
+      </if>
+      <if test="techSpread != null" >
+        "tech_ spread",
+      </if>
+      <if test="techBringIn != null" >
+        tech_bring_in,
+      </if>
+      <if test="awardsPatents != null" >
+        awards_patents,
+      </if>
+      <if test="indusEvalue != null" >
+        indus_evalue,
+      </if>
+      <if test="proUuid != null" >
+        pro_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indusUuid != null" >
+        #{indusUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleSize != null" >
+        #{sampleSize,jdbcType=VARCHAR},
+      </if>
+      <if test="rdIntensity != null" >
+        #{rdIntensity,jdbcType=VARCHAR},
+      </if>
+      <if test="unrdIntensity != null" >
+        #{unrdIntensity,jdbcType=VARCHAR},
+      </if>
+      <if test="mechanism != null" >
+        #{mechanism,jdbcType=VARCHAR},
+      </if>
+      <if test="strategic != null" >
+        #{strategic,jdbcType=VARCHAR},
+      </if>
+      <if test="techResearch != null" >
+        #{techResearch,jdbcType=VARCHAR},
+      </if>
+      <if test="scientistEngineer != null" >
+        #{scientistEngineer,jdbcType=VARCHAR},
+      </if>
+      <if test="techSpread != null" >
+        #{techSpread,jdbcType=VARCHAR},
+      </if>
+      <if test="techBringIn != null" >
+        #{techBringIn,jdbcType=VARCHAR},
+      </if>
+      <if test="awardsPatents != null" >
+        #{awardsPatents,jdbcType=VARCHAR},
+      </if>
+      <if test="indusEvalue != null" >
+        #{indusEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="proUuid != null" >
+        #{proUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Industrialization" >
+    update industrialization
+    <set >
+      <if test="sampleSize != null" >
+        sample_size = #{sampleSize,jdbcType=VARCHAR},
+      </if>
+      <if test="rdIntensity != null" >
+        rd_intensity = #{rdIntensity,jdbcType=VARCHAR},
+      </if>
+      <if test="unrdIntensity != null" >
+        unrd_intensity = #{unrdIntensity,jdbcType=VARCHAR},
+      </if>
+      <if test="mechanism != null" >
+        mechanism = #{mechanism,jdbcType=VARCHAR},
+      </if>
+      <if test="strategic != null" >
+        strategic = #{strategic,jdbcType=VARCHAR},
+      </if>
+      <if test="techResearch != null" >
+        tech_research = #{techResearch,jdbcType=VARCHAR},
+      </if>
+      <if test="scientistEngineer != null" >
+        scientist_engineer = #{scientistEngineer,jdbcType=VARCHAR},
+      </if>
+      <if test="techSpread != null" >
+        "tech_ spread" = #{techSpread,jdbcType=VARCHAR},
+      </if>
+      <if test="techBringIn != null" >
+        tech_bring_in = #{techBringIn,jdbcType=VARCHAR},
+      </if>
+      <if test="awardsPatents != null" >
+        awards_patents = #{awardsPatents,jdbcType=VARCHAR},
+      </if>
+      <if test="indusEvalue != null" >
+        indus_evalue = #{indusEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="proUuid != null" >
+        pro_uuid = #{proUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where indus_uuid = #{indusUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Industrialization" >
+    update industrialization
+    set sample_size = #{sampleSize,jdbcType=VARCHAR},
+      rd_intensity = #{rdIntensity,jdbcType=VARCHAR},
+      unrd_intensity = #{unrdIntensity,jdbcType=VARCHAR},
+      mechanism = #{mechanism,jdbcType=VARCHAR},
+      strategic = #{strategic,jdbcType=VARCHAR},
+      tech_research = #{techResearch,jdbcType=VARCHAR},
+      scientist_engineer = #{scientistEngineer,jdbcType=VARCHAR},
+      "tech_ spread" = #{techSpread,jdbcType=VARCHAR},
+      tech_bring_in = #{techBringIn,jdbcType=VARCHAR},
+      awards_patents = #{awardsPatents,jdbcType=VARCHAR},
+      indus_evalue = #{indusEvalue,jdbcType=VARCHAR},
+      pro_uuid = #{proUuid,jdbcType=VARCHAR}
+    where indus_uuid = #{indusUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

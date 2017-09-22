@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.CompetitorMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Competitor" >
+    <id column="comp_uuid" property="compUuid" jdbcType="VARCHAR" />
+    <result column="comp_name" property="compName" jdbcType="VARCHAR" />
+    <result column="comp_rank" property="compRank" jdbcType="VARCHAR" />
+    <result column="comp_share" property="compShare" jdbcType="VARCHAR" />
+    <result column="comp_advantage" property="compAdvantage" jdbcType="VARCHAR" />
+    <result column="comp_short" property="compShort" jdbcType="VARCHAR" />
+    <result column="enviro_uuid" property="enviroUuid" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    comp_uuid, comp_name, comp_rank, comp_share, comp_advantage, comp_short, enviro_uuid
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from competitor
+    where comp_uuid = #{compUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from competitor
+    where comp_uuid = #{compUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.stock.pojo.Competitor" >
+    insert into competitor (comp_uuid, comp_name, comp_rank, 
+      comp_share, comp_advantage, comp_short, 
+      enviro_uuid)
+    values (#{compUuid,jdbcType=VARCHAR}, #{compName,jdbcType=VARCHAR}, #{compRank,jdbcType=VARCHAR}, 
+      #{compShare,jdbcType=VARCHAR}, #{compAdvantage,jdbcType=VARCHAR}, #{compShort,jdbcType=VARCHAR}, 
+      #{enviroUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Competitor" >
+    insert into competitor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="compUuid != null" >
+        comp_uuid,
+      </if>
+      <if test="compName != null" >
+        comp_name,
+      </if>
+      <if test="compRank != null" >
+        comp_rank,
+      </if>
+      <if test="compShare != null" >
+        comp_share,
+      </if>
+      <if test="compAdvantage != null" >
+        comp_advantage,
+      </if>
+      <if test="compShort != null" >
+        comp_short,
+      </if>
+      <if test="enviroUuid != null" >
+        enviro_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="compUuid != null" >
+        #{compUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="compName != null" >
+        #{compName,jdbcType=VARCHAR},
+      </if>
+      <if test="compRank != null" >
+        #{compRank,jdbcType=VARCHAR},
+      </if>
+      <if test="compShare != null" >
+        #{compShare,jdbcType=VARCHAR},
+      </if>
+      <if test="compAdvantage != null" >
+        #{compAdvantage,jdbcType=VARCHAR},
+      </if>
+      <if test="compShort != null" >
+        #{compShort,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroUuid != null" >
+        #{enviroUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Competitor" >
+    update competitor
+    <set >
+      <if test="compName != null" >
+        comp_name = #{compName,jdbcType=VARCHAR},
+      </if>
+      <if test="compRank != null" >
+        comp_rank = #{compRank,jdbcType=VARCHAR},
+      </if>
+      <if test="compShare != null" >
+        comp_share = #{compShare,jdbcType=VARCHAR},
+      </if>
+      <if test="compAdvantage != null" >
+        comp_advantage = #{compAdvantage,jdbcType=VARCHAR},
+      </if>
+      <if test="compShort != null" >
+        comp_short = #{compShort,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroUuid != null" >
+        enviro_uuid = #{enviroUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comp_uuid = #{compUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Competitor" >
+    update competitor
+    set comp_name = #{compName,jdbcType=VARCHAR},
+      comp_rank = #{compRank,jdbcType=VARCHAR},
+      comp_share = #{compShare,jdbcType=VARCHAR},
+      comp_advantage = #{compAdvantage,jdbcType=VARCHAR},
+      comp_short = #{compShort,jdbcType=VARCHAR},
+      enviro_uuid = #{enviroUuid,jdbcType=VARCHAR}
+    where comp_uuid = #{compUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

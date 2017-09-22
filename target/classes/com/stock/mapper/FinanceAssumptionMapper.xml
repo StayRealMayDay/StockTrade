@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.FinanceAssumptionMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.FinanceAssumption" >
+    <result column="fa_uuid" property="faUuid" jdbcType="VARCHAR" />
+    <result column="forecast_sales" property="forecastSales" jdbcType="VARCHAR" />
+    <result column="dynamic_payback_period" property="dynamicPaybackPeriod" jdbcType="VARCHAR" />
+    <result column="fa_npv" property="faNpv" jdbcType="VARCHAR" />
+    <result column="fa_nav" property="faNav" jdbcType="VARCHAR" />
+    <result column="internal_rate" property="internalRate" jdbcType="VARCHAR" />
+    <result column="fa_roe" property="faRoe" jdbcType="VARCHAR" />
+    <result column="fa_roa" property="faRoa" jdbcType="VARCHAR" />
+    <result column="fa_evalue" property="faEvalue" jdbcType="VARCHAR" />
+    <result column="pro_uuid" property="proUuid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    fa_uuid, forecast_sales, dynamic_payback_period, fa_npv, fa_nav, internal_rate, fa_roe, 
+    fa_roa, fa_evalue, pro_uuid
+  </sql>
+
+  <insert id="insert" parameterType="com.stock.pojo.FinanceAssumption" >
+    insert into finance_assumption (fa_uuid, forecast_sales, dynamic_payback_period, 
+      fa_npv, fa_nav, internal_rate, 
+      fa_roe, fa_roa, fa_evalue, 
+      pro_uuid)
+    values (#{faUuid,jdbcType=VARCHAR}, #{forecastSales,jdbcType=VARCHAR}, #{dynamicPaybackPeriod,jdbcType=VARCHAR}, 
+      #{faNpv,jdbcType=VARCHAR}, #{faNav,jdbcType=VARCHAR}, #{internalRate,jdbcType=VARCHAR}, 
+      #{faRoe,jdbcType=VARCHAR}, #{faRoa,jdbcType=VARCHAR}, #{faEvalue,jdbcType=VARCHAR}, 
+      #{proUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.FinanceAssumption" >
+    insert into finance_assumption
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="faUuid != null" >
+        fa_uuid,
+      </if>
+      <if test="forecastSales != null" >
+        forecast_sales,
+      </if>
+      <if test="dynamicPaybackPeriod != null" >
+        dynamic_payback_period,
+      </if>
+      <if test="faNpv != null" >
+        fa_npv,
+      </if>
+      <if test="faNav != null" >
+        fa_nav,
+      </if>
+      <if test="internalRate != null" >
+        internal_rate,
+      </if>
+      <if test="faRoe != null" >
+        fa_roe,
+      </if>
+      <if test="faRoa != null" >
+        fa_roa,
+      </if>
+      <if test="faEvalue != null" >
+        fa_evalue,
+      </if>
+      <if test="proUuid != null" >
+        pro_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="faUuid != null" >
+        #{faUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastSales != null" >
+        #{forecastSales,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamicPaybackPeriod != null" >
+        #{dynamicPaybackPeriod,jdbcType=VARCHAR},
+      </if>
+      <if test="faNpv != null" >
+        #{faNpv,jdbcType=VARCHAR},
+      </if>
+      <if test="faNav != null" >
+        #{faNav,jdbcType=VARCHAR},
+      </if>
+      <if test="internalRate != null" >
+        #{internalRate,jdbcType=VARCHAR},
+      </if>
+      <if test="faRoe != null" >
+        #{faRoe,jdbcType=VARCHAR},
+      </if>
+      <if test="faRoa != null" >
+        #{faRoa,jdbcType=VARCHAR},
+      </if>
+      <if test="faEvalue != null" >
+        #{faEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="proUuid != null" >
+        #{proUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+</mapper>

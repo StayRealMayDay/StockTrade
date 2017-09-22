@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.FundingMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Funding" >
+    <id column="f_uuid" property="fUuid" jdbcType="VARCHAR" />
+    <result column="f_brief" property="fBrief" jdbcType="VARCHAR" />
+    <result column="f_team_ratio" property="fTeamRatio" jdbcType="VARCHAR" />
+    <result column="f_risk_ratio" property="fRiskRatio" jdbcType="VARCHAR" />
+    <result column="f_tech_ratio" property="fTechRatio" jdbcType="VARCHAR" />
+    <result column="f_government_ratio" property="fGovernmentRatio" jdbcType="VARCHAR" />
+    <result column="f_evalue" property="fEvalue" jdbcType="VARCHAR" />
+    <result column="pro_uuid" property="proUuid" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    f_uuid, f_brief, f_team_ratio, f_risk_ratio, f_tech_ratio, f_government_ratio, f_evalue, 
+    pro_uuid
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from funding
+    where f_uuid = #{fUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from funding
+    where f_uuid = #{fUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.stock.pojo.Funding" >
+    insert into funding (f_uuid, f_brief, f_team_ratio, 
+      f_risk_ratio, f_tech_ratio, f_government_ratio, 
+      f_evalue, pro_uuid)
+    values (#{fUuid,jdbcType=VARCHAR}, #{fBrief,jdbcType=VARCHAR}, #{fTeamRatio,jdbcType=VARCHAR}, 
+      #{fRiskRatio,jdbcType=VARCHAR}, #{fTechRatio,jdbcType=VARCHAR}, #{fGovernmentRatio,jdbcType=VARCHAR}, 
+      #{fEvalue,jdbcType=VARCHAR}, #{proUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Funding" >
+    insert into funding
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fUuid != null" >
+        f_uuid,
+      </if>
+      <if test="fBrief != null" >
+        f_brief,
+      </if>
+      <if test="fTeamRatio != null" >
+        f_team_ratio,
+      </if>
+      <if test="fRiskRatio != null" >
+        f_risk_ratio,
+      </if>
+      <if test="fTechRatio != null" >
+        f_tech_ratio,
+      </if>
+      <if test="fGovernmentRatio != null" >
+        f_government_ratio,
+      </if>
+      <if test="fEvalue != null" >
+        f_evalue,
+      </if>
+      <if test="proUuid != null" >
+        pro_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fUuid != null" >
+        #{fUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="fBrief != null" >
+        #{fBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="fTeamRatio != null" >
+        #{fTeamRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fRiskRatio != null" >
+        #{fRiskRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fTechRatio != null" >
+        #{fTechRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fGovernmentRatio != null" >
+        #{fGovernmentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fEvalue != null" >
+        #{fEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="proUuid != null" >
+        #{proUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Funding" >
+    update funding
+    <set >
+      <if test="fBrief != null" >
+        f_brief = #{fBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="fTeamRatio != null" >
+        f_team_ratio = #{fTeamRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fRiskRatio != null" >
+        f_risk_ratio = #{fRiskRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fTechRatio != null" >
+        f_tech_ratio = #{fTechRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fGovernmentRatio != null" >
+        f_government_ratio = #{fGovernmentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="fEvalue != null" >
+        f_evalue = #{fEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="proUuid != null" >
+        pro_uuid = #{proUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where f_uuid = #{fUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Funding" >
+    update funding
+    set f_brief = #{fBrief,jdbcType=VARCHAR},
+      f_team_ratio = #{fTeamRatio,jdbcType=VARCHAR},
+      f_risk_ratio = #{fRiskRatio,jdbcType=VARCHAR},
+      f_tech_ratio = #{fTechRatio,jdbcType=VARCHAR},
+      f_government_ratio = #{fGovernmentRatio,jdbcType=VARCHAR},
+      f_evalue = #{fEvalue,jdbcType=VARCHAR},
+      pro_uuid = #{proUuid,jdbcType=VARCHAR}
+    where f_uuid = #{fUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

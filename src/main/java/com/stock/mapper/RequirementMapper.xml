@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.RequirementMapper">
+	<resultMap id="BaseResultMap" type="com.stock.pojo.Requirement">
+		<id column="req_uuid" property="reqUuid" jdbcType="VARCHAR" />
+		<result column="req_name" property="reqName" jdbcType="VARCHAR" />
+		<result column="req_brief" property="reqBrief" jdbcType="VARCHAR" />
+		<result column="req_content" property="reqContent" jdbcType="VARCHAR" />
+		<result column="req_protime" property="reqProtime" jdbcType="VARCHAR" />
+		<result column="req_email" property="reqEmail" jdbcType="VARCHAR" />
+		<result column="req_phone" property="reqPhone" jdbcType="VARCHAR" />
+		<result column="req_money" property="reqMoney" jdbcType="VARCHAR" />
+		<result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		req_uuid, req_name, req_brief, req_content, req_protime, req_email,
+		req_phone,req_money, user_uuid
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from requirement
+		where req_uuid = #{reqUuid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from requirement
+		where req_uuid = #{reqUuid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.stock.pojo.Requirement">
+		insert into requirement (req_uuid, req_name, req_brief,
+		req_content, req_protime, req_email,
+		req_phone,req_money,user_uuid)
+		values (#{reqUuid,jdbcType=VARCHAR}, #{reqName,jdbcType=VARCHAR},
+		#{reqBrief,jdbcType=VARCHAR},
+		#{reqContent,jdbcType=VARCHAR}, #{reqProtime,jdbcType=VARCHAR}, #{reqEmail,jdbcType=VARCHAR},
+		#{reqPhone,jdbcType=VARCHAR}, #{reqMoney,jdbcType=VARCHAR},
+		#{userUuid,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.stock.pojo.Requirement">
+		insert into requirement
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="reqUuid != null">
+				req_uuid,
+			</if>
+			<if test="reqName != null">
+				req_name,
+			</if>
+			<if test="reqBrief != null">
+				req_brief,
+			</if>
+			<if test="reqContent != null">
+				req_content,
+			</if>
+			<if test="reqProtime != null">
+				req_protime,
+			</if>
+			<if test="reqEmail != null">
+				req_email,
+			</if>
+			<if test="reqPhone != null">
+				req_phone,
+			</if>
+			<if test="reqMoney != null">
+				req_money,
+			</if>
+
+			<if test="userUuid != null">
+				user_uuid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="reqUuid != null">
+				#{reqUuid,jdbcType=VARCHAR},
+			</if>
+			<if test="reqName != null">
+				#{reqName,jdbcType=VARCHAR},
+			</if>
+			<if test="reqBrief != null">
+				#{reqBrief,jdbcType=VARCHAR},
+			</if>
+			<if test="reqContent != null">
+				#{reqContent,jdbcType=VARCHAR},
+			</if>
+			<if test="reqProtime != null">
+				#{reqProtime,jdbcType=VARCHAR},
+			</if>
+			<if test="reqEmail != null">
+				#{reqEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="reqPhone != null">
+				#{reqPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="reqMoney != null">
+				#{reqMoney,jdbcType=VARCHAR},
+			</if>
+			<if test="userUuid != null">
+				#{userUuid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Requirement">
+		update requirement
+		<set>
+			<if test="reqName != null">
+				req_name = #{reqName,jdbcType=VARCHAR},
+			</if>
+			<if test="reqBrief != null">
+				req_brief = #{reqBrief,jdbcType=VARCHAR},
+			</if>
+			<if test="reqContent != null">
+				req_content = #{reqContent,jdbcType=VARCHAR},
+			</if>
+			<if test="reqProtime != null">
+				req_protime = #{reqProtime,jdbcType=VARCHAR},
+			</if>
+			<if test="reqEmail != null">
+				req_email = #{reqEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="reqPhone != null">
+				req_phone = #{reqPhone,jdbcType=VARCHAR},
+			</if>
+
+			<if test="reqMoney != null">
+				req_money = #{reqMoney,jdbcType=VARCHAR},
+			</if>
+			<if test="userUuid != null">
+				user_uuid = #{userUuid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where req_uuid = #{reqUuid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.stock.pojo.Requirement">
+		update requirement
+		set req_name = #{reqName,jdbcType=VARCHAR},
+		req_brief = #{reqBrief,jdbcType=VARCHAR},
+		req_content = #{reqContent,jdbcType=VARCHAR},
+		req_protime = #{reqProtime,jdbcType=VARCHAR},
+		req_email = #{reqEmail,jdbcType=VARCHAR},
+		req_phone = #{reqPhone,jdbcType=VARCHAR},
+		req_money = #{reqMoney,jdbcType=VARCHAR},
+		user_uuid = #{userUuid,jdbcType=VARCHAR},
+		where req_uuid = #{reqUuid,jdbcType=VARCHAR}
+	</update>
+	<!-- 查询项目经理最近一个礼拜发布的项目需求 -->
+	<select id="selectLastWeekRequirement" parameterType="hashMap"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from requirement
+		where
+		req_protime
+		between #{lastWeekDate} and #{today}
+		order by req_protime DESC
+	</select>
+	<!-- 查询全部的需求 -->
+	<select id="selectAllReq" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from requirement
+	</select>
+	<select id="selectAllRequirementByPaper" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from requirement
+		order by req_protime DESC
+		limit #{start},#{pagesize}
+	</select>
+	<!-- 2017-6-23合并 作者：张玉筱 合并者：刘禄霞 -->
+	<select id="selectMyRequirement" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from requirement
+		where user_uuid = #{userUuid,jdbcType=VARCHAR}
+		order by req_protime DESC
+	</select>
+	<select id="selectAllRequirement" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from requirement
+		order by req_protime DESC
+	</select>
+</mapper>

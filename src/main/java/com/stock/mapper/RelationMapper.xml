@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.RelationMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Relation" >
+    <id column="re_uuid" property="reUuid" jdbcType="VARCHAR" />
+    <result column="re_type" property="reType" jdbcType="VARCHAR" />
+    <result column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+    <result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+    <result column="re_operation" property="reOperation" jdbcType="VARCHAR" />
+    <result column="re_time" property="reTime" jdbcType="VARCHAR" />
+    <result column="req_uuid" property="reqUuid" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    re_uuid, re_type, project_uuid, user_uuid, re_operation,re_time,req_uuid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where re_uuid = #{reUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from relation
+    where re_uuid = #{reUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Relation" >
+    insert into relation (re_uuid, re_type, project_uuid, 
+      user_uuid, re_operation,re_time, req_uuid)
+    values (#{reUuid,jdbcType=VARCHAR}, #{reType,jdbcType=VARCHAR}, #{projectUuid,jdbcType=VARCHAR}, 
+      #{userUuid,jdbcType=VARCHAR}, #{reOperation,jdbcType=VARCHAR}), #{reTime,jdbcType=VARCHAR}), #{reqUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Relation" >
+    insert into relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reUuid != null" >
+        re_uuid,
+      </if>
+      <if test="reType != null" >
+        re_type,
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+      <if test="reOperation != null" >
+        re_operation,
+      </if>
+      <if test="reTime != null" >
+        re_time,
+      </if>
+       <if test="reqUuid != null" >
+        req_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reUuid != null" >
+        #{reUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="reType != null" >
+        #{reType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="reOperation != null" >
+        #{reOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="reTime != null" >
+        #{reTime,jdbcType=VARCHAR},
+      </if>
+       <if test="reqUuid != null" >
+        #{reqUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Relation" >
+    update relation
+    <set >
+      <if test="reType != null" >
+        re_type = #{reType,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="reOperation != null" >
+        re_operation = #{reOperation,jdbcType=VARCHAR},
+      </if>
+       <if test="reTime != null" >
+        re_Time = #{reTime,jdbcType=VARCHAR},
+      </if>
+       <if test="reqUuid != null" >
+        req_uuid = #{reqUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where re_uuid = #{reUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Relation" >
+    update relation
+    set re_type = #{reType,jdbcType=VARCHAR},
+      project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      re_operation = #{reOperation,jdbcType=VARCHAR},
+      re_time = #{reOperation,jdbcType=VARCHAR},
+      req_uuid = #{reqUuid,jdbcType=VARCHAR}
+    where re_uuid = #{reTime,jdbcType=VARCHAR}
+  </update>
+  <!-- 根据项目UUID查找投资人 -->
+   <select id="selectRelationByProUuid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+  </select>
+  <!-- 统计项目的关注人数 -->
+   <select id="countRelationNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+  </select>
+  <!-- 查询所有项目的关注情况 -->
+  <select id="selectAllRealation" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+  </select>
+  <!-- 查询最近一个礼拜未被关注的项目 -->
+  <select id="selectWeekNoCare" parameterType="hashMap"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from relation
+		where
+		re_time
+		not between #{lastWeekDate} and #{today}
+	</select>
+   <!-- 查询最近一个月未被关注的项目 -->
+   <select id="selectMonthNoCare" parameterType="hashMap"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from relation
+		where
+		re_time
+		not between #{lastMonthDate} and #{today}
+	</select>
+	
+	<!-- 2017-6-23合并  作者：张玉筱    合并者：刘禄霞-->
+	<select id="selectMyFocusPro" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where user_uuid = #{userUuid,jdbcType=VARCHAR} and  re_type='关注项目'
+  </select>
+  <select id="selectMyFocusReq" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where user_uuid = #{userUuid,jdbcType=VARCHAR} and re_type = '收藏需求'
+  </select>
+  <select id="checkIsUniqueFocusPro" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where user_uuid = #{userUuid,jdbcType=VARCHAR} and project_uuid = #{projectUuid,jdbcType=VARCHAR}
+  </select>
+  <select id="checkIsUniqueFocusReq" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from relation
+    where user_uuid = #{userUuid,jdbcType=VARCHAR} and req_uuid = #{reqUuid,jdbcType=VARCHAR}
+  </select>
+</mapper>

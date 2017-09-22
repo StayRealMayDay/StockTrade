@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Product" >
+    <id column="product_uuid" property="productUuid" jdbcType="VARCHAR" />
+    <result column="pd_name" property="pdName" jdbcType="VARCHAR" />
+    <result column="pd_type" property="pdType" jdbcType="VARCHAR" />
+    <result column="pd_practical" property="pdPractical" jdbcType="VARCHAR" />
+    <result column="pd_principle" property="pdPrinciple" jdbcType="VARCHAR" />
+    <result column="pd_description" property="pdDescription" jdbcType="VARCHAR" />
+    <result column="pd_businessmodel" property="pdBusinessmodel" jdbcType="VARCHAR" />
+    <result column="pd_technology" property="pdTechnology" jdbcType="VARCHAR" />
+    <result column="pd_market" property="pdMarket" jdbcType="VARCHAR" />
+    <result column="pd_innovation" property="pdInnovation" jdbcType="VARCHAR" />
+    <result column="pd_url" property="pdUrl" jdbcType="VARCHAR" />
+    <result column="pd_evalue" property="pdEvalue" jdbcType="VARCHAR" />
+    <result column="pd_protime" property="pdProtime" jdbcType="VARCHAR" />
+    <result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+    <result column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    product_uuid, pd_name, pd_type, pd_practical, pd_principle, pd_description, pd_businessmodel, 
+    pd_technology, pd_market, pd_innovation, pd_url, pd_evalue, pd_protime, user_uuid, 
+    project_uuid
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where product_uuid = #{productUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from product
+    where product_uuid = #{productUuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.stock.pojo.Product" >
+    insert into product (product_uuid, pd_name, pd_type, 
+      pd_practical, pd_principle, pd_description, 
+      pd_businessmodel, pd_technology, pd_market, 
+      pd_innovation, pd_url, pd_evalue, 
+      pd_protime, user_uuid, project_uuid
+      )
+    values (#{productUuid,jdbcType=VARCHAR}, #{pdName,jdbcType=VARCHAR}, #{pdType,jdbcType=VARCHAR}, 
+      #{pdPractical,jdbcType=VARCHAR}, #{pdPrinciple,jdbcType=VARCHAR}, #{pdDescription,jdbcType=VARCHAR}, 
+      #{pdBusinessmodel,jdbcType=VARCHAR}, #{pdTechnology,jdbcType=VARCHAR}, #{pdMarket,jdbcType=VARCHAR}, 
+      #{pdInnovation,jdbcType=VARCHAR}, #{pdUrl,jdbcType=VARCHAR}, #{pdEvalue,jdbcType=VARCHAR}, 
+      #{pdProtime,jdbcType=VARCHAR}, #{userUuid,jdbcType=VARCHAR}, #{projectUuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Product" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productUuid != null" >
+        product_uuid,
+      </if>
+      <if test="pdName != null" >
+        pd_name,
+      </if>
+      <if test="pdType != null" >
+        pd_type,
+      </if>
+      <if test="pdPractical != null" >
+        pd_practical,
+      </if>
+      <if test="pdPrinciple != null" >
+        pd_principle,
+      </if>
+      <if test="pdDescription != null" >
+        pd_description,
+      </if>
+      <if test="pdBusinessmodel != null" >
+        pd_businessmodel,
+      </if>
+      <if test="pdTechnology != null" >
+        pd_technology,
+      </if>
+      <if test="pdMarket != null" >
+        pd_market,
+      </if>
+      <if test="pdInnovation != null" >
+        pd_innovation,
+      </if>
+      <if test="pdUrl != null" >
+        pd_url,
+      </if>
+      <if test="pdEvalue != null" >
+        pd_evalue,
+      </if>
+      <if test="pdProtime != null" >
+        pd_protime,
+      </if>
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productUuid != null" >
+        #{productUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pdName != null" >
+        #{pdName,jdbcType=VARCHAR},
+      </if>
+      <if test="pdType != null" >
+        #{pdType,jdbcType=VARCHAR},
+      </if>
+      <if test="pdPractical != null" >
+        #{pdPractical,jdbcType=VARCHAR},
+      </if>
+      <if test="pdPrinciple != null" >
+        #{pdPrinciple,jdbcType=VARCHAR},
+      </if>
+      <if test="pdDescription != null" >
+        #{pdDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="pdBusinessmodel != null" >
+        #{pdBusinessmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="pdTechnology != null" >
+        #{pdTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="pdMarket != null" >
+        #{pdMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="pdInnovation != null" >
+        #{pdInnovation,jdbcType=VARCHAR},
+      </if>
+      <if test="pdUrl != null" >
+        #{pdUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pdEvalue != null" >
+        #{pdEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pdProtime != null" >
+        #{pdProtime,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Product" >
+    update product
+    <set >
+      <if test="pdName != null" >
+        pd_name = #{pdName,jdbcType=VARCHAR},
+      </if>
+      <if test="pdType != null" >
+        pd_type = #{pdType,jdbcType=VARCHAR},
+      </if>
+      <if test="pdPractical != null" >
+        pd_practical = #{pdPractical,jdbcType=VARCHAR},
+      </if>
+      <if test="pdPrinciple != null" >
+        pd_principle = #{pdPrinciple,jdbcType=VARCHAR},
+      </if>
+      <if test="pdDescription != null" >
+        pd_description = #{pdDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="pdBusinessmodel != null" >
+        pd_businessmodel = #{pdBusinessmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="pdTechnology != null" >
+        pd_technology = #{pdTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="pdMarket != null" >
+        pd_market = #{pdMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="pdInnovation != null" >
+        pd_innovation = #{pdInnovation,jdbcType=VARCHAR},
+      </if>
+      <if test="pdUrl != null" >
+        pd_url = #{pdUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pdEvalue != null" >
+        pd_evalue = #{pdEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pdProtime != null" >
+        pd_protime = #{pdProtime,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_uuid = #{productUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Product" >
+    update product
+    set pd_name = #{pdName,jdbcType=VARCHAR},
+      pd_type = #{pdType,jdbcType=VARCHAR},
+      pd_practical = #{pdPractical,jdbcType=VARCHAR},
+      pd_principle = #{pdPrinciple,jdbcType=VARCHAR},
+      pd_description = #{pdDescription,jdbcType=VARCHAR},
+      pd_businessmodel = #{pdBusinessmodel,jdbcType=VARCHAR},
+      pd_technology = #{pdTechnology,jdbcType=VARCHAR},
+      pd_market = #{pdMarket,jdbcType=VARCHAR},
+      pd_innovation = #{pdInnovation,jdbcType=VARCHAR},
+      pd_url = #{pdUrl,jdbcType=VARCHAR},
+      pd_evalue = #{pdEvalue,jdbcType=VARCHAR},
+      pd_protime = #{pdProtime,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR},
+      project_uuid = #{projectUuid,jdbcType=VARCHAR}
+    where product_uuid = #{productUuid,jdbcType=VARCHAR}
+  </update>
+  <!-- 查找所有的产品服务 -->
+   <select id="selectAllProduct" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+  </select>
+    
+  <!-- 查找所有的产品服务-分页 -->
+   <select id="selectAllProductByPager" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    order by pd_protime DESC
+     limit #{start},#{pagesize} 
+  </select>
+  <!-- 按照项目UUID查找产品服务 -->
+  <select id="selectProductByProUuid" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+     where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+  </select>
+  <!-- 按照项目-产品名称查询项目 -->
+	<select id="selectByProductName" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from product
+  	where pd_name = #{pdName, jdbcType=VARCHAR} 
+  </select>
+  <!-- 2017-6-23合并 作者：张玉筱  合并者：刘禄霞 -->
+  <select id="selectByProject" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where project_uuid = #{projectUuid,jdbcType=VARCHAR}
+  </select>
+</mapper>

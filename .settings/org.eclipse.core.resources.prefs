@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/stock/controller/AdminUserController.java=UTF-8
+encoding//src/main/java/com/stock/controller/UserController.java=UTF-8
+encoding//src/main/resources/jdbc.properties=UTF-8
+encoding//src/main/resources/log4j.properties=UTF-8
+encoding//src/main/webapp/TestIndex.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/adPage/adminHomePage.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/adPage/adminUserManage.jsp=UTF-8
+encoding//src/main/webapp/ad_left.jsp=UTF-8
+encoding//src/main/webapp/static/adStyle/css/cloud-admin.css=UTF-8
+encoding//src/main/webapp/static/adStyle/css/cloud-admin.min.css=UTF-8
+encoding//src/test/java/com/ventureassess/test/sicd_test.java=UTF-8

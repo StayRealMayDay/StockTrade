@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.IndustryMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Industry" >
+    <id column="industry_uuid" property="industryUuid" jdbcType="VARCHAR" />
+    <result column="i_name" property="iName" jdbcType="VARCHAR" />
+    <result column="i_character" property="iCharacter" jdbcType="VARCHAR" />
+    <result column="i_describe" property="iDescribe" jdbcType="VARCHAR" />
+    <result column="i_status" property="iStatus" jdbcType="VARCHAR" />
+    <result column="i_advantage" property="iAdvantage" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    industry_uuid, i_name, i_character, i_describe, i_status, i_advantage
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from industry
+    where industry_uuid = #{industryUuid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllIndustry" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from industry
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from industry
+    where industry_uuid = #{industryUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Industry" >
+    insert into industry (industry_uuid, i_name, i_character, 
+      i_describe, i_status, i_advantage
+      )
+    values (#{industryUuid,jdbcType=VARCHAR}, #{iName,jdbcType=VARCHAR}, #{iCharacter,jdbcType=VARCHAR}, 
+      #{iDescribe,jdbcType=VARCHAR}, #{iStatus,jdbcType=VARCHAR}, #{iAdvantage,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Industry" >
+    insert into industry
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="industryUuid != null" >
+        industry_uuid,
+      </if>
+      <if test="iName != null" >
+        i_name,
+      </if>
+      <if test="iCharacter != null" >
+        i_character,
+      </if>
+      <if test="iDescribe != null" >
+        i_describe,
+      </if>
+      <if test="iStatus != null" >
+        i_status,
+      </if>
+      <if test="iAdvantage != null" >
+        i_advantage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="industryUuid != null" >
+        #{industryUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="iName != null" >
+        #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iCharacter != null" >
+        #{iCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="iDescribe != null" >
+        #{iDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="iStatus != null" >
+        #{iStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="iAdvantage != null" >
+        #{iAdvantage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Industry" >
+    update industry
+    <set >
+      <if test="iName != null" >
+        i_name = #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iCharacter != null" >
+        i_character = #{iCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="iDescribe != null" >
+        i_describe = #{iDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="iStatus != null" >
+        i_status = #{iStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="iAdvantage != null" >
+        i_advantage = #{iAdvantage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where industry_uuid = #{industryUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Industry" >
+    update industry
+    set i_name = #{iName,jdbcType=VARCHAR},
+      i_character = #{iCharacter,jdbcType=VARCHAR},
+      i_describe = #{iDescribe,jdbcType=VARCHAR},
+      i_status = #{iStatus,jdbcType=VARCHAR},
+      i_advantage = #{iAdvantage,jdbcType=VARCHAR}
+    where industry_uuid = #{industryUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

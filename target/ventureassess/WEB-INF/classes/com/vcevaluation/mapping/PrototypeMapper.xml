@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.PrototypeMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Prototype">
+		<id column="pt_id" property="pt_id" jdbcType="INTEGER" />
+		<result column="pt_entity" property="pt_entity" jdbcType="INTEGER" />
+		<result column="pt_attribute" property="pt_attribute" jdbcType="INTEGER" />
+		<result column="pt_market" property="pt_market" jdbcType="INTEGER" />
+		<result column="pt_product" property="pt_product" jdbcType="INTEGER" />
+		<result column="pt_price" property="pt_price" jdbcType="DOUBLE" />
+		<result column="pt_safety" property="pt_safety" jdbcType="INTEGER" />
+		<result column="pt_compete" property="pt_compete" jdbcType="INTEGER" />
+		<result column="pt_ditch" property="pt_ditch" jdbcType="INTEGER" />
+		<result column="pt_aimgroup" property="pt_aimgroup" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		pt_id, pt_entity, pt_attribute, pt_market, pt_product,
+		pt_price, pt_safety, pt_compete, pt_ditch ,pt_aimgroup
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertPrototype" parameterType="com.vcevaluation.pojo.Prototype">
+		insert into prototype (pt_id,pt_entity, pt_attribute, pt_market, pt_product,
+		pt_price, pt_safety, pt_compete, pt_ditch ,pt_aimgroup)
+		values ( #{pt_id,jdbcType=INTEGER},
+		#{pt_entity,jdbcType=INTEGER}, 
+		#{pt_attribute,jdbcType=INTEGER},
+		#{pt_market,jdbcType=INTEGER}, 
+		#{pt_product,jdbcType=INTEGER},
+		#{pt_price,jdbcType=DOUBLE},
+		#{pt_safety,jdbcType=INTEGER}, 
+		#{pt_compete,jdbcType=INTEGER},
+		#{pt_ditch,jdbcType=INTEGER},
+		#{pt_aimgroup,jdbcType=INTEGER})
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from prototype
+	    where pt_id = #{pt_id,jdbcType=INTEGER}
+	</select>
+    <update id="updatePrototypeByPrimaryKey" parameterType="com.vcevaluation.pojo.Prototype" >
+    update prototype
+     set pt_entity = #{pt_entity,jdbcType=INTEGER}, 
+		pt_attribute = #{pt_attribute,jdbcType=INTEGER},
+		pt_market = #{pt_market,jdbcType=INTEGER}, 
+		pt_product = #{pt_product,jdbcType=INTEGER},
+		pt_price = #{pt_price,jdbcType=DOUBLE},
+		pt_safety = #{pt_safety,jdbcType=INTEGER}, 
+		pt_compete = #{pt_compete,jdbcType=INTEGER},
+		pt_ditch = #{pt_ditch,jdbcType=INTEGER},
+		pt_aimgroup = #{pt_aimgroup,jdbcType=INTEGER}
+	 where pt_id = #{pt_id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

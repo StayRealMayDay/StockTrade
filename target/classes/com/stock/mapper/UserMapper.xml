@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.User" >
+    <id column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="user_realname" property="userRealname" jdbcType="VARCHAR" />
+    <result column="user_age" property="userAge" jdbcType="VARCHAR" />
+    <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
+    <result column="user_edu" property="userEdu" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_flag" property="userFlag" jdbcType="VARCHAR" />
+    <result column="user_company" property="userCompany" jdbcType="VARCHAR" />
+    <result column="user_workyear" property="userWorkyear" jdbcType="VARCHAR" />
+    <result column="user_area" property="userArea" jdbcType="VARCHAR" />
+    <result column="user_seniority" property="userSeniority" jdbcType="VARCHAR" />
+    <result column="user_research" property="userResearch" jdbcType="VARCHAR" />
+    <result column="user_scientific" property="userScientific" jdbcType="VARCHAR" />
+    <result column="user_price" property="userPrice" jdbcType="VARCHAR" />
+    <result column="user_brief" property="userBrief" jdbcType="VARCHAR" />
+    <result column="user_registtime" property="userRegistTime" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    user_uuid, user_name, user_pwd, user_realname, user_age, user_gender, user_edu, user_email, 
+    user_flag, user_company, user_workyear, user_area, user_seniority, user_research, 
+    user_scientific, user_price, user_brief,user_registtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.User" >
+    insert into user (user_uuid, user_name, user_pwd, 
+      user_realname, user_age, user_gender, 
+      user_edu, user_email, user_flag, 
+      user_company, user_workyear, user_area, 
+      user_seniority, user_research, user_scientific, 
+      user_price, user_brief,user_registtime)
+    values (#{userUuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{userRealname,jdbcType=VARCHAR}, #{userAge,jdbcType=VARCHAR}, #{userGender,jdbcType=VARCHAR}, 
+      #{userEdu,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{userFlag,jdbcType=VARCHAR}, 
+      #{userCompany,jdbcType=VARCHAR}, #{userWorkyear,jdbcType=VARCHAR}, #{userArea,jdbcType=VARCHAR}, 
+      #{userSeniority,jdbcType=VARCHAR}, #{userResearch,jdbcType=VARCHAR}, #{userScientific,jdbcType=VARCHAR}, 
+      #{userPrice,jdbcType=VARCHAR}, #{userBrief,jdbcType=VARCHAR}, #{userRegistTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="userRealname != null" >
+        user_realname,
+      </if>
+      <if test="userAge != null" >
+        user_age,
+      </if>
+      <if test="userGender != null" >
+        user_gender,
+      </if>
+      <if test="userEdu != null" >
+        user_edu,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userFlag != null" >
+        user_flag,
+      </if>
+      <if test="userCompany != null" >
+        user_company,
+      </if>
+      <if test="userWorkyear != null" >
+        user_workyear,
+      </if>
+      <if test="userArea != null" >
+        user_area,
+      </if>
+      <if test="userSeniority != null" >
+        user_seniority,
+      </if>
+      <if test="userResearch != null" >
+        user_research,
+      </if>
+      <if test="userScientific != null" >
+        user_scientific,
+      </if>
+      <if test="userPrice != null" >
+        user_price,
+      </if>
+       <if test="userBrief != null" >          
+        user_brief,
+      </if>
+      <if test="userRegistTime != null" >          
+        user_registtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >       
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealname != null" >
+        #{userRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null" >
+        #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userGender != null" >
+        #{userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="userEdu != null" >
+        #{userEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlag != null" >
+        #{userFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="userCompany != null" >
+        #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userWorkyear != null" >
+        #{userWorkyear,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null" >
+        #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="userSeniority != null" >
+        #{userSeniority,jdbcType=VARCHAR},
+      </if>
+      <if test="userResearch != null" >
+        #{userResearch,jdbcType=VARCHAR},
+      </if>
+      <if test="userScientific != null" >
+        #{userScientific,jdbcType=VARCHAR},
+      </if>
+      <if test="userPrice != null" >
+        #{userPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="userBrief != null" >
+        #{userBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="userRegistTime != null" >
+        #{userRegistTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>       
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.User" >
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealname != null" >
+        user_realname = #{userRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null" >
+        user_age = #{userAge,jdbcType=VARCHAR},
+      </if>
+      <if test="userGender != null" >
+        user_gender = #{userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="userEdu != null" >
+        user_edu = #{userEdu,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlag != null" >
+        user_flag = #{userFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="userCompany != null" >
+        user_company = #{userCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="userWorkyear != null" >
+        user_workyear = #{userWorkyear,jdbcType=VARCHAR},
+      </if>
+      <if test="userArea != null" >
+        user_area = #{userArea,jdbcType=VARCHAR},
+      </if>
+      <if test="userSeniority != null" >
+        user_seniority = #{userSeniority,jdbcType=VARCHAR},
+      </if>
+      <if test="userResearch != null" >
+        user_research = #{userResearch,jdbcType=VARCHAR},
+      </if>
+      <if test="userScientific != null" >
+        user_scientific = #{userScientific,jdbcType=VARCHAR},
+      </if>
+      <if test="userPrice != null" >
+        user_price = #{userPrice,jdbcType=VARCHAR},
+      </if>
+       <if test="userBrief != null" >
+        user_brief = #{userBrief,jdbcType=VARCHAR},
+      </if>
+       <if test="userRegistTime != null" >          
+        user_registtime= #{userRegistTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.User" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_realname = #{userRealname,jdbcType=VARCHAR},
+      user_age = #{userAge,jdbcType=VARCHAR},
+      user_gender = #{userGender,jdbcType=VARCHAR},
+      user_edu = #{userEdu,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_flag = #{userFlag,jdbcType=VARCHAR},
+      user_company = #{userCompany,jdbcType=VARCHAR},
+      user_workyear = #{userWorkyear,jdbcType=VARCHAR},
+      user_area = #{userArea,jdbcType=VARCHAR},
+      user_seniority = #{userSeniority,jdbcType=VARCHAR},
+      user_research = #{userResearch,jdbcType=VARCHAR},
+      user_scientific = #{userScientific,jdbcType=VARCHAR},
+      user_price = #{userPrice,jdbcType=VARCHAR},
+      user_brief = #{userBrief,jdbcType=VARCHAR},
+      user_registtime = #{userRegistTime,jdbcType=VARCHAR}
+    where user_uuid = #{userUuid,jdbcType=VARCHAR}
+  </update>
+  <!-- 管理员登录 -->
+   <select id="userLogin1" parameterType="hashMap" resultType="com.stock.pojo.User">
+  	select 
+  	<include refid="Base_Column_List" /> 
+	from user
+  	where user_name=#{user_name,jdbcType=VARCHAR} and user_pwd=#{user_pwd,jdbcType=VARCHAR}
+  	<!-- and user_flag=#{user_flag,jdbcType=VARCHAR}      --> 
+   </select>
+   
+   <select id="adminUserLogin" parameterType="hashMap" resultMap="BaseResultMap">
+   select 
+	<include refid="Base_Column_List" />
+   from user
+   where user_name=#{userName,jdbcType=VARCHAR} and user_pwd=#{userPwd,jdbcType=VARCHAR}
+   </select>
+   
+   <select id="userLogin" parameterType="hashMap" resultMap="BaseResultMap">
+  	select 
+	<include refid="Base_Column_List" /> 
+	from user
+  	where user_name=#{userName,jdbcType=VARCHAR} and user_pwd=#{userPwd,jdbcType=VARCHAR} 
+   </select>
+   
+   
+    <!-- 获得管理员的用户状态 -->
+   <select id="selectUserFlagByUserName" resultType="java.lang.String" parameterType="java.lang.String">
+  	select user_flag
+  	from user
+  	where  user_name=#{user_name,jdbcType=VARCHAR}
+  </select>
+  <!-- 获得管理员的用户信息通过用户名 -->
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from user where user_name=#{user_name,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据邮箱查找用户看用户是否存在 -->
+  <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from user
+  	where user_email = #{user_email, jdbcType=VARCHAR} 
+  </select>
+  <!-- 查看所有的用户 -->
+  <select id="selectAllUsers" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+  </select>
+  <!-- 查看所的用户-分页 -->
+   <select id="selectAllUsersByPager" resultMap="BaseResultMap"  >
+	    select 
+	      <include refid="Base_Column_List" />
+	    from user
+	    limit #{start},#{pagesize} 
+    </select>
+   <!-- 按角色查看用户 -->
+   <select id="selectUserByRole" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from user where user_flag = #{userFlag, jdbcType=VARCHAR}
+    </select>
+    
+    <!-- 查看用户详情 -->
+    <select id="selectUserByUuid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from user where user_uuid = #{userUuid, jdbcType=VARCHAR}
+    </select>
+</mapper>

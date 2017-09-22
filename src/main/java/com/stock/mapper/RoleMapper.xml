@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Role" >
+    <id column="role_uuid" property="roleUuid" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_description" property="roleDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    role_uuid, role_name, role_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where role_uuid = #{roleUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from role
+    where role_uuid = #{roleUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Role" >
+    insert into role (role_uuid, role_name, role_description
+      )
+    values (#{roleUuid,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleUuid != null" >
+        role_uuid,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="roleDescription != null" >
+        role_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleUuid != null" >
+        #{roleUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDescription != null" >
+        #{roleDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Role" >
+    update role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDescription != null" >
+        role_description = #{roleDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_uuid = #{roleUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Role" >
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_description = #{roleDescription,jdbcType=VARCHAR}
+    where role_uuid = #{roleUuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByRoleUuid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where role_name = #{roleName,jdbcType=VARCHAR}
+  </select>
+</mapper>

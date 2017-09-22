@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.OptionMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Option" >
+    <id column="op_uuid" property="opUuid" jdbcType="VARCHAR" />
+    <result column="op_name" property="opName" jdbcType="VARCHAR" />
+    <result column="op_value" property="opValue" jdbcType="VARCHAR" />
+    <result column="in_uuid" property="inUuid" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    op_uuid, op_name, op_value, in_uuid
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from option
+    where op_uuid = #{opUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eva_option
+    where op_uuid = #{opUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.stock.pojo.Option" >
+    insert into option (op_uuid, op_name, op_value, 
+      in_uuid)
+    values (#{opUuid,jdbcType=VARCHAR}, #{opName,jdbcType=VARCHAR}, #{opValue,jdbcType=VARCHAR}, 
+      #{inUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Option" >
+    insert into eva_option
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="opUuid != null" >
+        op_uuid,
+      </if>
+      <if test="opName != null" >
+        op_name,
+      </if>
+      <if test="opValue != null" >
+        op_value,
+      </if>
+      <if test="inUuid != null" >
+        in_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="opUuid != null" >
+        #{opUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="opName != null" >
+        #{opName,jdbcType=VARCHAR},
+      </if>
+      <if test="opValue != null" >
+        #{opValue,jdbcType=VARCHAR},
+      </if>
+      <if test="inUuid != null" >
+        #{inUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Option" >
+    update eva_option
+    <set >
+      <if test="opName != null" >
+        op_name = #{opName,jdbcType=VARCHAR},
+      </if>
+      <if test="opValue != null" >
+        op_value = #{opValue,jdbcType=VARCHAR},
+      </if>
+      <if test="inUuid != null" >
+        in_uuid = #{inUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where op_uuid = #{opUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Option" >
+    update eva_option
+    set op_name = #{opName,jdbcType=VARCHAR},
+      op_value = #{opValue,jdbcType=VARCHAR},
+      in_uuid = #{inUuid,jdbcType=VARCHAR}
+    where op_uuid = #{opUuid,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询全部的指标选项 -->
+   <select id="selectAllOption" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from eva_option
+  </select>
+</mapper>

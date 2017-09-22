@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.PolicySupportMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.PolicySupport" >
+    <id column="ps_uuid" property="psUuid" jdbcType="VARCHAR" />
+    <result column="ps_way" property="psWay" jdbcType="VARCHAR" />
+    <result column="ps_rank" property="psRank" jdbcType="VARCHAR" />
+    <result column="ps_category" property="psCategory" jdbcType="VARCHAR" />
+    <result column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ps_uuid, ps_way, ps_rank, ps_category, project_uuid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from policy_support
+    where ps_uuid = #{psUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from policy_support
+    where ps_uuid = #{psUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ventureassess.pojo.PolicySupport" >
+    insert into policy_support (ps_uuid, ps_way, ps_rank, 
+      ps_category, project_uuid)
+    values (#{psUuid,jdbcType=VARCHAR}, #{psWay,jdbcType=VARCHAR}, #{psRank,jdbcType=VARCHAR}, 
+      #{psCategory,jdbcType=VARCHAR}, #{projectUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.PolicySupport" >
+    insert into policy_support
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="psUuid != null" >
+        ps_uuid,
+      </if>
+      <if test="psWay != null" >
+        ps_way,
+      </if>
+      <if test="psRank != null" >
+        ps_rank,
+      </if>
+      <if test="psCategory != null" >
+        ps_category,
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="psUuid != null" >
+        #{psUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="psWay != null" >
+        #{psWay,jdbcType=VARCHAR},
+      </if>
+      <if test="psRank != null" >
+        #{psRank,jdbcType=VARCHAR},
+      </if>
+      <if test="psCategory != null" >
+        #{psCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.PolicySupport" >
+    update policy_support
+    <set >
+      <if test="psWay != null" >
+        ps_way = #{psWay,jdbcType=VARCHAR},
+      </if>
+      <if test="psRank != null" >
+        ps_rank = #{psRank,jdbcType=VARCHAR},
+      </if>
+      <if test="psCategory != null" >
+        ps_category = #{psCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ps_uuid = #{psUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.PolicySupport" >
+    update policy_support
+    set ps_way = #{psWay,jdbcType=VARCHAR},
+      ps_rank = #{psRank,jdbcType=VARCHAR},
+      ps_category = #{psCategory,jdbcType=VARCHAR},
+      project_uuid = #{projectUuid,jdbcType=VARCHAR}
+    where ps_uuid = #{psUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

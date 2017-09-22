@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.PerformanceMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Performance" >
+    <id column="per_uuid" property="perUuid" jdbcType="VARCHAR" />
+    <result column="per_name" property="perName" jdbcType="VARCHAR" />
+    <result column="per_time" property="perTime" jdbcType="VARCHAR" />
+    <result column="per_description" property="perDescription" jdbcType="VARCHAR" />
+    <result column="per_evaluation" property="perEvaluation" jdbcType="VARCHAR" />
+    <result column="we_uuid" property="weUuid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    per_uuid, per_name, per_time, per_description, per_evaluation, we_uuid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from performance
+    where per_uuid = #{perUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from performance
+    where per_uuid = #{perUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Performance" >
+    insert into performance (per_uuid, per_name, per_time, 
+      per_description, per_evaluation, we_uuid
+      )
+    values (#{perUuid,jdbcType=VARCHAR}, #{perName,jdbcType=VARCHAR}, #{perTime,jdbcType=VARCHAR}, 
+      #{perDescription,jdbcType=VARCHAR}, #{perEvaluation,jdbcType=VARCHAR}, #{weUuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Performance" >
+    insert into performance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perUuid != null" >
+        per_uuid,
+      </if>
+      <if test="perName != null" >
+        per_name,
+      </if>
+      <if test="perTime != null" >
+        per_time,
+      </if>
+      <if test="perDescription != null" >
+        per_description,
+      </if>
+      <if test="perEvaluation != null" >
+        per_evaluation,
+      </if>
+      <if test="weUuid != null" >
+        we_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perUuid != null" >
+        #{perUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="perName != null" >
+        #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="perTime != null" >
+        #{perTime,jdbcType=VARCHAR},
+      </if>
+      <if test="perDescription != null" >
+        #{perDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="perEvaluation != null" >
+        #{perEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="weUuid != null" >
+        #{weUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Performance" >
+    update performance
+    <set >
+      <if test="perName != null" >
+        per_name = #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="perTime != null" >
+        per_time = #{perTime,jdbcType=VARCHAR},
+      </if>
+      <if test="perDescription != null" >
+        per_description = #{perDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="perEvaluation != null" >
+        per_evaluation = #{perEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="weUuid != null" >
+        we_uuid = #{weUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where per_uuid = #{perUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Performance" >
+    update performance
+    set per_name = #{perName,jdbcType=VARCHAR},
+      per_time = #{perTime,jdbcType=VARCHAR},
+      per_description = #{perDescription,jdbcType=VARCHAR},
+      per_evaluation = #{perEvaluation,jdbcType=VARCHAR},
+      we_uuid = #{weUuid,jdbcType=VARCHAR}
+    where per_uuid = #{perUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

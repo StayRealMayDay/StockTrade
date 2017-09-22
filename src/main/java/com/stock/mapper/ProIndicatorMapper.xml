@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ProIndicatorMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.ProIndicator" >
+    <id column="pro_uuid" property="proUuid" jdbcType="VARCHAR" />
+    <result column="pro_projectname" property="proProjectname" jdbcType="VARCHAR" />
+    <result column="pro_productname" property="proProductname" jdbcType="VARCHAR" />
+    <result column="pro_background" property="proBackground" jdbcType="VARCHAR" />
+    <result column="pro_industry" property="proIndustry" jdbcType="VARCHAR" />
+    <result column="pro_intech" property="proIntech" jdbcType="DOUBLE" />
+    <result column="pro_inbus" property="proInbus" jdbcType="DOUBLE" />
+    <result column="pro_inviro" property="proInviro" jdbcType="DOUBLE" />
+    <result column="pro_prospect" property="proProspect" jdbcType="DOUBLE" />
+    <result column="pro_indus" property="proIndus" jdbcType="DOUBLE" />
+    <result column="pro_organ" property="proOrgan" jdbcType="DOUBLE" />
+    <result column="pro_production" property="proProduction" jdbcType="DOUBLE" />
+    <result column="pro_fund" property="proFund" jdbcType="DOUBLE" />
+    <result column="pro_team" property="proTeam" jdbcType="DOUBLE" />
+    <result column="pro_risk" property="proRisk" jdbcType="DOUBLE" />
+    <result column="pro_totalvalue" property="proTotalvalue" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pro_uuid, pro_projectname, pro_productname, pro_background, pro_industry, pro_intech, 
+    pro_inbus, pro_inviro, pro_prospect, pro_indus, pro_organ, pro_production, pro_fund, 
+    pro_team, pro_risk, pro_totalvalue
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pro_indicator
+    where pro_uuid = #{proUuid,jdbcType=VARCHAR}
+  </select>
+     
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pro_indicator
+    where pro_uuid = #{proUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.ProIndicator" >
+    insert into pro_indicator (pro_uuid, pro_projectname, pro_productname, 
+      pro_background, pro_industry, pro_intech, 
+      pro_inbus, pro_inviro, pro_prospect, 
+      pro_indus, pro_organ, pro_production, 
+      pro_fund, pro_team, pro_risk, pro_totalvalue
+      )
+    values (#{proUuid,jdbcType=VARCHAR}, #{proProjectname,jdbcType=VARCHAR}, #{proProductname,jdbcType=VARCHAR}, 
+      #{proBackground,jdbcType=VARCHAR}, #{proIndustry,jdbcType=VARCHAR}, #{proIntech,jdbcType=DOUBLE}, 
+      #{proInbus,jdbcType=DOUBLE}, #{proInviro,jdbcType=DOUBLE}, #{proProspect,jdbcType=DOUBLE}, 
+      #{proIndus,jdbcType=DOUBLE}, #{proOrgan,jdbcType=DOUBLE}, #{proProduction,jdbcType=DOUBLE}, 
+      #{proFund,jdbcType=DOUBLE}, #{proTeam,jdbcType=DOUBLE}, #{proRisk,jdbcType=DOUBLE},  #{proTotalvalue,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.ProIndicator" >
+    insert into pro_indicator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proUuid != null" >
+        pro_uuid,
+      </if>
+      <if test="proProjectname != null" >
+        pro_projectname,
+      </if>
+      <if test="proProductname != null" >
+        pro_productname,
+      </if>
+      <if test="proBackground != null" >
+        pro_background,
+      </if>
+      <if test="proIndustry != null" >
+        pro_industry,
+      </if>
+      <if test="proIntech != null" >
+        pro_intech,
+      </if>
+      <if test="proInbus != null" >
+        pro_inbus,
+      </if>
+      <if test="proInviro != null" >
+        pro_inviro,
+      </if>
+      <if test="proProspect != null" >
+        pro_prospect,
+      </if>
+      <if test="proIndus != null" >
+        pro_indus,
+      </if>
+      <if test="proOrgan != null" >
+        pro_organ,
+      </if>
+      <if test="proProduction != null" >
+        pro_production,
+      </if>
+      <if test="proFund != null" >
+        pro_fund,
+      </if>
+      <if test="proTeam != null" >
+        pro_team,
+      </if>
+      <if test="proRisk != null" >
+        pro_risk,
+      </if>
+      <if test="proTotalvalue!=null"> 
+         pro_totalvalue,
+      </if> 
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proUuid != null" >
+        #{proUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="proProjectname != null" >
+        #{proProjectname,jdbcType=VARCHAR},
+      </if>
+      <if test="proProductname != null" >
+        #{proProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="proBackground != null" >
+        #{proBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="proIndustry != null" >
+        #{proIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="proIntech != null" >
+        #{proIntech,jdbcType=DOUBLE},
+      </if>
+      <if test="proInbus != null" >
+        #{proInbus,jdbcType=DOUBLE},
+      </if>
+      <if test="proInviro != null" >
+        #{proInviro,jdbcType=DOUBLE},
+      </if>
+      <if test="proProspect != null" >
+        #{proProspect,jdbcType=DOUBLE},
+      </if>
+      <if test="proIndus != null" >
+        #{proIndus,jdbcType=DOUBLE},
+      </if>
+      <if test="proOrgan != null" >
+        #{proOrgan,jdbcType=DOUBLE},
+      </if>
+      <if test="proProduction != null" >
+        #{proProduction,jdbcType=DOUBLE},
+      </if>
+      <if test="proFund != null" >
+        #{proFund,jdbcType=DOUBLE},
+      </if>
+      <if test="proTeam != null" >
+        #{proTeam,jdbcType=DOUBLE},
+      </if>
+      <if test="proRisk != null" >
+        #{proRisk,jdbcType=DOUBLE},
+      </if>
+      <if test="proTotalvalue!=null"> 
+        #{proTotalvalue,jdbcType=DOUBLE}
+      </if> 
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.ProIndicator" >
+    update pro_indicator
+    <set >
+      <if test="proProjectname != null" >
+        pro_projectname = #{proProjectname,jdbcType=VARCHAR},
+      </if>
+      <if test="proProductname != null" >
+        pro_productname = #{proProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="proBackground != null" >
+        pro_background = #{proBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="proIndustry != null" >
+        pro_industry = #{proIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="proIntech != null" >
+        pro_intech = #{proIntech,jdbcType=DOUBLE},
+      </if>
+      <if test="proInbus != null" >
+        pro_inbus = #{proInbus,jdbcType=DOUBLE},
+      </if>
+      <if test="proInviro != null" >
+        pro_inviro = #{proInviro,jdbcType=DOUBLE},
+      </if>
+      <if test="proProspect != null" >
+        pro_prospect = #{proProspect,jdbcType=DOUBLE},
+      </if>
+      <if test="proIndus != null" >
+        pro_indus = #{proIndus,jdbcType=DOUBLE},
+      </if>
+      <if test="proOrgan != null" >
+        pro_organ = #{proOrgan,jdbcType=DOUBLE},
+      </if>
+      <if test="proProduction != null" >
+        pro_production = #{proProduction,jdbcType=DOUBLE},
+      </if>
+      <if test="proFund != null" >
+        pro_fund = #{proFund,jdbcType=DOUBLE},
+      </if>
+      <if test="proTeam != null" >
+        pro_team = #{proTeam,jdbcType=DOUBLE},
+      </if>
+      <if test="proRisk != null" >
+        pro_risk = #{proRisk,jdbcType=DOUBLE},
+      </if>
+      <if test="proTotalvalue!=null"> 
+        pro_totalvalue = #{proTotalvalue,jdbcType=DOUBLE},
+      </if> 
+    </set>
+    where pro_uuid = #{proUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.ProIndicator" >
+    update pro_indicator
+    set pro_projectname = #{proProjectname,jdbcType=VARCHAR},
+      pro_productname = #{proProductname,jdbcType=VARCHAR},
+      pro_background = #{proBackground,jdbcType=VARCHAR},
+      pro_industry = #{proIndustry,jdbcType=VARCHAR},
+      pro_intech = #{proIntech,jdbcType=DOUBLE},
+      pro_inbus = #{proInbus,jdbcType=DOUBLE},
+      pro_inviro = #{proInviro,jdbcType=DOUBLE},
+      pro_prospect = #{proProspect,jdbcType=DOUBLE},
+      pro_indus = #{proIndus,jdbcType=DOUBLE},
+      pro_organ = #{proOrgan,jdbcType=DOUBLE},
+      pro_production = #{proProduction,jdbcType=DOUBLE},
+      pro_fund = #{proFund,jdbcType=DOUBLE},
+      pro_team = #{proTeam,jdbcType=DOUBLE},
+      pro_risk = #{proRisk,jdbcType=DOUBLE},
+      pro_totalvalue = #{proTotalvalue,jdbcType=DOUBLE}
+    where pro_uuid = #{proUuid,jdbcType=VARCHAR}
+  </update>
+  <!-- 2017-6-23合并   作者：张玉筱     合并者：刘禄霞 -->
+    <!-- 联合查询 -->
+	  <select id="listProjects"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	  select 
+  	    <include refid="Base_Column_List" />
+  	  from pro_indicator
+  	   <where>
+          <if test="proProjectname!=null &amp;&amp; proProjectname!='' " > 
+          and pro_projectname LIKE "%"#{proProjectname,jdbcType=VARCHAR}"%"
+          </if>
+          <if test="proProductname!=null &amp;&amp; proProductname!='' "> 
+          and pro_productname LIKE "%"#{proProductname,jdbcType=VARCHAR}"%"
+          </if>
+          <if test="proBackground!=null &amp;&amp; proBackground!='' "> 
+          and pro_background LIKE "%"#{proBackground,jdbcType=VARCHAR}"%"
+          </if> 
+          <if test="proIndustry!=null &amp;&amp; proIndustry!='' "> 
+          and pro_industry LIKE "%"#{proIndustry,jdbcType=VARCHAR}"%"
+          </if>
+          <if test="proIntech!=null  &amp;&amp; proIntech!='' "> 
+          and pro_intech >= #{proIntech,jdbcType=DOUBLE}
+          </if> 
+          <if test="proInbus!=null &amp;&amp; proInbus!='' "> 
+          and pro_inbus >= #{proInbus,jdbcType=DOUBLE}
+          </if> 
+          <if test="proInviro!=null &amp;&amp; proInviro!='' "> 
+          and pro_inviro >= #{proInviro,jdbcType=DOUBLE}
+          </if> 
+          <if test="proProspect!=null &amp;&amp; proProspect!='' "> 
+          and pro_prospect >= #{proProspect,jdbcType=DOUBLE}
+          </if> 
+          <if test="proIndus!=null &amp;&amp; proIndus!='' " > 
+          and pro_indus >= #{proIndus,jdbcType=DOUBLE}
+          </if> 
+          <if test="proOrgan!=null &amp;&amp; proOrgan!='' "> 
+          and pro_organ >= #{proOrgan,jdbcType=DOUBLE}
+          </if> 
+          <if test="proProduction!=null &amp;&amp; proProduction!='' "> 
+          and pro_production >= #{proProduction,jdbcType=DOUBLE}
+          </if> 
+          <if test="proFundMin!=null &amp;&amp; proFundMax!=null &amp;&amp; proFundMin!=''  &amp;&amp; proFundMax!='' "> 
+          and pro_fund between #{proFundMin,jdbcType=DOUBLE} and #{proFundMax,jdbcType=DOUBLE}
+          </if> 
+          <if test="proTeam!=null &amp;&amp; proTeam!='' "> 
+          and pro_team >= #{proTeam,jdbcType=DOUBLE}
+          </if> 
+          <if test="proRiskMin!=null &amp;&amp; proRiskMax!=null &amp;&amp; proRiskMin!='' &amp;&amp; proRiskMax!=''"> 
+          and pro_risk between #{proRiskMin,jdbcType=DOUBLE} and #{proRiskMax,jdbcType=DOUBLE}
+          </if>
+          <if test="proTotalvalue!=null &amp;&amp; proTotalvalue!='' "> 
+          and pro_totalvalue >= #{proTotalvalue,jdbcType=DOUBLE}
+          </if>  
+     </where>
+          limit #{start},#{pagesize}
+     </select>
+     <!-- 联合查询 不带分页-->
+     <select id="selectProjects"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	  select 
+  	    <include refid="Base_Column_List" />
+  	  from pro_indicator
+  	   <where>
+           <if test="proProjectname!=null &amp;&amp; proProjectname!='' " > 
+          and pro_projectname LIKE "%"#{proProjectname,jdbcType=VARCHAR}"%"
+          </if>
+          <if test="proProductname!=null &amp;&amp; proProductname!='' "> 
+          and pro_productname LIKE "%"#{proProductname,jdbcType=VARCHAR}"%"
+          </if>
+          <if test="proBackground!=null &amp;&amp; proBackground!='' "> 
+          and pro_background LIKE "%"#{proBackground,jdbcType=VARCHAR}"%"
+          </if> 
+          <if test="proIndustry!=null &amp;&amp; proIndustry!='' "> 
+          and pro_industry LIKE "%"#{proIndustry,jdbcType=VARCHAR}"%"
+          </if>
+          <if test="proIntech!=null  &amp;&amp; proIntech!='' "> 
+          and pro_intech >= #{proIntech,jdbcType=DOUBLE}
+          </if> 
+          <if test="proInbus!=null &amp;&amp; proInbus!='' "> 
+          and pro_inbus >= #{proInbus,jdbcType=DOUBLE}
+          </if> 
+          <if test="proInviro!=null &amp;&amp; proInviro!='' "> 
+          and pro_inviro >= #{proInviro,jdbcType=DOUBLE}
+          </if> 
+          <if test="proProspect!=null &amp;&amp; proProspect!='' "> 
+          and pro_prospect >= #{proProspect,jdbcType=DOUBLE}
+          </if> 
+          <if test="proIndus!=null &amp;&amp; proIndus!='' " > 
+          and pro_indus >= #{proIndus,jdbcType=DOUBLE}
+          </if> 
+          <if test="proOrgan!=null &amp;&amp; proOrgan!='' "> 
+          and pro_organ >= #{proOrgan,jdbcType=DOUBLE}
+          </if> 
+          <if test="proProduction!=null &amp;&amp; proProduction!='' "> 
+          and pro_production >= #{proProduction,jdbcType=DOUBLE}
+          </if> 
+          <if test="proFundMin!=null &amp;&amp; proFundMax!=null &amp;&amp; proFundMin!=''  &amp;&amp; proFundMax!='' "> 
+          and pro_fund between #{proFundMin,jdbcType=DOUBLE} and #{proFundMax,jdbcType=DOUBLE}
+          </if> 
+          <if test="proTeam!=null &amp;&amp; proTeam!='' "> 
+          and pro_team >= #{proTeam,jdbcType=DOUBLE}
+          </if> 
+          <if test="proRiskMin!=null &amp;&amp; proRiskMax!=null &amp;&amp; proRiskMin!='' &amp;&amp; proRiskMax!=''"> 
+          and pro_risk between #{proRiskMin,jdbcType=DOUBLE} and #{proRiskMax,jdbcType=DOUBLE}
+          </if>
+          <if test="proTotalvalue!=null &amp;&amp; proTotalvalue!='' "> 
+          and pro_totalvalue >= #{proTotalvalue,jdbcType=DOUBLE}
+          </if>  
+     </where>
+    
+     </select>
+</mapper>
