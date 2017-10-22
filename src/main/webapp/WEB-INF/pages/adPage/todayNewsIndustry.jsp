@@ -177,20 +177,15 @@
 													<th>新闻所属行业名称</th>
 													<th>新闻数量</th>
 													<th>新闻举例</th>
-													<th>操作动作</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${itemList}" var="v" varStatus="sta">
+												<c:forEach items="${hangyeNews}" var="v" varStatus="sta">
 												<tr class="gradeX">
-													<td>${v.enterOrder}</td>
-													<td>${v.enterName}</td>
-													<td>${v.enterContent}</td>
-													<td>${v.enterContent}</td>
-													<td>
-														<button class="btn btn-xs btn-primary" onclick="deleteItem('${v.enterUuid}')">删除</button>
-														<a class="btn btn-xs btn-primary" href="<%=basePath %>/adminEditItem?enterUuid=${v.enterUuid}">修改</a>
-													</td>
+													<td>${v.id}</td>
+													<td>${v.category}</td>
+													<td>${v.coun}</td>
+													<td>${v.newsTitle}</td>
 												</tr>
 												</c:forEach>
 											</tbody>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.DzjyMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Dzjy" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_cd" property="stockCd" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="current_price" property="currentPrice" jdbcType="VARCHAR" />
+    <result column="deal_price" property="dealPrice" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="VARCHAR" />
+    <result column="buyer" property="buyer" jdbcType="VARCHAR" />
+    <result column="saler" property="saler" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_cd, stock_name, current_price, deal_price, total, rate, buyer, saler
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.DzjyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dzjy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dzjy
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dzjy
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.DzjyExample" >
+    delete from dzjy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Dzjy" >
+    insert into dzjy (id, stock_cd, stock_name, 
+      current_price, deal_price, total, 
+      rate, buyer, saler)
+    values (#{id,jdbcType=INTEGER}, #{stockCd,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{currentPrice,jdbcType=VARCHAR}, #{dealPrice,jdbcType=VARCHAR}, #{total,jdbcType=VARCHAR}, 
+      #{rate,jdbcType=VARCHAR}, #{buyer,jdbcType=VARCHAR}, #{saler,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Dzjy" >
+    insert into dzjy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCd != null" >
+        stock_cd,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="currentPrice != null" >
+        current_price,
+      </if>
+      <if test="dealPrice != null" >
+        deal_price,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="buyer != null" >
+        buyer,
+      </if>
+      <if test="saler != null" >
+        saler,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCd != null" >
+        #{stockCd,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPrice != null" >
+        #{currentPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="dealPrice != null" >
+        #{dealPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="buyer != null" >
+        #{buyer,jdbcType=VARCHAR},
+      </if>
+      <if test="saler != null" >
+        #{saler,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.DzjyExample" resultType="java.lang.Integer" >
+    select count(*) from dzjy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dzjy
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCd != null" >
+        stock_cd = #{record.stockCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentPrice != null" >
+        current_price = #{record.currentPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealPrice != null" >
+        deal_price = #{record.dealPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buyer != null" >
+        buyer = #{record.buyer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saler != null" >
+        saler = #{record.saler,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dzjy
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_cd = #{record.stockCd,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      current_price = #{record.currentPrice,jdbcType=VARCHAR},
+      deal_price = #{record.dealPrice,jdbcType=VARCHAR},
+      total = #{record.total,jdbcType=VARCHAR},
+      rate = #{record.rate,jdbcType=VARCHAR},
+      buyer = #{record.buyer,jdbcType=VARCHAR},
+      saler = #{record.saler,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Dzjy" >
+    update dzjy
+    <set >
+      <if test="stockCd != null" >
+        stock_cd = #{stockCd,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPrice != null" >
+        current_price = #{currentPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="dealPrice != null" >
+        deal_price = #{dealPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="buyer != null" >
+        buyer = #{buyer,jdbcType=VARCHAR},
+      </if>
+      <if test="saler != null" >
+        saler = #{saler,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Dzjy" >
+    update dzjy
+    set stock_cd = #{stockCd,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      current_price = #{currentPrice,jdbcType=VARCHAR},
+      deal_price = #{dealPrice,jdbcType=VARCHAR},
+      total = #{total,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=VARCHAR},
+      buyer = #{buyer,jdbcType=VARCHAR},
+      saler = #{saler,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+   <!-- 于花蕾新增部分 2017年9月29日 -->
+  <select id="selectAllDzjy"  resultMap="BaseResultMap">
+  	select *
+  	from dzjy
+  	limit #{start}, #{pagesize}
+  </select>
+  
+   <!-- 于花蕾新增部分 2017年9月29日 -->
+  <select id="selectAllDzjyCount" resultType="int">
+  	select count(*)
+  	from dzjy
+  </select>
+  
+</mapper>

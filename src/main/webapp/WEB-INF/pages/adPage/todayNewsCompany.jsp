@@ -139,22 +139,21 @@
 													<th>公司名称</th>
 													<th>相关度</th>
 													<th>主营业务</th>
-													<th>上市时间</th>
-													<th>所在地区</th>
-													<th>操作</th>
+													<th>行业</th>
+													<th>营业收入排名</th>
+													<th>企业法人</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${videoList}" var="v">
+												<c:forEach items="${companyNews}" var="v">
 												<tr class="gradeA">
-													<td>${v.fileName}</td>
-													<td>${v.fileSize}</td>
-													<td>${v.item}</td>
-													<td>${v.fileTime}</td>
-													<td>${v.userName}</td>
-													<td>
-														<button class="btn btn-xs btn-primary" onclick="deleteVideo('${v.frUuid}')">删除</button>
-													</td>
+													<td>${v.companyName}</td>
+													<td>${v.coun}</td>
+													<td>${v.mainService}</td>
+													<td>${v.category}</td>
+													<td>${v.rank}</td>
+													<td>${v.controller}</td>
+													
 												</tr>	
 												</c:forEach>
 											</tbody>
@@ -163,9 +162,9 @@
 													<th>公司名称</th>
 													<th>相关度</th>
 													<th>主营业务</th>
-													<th>上市时间</th>
-													<th>所在地区</th>
-													<th>操作</th>
+													<th>行业</th>
+													<th>营业收入排名</th>
+													<th>企业法人</th>
 												</tr>
 											</tfoot>
 										</table>

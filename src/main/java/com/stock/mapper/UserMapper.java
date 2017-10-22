@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.stock.pojo.Role;
 import com.stock.pojo.User;
 
 public interface UserMapper {

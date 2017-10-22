@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.stock.mapper.CompanyMapper;
 import com.stock.pojo.Company;
-import com.stock.pojo.Requirement;
 import com.stock.utils.Pager;
 
 @Service

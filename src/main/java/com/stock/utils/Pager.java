@@ -10,7 +10,7 @@ public class Pager {
 	private int recordCount;//总记录数
 	
 
-	private int pageSize = 8;//每页多少条
+	private int pageSize = 10;//每页多少条
 
 	private int pageCount;//共几页
 	

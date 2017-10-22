@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.SharesMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Shares" >
+    <id column="shares_id" property="sharesId" jdbcType="VARCHAR" />
+    <result column="shares_code" property="sharesCode" jdbcType="VARCHAR" />
+    <result column="shares_name" property="sharesName" jdbcType="VARCHAR" />
+    <result column="shares_title" property="sharesTitle" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="click_num" property="clickNum" jdbcType="VARCHAR" />
+    <result column="reply_num" property="replyNum" jdbcType="VARCHAR" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    shares_id, shares_code, shares_name, shares_title, content, author, click_num, reply_num, 
+    reply_content, time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.SharesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shares
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shares
+    where shares_id = #{sharesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shares
+    where shares_id = #{sharesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.SharesExample" >
+    delete from shares
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Shares" >
+    insert into shares (shares_id, shares_code, shares_name, 
+      shares_title, content, author, 
+      click_num, reply_num, reply_content, 
+      time)
+    values (#{sharesId,jdbcType=VARCHAR}, #{sharesCode,jdbcType=VARCHAR}, #{sharesName,jdbcType=VARCHAR}, 
+      #{sharesTitle,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{clickNum,jdbcType=VARCHAR}, #{replyNum,jdbcType=VARCHAR}, #{replyContent,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Shares" >
+    insert into shares
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sharesId != null" >
+        shares_id,
+      </if>
+      <if test="sharesCode != null" >
+        shares_code,
+      </if>
+      <if test="sharesName != null" >
+        shares_name,
+      </if>
+      <if test="sharesTitle != null" >
+        shares_title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="clickNum != null" >
+        click_num,
+      </if>
+      <if test="replyNum != null" >
+        reply_num,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sharesId != null" >
+        #{sharesId,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesCode != null" >
+        #{sharesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesName != null" >
+        #{sharesName,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesTitle != null" >
+        #{sharesTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="clickNum != null" >
+        #{clickNum,jdbcType=VARCHAR},
+      </if>
+      <if test="replyNum != null" >
+        #{replyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.SharesExample" resultType="java.lang.Integer" >
+    select count(*) from shares
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shares
+    <set >
+      <if test="record.sharesId != null" >
+        shares_id = #{record.sharesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharesCode != null" >
+        shares_code = #{record.sharesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharesName != null" >
+        shares_name = #{record.sharesName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sharesTitle != null" >
+        shares_title = #{record.sharesTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clickNum != null" >
+        click_num = #{record.clickNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyNum != null" >
+        reply_num = #{record.replyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyContent != null" >
+        reply_content = #{record.replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shares
+    set shares_id = #{record.sharesId,jdbcType=VARCHAR},
+      shares_code = #{record.sharesCode,jdbcType=VARCHAR},
+      shares_name = #{record.sharesName,jdbcType=VARCHAR},
+      shares_title = #{record.sharesTitle,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      click_num = #{record.clickNum,jdbcType=VARCHAR},
+      reply_num = #{record.replyNum,jdbcType=VARCHAR},
+      reply_content = #{record.replyContent,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Shares" >
+    update shares
+    <set >
+      <if test="sharesCode != null" >
+        shares_code = #{sharesCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesName != null" >
+        shares_name = #{sharesName,jdbcType=VARCHAR},
+      </if>
+      <if test="sharesTitle != null" >
+        shares_title = #{sharesTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="clickNum != null" >
+        click_num = #{clickNum,jdbcType=VARCHAR},
+      </if>
+      <if test="replyNum != null" >
+        reply_num = #{replyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shares_id = #{sharesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Shares" >
+    update shares
+    set shares_code = #{sharesCode,jdbcType=VARCHAR},
+      shares_name = #{sharesName,jdbcType=VARCHAR},
+      shares_title = #{sharesTitle,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      click_num = #{clickNum,jdbcType=VARCHAR},
+      reply_num = #{replyNum,jdbcType=VARCHAR},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR}
+    where shares_id = #{sharesId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectSharesLatest" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from shares where left(time,4) = '2017' order by click_num desc limit 100
+  </select>
+    <select id="selectSharesByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from shares where shares_id = #{sharesId}
+  </select>
+</mapper>

@@ -85,12 +85,12 @@
 											<a href="index.html">Home</a>
 										</li>
 										<li>
-											<a href="#">新闻信息管理</a>
+											<a href="#">股票信息管理</a>
 										</li>
 									</ul>
 									<!-- /BREADCRUMBS -->
 									<div class="clearfix">
-										<h3 class="content-title pull-left">新闻信息管理</h3>
+										<h3 class="content-title pull-left">股票信息管理</h3>
 									</div>
 									<!--<div class="description">Form Elements and Features</div>-->
 								</div>
@@ -147,107 +147,6 @@
 						
 
 
-						<div class="separator"></div>
-
-						<!-- FORMS -->
-						<div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="box border purple">
-											<div class="box-title">
-												<h4><i class="fa fa-bars"></i>新闻总量统计</h4>
-
-												<div class="tools hidden-xs">
-													<a href="#box-config" data-toggle="modal" class="config">
-														<i class="fa fa-cog"></i>
-													</a>
-													<a href="javascript:;" class="reload">
-														<i class="fa fa-refresh"></i>
-													</a>
-													<a href="javascript:;" class="collapse">
-														<i class="fa fa-chevron-up"></i>
-													</a>
-													<a href="javascript:;" class="remove">
-														<i class="fa fa-times"></i>
-													</a>
-												</div>
-											</div>
-											
-												<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
-													<div class="dashbox panel panel-default">
-														<div class="panel-body">
-															<div class="panel-left blue">
-																<i class="fa fa-instagram fa-3x"></i>
-															</div>
-															<div class="panel-right">
-																<div class="number">${newsNum}</div>
-																<div class="title">数据库新闻总量</div>
-																<span class="label label-success"> 26% <i
-																	class="fa fa-arrow-up"></i>
-																</span>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-												<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
-													<div class="dashbox panel panel-default">
-														<div class="panel-body">
-															<div class="panel-left red">
-																<i class="fa fa-instagram fa-3x"></i>
-															</div>
-															<div class="panel-right">
-																<div class="number">${today_news}</div>
-																<div class="title">今日新增新闻总量</div>
-																<span class="label label-warning"> 30% <i
-																	class="fa fa-arrow-down"></i>
-																</span>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-												<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
-													<div class="dashbox panel panel-default">
-														<div class="panel-body">
-															<div class="panel-left blue">
-																<i class="fa fa-instagram fa-3x"></i>
-															</div>
-															<div class="panel-right">
-																<div class="number">${weekly_news}</div>
-																<div class="title">最近一周新闻爬取量</div>
-																<span class="label label-success"> 16% <i
-																	class="fa fa-arrow-up"></i>
-																</span>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-												<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
-													<div class="dashbox panel panel-default">
-														<div class="panel-body">
-															<div class="panel-left red">
-																<i class="fa fa-instagram fa-3x"></i>
-															</div>
-															<div class="panel-right">
-																<div class="number">${monthly_news}</div>
-																<div class="title">最近一月新闻爬取量</div>
-																<span class="label label-warning"> 13% <i
-																	class="fa fa-arrow-down"></i>
-																</span>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="separator"></div>
-
 <!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
 						<div class="separator"></div>
 						<!-- EXPORT TABLES -->
@@ -256,7 +155,7 @@
 								<!-- BOX -->
 								<div class="box border purple">
 									<div class="box-title">
-										<h4><i class="fa fa-table"></i>新闻情况概览</h4>
+										<h4><i class="fa fa-table"></i>股票情况概览</h4>
 										<div class="tools hidden-xs">
 											<a href="#box-config" data-toggle="modal" class="config">
 												<i class="fa fa-cog"></i>
@@ -276,22 +175,44 @@
 										<table id="datatable1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
-													<th>新闻类型名称</th>
-													<th>新闻数量  (条)</th>
-													<th>备注</th>
-													<th>操作动作</th>
+													<th>股票代码</th>
+													<th>名称</th>
+													<th>现价</th>
+													<th>涨跌幅（%）</th>
+													<th>涨跌</th>
+													<th>涨速（%）</th>
+													<th>换手（%）</th>
+													<th>量比</th>
+													<th>振幅（%）</th>
+													<th>成交额</th>
+													<th>流通股</th>
+													<th>流通市值</th>
+													<th>市盈率</th>
+													<th>地区</th>
+													<th>操作</th>
 												</tr>
 											</thead>
+
 											<tbody>
-												<c:forEach items="${newsTypesList}" var="v" varStatus="sta">
+												<c:forEach items="${stockAndCompanieList}" var="v" varStatus="sta">
 												<tr class="gradeX">
-													<td>${v.newTypeName}</td>
-													
-													<td>${v.newsTypeNum}<a href="#" title="点击查看此类型新闻详情">&nbsp;&nbsp;&nbsp;&nbsp;查看详情</a></td>
-													<td>${v.newsTypeRemark}</td>
+												    <td>${v.stockinfo.stockNum}</td>
+													<td><a href="#" title="点击查看此类型新闻详情">${v.stockinfo.stockName}</a></td>
+													<td><font color="red">${v.stockinfo.currentPrice}</font></td>
+													<td><font color="red">${v.stockinfo.updownRatio}</font></td>
+													<td><font color="red">${v.stockinfo.updownPrice}</font></td>
+													<td>${v.stockinfo.upSpeed}</td>
+													<td>${v.stockinfo.turnoverRate}</td>
+													<td><font color="red">${v.stockinfo.equivalentRatio}</font></td>
+													<td><font color="red">${v.stockinfo.amplitude}</font></td>
+													<td>${v.stockinfo.turnVolume}</td>
+													<td>${v.stockinfo.floatingStock}</td>
+													<td>${v.stockinfo.circulationMarketValue}</td>
+													<td>${v.stockinfo.peRatio}</td>
+													<td>${v.company.companyArea}</td>
 													<td>
-														<button class="btn btn-xs btn-primary" onclick="deleteItem('${v.newsTypeId}')">删除</button>
-														<a class="btn btn-xs btn-primary" href="<%=basePath %>/adminEditItem?enterUuid=${v.newsTypeId}">修改</a>
+														<button class="btn btn-xs btn-primary" onclick="deleteItem('${v.stockinfo.stockId}')">删除</button>
+														<a class="btn btn-xs btn-primary" href="<%=basePath %>/adminEditItem?stockId=${v.stockinfo.stockId}">修改</a>
 													</td>
 												</tr>
 												</c:forEach>
@@ -318,7 +239,7 @@
 									<div class="col-md-12">
 										<div class="box border purple">
 											<div class="box-title">
-												<h4><i class="fa fa-bars"></i>新增新闻类型</h4>
+												<h4><i class="fa fa-bars"></i>股票</h4>
 
 												<div class="tools hidden-xs">
 													<a href="#box-config" data-toggle="modal" class="config">
@@ -338,7 +259,7 @@
 											<div class="box-body big">
 												<!--<h3 class="form-title">Supported controls</h3>-->
 
-												<form id="itemForm" class="form-horizontal" role="form">
+												<!-- <form id="itemForm" class="form-horizontal" role="form">
 													<div class="form-group">
 														<label class="col-sm-3 control-label">新闻类型名称</label>
 
@@ -365,7 +286,7 @@
 																onclick="insertItem()">提交更改</button>
 														<button class="btn btn-light-grey" style="margin-left: 15px;margin-right: 15px;" onclick="reset()">取 消</button>
 													</div>
-												</form>
+												</form> -->
 											</div>
 										</div>
 									</div>

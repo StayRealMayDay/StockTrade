@@ -2,9 +2,6 @@ package com.stock.mapper;
 
 import com.stock.pojo.Company;
 import com.stock.pojo.CompanyExample;
-import com.stock.pojo.Requirement;
-
-import net.sf.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,4 +33,15 @@ public interface CompanyMapper {
 	List<Company> selectAllCompany();
 
 	List<Company> selectAllCompanyByPager(HashMap<String, Integer> map);
+
+	List<Company> selectCompanyByArea(String area);
+
+	List<Company> selectCompanyByCon(String conception);
+	
+	Company selectCompanyByStockNum(String stockNum);
+
+	List<Company> selectCompanyByConAll();
+
+	List<Company> selectCompanyByAreaAll();
+
 }

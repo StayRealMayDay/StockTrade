@@ -83,6 +83,7 @@
     lunch_date, es_net_asset, es_income, net_profit, net_profit_growth_rate, revenue, 
     es_cash_flow, es_public_fund, es_not_profit, total_capital, floating_stock
   </sql>
+  
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.CompanyExample" >
     select
     <if test="distinct" >
@@ -398,7 +399,7 @@
       floating_stock = #{floatingStock,jdbcType=VARCHAR}
     where company_id = #{companyId,jdbcType=VARCHAR}
   </update>
-  <select id="selectAllCompanyByPager" resultMap="BaseResultMap">
+  <select id="selectAllCompanyByPager" resultMap="BaseResultMap" >
 		select
 		<include refid="Base_Column_List" />
 		from company
@@ -410,5 +411,40 @@
 		<include refid="Base_Column_List" />
 		from company
 		order by lunch_date DESC
+  </select>
+  <select id="selectCompanyByArea" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		stock_num,company_area
+		from company where company_area = #{area,jdbcType=VARCHAR}
+		order by lunch_date DESC
+
+  </select>
+  <select id="selectCompanyByCon" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		stock_num,resolved_concept
+		from company where left(resolved_concept, 8) like 
+		concat(concat('%',#{conception}),'%')
+
+  </select>
+  
+    <!-- 于花蕾新增 -->
+  <select id="selectCompanyByStockNum" resultMap="BaseResultMap"  parameterType="java.lang.String">
+  		select *
+		from company
+		where stock_num = #{stocknum}
+  </select>
+  
+  <select id="selectCompanyByConAll" resultMap="BaseResultMap" >
+		select
+		DISTINCT(stock_num),resolved_concept
+		from company  limit 1,1000
+
+  </select>
+  
+  <select id="selectCompanyByAreaAll" resultMap="BaseResultMap" >
+		select
+		DISTINCT(stock_num),company_area
+		from company limit 1,1000
+
   </select>
 </mapper>

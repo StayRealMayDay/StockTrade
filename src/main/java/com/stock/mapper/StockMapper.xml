@@ -485,4 +485,6 @@
 		from stock
 		order by stock_id DESC
 	</select>
+	
+	
 </mapper>

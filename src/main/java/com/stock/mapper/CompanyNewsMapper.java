@@ -2,6 +2,8 @@ package com.stock.mapper;
 
 import com.stock.pojo.CompanyNews;
 import com.stock.pojo.CompanyNewsExample;
+
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,4 +37,23 @@ public interface CompanyNewsMapper {
     int updateByPrimaryKey(CompanyNews record);
 
 	List<CompanyNews> getHotNews();
+	
+	//新增部分---于花蕾
+	List<CompanyNews> selectAllNews();
+	//新增部分
+	List<CompanyNews> selectAllNewsShow(HashMap<String, Integer> map);
+	//新增部分
+	List<CompanyNews> selectNewsByHotRatios();
+	//新增部分
+	List<CompanyNews> selectNewsByTime();
+
+	List<CompanyNews> selectNewsAboutCompany();
+
+	List<CompanyNews> selectNewsAboutSource();
+
+	List<CompanyNews> selectNewsAboutHangye();
+
+	List<CompanyNews> selectTopNews();
+	//新增部分  于花蕾 2017年9月28日
+	CompanyNews newsByHotRatiosDetail(int id);
 }

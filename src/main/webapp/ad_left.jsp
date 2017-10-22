@@ -141,7 +141,7 @@
 					</div>
 					<div class="font-item">
 						<div class="item fore1">
-							<h3><a href="">概念板块</a></h3>
+							<h3><a href="#">概念板块</a></h3>
 							<i>></i>
 						</div>
 						<div class="font-item1">
@@ -152,17 +152,40 @@
 										<%-- <c:forEach items="${stockTypesList2}" var="v" varStatus="sta">
 											<a href="">${v.typeName}</a>
 										</c:forEach> --%>
-										<a href="">4G</a><a href="">MSCI</a><a href="">O2O</a><a href="">OLED</a><a href="">PPP</a><a href="">ST板块</a><a href="">一带一路</a>
-										<a href="">万达私有化</a><a href="">上海国资改革</a><a href="">上海自贸区</a><a href="">东盟自贸区</a><a href="">中字头股票</a><a href="">举牌</a>
-										<a href="">二胎概念</a><a href="">云计算</a><a href="">互联网</a><a href="">京津冀一体化</a><a href="">人工智能</a><a href="">体育产业</a>
-										<a href="">供应链金融</a><a href="">债转股</a><a href="">健康中国</a><a href="">充电桩</a><a href="">广覆概念</a><a href="">共享单车</a>
-										<a href="">养老概念</a><a href="">军工</a><a href="">军民融合</a><a href="">农业现代化</a><a href="">区块链</a><a href="">医疗器械</a>
-										<a href="">医疗电商</a><a href="">卫星导航</a><a href="">参股保险</a><a href="">参股券商</a><a href="">参股新三板</a><a href="">参股民营银行</a>
-										<a href="">固废处理</a><a href="">在线教育</a><a href="">基因测序</a><a href="">大数据</a><a href="">天然气</a><a href="">央企国资改革</a>
-										<a href="">安防</a><a href="">家用电器</a><a href="">小金属</a><a href="">工业4.0</a><a href="">微信小程序</a><a href="">手机游戏</a>
-										<a href="">振兴东北</a><a href="">摘帽</a><a href="">文化传媒</a><a href="">新材料概念</a><a href="">新股与次新股</a><a href="">新能源</a>
-										<a href="">无人机</a><a href="">无人驾驶</a><a href="">智慧城市</a><a href="">智能医疗</a><a href="">智能家居</a><a href="">智能电网</a>
-										<a href="">智能穿戴</a><a href="">无人驾驶</a><a href="">期货概念</a><a href="">智能医疗</a><a href="">智能家居</a><a href="">智能电网</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=4G">4G</a><a href="<%=basePath%>/stockConceptionSection?conception=MSCI">MSCI</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=O2O">O2O</a><a href="<%=basePath%>/stockConceptionSection?conception=OLED">OLED</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=PPP">PPP</a><a href="<%=basePath%>/stockConceptionSection?conception=ST板块">ST板块</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=一带一路">一带一路</a><a href="<%=basePath%>/stockConceptionSection?conception=举牌">举牌</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=万达私有化">万达私有化</a><a href="<%=basePath%>/stockConceptionSection?conception=上海国资改革">上海国资改革</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=上海自贸区">上海自贸区</a><a href="<%=basePath%>/stockConceptionSection?conception=东盟自贸区">东盟自贸区</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=中字头股票">中字头股票</a><a href="<%=basePath%>/stockConceptionSection?conception=二胎概念">二胎概念</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=云计算">云计算</a><a href="<%=basePath%>/stockConceptionSection?conception=互联网">互联网</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=京津冀一体化">京津冀一体化</a><a href="<%=basePath%>/stockConceptionSection?conception=人工智能">人工智能</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=体育产业">体育产业</a><a href="<%=basePath%>/stockConceptionSection?conception=供应链金融">供应链金融</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=债转股">债转股</a><a href="<%=basePath%>/stockConceptionSection?conception=健康中国">健康中国</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=充电桩">充电桩</a><a href="<%=basePath%>/stockConceptionSection?conception=广覆概念">广覆概念</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=共享单车">共享单车</a><a href="<%=basePath%>/stockConceptionSection?conception=养老概念">养老概念</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=军工">军工</a><a href="<%=basePath%>/stockConceptionSection?conception=军民融合">军民融合</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=农业现代化">农业现代化</a><a href="<%=basePath%>/stockConceptionSection?conception=区块链">区块链</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=医疗器械">医疗器械</a><a href="<%=basePath%>/stockConceptionSection?conception=医疗电商">医疗电商</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=卫星导航">卫星导航</a><a href="<%=basePath%>/stockConceptionSection?conception=参股保险">参股保险</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=参股券商">参股券商</a><a href="<%=basePath%>/stockConceptionSection?conception=参股新三板">参股新三板</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=参股民营银行">参股民营银行</a><a href="<%=basePath%>/stockConceptionSection?conception=固废处理">固废处理</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=在线教育">在线教育</a><a href="<%=basePath%>/stockConceptionSection?conception=基因测序">基因测序</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=大数据">大数据</a><a href="<%=basePath%>/stockConceptionSection?conception=天然气">天然气</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=安防">安防</a><a href="<%=basePath%>/stockConceptionSection?conception=家用电器">家用电器</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=小金属">小金属</a><a href="<%=basePath%>/stockConceptionSection?conception=工业4.0">工业4.0</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=微信小程序">微信小程序</a><a href="<%=basePath%>/stockConceptionSection?conception=手机游戏">手机游戏</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=振兴东北">振兴东北</a><a href="<%=basePath%>/stockConceptionSection?conception=摘帽">摘帽</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=文化传媒">文化传媒</a><a href="<%=basePath%>/stockConceptionSection?conception=新材料概念">新材料概念</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=新股与次新股">新股与次新股</a><a href="<%=basePath%>/stockConceptionSection?conception=新能源">新能源</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=无人机">无人机</a><a href="<%=basePath%>/stockConceptionSection?conception=无人驾驶">无人驾驶</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=智慧城市">智慧城市</a><a href="<%=basePath%>/stockConceptionSection?conception=智能医疗">智能医疗</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=智能家居">智能家居</a><a href="<%=basePath%>/stockConceptionSection?conception=智能电网">智能电网</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=智能穿戴">智能穿戴</a><a href="<%=basePath%>/stockConceptionSection?conception=无人驾驶">无人驾驶</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=期货概念">期货概念</a><a href="<%=basePath%>/stockConceptionSection?conception=智能医疗">智能医疗</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=央企国资改革">央企国资改革</a>
+										<a href="<%=basePath%>/stockConceptionSection?conception=智能家居">智能家居</a><a href="<%=basePath%>/stockConceptionSection?conception=智能电网">智能电网</a>
 									</dd>
 								</dl>
 							</div>
@@ -180,13 +203,19 @@
 										<%-- <c:forEach items="${stockTypesList3}" var="v" varStatus="sta">
 											<a href="">${v.typeName}</a>
 										</c:forEach> --%>
-										<a href="<%=basePath%>/stockAreaSection?area=上海市">上海市</a><a href="">云南省</a><a href="">内蒙古自治区</a><a href="">北京市</a><a href="">吉林省</a><a href="">四川省</a><a href="">天津市</a>
-										<a href="">宁夏回族自治区</a><a href="">安徽省</a><a href="">山东省</a><a href="">山西省</a><a href="">广东省</a><a href="">广西壮族自治区</a>
-										<a href="">新疆维吾尔自治区</a><a href="">江苏省</a><a href="">江西省</a><a href="">河北省</a>
-										<a href="">河南省</a><a href="">浙江省</a><a href="">海南省</a><a href="">湖北省</a>
-										<a href="">湖南省</a><a href="">甘肃省</a><a href="">福建省</a><a href="">西藏自治区</a>
-										<a href="">贵州省</a><a href="">辽宁省</a><a href="">重庆省</a><a href="">陕西省</a>
-										<a href="">青海省</a><a href="">黑龙江省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=上海市">上海市</a><a href="<%=basePath%>/stockAreaSection?area=云南省">云南省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=内蒙古自治区">内蒙古自治区</a><a href="<%=basePath%>/stockAreaSection?area=北京市">北京市</a>
+										<a href="<%=basePath%>/stockAreaSection?area=吉林省">吉林省</a><a href="<%=basePath%>/stockAreaSection?area=四川省">四川省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=天津市">天津市</a><a href="<%=basePath%>/stockAreaSection?area=宁夏回族自治区">宁夏回族自治区</a>
+										<a href="<%=basePath%>/stockAreaSection?area=安徽省">安徽省</a><a href="<%=basePath%>/stockAreaSection?area=山东省">山东省</a><a href="<%=basePath%>/stockAreaSection?area=山西省">山西省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=广东省">广东省</a><a href="<%=basePath%>/stockAreaSection?area=广西壮族自治区">广西壮族自治区</a><a href="<%=basePath%>/stockAreaSection?area=新疆维吾尔自治区">新疆维吾尔自治区</a>
+										<a href="<%=basePath%>/stockAreaSection?area=江苏省">江苏省</a><a href="<%=basePath%>/stockAreaSection?area=江西省">江西省</a><a href="<%=basePath%>/stockAreaSection?area=河北省">河北省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=浙江省">浙江省</a><a href="<%=basePath%>/stockAreaSection?area=海南省">海南省</a><a href="<%=basePath%>/stockAreaSection?area=湖北省">湖北省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=湖南省">湖南省</a><a href="<%=basePath%>/stockAreaSection?area=甘肃省">甘肃省</a><a href="<%=basePath%>/stockAreaSection?area=福建省">福建省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=贵州省">贵州省</a><a href="<%=basePath%>/stockAreaSection?area=辽宁省">辽宁省</a><a href="<%=basePath%>/stockAreaSection?area=重庆省">重庆省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=青海省">青海省</a><a href="<%=basePath%>/stockAreaSection?area=黑龙江省">黑龙江省</a>
+										<a href="<%=basePath%>/stockAreaSection?area=河南省">河南省</a><a href="<%=basePath%>/stockAreaSection?area=西藏自治区">西藏自治区</a>
+										<a href="<%=basePath%>/stockAreaSection?area=陕西省">陕西省</a>
 									</dd>
 								</dl>
 							</div>
