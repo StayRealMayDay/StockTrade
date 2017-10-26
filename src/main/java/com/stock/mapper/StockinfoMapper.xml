@@ -486,5 +486,4 @@
   	where a.stock_num = b.stock_num
   	and b.resolved_concept like concat(concat('%',#{conception}),'%')    
   </select>
-  
 </mapper>

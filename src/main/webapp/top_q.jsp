@@ -59,6 +59,7 @@
 	<![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+
 <style type="text/css">
  select{display:none;}
 </style>
@@ -86,25 +87,29 @@
 					<li><a href="#">注册</a></li>
 					<li><a href="adminLogin">后台</a></li>
 				</ul>
-				
+
 			</nav>
 			<!--end:top-nav-->
 		</div>
 		<!--wrapper-->
 	</div>
 	<!--header-top-->
+
 	<div id="header-middle" style="height:100px">
+
 		<div class="wrapper clearfix">
 			<div id="logo-image">
 				<a href="index.html"><img src="placeholders/logo.png" alt="logo" /></a>
 			</div>
 		</div>
 		<!--wrapper-->
+
 	</div>
 	<!--header-middle-->
 	<div id="navigation" style="height:50px;width:100%">
 		<nav id="secondary-menu" class="wrapper clearfix">
 		<ul id="main-nav" style="height:50px">
+
 			<li class="current-menu-item"><a href="index">首页</a></li>
 			<li><a href="#">新闻<span class="caret"></span></a>
 				<ul>
@@ -115,6 +120,7 @@
 				</ul></li>
 			<li><a href="#">行情中心<span class="caret"></span></a>
 				<ul>
+
 					<li><a href="#">大盘指数</a></li>
 					<li><a href="marketIndex?pageNum=1">沪深市场</a></li>
 					<li><a href="upRatioRank?pageNum=1">涨速排行</a></li>
@@ -143,6 +149,7 @@
 			<li><a href="#">上市公司<span class="caret"></span></a>
 				<ul>
 					<li><a href="companyNews?pageNum=1">公司新闻速递</a></li>
+
 					<li><a href="huBulletinList?pageNum=1">沪市公告</a></li>
 					<li><a href="huBulletinList?pageNum=1">深市公告</a></li>
 				</ul></li>

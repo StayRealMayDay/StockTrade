@@ -419,6 +419,7 @@
 
 <!--新增部分 热度新闻 -->
 	<select id="selectNewsByHotRatios" resultMap="BaseResultMap">
+
 		select news_title,id,news_time
 		from company_news
 		where hot_ratios  &lt;&gt; "" 
@@ -482,6 +483,4 @@
 		from company_news 
 		where id = #{stockId}
 	</select>
-	
-	
 </mapper>

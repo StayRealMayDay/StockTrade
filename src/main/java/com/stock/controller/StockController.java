@@ -97,6 +97,7 @@ public class StockController {
 		List<CompanyNews> compnyNewsList = companyNewsMapper.selectNewsByHotRatios();
 		List<Stockinfo> stockHuA = stockinfoMapper.selectStockHuA();
 		List<Stockinfo> stockShenA = stockinfoMapper.selectStockShenA();
+		
 		List<Stockinfo> stockBeiDou = stockinfoMapper.selectStockBeiDou();
 		List<Cs> csNews = csMapper.selectAllNews();
 		List<com.stock.pojo.Shares> latestSharesList = sharesMapper.selectSharesLatest();
@@ -116,6 +117,7 @@ public class StockController {
 		model.addAttribute("cbInfo", cbList);
 		model.addAttribute("stockHuA", stockHuA);
 		model.addAttribute("stockShenA", stockShenA);
+		
 		//新增部分--2017年10月19日
 		model.addAttribute("stockBeiDou", stockBeiDou);
 		model.addAttribute("csNews", csNews);

@@ -469,5 +469,4 @@
 		from company 
 		where industry like "%"#{industry}"%"
   </select>
-  
 </mapper>

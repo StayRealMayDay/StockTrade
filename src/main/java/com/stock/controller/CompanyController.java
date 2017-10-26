@@ -54,7 +54,7 @@ public class CompanyController {
 	CompanyBulletinMapper companyBulletinMapper;
 	@Autowired
 	CompanyNewsMapper companyNewsMapper;
-	
+
 	
 	@RequestMapping(value = "/company")
 	public String companyNews(Model model,HttpServletRequest req){
@@ -277,5 +277,4 @@ public class CompanyController {
 		System.out.println("111111111");
 		return "mypages/shenBulletinDetail";
 	}
-	
 }
