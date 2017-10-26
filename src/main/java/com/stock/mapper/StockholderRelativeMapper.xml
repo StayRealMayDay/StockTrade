@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.StockholderRelativeMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.StockholderRelative" >
+    <id column="stockholder_relativeid" property="stockholderRelativeid" jdbcType="VARCHAR" />
+    <result column="stock" property="stock" jdbcType="VARCHAR" />
+    <result column="deadline" property="deadline" jdbcType="VARCHAR" />
+    <result column="declaration_date" property="declarationDate" jdbcType="VARCHAR" />
+    <result column="stockholder_declare" property="stockholderDeclare" jdbcType="VARCHAR" />
+    <result column="stockholder_total" property="stockholderTotal" jdbcType="VARCHAR" />
+    <result column="stockhold_ave" property="stockholdAve" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stockholder_relativeid, stock, deadline, declaration_date, stockholder_declare, stockholder_total, 
+    stockhold_ave, time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.StockholderRelativeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stockholder_relative
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from stockholder_relative
+    where stockholder_relativeid = #{stockholderRelativeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from stockholder_relative
+    where stockholder_relativeid = #{stockholderRelativeid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.StockholderRelativeExample" >
+    delete from stockholder_relative
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.StockholderRelative" >
+    insert into stockholder_relative (stockholder_relativeid, stock, deadline, 
+      declaration_date, stockholder_declare, stockholder_total, 
+      stockhold_ave, time)
+    values (#{stockholderRelativeid,jdbcType=VARCHAR}, #{stock,jdbcType=VARCHAR}, #{deadline,jdbcType=VARCHAR}, 
+      #{declarationDate,jdbcType=VARCHAR}, #{stockholderDeclare,jdbcType=VARCHAR}, #{stockholderTotal,jdbcType=VARCHAR}, 
+      #{stockholdAve,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.StockholderRelative" >
+    insert into stockholder_relative
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockholderRelativeid != null" >
+        stockholder_relativeid,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="declarationDate != null" >
+        declaration_date,
+      </if>
+      <if test="stockholderDeclare != null" >
+        stockholder_declare,
+      </if>
+      <if test="stockholderTotal != null" >
+        stockholder_total,
+      </if>
+      <if test="stockholdAve != null" >
+        stockhold_ave,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockholderRelativeid != null" >
+        #{stockholderRelativeid,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="declarationDate != null" >
+        #{declarationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderDeclare != null" >
+        #{stockholderDeclare,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderTotal != null" >
+        #{stockholderTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholdAve != null" >
+        #{stockholdAve,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.StockholderRelativeExample" resultType="java.lang.Integer" >
+    select count(*) from stockholder_relative
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stockholder_relative
+    <set >
+      <if test="record.stockholderRelativeid != null" >
+        stockholder_relativeid = #{record.stockholderRelativeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stock != null" >
+        stock = #{record.stock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadline != null" >
+        deadline = #{record.deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.declarationDate != null" >
+        declaration_date = #{record.declarationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockholderDeclare != null" >
+        stockholder_declare = #{record.stockholderDeclare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockholderTotal != null" >
+        stockholder_total = #{record.stockholderTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockholdAve != null" >
+        stockhold_ave = #{record.stockholdAve,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stockholder_relative
+    set stockholder_relativeid = #{record.stockholderRelativeid,jdbcType=VARCHAR},
+      stock = #{record.stock,jdbcType=VARCHAR},
+      deadline = #{record.deadline,jdbcType=VARCHAR},
+      declaration_date = #{record.declarationDate,jdbcType=VARCHAR},
+      stockholder_declare = #{record.stockholderDeclare,jdbcType=VARCHAR},
+      stockholder_total = #{record.stockholderTotal,jdbcType=VARCHAR},
+      stockhold_ave = #{record.stockholdAve,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.StockholderRelative" >
+    update stockholder_relative
+    <set >
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="declarationDate != null" >
+        declaration_date = #{declarationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderDeclare != null" >
+        stockholder_declare = #{stockholderDeclare,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderTotal != null" >
+        stockholder_total = #{stockholderTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholdAve != null" >
+        stockhold_ave = #{stockholdAve,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stockholder_relativeid = #{stockholderRelativeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.StockholderRelative" >
+    update stockholder_relative
+    set stock = #{stock,jdbcType=VARCHAR},
+      deadline = #{deadline,jdbcType=VARCHAR},
+      declaration_date = #{declarationDate,jdbcType=VARCHAR},
+      stockholder_declare = #{stockholderDeclare,jdbcType=VARCHAR},
+      stockholder_total = #{stockholderTotal,jdbcType=VARCHAR},
+      stockhold_ave = #{stockholdAve,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR}
+    where stockholder_relativeid = #{stockholderRelativeid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectStockHolderR" parameterType="string" resultMap="BaseResultMap">
+  	select * from stockholder_relative
+  	where stock = #{stockNum}
+  </select>
+  
+</mapper>

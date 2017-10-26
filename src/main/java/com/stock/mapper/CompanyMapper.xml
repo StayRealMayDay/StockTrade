@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Company" >
+    <id column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="stock_num" property="stockNum" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="company_area" property="companyArea" jdbcType="VARCHAR" />
+    <result column="resolved_concept" property="resolvedConcept" jdbcType="VARCHAR" />
+    <result column="main_business" property="mainBusiness" jdbcType="VARCHAR" />
+    <result column="lunch_date" property="lunchDate" jdbcType="VARCHAR" />
+    <result column="es_net_asset" property="esNetAsset" jdbcType="VARCHAR" />
+    <result column="es_income" property="esIncome" jdbcType="VARCHAR" />
+    <result column="net_profit" property="netProfit" jdbcType="VARCHAR" />
+    <result column="net_profit_growth_rate" property="netProfitGrowthRate" jdbcType="VARCHAR" />
+    <result column="revenue" property="revenue" jdbcType="VARCHAR" />
+    <result column="es_cash_flow" property="esCashFlow" jdbcType="VARCHAR" />
+    <result column="es_public_fund" property="esPublicFund" jdbcType="VARCHAR" />
+    <result column="es_not_profit" property="esNotProfit" jdbcType="VARCHAR" />
+    <result column="total_capital" property="totalCapital" jdbcType="VARCHAR" />
+    <result column="floating_stock" property="floatingStock" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    company_id, stock_num, stock_name, company_area, resolved_concept, main_business, 
+    lunch_date, es_net_asset, es_income, net_profit, net_profit_growth_rate, revenue, 
+    es_cash_flow, es_public_fund, es_not_profit, total_capital, floating_stock
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.CompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from company
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from company
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.CompanyExample" >
+    delete from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Company" >
+    insert into company (company_id, stock_num, stock_name, 
+      company_area, resolved_concept, main_business, 
+      lunch_date, es_net_asset, es_income, 
+      net_profit, net_profit_growth_rate, revenue, 
+      es_cash_flow, es_public_fund, es_not_profit, 
+      total_capital, floating_stock)
+    values (#{companyId,jdbcType=VARCHAR}, #{stockNum,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{companyArea,jdbcType=VARCHAR}, #{resolvedConcept,jdbcType=VARCHAR}, #{mainBusiness,jdbcType=VARCHAR}, 
+      #{lunchDate,jdbcType=VARCHAR}, #{esNetAsset,jdbcType=VARCHAR}, #{esIncome,jdbcType=VARCHAR}, 
+      #{netProfit,jdbcType=VARCHAR}, #{netProfitGrowthRate,jdbcType=VARCHAR}, #{revenue,jdbcType=VARCHAR}, 
+      #{esCashFlow,jdbcType=VARCHAR}, #{esPublicFund,jdbcType=VARCHAR}, #{esNotProfit,jdbcType=VARCHAR}, 
+      #{totalCapital,jdbcType=VARCHAR}, #{floatingStock,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Company" >
+    insert into company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="companyArea != null" >
+        company_area,
+      </if>
+      <if test="resolvedConcept != null" >
+        resolved_concept,
+      </if>
+      <if test="mainBusiness != null" >
+        main_business,
+      </if>
+      <if test="lunchDate != null" >
+        lunch_date,
+      </if>
+      <if test="esNetAsset != null" >
+        es_net_asset,
+      </if>
+      <if test="esIncome != null" >
+        es_income,
+      </if>
+      <if test="netProfit != null" >
+        net_profit,
+      </if>
+      <if test="netProfitGrowthRate != null" >
+        net_profit_growth_rate,
+      </if>
+      <if test="revenue != null" >
+        revenue,
+      </if>
+      <if test="esCashFlow != null" >
+        es_cash_flow,
+      </if>
+      <if test="esPublicFund != null" >
+        es_public_fund,
+      </if>
+      <if test="esNotProfit != null" >
+        es_not_profit,
+      </if>
+      <if test="totalCapital != null" >
+        total_capital,
+      </if>
+      <if test="floatingStock != null" >
+        floating_stock,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyArea != null" >
+        #{companyArea,jdbcType=VARCHAR},
+      </if>
+      <if test="resolvedConcept != null" >
+        #{resolvedConcept,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBusiness != null" >
+        #{mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchDate != null" >
+        #{lunchDate,jdbcType=VARCHAR},
+      </if>
+      <if test="esNetAsset != null" >
+        #{esNetAsset,jdbcType=VARCHAR},
+      </if>
+      <if test="esIncome != null" >
+        #{esIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfit != null" >
+        #{netProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitGrowthRate != null" >
+        #{netProfitGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="revenue != null" >
+        #{revenue,jdbcType=VARCHAR},
+      </if>
+      <if test="esCashFlow != null" >
+        #{esCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="esPublicFund != null" >
+        #{esPublicFund,jdbcType=VARCHAR},
+      </if>
+      <if test="esNotProfit != null" >
+        #{esNotProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCapital != null" >
+        #{totalCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingStock != null" >
+        #{floatingStock,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.CompanyExample" resultType="java.lang.Integer" >
+    select count(*) from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company
+    <set >
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockNum != null" >
+        stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyArea != null" >
+        company_area = #{record.companyArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resolvedConcept != null" >
+        resolved_concept = #{record.resolvedConcept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainBusiness != null" >
+        main_business = #{record.mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lunchDate != null" >
+        lunch_date = #{record.lunchDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esNetAsset != null" >
+        es_net_asset = #{record.esNetAsset,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esIncome != null" >
+        es_income = #{record.esIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfit != null" >
+        net_profit = #{record.netProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitGrowthRate != null" >
+        net_profit_growth_rate = #{record.netProfitGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revenue != null" >
+        revenue = #{record.revenue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esCashFlow != null" >
+        es_cash_flow = #{record.esCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esPublicFund != null" >
+        es_public_fund = #{record.esPublicFund,jdbcType=VARCHAR},
+      </if>
+      <if test="record.esNotProfit != null" >
+        es_not_profit = #{record.esNotProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalCapital != null" >
+        total_capital = #{record.totalCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floatingStock != null" >
+        floating_stock = #{record.floatingStock,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company
+    set company_id = #{record.companyId,jdbcType=VARCHAR},
+      stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      company_area = #{record.companyArea,jdbcType=VARCHAR},
+      resolved_concept = #{record.resolvedConcept,jdbcType=VARCHAR},
+      main_business = #{record.mainBusiness,jdbcType=VARCHAR},
+      lunch_date = #{record.lunchDate,jdbcType=VARCHAR},
+      es_net_asset = #{record.esNetAsset,jdbcType=VARCHAR},
+      es_income = #{record.esIncome,jdbcType=VARCHAR},
+      net_profit = #{record.netProfit,jdbcType=VARCHAR},
+      net_profit_growth_rate = #{record.netProfitGrowthRate,jdbcType=VARCHAR},
+      revenue = #{record.revenue,jdbcType=VARCHAR},
+      es_cash_flow = #{record.esCashFlow,jdbcType=VARCHAR},
+      es_public_fund = #{record.esPublicFund,jdbcType=VARCHAR},
+      es_not_profit = #{record.esNotProfit,jdbcType=VARCHAR},
+      total_capital = #{record.totalCapital,jdbcType=VARCHAR},
+      floating_stock = #{record.floatingStock,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Company" >
+    update company
+    <set >
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyArea != null" >
+        company_area = #{companyArea,jdbcType=VARCHAR},
+      </if>
+      <if test="resolvedConcept != null" >
+        resolved_concept = #{resolvedConcept,jdbcType=VARCHAR},
+      </if>
+      <if test="mainBusiness != null" >
+        main_business = #{mainBusiness,jdbcType=VARCHAR},
+      </if>
+      <if test="lunchDate != null" >
+        lunch_date = #{lunchDate,jdbcType=VARCHAR},
+      </if>
+      <if test="esNetAsset != null" >
+        es_net_asset = #{esNetAsset,jdbcType=VARCHAR},
+      </if>
+      <if test="esIncome != null" >
+        es_income = #{esIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfit != null" >
+        net_profit = #{netProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitGrowthRate != null" >
+        net_profit_growth_rate = #{netProfitGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="revenue != null" >
+        revenue = #{revenue,jdbcType=VARCHAR},
+      </if>
+      <if test="esCashFlow != null" >
+        es_cash_flow = #{esCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="esPublicFund != null" >
+        es_public_fund = #{esPublicFund,jdbcType=VARCHAR},
+      </if>
+      <if test="esNotProfit != null" >
+        es_not_profit = #{esNotProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCapital != null" >
+        total_capital = #{totalCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingStock != null" >
+        floating_stock = #{floatingStock,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Company" >
+    update company
+    set stock_num = #{stockNum,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      company_area = #{companyArea,jdbcType=VARCHAR},
+      resolved_concept = #{resolvedConcept,jdbcType=VARCHAR},
+      main_business = #{mainBusiness,jdbcType=VARCHAR},
+      lunch_date = #{lunchDate,jdbcType=VARCHAR},
+      es_net_asset = #{esNetAsset,jdbcType=VARCHAR},
+      es_income = #{esIncome,jdbcType=VARCHAR},
+      net_profit = #{netProfit,jdbcType=VARCHAR},
+      net_profit_growth_rate = #{netProfitGrowthRate,jdbcType=VARCHAR},
+      revenue = #{revenue,jdbcType=VARCHAR},
+      es_cash_flow = #{esCashFlow,jdbcType=VARCHAR},
+      es_public_fund = #{esPublicFund,jdbcType=VARCHAR},
+      es_not_profit = #{esNotProfit,jdbcType=VARCHAR},
+      total_capital = #{totalCapital,jdbcType=VARCHAR},
+      floating_stock = #{floatingStock,jdbcType=VARCHAR}
+    where company_id = #{companyId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAllCompanyByPager" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from company
+		order by lunch_date DESC
+		limit #{start},#{pagesize}
+  </select>
+  <select id="selectAllCompany" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from company
+		order by lunch_date DESC
+  </select>
+  <select id="selectCompanyByArea" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		stock_num,company_area
+		from company where company_area = #{area,jdbcType=VARCHAR}
+		order by lunch_date DESC
+
+  </select>
+  <select id="selectCompanyByCon" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		stock_num,resolved_concept
+		from company where left(resolved_concept, 8) like 
+		concat(concat('%',#{conception}),'%')
+
+  </select>
+  
+    <!-- 于花蕾新增 -->
+  <select id="selectCompanyByStockNum" resultMap="BaseResultMap"  parameterType="java.lang.String">
+  		select *
+		from company
+		where stock_num = #{stocknum}
+  </select>
+  
+  <select id="selectCompanyByConAll" resultMap="BaseResultMap" >
+		select
+		DISTINCT(stock_num),resolved_concept
+		from company  limit 1,1000
+
+  </select>
+  
+  <select id="selectCompanyByAreaAll" resultMap="BaseResultMap" >
+		select
+		DISTINCT(stock_num),company_area
+		from company limit 1,1000
+
+  </select>
+
+  <!-- 2017年10月20日于花蕾 -->
+   <select id="selecResolvedConcept" parameterType="java.lang.String" resultType="java.lang.String" >
+		select resolved_concept
+		from company 
+		where stock_num = #{stockNum}
+  </select>
+  
+    <!-- 2017年10月25日于花蕾 -->
+   <select id="selecResolvedIndustry" parameterType="java.lang.String" resultType="java.lang.String" >
+		select industry
+		from company 
+		where stock_num = #{stockNum}
+  </select>
+  
+      <!-- 2017年10月25日于花蕾 -->
+   <select id="selecResolvedStock" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		select stock_num
+		from company 
+		where industry like "%"#{industry}"%"
+  </select>
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.StockholderBasicMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.StockholderBasic" >
+    <id column="stockholder_id" property="stockholderId" jdbcType="VARCHAR" />
+    <result column="stock" property="stock" jdbcType="VARCHAR" />
+    <result column="stockholder_code" property="stockholderCode" jdbcType="VARCHAR" />
+    <result column="stockholder_name" property="stockholderName" jdbcType="VARCHAR" />
+    <result column="sharehold_num" property="shareholdNum" jdbcType="VARCHAR" />
+    <result column="sharehold_ratio" property="shareholdRatio" jdbcType="VARCHAR" />
+    <result column="equity_nature" property="equityNature" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stockholder_id, stock, stockholder_code, stockholder_name, sharehold_num, sharehold_ratio, 
+    equity_nature, time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.StockholderBasicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stockholder_basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from stockholder_basic
+    where stockholder_id = #{stockholderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from stockholder_basic
+    where stockholder_id = #{stockholderId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.StockholderBasicExample" >
+    delete from stockholder_basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.StockholderBasic" >
+    insert into stockholder_basic (stockholder_id, stock, stockholder_code, 
+      stockholder_name, sharehold_num, sharehold_ratio, 
+      equity_nature, time)
+    values (#{stockholderId,jdbcType=VARCHAR}, #{stock,jdbcType=VARCHAR}, #{stockholderCode,jdbcType=VARCHAR}, 
+      #{stockholderName,jdbcType=VARCHAR}, #{shareholdNum,jdbcType=VARCHAR}, #{shareholdRatio,jdbcType=VARCHAR}, 
+      #{equityNature,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.StockholderBasic" >
+    insert into stockholder_basic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockholderId != null" >
+        stockholder_id,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="stockholderCode != null" >
+        stockholder_code,
+      </if>
+      <if test="stockholderName != null" >
+        stockholder_name,
+      </if>
+      <if test="shareholdNum != null" >
+        sharehold_num,
+      </if>
+      <if test="shareholdRatio != null" >
+        sharehold_ratio,
+      </if>
+      <if test="equityNature != null" >
+        equity_nature,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockholderId != null" >
+        #{stockholderId,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderCode != null" >
+        #{stockholderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderName != null" >
+        #{stockholderName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareholdNum != null" >
+        #{shareholdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="shareholdRatio != null" >
+        #{shareholdRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="equityNature != null" >
+        #{equityNature,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.StockholderBasicExample" resultType="java.lang.Integer" >
+    select count(*) from stockholder_basic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stockholder_basic
+    <set >
+      <if test="record.stockholderId != null" >
+        stockholder_id = #{record.stockholderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stock != null" >
+        stock = #{record.stock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockholderCode != null" >
+        stockholder_code = #{record.stockholderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockholderName != null" >
+        stockholder_name = #{record.stockholderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareholdNum != null" >
+        sharehold_num = #{record.shareholdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shareholdRatio != null" >
+        sharehold_ratio = #{record.shareholdRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equityNature != null" >
+        equity_nature = #{record.equityNature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stockholder_basic
+    set stockholder_id = #{record.stockholderId,jdbcType=VARCHAR},
+      stock = #{record.stock,jdbcType=VARCHAR},
+      stockholder_code = #{record.stockholderCode,jdbcType=VARCHAR},
+      stockholder_name = #{record.stockholderName,jdbcType=VARCHAR},
+      sharehold_num = #{record.shareholdNum,jdbcType=VARCHAR},
+      sharehold_ratio = #{record.shareholdRatio,jdbcType=VARCHAR},
+      equity_nature = #{record.equityNature,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.StockholderBasic" >
+    update stockholder_basic
+    <set >
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderCode != null" >
+        stockholder_code = #{stockholderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholderName != null" >
+        stockholder_name = #{stockholderName,jdbcType=VARCHAR},
+      </if>
+      <if test="shareholdNum != null" >
+        sharehold_num = #{shareholdNum,jdbcType=VARCHAR},
+      </if>
+      <if test="shareholdRatio != null" >
+        sharehold_ratio = #{shareholdRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="equityNature != null" >
+        equity_nature = #{equityNature,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stockholder_id = #{stockholderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.StockholderBasic" >
+    update stockholder_basic
+    set stock = #{stock,jdbcType=VARCHAR},
+      stockholder_code = #{stockholderCode,jdbcType=VARCHAR},
+      stockholder_name = #{stockholderName,jdbcType=VARCHAR},
+      sharehold_num = #{shareholdNum,jdbcType=VARCHAR},
+      sharehold_ratio = #{shareholdRatio,jdbcType=VARCHAR},
+      equity_nature = #{equityNature,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR}
+    where stockholder_id = #{stockholderId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectStockHolderB" parameterType="string" resultMap="BaseResultMap">
+  		select * from stockholder_basic
+  		where stock = #{stockNum}
+  </select>
+</mapper>

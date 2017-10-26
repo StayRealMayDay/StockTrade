@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.SystemLogMapper">
+	<resultMap id="BaseResultMap" type="com.stock.pojo.SystemLog">
+		<id column="sLogUuid" property="sloguuid" jdbcType="VARCHAR" />
+		<result column="sLogDescription" property="slogdescription"
+			jdbcType="VARCHAR" />
+		<result column="sLogMethod" property="slogmethod" jdbcType="VARCHAR" />
+		<result column="sLogType" property="slogtype" jdbcType="VARCHAR" />
+		<result column="sLogRequestIp" property="slogrequestip"
+			jdbcType="VARCHAR" />
+		<result column="sLogExceptionCode" property="slogexceptioncode"
+			jdbcType="VARCHAR" />
+		<result column="sLogExceptionDetail" property="slogexceptiondetail"
+			jdbcType="VARCHAR" />
+		<result column="sLogParams" property="slogparams" jdbcType="VARCHAR" />
+		<result column="sLogCreateBy" property="slogcreateby" jdbcType="VARCHAR" />
+		<result column="sLogCreateDate" property="slogcreatedate"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		sLogUuid, sLogDescription, sLogMethod, sLogType, sLogRequestIp,
+		sLogExceptionCode,
+		sLogExceptionDetail, sLogParams, sLogCreateBy, sLogCreateDate
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from system_log
+		where sLogUuid = #{sloguuid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from system_log
+		where sLogUuid = #{sloguuid,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.stock.pojo.SystemLog">
+		insert into system_log (sLogUuid, sLogDescription, sLogMethod,
+		sLogType, sLogRequestIp, sLogExceptionCode,
+		sLogExceptionDetail, sLogParams, sLogCreateBy,
+		sLogCreateDate)
+		values (#{sloguuid,jdbcType=VARCHAR}, #{slogdescription,jdbcType=VARCHAR},
+		#{slogmethod,jdbcType=VARCHAR},
+		#{slogtype,jdbcType=VARCHAR}, #{slogrequestip,jdbcType=VARCHAR},
+		#{slogexceptioncode,jdbcType=VARCHAR},
+		#{slogexceptiondetail,jdbcType=VARCHAR},
+		#{slogparams,jdbcType=VARCHAR}, #{slogcreateby,jdbcType=VARCHAR},
+		#{slogcreatedate,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.stock.pojo.SystemLog">
+		insert into system_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sloguuid != null">
+				sLogUuid,
+			</if>
+			<if test="slogdescription != null">
+				sLogDescription,
+			</if>
+			<if test="slogmethod != null">
+				sLogMethod,
+			</if>
+			<if test="slogtype != null">
+				sLogType,
+			</if>
+			<if test="slogrequestip != null">
+				sLogRequestIp,
+			</if>
+			<if test="slogexceptioncode != null">
+				sLogExceptionCode,
+			</if>
+			<if test="slogexceptiondetail != null">
+				sLogExceptionDetail,
+			</if>
+			<if test="slogparams != null">
+				sLogParams,
+			</if>
+			<if test="slogcreateby != null">
+				sLogCreateBy,
+			</if>
+			<if test="slogcreatedate != null">
+				sLogCreateDate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sloguuid != null">
+				#{sloguuid,jdbcType=VARCHAR},
+			</if>
+			<if test="slogdescription != null">
+				#{slogdescription,jdbcType=VARCHAR},
+			</if>
+			<if test="slogmethod != null">
+				#{slogmethod,jdbcType=VARCHAR},
+			</if>
+			<if test="slogtype != null">
+				#{slogtype,jdbcType=VARCHAR},
+			</if>
+			<if test="slogrequestip != null">
+				#{slogrequestip,jdbcType=VARCHAR},
+			</if>
+			<if test="slogexceptioncode != null">
+				#{slogexceptioncode,jdbcType=VARCHAR},
+			</if>
+			<if test="slogexceptiondetail != null">
+				#{slogexceptiondetail,jdbcType=VARCHAR},
+			</if>
+			<if test="slogparams != null">
+				#{slogparams,jdbcType=VARCHAR},
+			</if>
+			<if test="slogcreateby != null">
+				#{slogcreateby,jdbcType=VARCHAR},
+			</if>
+			<if test="slogcreatedate != null">
+				#{slogcreatedate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.SystemLog">
+		update system_log
+		<set>
+			<if test="slogdescription != null">
+				sLogDescription = #{slogdescription,jdbcType=VARCHAR},
+			</if>
+			<if test="slogmethod != null">
+				sLogMethod = #{slogmethod,jdbcType=VARCHAR},
+			</if>
+			<if test="slogtype != null">
+				sLogType = #{slogtype,jdbcType=VARCHAR},
+			</if>
+			<if test="slogrequestip != null">
+				sLogRequestIp = #{slogrequestip,jdbcType=VARCHAR},
+			</if>
+			<if test="slogexceptioncode != null">
+				sLogExceptionCode = #{slogexceptioncode,jdbcType=VARCHAR},
+			</if>
+			<if test="slogexceptiondetail != null">
+				sLogExceptionDetail = #{slogexceptiondetail,jdbcType=VARCHAR},
+			</if>
+			<if test="slogparams != null">
+				sLogParams = #{slogparams,jdbcType=VARCHAR},
+			</if>
+			<if test="slogcreateby != null">
+				sLogCreateBy = #{slogcreateby,jdbcType=VARCHAR},
+			</if>
+			<if test="slogcreatedate != null">
+				sLogCreateDate = #{slogcreatedate,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where sLogUuid = #{sloguuid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.stock.pojo.SystemLog">
+		update system_log
+		set sLogDescription = #{slogdescription,jdbcType=VARCHAR},
+		sLogMethod = #{slogmethod,jdbcType=VARCHAR},
+		sLogType = #{slogtype,jdbcType=VARCHAR},
+		sLogRequestIp = #{slogrequestip,jdbcType=VARCHAR},
+		sLogExceptionCode = #{slogexceptioncode,jdbcType=VARCHAR},
+		sLogExceptionDetail = #{slogexceptiondetail,jdbcType=VARCHAR},
+		sLogParams = #{slogparams,jdbcType=VARCHAR},
+		sLogCreateBy = #{slogcreateby,jdbcType=VARCHAR},
+		sLogCreateDate = #{slogcreatedate,jdbcType=VARCHAR}
+		where sLogUuid = #{sloguuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

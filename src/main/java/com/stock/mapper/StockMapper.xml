@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.StockMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Stock" >
+    <id column="stock_id" property="stockId" jdbcType="INTEGER" />
+    <result column="stock_cd" property="stockCd" jdbcType="VARCHAR" />
+    <result column="securities" property="securities" jdbcType="VARCHAR" />
+    <result column="list_sector_id" property="listSectorId" jdbcType="VARCHAR" />
+    <result column="list_sector" property="listSector" jdbcType="VARCHAR" />
+    <result column="trans_curr" property="transCurr" jdbcType="VARCHAR" />
+    <result column="sec_short_name" property="secShortName" jdbcType="VARCHAR" />
+    <result column="sec_full_name" property="secFullName" jdbcType="VARCHAR" />
+    <result column="list_status" property="listStatus" jdbcType="VARCHAR" />
+    <result column="list_date" property="listDate" jdbcType="DATE" />
+    <result column="delist_date" property="delistDate" jdbcType="DATE" />
+    <result column="stock_type_id" property="stockTypeId" jdbcType="VARCHAR" />
+    <result column="stock_type" property="stockType" jdbcType="VARCHAR" />
+    <result column="market_country" property="marketCountry" jdbcType="VARCHAR" />
+    <result column="party_id" property="partyId" jdbcType="INTEGER" />
+    <result column="total_shares" property="totalShares" jdbcType="VARCHAR" />
+    <result column="nonrest_float_shares" property="nonrestFloatShares" jdbcType="VARCHAR" />
+    <result column="nonrest_float_capital_stock" property="nonrestFloatCapitalStock" jdbcType="VARCHAR" />
+    <result column="office_addr" property="officeAddr" jdbcType="VARCHAR" />
+    <result column="prime_operating" property="primeOperating" jdbcType="VARCHAR" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="total_equity" property="totalEquity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stock_id, stock_cd, securities, list_sector_id, list_sector, trans_curr, sec_short_name, 
+    sec_full_name, list_status, list_date, delist_date, stock_type_id, stock_type, market_country, 
+    party_id, total_shares, nonrest_float_shares, nonrest_float_capital_stock, office_addr, 
+    prime_operating, end_date, total_equity
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.StockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.StockExample" >
+    delete from stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Stock" >
+    insert into stock (stock_id, stock_cd, securities, 
+      list_sector_id, list_sector, trans_curr, 
+      sec_short_name, sec_full_name, list_status, 
+      list_date, delist_date, stock_type_id, 
+      stock_type, market_country, party_id, 
+      total_shares, nonrest_float_shares, nonrest_float_capital_stock, 
+      office_addr, prime_operating, end_date, 
+      total_equity)
+    values (#{stockId,jdbcType=INTEGER}, #{stockCd,jdbcType=VARCHAR}, #{securities,jdbcType=VARCHAR}, 
+      #{listSectorId,jdbcType=VARCHAR}, #{listSector,jdbcType=VARCHAR}, #{transCurr,jdbcType=VARCHAR}, 
+      #{secShortName,jdbcType=VARCHAR}, #{secFullName,jdbcType=VARCHAR}, #{listStatus,jdbcType=VARCHAR}, 
+      #{listDate,jdbcType=DATE}, #{delistDate,jdbcType=DATE}, #{stockTypeId,jdbcType=VARCHAR}, 
+      #{stockType,jdbcType=VARCHAR}, #{marketCountry,jdbcType=VARCHAR}, #{partyId,jdbcType=INTEGER}, 
+      #{totalShares,jdbcType=VARCHAR}, #{nonrestFloatShares,jdbcType=VARCHAR}, #{nonrestFloatCapitalStock,jdbcType=VARCHAR}, 
+      #{officeAddr,jdbcType=VARCHAR}, #{primeOperating,jdbcType=VARCHAR}, #{endDate,jdbcType=DATE}, 
+      #{totalEquity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Stock" >
+    insert into stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="stockCd != null" >
+        stock_cd,
+      </if>
+      <if test="securities != null" >
+        securities,
+      </if>
+      <if test="listSectorId != null" >
+        list_sector_id,
+      </if>
+      <if test="listSector != null" >
+        list_sector,
+      </if>
+      <if test="transCurr != null" >
+        trans_curr,
+      </if>
+      <if test="secShortName != null" >
+        sec_short_name,
+      </if>
+      <if test="secFullName != null" >
+        sec_full_name,
+      </if>
+      <if test="listStatus != null" >
+        list_status,
+      </if>
+      <if test="listDate != null" >
+        list_date,
+      </if>
+      <if test="delistDate != null" >
+        delist_date,
+      </if>
+      <if test="stockTypeId != null" >
+        stock_type_id,
+      </if>
+      <if test="stockType != null" >
+        stock_type,
+      </if>
+      <if test="marketCountry != null" >
+        market_country,
+      </if>
+      <if test="partyId != null" >
+        party_id,
+      </if>
+      <if test="totalShares != null" >
+        total_shares,
+      </if>
+      <if test="nonrestFloatShares != null" >
+        nonrest_float_shares,
+      </if>
+      <if test="nonrestFloatCapitalStock != null" >
+        nonrest_float_capital_stock,
+      </if>
+      <if test="officeAddr != null" >
+        office_addr,
+      </if>
+      <if test="primeOperating != null" >
+        prime_operating,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="totalEquity != null" >
+        total_equity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="stockCd != null" >
+        #{stockCd,jdbcType=VARCHAR},
+      </if>
+      <if test="securities != null" >
+        #{securities,jdbcType=VARCHAR},
+      </if>
+      <if test="listSectorId != null" >
+        #{listSectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="listSector != null" >
+        #{listSector,jdbcType=VARCHAR},
+      </if>
+      <if test="transCurr != null" >
+        #{transCurr,jdbcType=VARCHAR},
+      </if>
+      <if test="secShortName != null" >
+        #{secShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="secFullName != null" >
+        #{secFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="listStatus != null" >
+        #{listStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="listDate != null" >
+        #{listDate,jdbcType=DATE},
+      </if>
+      <if test="delistDate != null" >
+        #{delistDate,jdbcType=DATE},
+      </if>
+      <if test="stockTypeId != null" >
+        #{stockTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockType != null" >
+        #{stockType,jdbcType=VARCHAR},
+      </if>
+      <if test="marketCountry != null" >
+        #{marketCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="partyId != null" >
+        #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="totalShares != null" >
+        #{totalShares,jdbcType=VARCHAR},
+      </if>
+      <if test="nonrestFloatShares != null" >
+        #{nonrestFloatShares,jdbcType=VARCHAR},
+      </if>
+      <if test="nonrestFloatCapitalStock != null" >
+        #{nonrestFloatCapitalStock,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddr != null" >
+        #{officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="primeOperating != null" >
+        #{primeOperating,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="totalEquity != null" >
+        #{totalEquity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.StockExample" resultType="java.lang.Integer" >
+    select count(*) from stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stock
+    <set >
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCd != null" >
+        stock_cd = #{record.stockCd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.securities != null" >
+        securities = #{record.securities,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listSectorId != null" >
+        list_sector_id = #{record.listSectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listSector != null" >
+        list_sector = #{record.listSector,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transCurr != null" >
+        trans_curr = #{record.transCurr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secShortName != null" >
+        sec_short_name = #{record.secShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secFullName != null" >
+        sec_full_name = #{record.secFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listStatus != null" >
+        list_status = #{record.listStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listDate != null" >
+        list_date = #{record.listDate,jdbcType=DATE},
+      </if>
+      <if test="record.delistDate != null" >
+        delist_date = #{record.delistDate,jdbcType=DATE},
+      </if>
+      <if test="record.stockTypeId != null" >
+        stock_type_id = #{record.stockTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockType != null" >
+        stock_type = #{record.stockType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marketCountry != null" >
+        market_country = #{record.marketCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partyId != null" >
+        party_id = #{record.partyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalShares != null" >
+        total_shares = #{record.totalShares,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nonrestFloatShares != null" >
+        nonrest_float_shares = #{record.nonrestFloatShares,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nonrestFloatCapitalStock != null" >
+        nonrest_float_capital_stock = #{record.nonrestFloatCapitalStock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeAddr != null" >
+        office_addr = #{record.officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.primeOperating != null" >
+        prime_operating = #{record.primeOperating,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endDate != null" >
+        end_date = #{record.endDate,jdbcType=DATE},
+      </if>
+      <if test="record.totalEquity != null" >
+        total_equity = #{record.totalEquity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stock
+    set stock_id = #{record.stockId,jdbcType=INTEGER},
+      stock_cd = #{record.stockCd,jdbcType=VARCHAR},
+      securities = #{record.securities,jdbcType=VARCHAR},
+      list_sector_id = #{record.listSectorId,jdbcType=VARCHAR},
+      list_sector = #{record.listSector,jdbcType=VARCHAR},
+      trans_curr = #{record.transCurr,jdbcType=VARCHAR},
+      sec_short_name = #{record.secShortName,jdbcType=VARCHAR},
+      sec_full_name = #{record.secFullName,jdbcType=VARCHAR},
+      list_status = #{record.listStatus,jdbcType=VARCHAR},
+      list_date = #{record.listDate,jdbcType=DATE},
+      delist_date = #{record.delistDate,jdbcType=DATE},
+      stock_type_id = #{record.stockTypeId,jdbcType=VARCHAR},
+      stock_type = #{record.stockType,jdbcType=VARCHAR},
+      market_country = #{record.marketCountry,jdbcType=VARCHAR},
+      party_id = #{record.partyId,jdbcType=INTEGER},
+      total_shares = #{record.totalShares,jdbcType=VARCHAR},
+      nonrest_float_shares = #{record.nonrestFloatShares,jdbcType=VARCHAR},
+      nonrest_float_capital_stock = #{record.nonrestFloatCapitalStock,jdbcType=VARCHAR},
+      office_addr = #{record.officeAddr,jdbcType=VARCHAR},
+      prime_operating = #{record.primeOperating,jdbcType=VARCHAR},
+      end_date = #{record.endDate,jdbcType=DATE},
+      total_equity = #{record.totalEquity,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Stock" >
+    update stock
+    <set >
+      <if test="stockCd != null" >
+        stock_cd = #{stockCd,jdbcType=VARCHAR},
+      </if>
+      <if test="securities != null" >
+        securities = #{securities,jdbcType=VARCHAR},
+      </if>
+      <if test="listSectorId != null" >
+        list_sector_id = #{listSectorId,jdbcType=VARCHAR},
+      </if>
+      <if test="listSector != null" >
+        list_sector = #{listSector,jdbcType=VARCHAR},
+      </if>
+      <if test="transCurr != null" >
+        trans_curr = #{transCurr,jdbcType=VARCHAR},
+      </if>
+      <if test="secShortName != null" >
+        sec_short_name = #{secShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="secFullName != null" >
+        sec_full_name = #{secFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="listStatus != null" >
+        list_status = #{listStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="listDate != null" >
+        list_date = #{listDate,jdbcType=DATE},
+      </if>
+      <if test="delistDate != null" >
+        delist_date = #{delistDate,jdbcType=DATE},
+      </if>
+      <if test="stockTypeId != null" >
+        stock_type_id = #{stockTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockType != null" >
+        stock_type = #{stockType,jdbcType=VARCHAR},
+      </if>
+      <if test="marketCountry != null" >
+        market_country = #{marketCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="partyId != null" >
+        party_id = #{partyId,jdbcType=INTEGER},
+      </if>
+      <if test="totalShares != null" >
+        total_shares = #{totalShares,jdbcType=VARCHAR},
+      </if>
+      <if test="nonrestFloatShares != null" >
+        nonrest_float_shares = #{nonrestFloatShares,jdbcType=VARCHAR},
+      </if>
+      <if test="nonrestFloatCapitalStock != null" >
+        nonrest_float_capital_stock = #{nonrestFloatCapitalStock,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddr != null" >
+        office_addr = #{officeAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="primeOperating != null" >
+        prime_operating = #{primeOperating,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="totalEquity != null" >
+        total_equity = #{totalEquity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Stock" >
+    update stock
+    set stock_cd = #{stockCd,jdbcType=VARCHAR},
+      securities = #{securities,jdbcType=VARCHAR},
+      list_sector_id = #{listSectorId,jdbcType=VARCHAR},
+      list_sector = #{listSector,jdbcType=VARCHAR},
+      trans_curr = #{transCurr,jdbcType=VARCHAR},
+      sec_short_name = #{secShortName,jdbcType=VARCHAR},
+      sec_full_name = #{secFullName,jdbcType=VARCHAR},
+      list_status = #{listStatus,jdbcType=VARCHAR},
+      list_date = #{listDate,jdbcType=DATE},
+      delist_date = #{delistDate,jdbcType=DATE},
+      stock_type_id = #{stockTypeId,jdbcType=VARCHAR},
+      stock_type = #{stockType,jdbcType=VARCHAR},
+      market_country = #{marketCountry,jdbcType=VARCHAR},
+      party_id = #{partyId,jdbcType=INTEGER},
+      total_shares = #{totalShares,jdbcType=VARCHAR},
+      nonrest_float_shares = #{nonrestFloatShares,jdbcType=VARCHAR},
+      nonrest_float_capital_stock = #{nonrestFloatCapitalStock,jdbcType=VARCHAR},
+      office_addr = #{officeAddr,jdbcType=VARCHAR},
+      prime_operating = #{primeOperating,jdbcType=VARCHAR},
+      end_date = #{endDate,jdbcType=DATE},
+      total_equity = #{totalEquity,jdbcType=VARCHAR}
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+  <!-- 查看所有的股票 -->
+	<select id="selectAllStock" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from stock
+		order by stock_id DESC
+	</select>
+	
+	
+</mapper>
