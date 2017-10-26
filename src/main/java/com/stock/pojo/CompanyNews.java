@@ -24,8 +24,18 @@ public class CompanyNews {
     private String hotRatios;
 
     private String newsContent;
+    
+    private int coun;
 
-    public Integer getId() {
+    public int getCoun() {
+		return coun;
+	}
+
+	public void setCoun(int coun) {
+		this.coun = coun;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -27,4 +27,6 @@ public interface ScrapyNewsMapper {
     int updateByPrimaryKeySelective(ScrapyNews record);
 
     int updateByPrimaryKey(ScrapyNews record);
+
+	List<ScrapyNews> selectStockByNum(String stock_id);
 }

@@ -92,6 +92,9 @@
     updn01, avgday01, amountc, amount, volume, closeavg10, closeavgl, closep, close, 
     low, high, open, date, stock_id, stock_name, second_category, first_category
   </sql>
+  <sql id="Base_stock_List" >
+    date, open, close,  avgday05,updn05,low, high, amount, volume
+  </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.ScrapyNewsExample" >
     select
     <if test="distinct" >
@@ -539,4 +542,12 @@
       first_category = #{firstCategory,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectStockByNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_stock_List" />
+    from scrapy_news
+    where stock_id = #{stock_id,jdbcType=VARCHAR}
+    order by date DESC
+  </select>
 </mapper>

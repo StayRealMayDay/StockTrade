@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.stock.mapper.RoleMapper;
 import com.stock.mapper.UserMapper;
-import com.stock.pojo.Role;
 import com.stock.pojo.User;
 import com.stock.utils.Pager;
 @Service
@@ -18,8 +16,6 @@ import com.stock.utils.Pager;
 public class UserService {
 @Autowired
 UserMapper userMapper;
-@Autowired
-RoleMapper roleMapper;
 	 public User userLogin(String name, String pwd){
 			
 	  		Map<String,Object> usermap = new HashMap<String,Object>();
@@ -61,10 +57,6 @@ RoleMapper roleMapper;
 		return user;
 	}
 
-	public Boolean addUserRole(Role role) {
-		roleMapper.insertSelective(role);
-		return true;
-	}
 	//查找“角色”表角色对应的UUID
 
 	public void selectUUIDByUserName() {

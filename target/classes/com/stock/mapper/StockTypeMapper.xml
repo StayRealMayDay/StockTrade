@@ -178,7 +178,7 @@
       type_flag = #{typeFlag,jdbcType=VARCHAR}
     where type_id = #{typeId,jdbcType=INTEGER}
   </update>
-  <!-- 查看所有的股票类型 -->
+    <!-- 查看所有的股票类型 -->
 	<select id="selectStockTypesByFlag" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -186,5 +186,4 @@
 		where type_flag = #{flag,jdbcType=VARCHAR} 
 		order by type_id DESC
 	</select>
-  
 </mapper>

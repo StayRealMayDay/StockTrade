@@ -230,7 +230,75 @@ function checkNumber(){
 											</a>
 										</div>
 									</div>
-									<div class="box-body form">
+									
+									<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
+													<div class="dashbox panel panel-default">
+														<div class="panel-body">
+															<div class="panel-left blue">
+																<i class="fa fa-instagram fa-3x"></i>
+															</div>
+															<div class="panel-right">
+																<div class="number">1300</div>
+																<div class="title">今日上涨股票数量</div>
+																<span class="label label-success"> 26% <i
+																	class="fa fa-arrow-up"></i>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
+													<div class="dashbox panel panel-default">
+														<div class="panel-body">
+															<div class="panel-left red">
+																<i class="fa fa-instagram fa-3x"></i>
+															</div>
+															<div class="panel-right">
+																<div class="number">1205</div>
+																<div class="title">今日下跌股票数量</div>
+																<span class="label label-warning"> 30% <i
+																	class="fa fa-arrow-down"></i>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
+													<div class="dashbox panel panel-default">
+														<div class="panel-body">
+															<div class="panel-left blue">
+																<i class="fa fa-instagram fa-3x"></i>
+															</div>
+															<div class="panel-right">
+																<div class="number">1323</div>
+																<div class="title">最近一周上涨股票数量</div>
+																<span class="label label-success"> 16% <i
+																	class="fa fa-arrow-up"></i>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-lg-6" style="width:350px;margin-left:30px;margin-top:30px;margin-bottom:30px">
+													<div class="dashbox panel panel-default">
+														<div class="panel-body">
+															<div class="panel-left red">
+																<i class="fa fa-instagram fa-3x"></i>
+															</div>
+															<div class="panel-right">
+																<div class="number">1420</div>
+																<div class="title">最近一月下跌股票数量</div>
+																<span class="label label-warning"> 13% <i
+																	class="fa fa-arrow-down"></i>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+									<%-- <div class="box-body form">
 										<div style="height:100px;">
 												<div style="border:1px solid #003;width:200px;height:60px;margin-top:15px;margin-left:20px;float:left;margin-right:5px;">
 												<div class="infobox-icon">
@@ -289,7 +357,7 @@ function checkNumber(){
 											</div>
 														
 									</div>
-								</div>
+								</div> --%>
 								<!-- /BOX -->
 							</div>
 						</div>
@@ -301,7 +369,7 @@ function checkNumber(){
 								<!-- BOX -->
 								<div class="box border purple">
 									<div class="box-title">
-										<h4><i class="fa fa-table"></i>股票情况概览</h4>
+										<h4><i class="fa fa-table"></i>股票上涨详情概览</h4>
 										<div class="tools hidden-xs">
 											<a href="#box-config" data-toggle="modal" class="config">
 												<i class="fa fa-cog"></i>
@@ -321,21 +389,24 @@ function checkNumber(){
 										<table id="datatable1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
-													<th>股票类型编号</th>
-													<th>股票类型名称</th>
 													<th>股票名称</th>
-													<th>操作动作</th>
+													<th>股票代码</th>
+													<th>涨跌</th>
+													<th>当前价格</th>
+													<th>换手率</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach items="${itemList}" var="v" varStatus="sta">
+												<c:forEach items="${stockinfosup}" var="v" varStatus="sta">
 												<tr class="gradeX">
-													<td>${v.enterOrder}</td>
-													<td>${v.enterName}</td>
-													<td>${v.enterContent}</td>
+													<td>${v.stockName}</td>
+													<td>${v.stockNum}</td>
+													<td><font color="green">${v.updownRatio}</font></td>
+													<td>${v.currentPrice}</td>
+													<td>${v.turnoverRate}</td>
 													<td>
-														<button class="btn btn-xs btn-primary" onclick="deleteItem('${v.enterUuid}')">删除</button>
-														<a class="btn btn-xs btn-primary" href="<%=basePath %>/adminEditItem?enterUuid=${v.enterUuid}">修改</a>
+														<button class="btn btn-xs btn-primary" onclick="deleteItem('${v.stockId}')">删除</button>
+														<a class="btn btn-xs btn-primary" href="<%=basePath %>/adminEditItem?enterUuid=${v.stockId}">修改</a>
 													</td>
 												</tr>
 												</c:forEach>
@@ -355,6 +426,70 @@ function checkNumber(){
 							</div>
 						</div>
 						
+						
+						<div class="separator"></div>
+						<!-- EXPORT TABLES -->
+						<div class="row">
+							<div class="col-md-12">
+								<!-- BOX -->
+								<div class="box border purple">
+									<div class="box-title">
+										<h4><i class="fa fa-table"></i>股票下跌详情概览</h4>
+										<div class="tools hidden-xs">
+											<a href="#box-config" data-toggle="modal" class="config">
+												<i class="fa fa-cog"></i>
+											</a>
+											<a href="javascript:;" class="reload">
+												<i class="fa fa-refresh"></i>
+											</a>
+											<a href="javascript:;" class="collapse">
+												<i class="fa fa-chevron-up"></i>
+											</a>
+											<a href="javascript:;" class="remove">
+												<i class="fa fa-times"></i>
+											</a>
+										</div>
+									</div>
+									<div class="box-body">
+										<table id="datatable1" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>股票名称</th>
+													<th>股票代码</th>
+													<th>涨跌</th>
+													<th>当前价格</th>
+													<th>换手率</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${stockinfosdown}" var="v" varStatus="sta">
+												<tr class="gradeX">
+													<td>${v.stockName}</td>
+													<td>${v.stockNum}</td>
+													<td><font color="red">${v.updownRatio}</font></td>
+													<td>${v.currentPrice}</td>
+													<td>${v.turnoverRate}</td>
+													<td>
+														<button class="btn btn-xs btn-primary" onclick="deleteItem('${v.stockId}')">删除</button>
+														<a class="btn btn-xs btn-primary" href="<%=basePath %>/adminEditItem?enterUuid=${v.stockId}">修改</a>
+													</td>
+												</tr>
+												</c:forEach>
+											</tbody>
+											<!-- <tfoot>
+												<tr>
+													<th class="hidden-xs">创业事项编号</th>
+													<th>创业事项名称</th>
+													<th>创业事项内容</th>
+													<th class="hidden-xs">操作动作</th>
+												</tr>
+											</tfoot> -->
+										</table>
+									</div>
+								</div>
+								<!-- /BOX -->
+							</div>
+						</div>
 						<!-- /SAMPLE -->
 						<div class="footer-tools">
 							<span class="go-top"> <i class="fa fa-chevron-up"></i> Top

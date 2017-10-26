@@ -13,10 +13,18 @@
     <result column="news_time" property="newsTime" jdbcType="VARCHAR" />
     <result column="operate_date" property="operateDate" jdbcType="VARCHAR" />
     <result column="hot_ratios" property="hotRatios" jdbcType="VARCHAR" />
+    <result column="news_content" property="newsContent" jdbcType="VARCHAR"/>
+    <result column="count" property="coun" jdbcType="NUMERIC"/>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.stock.pojo.CompanyNews" extends="BaseResultMap" >
     <result column="news_content" property="newsContent" jdbcType="LONGVARCHAR" />
   </resultMap>
+  <resultMap type="com.stock.pojo.CompanyNews" id="ResultMapWithTime">
+   	  <id column="id" property="id" jdbcType="INTEGER" />
+  	  <result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+  	  <result column="news_time" property="newsTime" jdbcType="VARCHAR" />
+  </resultMap>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -77,7 +85,10 @@
   </sql>
   <sql id="Base_Column_List" >
     id, main_service, category, rank, controller, company_name, news_title, news_source, 
-    news_time, operate_date, hot_ratios
+    news_time, operate_date
+  </sql>
+  <sql id="Base_Column_List_Content" >
+    id,company_name, news_title, news_source,news_content,news_time
   </sql>
   <sql id="Blob_Column_List" >
     news_content
@@ -383,6 +394,94 @@
 		select
 		<include refid="Hot_News_List" />
 		from company_news where convert(hot_ratios,signed) >100
-		order by hot_ratios DESC
+		order by hot_ratios DESC limit 100
 	</select>
+	
+	
+<!--（于花蕾） 一下为新增部分 -->
+
+<!-- 查看所有新闻 ,但仅显示6条-->
+	<select id="selectAllNews" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from company_news  limit 100
+	</select>
+	
+<!-- 显示所有新闻 -->
+	<select id="selectAllNewsShow"  resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List_Content" />
+		from company_news
+		order by news_time DESC 
+		limit #{start}, #{pagesize}
+	</select>	
+
+
+<!--新增部分 热度新闻 -->
+	<select id="selectNewsByHotRatios" resultMap="BaseResultMap">
+		select news_title,id,news_time
+		from company_news
+		where hot_ratios  &lt;&gt; "" 
+		order by hot_ratios DESC
+		limit 0,8
+	</select>
+	
+	<!-- 于花蕾新增 2017年9月28日 -->
+	<select id="newsByHotRatiosDetail" parameterType="int" resultMap="BaseResultMap">
+		select news_title,news_time,news_content,news_source,main_service
+		from company_news
+		where id = #{id}
+	</select>
+	
+<!-- 新增部分 实时资讯 -->
+	<select id="selectNewsByTime" resultMap="ResultMapWithTime">
+		select news_time,news_title 
+		from company_news 
+		order by news_time DESC
+		limit 0,8
+	</select>
+	<select id="selectNewsAboutCompany"  resultMap="BaseResultMap">
+		select
+		company_name,main_service,category,rank,controller,COUNT(*)count
+		from company_news
+		GROUP BY company_name  ORDER BY COUNT(*) DESC limit 100
+	</select>
+	<select id="selectNewsAboutSource"  resultMap="BaseResultMap">
+		select
+		id,news_source,COUNT(*)coun,news_title
+		from company_news
+		GROUP BY news_source ORDER BY COUNT(*) DESC 
+	</select>
+	
+	<select id="selectNewsAboutHangye"  resultMap="BaseResultMap">
+		select
+		id,category,COUNT(*)coun,news_title
+		from company_news
+		GROUP BY category ORDER BY COUNT(*) DESC limit 100
+	</select>
+	
+	<select id="selectTopNews"  resultMap="BaseResultMap">
+		select
+		news_time,news_title,news_source,news_content
+		from (select * from company_news where news_time = 
+		(select news_time from company_news order by news_time  desc limit 1))a GROUP BY company_name ORDER BY  count(*) desc limit 2
+	</select>
+	
+	<!--2017年10月26 -->
+	<select id="selectNewsByComapny" resultMap="ResultMapWithTime" parameterType="string">
+		select news_time,news_title,id 
+		from company_news 
+		where news_content like "%"#{stockNum}"%"
+		order by news_time DESC
+		limit 0,8
+	</select>
+	
+	<!--2017年10月26 -->
+	<select id="selectNewsDetail" resultMap="BaseResultMap" parameterType="string">
+		select news_time,news_title,news_content,news_source
+		from company_news 
+		where id = #{stockId}
+	</select>
+	
+	
 </mapper>

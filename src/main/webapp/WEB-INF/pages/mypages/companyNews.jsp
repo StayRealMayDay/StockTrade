@@ -1,452 +1,274 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
             + path;
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
-	<head>
-		<title>公司要闻</title>
-		<!-- for-mobile-apps -->
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="keywords" content="" />
-		<script type="application/x-javascript">
-			addEventListener("load", function() {
-				setTimeout(hideURLbar, 0);
-			}, false);
+<head>
+<meta charset="utf-8" />
+<title>公司新闻速递</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="<%=basePath %>/css/reset.css"type="text/css" media="all" />
+<link rel="stylesheet" href="<%=basePath %>/css/nivoslider.css"type="text/css" media="all" />
+<link rel="stylesheet" href="<%=basePath %>/css/prettyPhoto.css"type="text/css" media="screen" />
+<link rel="stylesheet" href="<%=basePath %>/js/style.css"type="text/css" media="screen" />
+<link rel="stylesheet" href="<%=basePath %>/css/responsive.css"type="text/css" media="all" />
 
-			function hideURLbar() {
-				window.scrollTo(0, 1);
-			}
-		</script>
-		<!-- //for-mobile-apps -->
-		<link href="<%=basePath %>/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-		<link href="<%=basePath %>/css/style.css" rel="stylesheet" type="text/css" media="all" />
-		<link class="include" rel="stylesheet" type="text/css" href="<%=basePath %>/css/jquery.jqplot.css" />
-		<!-- calender -->
-		<link type="text/css" href="<%=basePath %>/css/jquery.simple-dtpicker.css" rel="stylesheet" />
-		<!-- //calender -->
-		<!-- different-chart-bar -->
-		<link rel="stylesheet" href="<%=basePath %>/css/chart.min.css">
-		<!-- //different-chart-bar -->
-		<!-- font-awesome icons -->
-		<link rel="stylesheet" href="<%=basePath %>/css/font-awesome.min.css" />
-		<!-- //font-awesome icons -->
-		<!-- js -->
-		<script src="<%=basePath %>/js/jquery-1.11.1.min.js"></script>
-		<script type="text/javascript" src="<%=basePath %>/js/jquery.marquee.min.js"></script>
-		<!-- js -->
-		<!-- pop-up -->
-		<link href="<%=basePath %>/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-		<!-- //pop-up -->
-		<!-- left-chart -->
-		<script src="<%=basePath %>/js/jquery.flot.min.js" type="text/javascript"></script>
-		<script src="<%=basePath %>/js/jquery.flot.animator.min.js" type="text/javascript"></script>
-		<!-- //left-chart -->
-		<link href="http://fonts.googleapis.com/css?family=Muli:300,300i,400,400i" rel="stylesheet">
-		
-		
-		<!-- start-smoth-scrolling -->
-		<script type="text/javascript" src="<%=basePath %>/js/move-top.js"></script>
-		<script type="text/javascript" src="<%=basePath %>/js/easing.js"></script>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event) {
-					event.preventDefault();
-					$('html,body').animate({
-						scrollTop: $(this.hash).offset().top
-					}, 1000);
-				});
-			});
-		</script>
-		<!-- start-smoth-scrolling -->
-	</head>
-	<body>
-		<!-- header -->
-		<div class="header">
-			<div class="w3ls_header_top">
-				<div class="container">
-					<div class="w3l_header_left">
-						<ul class="w3layouts_header">
-							<li class="w3layouts_header_list">
-								<ul>
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">软件下载<span class="caret"></span></a>
-										<div class="mega-dropdown-menu">
-											<ul class="dropdown-menu w3_dropdown">
-												<li>
-													<a href="#">免费版本</a>
-												</li>
-												<li>
-													<a href="#">远航版本</a>
-												</li>
-												<li>
-													<a href="#">电脑版本</a>
-												</li>
-											</ul>
-										</div>
-									</li>
-									<li>
-										<i>|</i>
-									</li>
-								</ul>
-							</li>
-							<li class="w3layouts_header_list">
-								<a href="#">买基金</a><i>|</i>
-							</li>
-							<li class="w3layouts_header_list">
-								<a href="faq">问题解决</a><i>|</i>
-							</li>
-							<li class="w3layouts_header_list">
-								<a href="contact">联系我们</a>
-							</li>
-						</ul>
-					</div>
-					<div class="w3l_header_right">
-						<ul class="w3layouts_header">
-							<li class="w3layouts_header_list">
-								<a href="login">登录</a><i>|</i>
-							</li>
-							<li>
-								<a href="register">注册</a>
-							</li>
-						</ul>
-						<h2><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+(000) 123 456 678</h2>
+<!-- 于花蕾 2017年9月27 -->
+<link href="<%=basePath %>/css/bootstrap.css" rel="stylesheet"type="text/css" media="all" />
+<link href="<%=basePath %>/css/style.css" rel="stylesheet"type="text/css" media="all" />
+<link class="include" rel="stylesheet" type="text/css" href="<%=basePath %>/css/jquery.jqplot.css" />
+<script src="<%=basePath %>/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="<%=basePath %>/js/jquery.marquee.min.js"></script>
+<link href="<%=basePath %>/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+<script src="<%=basePath %>/js/jquery.flot.min.js" type="text/javascript"></script>
+<script src="<%=basePath %>/js/jquery.flot.animator.min.js" type="text/javascript"></script>
+<link href="http://fonts.googleapis.com/css?family=Muli:300,300i,400,400i" rel="stylesheet">
+<script src="<%=basePath %>/js/bootstrap.min.js"></script>
 
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-			</div>
-			<div class="w3ls_header_middle">
-				<div class="container">
-					<div class="agileits_logo">
-						<h1><a href="index"><span>股票</span> 市场<i>交易无处不在，还望谨慎投资。</i></a></h1>
-					</div>
-					<div class="agileits_search">
-						<form action="#" method="post">
-							<input name="Search" type="text" placeholder="有什么可以帮助你呢？" required="">
-							<select id="agileinfo_search" name="agileinfo_search">
-								<option value="commodities">Commodities</option>
-								<option value="navs">NAVs</option>
-								<option value="quotes">Quotes</option>
-								<option value="videos">Videos</option>
-								<option value="news">News</option>
-								<option value="notices">Notices</option>
-								<option value="all">All</option>
-							</select>
-							<input type="submit" value="搜索">
-						</form>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-			</div>
-		</div>
-		<!-- //header -->
-	
-		<div class="trade_navigation" style="background-color:#287AB4 ;">
-<div class="container">
-	<nav class="navbar nav_bottom">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header nav_2">
-			<button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-		<span class="sr-only">Toggle navigation</span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-	  </button>
-		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-megadropdown-tabs" style="background-color:#287AB4 ;">
-			<nav class="wthree_nav" >
-				<ul class="nav navbar-nav nav_1" >
-					<li>
-						<a href="company"><h3>公司首页</h3></a>
-					</li>
-					<li class="dropdown">
-						<a href="companyNews" >个股聚焦</a>
-					</li>
-					<li class="dropdown">
-						<a href="companyNews" >公司新闻</a>
-					</li>
-					<li class="dropdown">
-						<a href="companyRating" >公司评级</a>
-					</li>
-					<li class="dropdown">
-						<a href="companyNews" >公司研究</a>
-					</li>
-					<li>
-						<a href="institutionalRating">机构评级</a>
-					</li>
-					<li>
-						<a href="companyNews">公司公告</a>
-					</li>
-					<li>
-						<a href="companyNews">公司解读</a>
-					</li>
-					<li>
-						<a href="largeSingleTrack">大单追踪</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</nav>
-</div>
-</div>
-<!-- //navigation -->
-
+<!--[if IE 7]><link rel="stylesheet" href="css/ie7.css" type="text/css" media="all" />
+	<![endif]-->
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<link rel="stylesheet" href="css/ie.css" type="text/css" media="all" />
+	<![endif]-->
+<!-- Favicons
+	================================================== -->
+<link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
+<script type="text/javascript"
+	src="<%=basePath %>/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript"
+	src="<%=basePath %>/js/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript"
+	src="<%=basePath %>/js/jquery.carouFredSel-5.6.2.js"></script>
+<script type="text/javascript"
+	src="<%=basePath %>/js/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="<%=basePath %>/js/jquery.sticky.js"></script>
+<script type="text/javascript"
+	src="<%=basePath %>/js/jquery-scroller-v1.min.js"></script>
+<script type="text/javascript" src="<%=basePath %>/js/kendo.web.min.js"></script>
+<script type="text/javascript" src="<%=basePath %>/js/custom.js"></script>
+<!--[if lt IE 9]>
+	<script type="text/javascript" src="js/ie7-fixed.js"></script>
+	<![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
 <script type="text/javascript">
-	$(function() {
-		$(".demo1").bootstrapNews({
-			newsPerPage: 1,
-			autoplay: true,
-			pauseOnHover: true,
-			direction: 'up',
-			newsTickerInterval: 3000,
-			onToDo: function() {
-				//console.log(this);
-			}
-		});
+//init method one 
+$(document).ready(function(){ 
+trace("初始化方法进入"); 
+$("#qwertyui").css('display','block'); 
 
-		$(".demo2").bootstrapNews({
-			newsPerPage: 3,
-			autoplay: true,
-			pauseOnHover: true,
-			navigation: false,
-			direction: 'up',
-			newsTickerInterval: 3000,
-			onToDo: function() {
-				//console.log(this);
-			}
-		});
-	});
+}); 
+function trace(obj){ 
+console.log(obj); 
+}
 </script>
-<script src="<%=basePath %>/js/jquery.bootstrap.newsbox.min.js" type="text/javascript"></script>
-<div class='agileinfo_marquee'>
-	<div data-speed="10" class="marquee">
-		<ul>
-			<li>
-				<a href="single">NPAs of associate banks to weigh on SBI: Religare Capital<span>\</span></a>
-			</li>
-			<li>
-				<a href="single">Julius Baer analyst sees opportunities in despised China market</a>
-			</li>
+
+<body class="home-page">
+	<jsp:include page="/top_q.jsp" flush="true" />
+
+<div class="wrapper">
+	<div id="main-content">
+		<div class="primary" style="float:left;width:800px;height:885px">
+		<ul id="myTab1" class="col-md-12 nav nav-tabs" role="tablist" >					
+			<c:forEach items="${companyNewsList}" var="row">	
+				<li style="width:800px">
+					<article class="entry-item box-hover clearfix">
+						<table>
+							<tr>
+								<div style="width:700px">										
+									<c:if test="${fn:length(row.newsTitle) > 30 }">
+										<td>
+											<a style="font-size: 18px;" href="companyHotDetail?id=${row.id}">
+												${fn:substring(row.newsTitle,0,30)}...
+											</a>
+										</td>
+									</c:if>
+									<c:if test="${fn:length(row.newsTitle) <= 30 }">
+										<td>
+											<a style="font-size: 18px;" href="companyHotDetail?id=${row.id}">
+												${row.newsTitle}
+											</a>
+										</td>
+									</c:if>
+								</div>
+							</tr>
+							<tr><td>${row.newsTime}</td></tr>
+							<tr>
+								<div>
+									<c:if test="${fn:length(row.newsContent) > 90 }">
+										<td>
+											${fn:substring(row.newsContent,0,90)}...
+										</td>
+									</c:if>
+									<c:if test="${fn:length(row.newsContent) <= 90 }">
+										<td>
+											${row.newsContent}
+										</td>
+									</c:if>
+								</div>
+							</tr>
+						</table>
+					</article>							
+				</li>
+				<input type="hidden" name="pageNum" value="${pager.pageNum}">
+			</c:forEach>
 		</ul>
-	</div>
-</div>
-
-		<!-- //banner-bottom -->
-		<!-- news-original -->
-		<div class="company_info">
-		<div class="col-md-10 " style="padding-left:300px">
-			<div>
-				<div class="col-md-2" style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px; text-align:center">
-					<h3>天安信才</h3>
-					<h3>603725</h3>
-					<input type="button" value="加入自选"  />
-				</div>
-			</div>
-			<div class="col-xs-4" style="border: 1px solid #F0F0F0; margin-top: 20px; height: 113px;text-align:center ">
-				<table style=" margin:auto; width: 200px; text-align:center">
-					<tr >
-						<td rowspan="2">
-							<p><span style="color:#C10D01; font-size: 40px; ">20.33</span></p>
-						</td>
-					
-						<td>
-							<p><span style="color:#C10D01; font-size: 20px; ">1.85</span></p>
-						</td>
-					</tr>
-					<tr>
-						<td><p><span style="color:#C10D01; font-size: 20px; ">10.01%</span></p></td>
-						
-					</tr>
-					<tr>
-						<td colspan="2">
-							<span>涨停：2033     跌停：16.63</span>
-						</td>
-					</tr>
-					<tr>		
-						<td colspan="2">
-							<span>涨停：2033     跌停：16.63</span>
-						</td>
-					</tr>
-					
-				</table>
-			</div>
-			<div class="col-md-6"style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px; font-size: 14px;">
-				<table style="width:450px">
-					<tr>
-						<td style="width: 33.3%;">今日：20.33</td>
-						<td  style="width: 33.3%;">成交量：4.57万</td>
-						<td  style="width: 33.3%;">振幅：0.00%</td>
-					</tr>
-					<tr>
-						<td>最高：20.33</td>
-						<td>成交量：4.57万</td>
-						<td>换手：0.00%</td>
-					</tr>
-					<tr>
-						<td>最低：20.33</td>
-						<td>总市值：4.57万</td>
-						<td>市净率：0.00%</td>
-					</tr>
-					<tr>
-						<td>昨收：20.33</td>
-						<td>流通市值：4.57万</td>
-						<td>市盈率(动)：0.00%</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
-	<div class="clearfix"></div>
-		<div class="faq" style="padding-top:10px;">
-			<div class="container" >
-				<div class="w3layouts_market_movers" style="background-color:#E0F2FA">
-					<h2 ><i class="fa fa-bar-chart" aria-hidden="true"></i><b>证券要闻</b></h2>
-				</div>
-				<div class="col-md-9 agileinfo_news_original_grids_left">
-					<div class="w3l_faq_grid">
-						<a href="companySingle"><h4><b>中国工业企业交出亮丽成绩单</b></h4> 2017年9月12日01:23</a>
-						<p>　路 透社北京9月9日电 受原材料价格强劲增长刺激，8月中国的工业生产者出厂价格指数(PPI)增速超预期，
-						创4个月新高，表明工厂利润和经济实现强劲和可持续增长。国家统计局今天称，8月PPI同比增长6.3%。</p>
-					</div><hr />
-					<div class="w3l_faq_grid">
-						<a href="companySingle"><h4><b>河南专员办：做实绩效评价 提质预算监管</b></h4>2017年9月12日01:23</a>
-						<p>河南是中央转移支付大省。河南专员办牢牢抓住做实转移支付绩效评价这一“牛鼻子”，推动地方各级财政
-						、主管部门及相关项目单位关注资金绩效，全面提升预算监管水平，促进中央资金提质增效，取得了明显效果。</p>
-					</div><hr />
-					<div class="w3l_faq_grid">
-						<a href="companySingle"><h4>山东省潍坊市财政局服务“放管服”改革打造阳光政府采购</h4>2017年9月12日01:23</a>
-						<p>　近年来，山东省潍坊市财政局以“放管服”改革为抓手，以提高政府采购监管质量和服务水平为目标，依法作为、敢于担当、主动服务，让政府采购真正成为效率采购、效益采购、阳光采购。</p>
-					</div><hr />
-					<div class="w3l_faq_grid">
-						<a href="companySingle"><h4><b>财政支出低增为年内常态 8月土地出让仍高增</b></h4>2017年9月12日01:23</a>
-						<p>　8月财政收入同比7.2%，前值11.1%；财政支出同比2.9%，前值5.4%；1-8月政府性基金收入同比31.3%，前值31.6%。</p>
-					</div><hr />
-					<div class="w3l_faq_grid">
-						<a href="companySingle"><h4><b>新华网：长沙推出万套定向限价房保刚需</b></h4>2017年9月12日01:23</a>
-						<p>记者从长沙市住房保障服务局获悉，长沙市日前正式推出万套定向限价商品住房，预计年内有望上市2702套住房。其中，部分住房的销售价格仅为每平方米4950元。</p>
-					</div><hr />
-					<div class="w3l_faq_grid">
-						<a href="companySingle"><h4><b>经济加速人民币升值暖心 中国消费者信心逾20年最强</b></h4>2017年9月12日01:23</a>
-						<p>　新浪美股讯 北京时间12日彭 博称，随着中国各项经济指标回暖，消费者和家庭的信心达到逾二十年来最强。</p>
-					</div><hr />
-					<div class="w3l_faq_grid">
-						<a href="companySingle"><h4><b>中国推进“一带一路”空间信息走廊建设 促卫星数据与东盟共享</b></h4>2017年9月12日01:23</a>
-						<p>　中新社南宁9月11日电 (记者 林浩)中国国防科技工业局副局长吴艳华11日表示，中国愿与“一带一路”沿线国家共享遥感、
-						通信、导航等各类卫星数据资源，补充完善天际信息网，共建分布合理、
-						功能齐全的地面信息服务网络和区域重大应用服务系统，为重大工程建设提供信息支撑。</p>
-					</div>	
-				</div>
-
-					<!--主页最右边部分  -->
-					<div class="col-md-3 agileinfo_news_original_grids_right">
-						<div class="w3layouts_add_market">
-							<img src="<%=basePath %>/images/32.jpg" alt=" " class="img-responsive" />
-							<div class="w3layouts_add_market_pos">
-								<h3>Important thing, pay attention</h3>
+		</div><!--end:primary-->
+		<div class="secondary" style="float:right;width:200px">
+			<div id="sidebar-b" class="sidebar" style="float:right;">
+				<aside class="widget box-hover">
+					<header class="entry-header">
+						<h4 class="widget-title clearfix"><span>A股即时行情数据</span></h4>
+					</header>
+						<ul id="myTab2" class="nav nav-tabs nav-tabs1" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#hu" id="hu_tab" role="tab" data-toggle="tab" aria-controls="huTab" aria-expanded="true">沪A</a>
+							</li>
+							<li role="presentation">
+								<a href="#shen" role="tab" id="shen-tab" data-toggle="tab" aria-controls="shenTab">深A</a>
+							</li>
+						</ul>
+						<div  class="tab-content">
+							<div role="tabpanel" class="tab-pane fade in active" id="hu" aria-labelledby="hu_tab">
+								<div class="w3l_stocks" style="width: 100%;">
+									<table style="width: 100%;">
+										<thead>
+										<tr style="width: 100%;height:40px;font-size:15px">
+											<th style="width: 33%;">股票名称</th>
+											<th style="width: 33%;">股票代码</th>
+											<th style="width: 33%;">涨跌幅</th>
+										</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${stockHuA}" var="huA">
+												<tr style="width: 100%;height:30px">
+													<td><a href="company">${huA.stockName}</a></td>
+													<td>${huA.stockNum}</td>
+													<td>${huA.updownRatio}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
 							</div>
-							
-							<div style="height:50px"></div>
-						</div>
-							<div class="w3layouts_market_movers">
-							<h3 style="background-color:#E0F2FA"><i class="fa fa-bar-chart" aria-hidden="true" ></i><b>最热新闻排行</b></h3> 
-							<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-								<ul id="myTab1" class="nav nav-tabs" role="tablist">
-								<li><a style="font-size: 20px;" href="companySingle">20只翻倍股六成有“国家队”身影</a></li>
-								<li><a style="font-size: 15px;" href="companySingle"> 9月12日午间公告一览：岭南园林中标5亿元工程</a></li>
-								<li><a style="font-size: 15px;" href="companySingle">A股只剩50只未涉及股票质押！高质押小市值个股要遭殃？</a></li>
-								<li><a style="font-size: 15px;" href="companySingle">新能源汽车狂“飙” 谁是下一爆发点</a></li>
-								<li><a style="font-size: 15px;" href="companySingle">机构调研步伐明显加快 电子等行业成为调研重点</a></li>
-								<li><a style="font-size: 15px;" href="companySingle">强势股机构分歧大</a></li>
-								</ul>
-								
+							<div role="tabpanel" class="tab-pane fade" id="shen" aria-labelledby="shen-tab">
+								<div class="w3l_stocks">
+									<table style="width: 100%;">
+										<thead>
+										<tr style="width: 100%;height:40px;font-size:15px">
+											<th style="width: 33%;">股票名称</th>
+											<th style="width: 33%;">股票代码</th>
+											<th style="width: 33%;">涨跌幅</th>
+										</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${stockShenA}" var="shenA">
+												<tr style="width: 100%;height:30px">
+													<td><a href="company">${shenA.stockName}</a></td>
+													<td>${shenA.stockNum}</td>
+													<td>${shenA.updownRatio}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
 							</div>
+						</div>	
+				</aside><!--end:widget-->
+				<aside class="widget box-hover">
+					<header class="entry-header">
+						<h4 class="widget-title">新股申购</h4>
+					</header>
+					<div class="newsletter">
+						<div class="wpcf7">
+							<form class="wpcf7-form" method="post" action="#" />
+							<p>Enter your email address below to receive updates each
+								time we publish new content</p>
+							<p>
+								<span class="wpcf7-form-control-wrap your-email"><input
+									type="text" size="40"
+									class="wpcf7-form-control wpcf7-text wpcf7-email" value=""
+									name="your-email" /></span> <input type="submit"
+									class="wpcf7-form-control  wpcf7-submit" value="Submit" />
+							</p>
+							</form>
 						</div>
 					</div>
-				
-				
-				
-			</div>
-		</div>
-   
+				</aside><!--end:widget-->
+				<aside class="widget box-hover">
+					<div class="adv-125-125 clearfix">
+						<a href="#"><img class="hover-effect responsive-img" alt="" src="placeholders/125x125/sample-ad-1.jpg" /></a>
+						<a href="#"><img class="hover-effect responsive-img" alt="" src="placeholders/125x125/sample-ad-1.jpg" /></a>
+						<a href="#"><img class="hover-effect responsive-img" alt="" src="placeholders/125x125/sample-ad-1.jpg" /></a>
+						<a href="#"><img class="hover-effect responsive-img" alt="" src="placeholders/125x125/sample-ad-1.jpg" /></a>
+					</div>
+				</aside><!--end:widget--> 
+				<div class="clear"></div>
+			</div><!--end:sidebar-->
+			<div class="clear"></div>
+		</div><!--end:secondary-->
+		<div class="clear"></div>
+		<div style="height:400px"></div>
+		<div >
+			<aside class="widget" style="height:100px">
+				<div class="pull-left">
+					<div class="dataTables_info" id="datatable1_info">显示 1 to
+						${pager.pageSize } 总共 ${pager.recordCount }条</div>
+				</div>
+					<div class="pull-right">
+					<div class="dataTables_paginate paging_bs_full" id="datatable1_paginate" style="height:50px">
+						<ul class="pagination" style="padding-left: 0;margin: 20px 0;display: inline-block;">
+							<li><a href="#">共 ${pager.recordCount} 条数据，每页
+									${pager.pageSize } 条，共 ${pager.pageCount} 页，当前是第
+									${pager.pageNum } 页</a>
+							</li>
+						</ul>
+						<ul class="pagination" style="padding-left: 0;margin: 20px 0;display: inline-block;">
+							<li ${pager.pageNum==1?'class="disabled"':''}><a
+								href="economicNews?pageNum=1">首页</a></li>
+							<li ${pager.pageNum==1?'class="disabled"':''}><a
+								href="economicNews?pageNum=${pager.pageNum-1 }">上页</a></li>
+							<li ${pager.pageNum==pager.pageCount?'class="disabled"':''}><a
+								href="economicNews?pageNum=${pager.pageNum+1 }">下页</a></li>
+							<li ${pager.pageNum==pager.pageCount?'class="disabled"':''}><a
+								href="economicNews?pageNum=${pager.pageCount }">末页</a></li>
+							<li><a>转到 </a></li>
+							<li><a><input id="changePage" type="text"
+									style="width: 35px; padding: 0px; margin: -3px;" /></a></li>
+							<li><a>页 </a></li>
+							<li><a href="javascript:goPage();">跳转</a></li>
 
-		<!-- footer -->
-		<div class="footer">
-			<div class="container">
-				<ul class="agileits_w3layouts_footer_info">
-					<li>
-						<a href="index">Home</a><i>|</i></li>
-					<li>
-						<a href="news">Markets</a><i>|</i></li>
-					<li>
-						<a href="funds">mutual funds</a><i>|</i></li>
-					<li>
-						<a href="commodities">commodities</a><i>|</i></li>
-					<li>
-						<a href="portfolio">portfolio</a><i>|</i></li>
-					<li>
-						<a href="about">About Us</a><i>|</i></li>
-					<li>
-						<a href="ipo">IPO</a><i>|</i></li>
-					<li>
-						<a href="sitemap">sitemap</a>
-					</li>
-				</ul>
-				<p>Copyright &copy; 2016.Company name All rights reserved.
-				</p>
-			</div>
-		</div>
-		<!-- //footer -->
-		<script>
-			$('.marquee').marquee({
-				gap: 100,
-				delayBeforeStart: 0,
-				direction: 'left',
-				duplicated: true,
-				pauseOnHover: true
-			});
-		</script>
-		<!-- Bootstrap Core JavaScript -->
-		<script src="<%=basePath %>/js/bootstrap.min.js"></script>
-		<script>
-			$(document).ready(function() {
-				$(".dropdown").hover(
-					function() {
-						$('.dropdown-menu', this).stop(true, true).slideDown("fast");
-						$(this).toggleClass('open');
-					},
-					function() {
-						$('.dropdown-menu', this).stop(true, true).slideUp("fast");
-						$(this).toggleClass('open');
-					}
-				);
-			});
-		</script>
-		<!-- //Bootstrap Core JavaScript -->
-		<!-- here stars scrolling icon -->
-		<script type="text/javascript">
-			$(document).ready(function() {
-				/*
-					var defaults = {
-					containerID: 'toTop', // fading element id
-					containerHoverID: 'toTopHover', // fading element hover id
-					scrollSpeed: 1200,
-					easingType: 'linear' 
-					};
-				*/
+						</ul>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</aside>
+		</div><!--end:footer-aside-->	
+	
+		<div id="footer-aside" class="box-hover">
+			<aside class="widget">
+				<div class="adv-footer">
+					<a class="banner-bottom-left" href="#"><img class="hover-effect responsive-img" src="placeholders/728x90-banner.jpg" alt="" /></a>
+					<a class="banner-bottom-right" href="#"><img class="hover-effect responsive-img ml-10" src="placeholders/220x90/sample-ad-3.jpg" alt="" /></a>
+				</div><!--end:adv-footer-->
+				<div class="clear"></div>
+			</aside>
+		</div><!--end:footer-aside-->	
+		<footer>
+			<div class="wrapper clearfix">
+				<p id="copyrights">Copyright © 2012 KopaTheme. All Rights Reserved. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a></p>   <a id="scroll-to-top" href="#top">Back to top</a>
+			</div><!--end:wrapper-->
+		</footer>
+	</div><!--main-content-->
+</div><!--end:wrapper-->
 
-				$().UItoTop({
-					easingType: 'easeOutQuart'
-				});
-
-			});
-		</script>
-		<!-- //here ends scrolling icon -->
-	</body>
-
+</body>
 </html>
-

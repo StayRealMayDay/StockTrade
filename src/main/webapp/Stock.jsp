@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Information Of Stock</title>
-<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006,sh601001" charset="utf-8"></script>
-<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sh000001,s_sz399001" charset="utf-8"></script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=sh601006,sh601001" charset="utf-8"></script><!--股票-->
+<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sh000001,s_sz399001" charset="utf-8"></script><!--大盘指数-->
 
 <script type="text/javascript">
 	var elements=hq_str_sh601006.split(",");
