@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.stock.mapper.IndustryNewsinfoMapper" >
-  <resultMap id="BaseResultMap" type="com.stock.pojo.IndustryNewsinfo" >
-    <result column="id" property="id" jdbcType="VARCHAR" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="time" property="time" jdbcType="VARCHAR" />
-    <result column="source" property="source" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
+<mapper namespace="com.stock.mapper.EdgesMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Edges" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sourceID" property="sourceid" jdbcType="VARCHAR" />
+    <result column="attributes" property="attributes" jdbcType="VARCHAR" />
+    <result column="targetID" property="targetid" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="DOUBLE" />
     <result column="stock" property="stock" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -68,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, time, source, content, stock
+    id, sourceID, attributes, targetID, size, stock
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.IndustryNewsinfoExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.EdgesExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from industry_newsinfo
+    from edges
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,37 +84,47 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.stock.pojo.IndustryNewsinfoExample" >
-    delete from industry_newsinfo
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from edges
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from edges
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.EdgesExample" >
+    delete from edges
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.stock.pojo.IndustryNewsinfo" >
-    insert into industry_newsinfo (id, title, time, 
-      source, content, stock
+  <insert id="insert" parameterType="com.stock.pojo.Edges" >
+    insert into edges (id, sourceID, attributes, 
+      targetID, size, stock
       )
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
-      #{source,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{stock,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{sourceid,jdbcType=VARCHAR}, #{attributes,jdbcType=VARCHAR}, 
+      #{targetid,jdbcType=VARCHAR}, #{size,jdbcType=DOUBLE}, #{stock,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.stock.pojo.IndustryNewsinfo" >
-    insert into industry_newsinfo
+  <insert id="insertSelective" parameterType="com.stock.pojo.Edges" >
+    insert into edges
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="title != null" >
-        title,
+      <if test="sourceid != null" >
+        sourceID,
       </if>
-      <if test="time != null" >
-        time,
+      <if test="attributes != null" >
+        attributes,
       </if>
-      <if test="source != null" >
-        source,
+      <if test="targetid != null" >
+        targetID,
       </if>
-      <if test="content != null" >
-        content,
+      <if test="size != null" >
+        size,
       </if>
       <if test="stock != null" >
         stock,
@@ -122,48 +132,48 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="sourceid != null" >
+        #{sourceid,jdbcType=VARCHAR},
       </if>
-      <if test="time != null" >
-        #{time,jdbcType=VARCHAR},
+      <if test="attributes != null" >
+        #{attributes,jdbcType=VARCHAR},
       </if>
-      <if test="source != null" >
-        #{source,jdbcType=VARCHAR},
+      <if test="targetid != null" >
+        #{targetid,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
+      <if test="size != null" >
+        #{size,jdbcType=DOUBLE},
       </if>
       <if test="stock != null" >
         #{stock,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.stock.pojo.IndustryNewsinfoExample" resultType="java.lang.Integer" >
-    select count(*) from industry_newsinfo
+  <select id="countByExample" parameterType="com.stock.pojo.EdgesExample" resultType="java.lang.Integer" >
+    select count(*) from edges
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update industry_newsinfo
+    update edges
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="record.sourceid != null" >
+        sourceID = #{record.sourceid,jdbcType=VARCHAR},
       </if>
-      <if test="record.time != null" >
-        time = #{record.time,jdbcType=VARCHAR},
+      <if test="record.attributes != null" >
+        attributes = #{record.attributes,jdbcType=VARCHAR},
       </if>
-      <if test="record.source != null" >
-        source = #{record.source,jdbcType=VARCHAR},
+      <if test="record.targetid != null" >
+        targetID = #{record.targetid,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=DOUBLE},
       </if>
       <if test="record.stock != null" >
         stock = #{record.stock,jdbcType=VARCHAR},
@@ -174,60 +184,51 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update industry_newsinfo
-    set id = #{record.id,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
-      time = #{record.time,jdbcType=VARCHAR},
-      source = #{record.source,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
+    update edges
+    set id = #{record.id,jdbcType=INTEGER},
+      sourceID = #{record.sourceid,jdbcType=VARCHAR},
+      attributes = #{record.attributes,jdbcType=VARCHAR},
+      targetID = #{record.targetid,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=DOUBLE},
       stock = #{record.stock,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Edges" >
+    update edges
+    <set >
+      <if test="sourceid != null" >
+        sourceID = #{sourceid,jdbcType=VARCHAR},
+      </if>
+      <if test="attributes != null" >
+        attributes = #{attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="targetid != null" >
+        targetID = #{targetid,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Edges" >
+    update edges
+    set sourceID = #{sourceid,jdbcType=VARCHAR},
+      attributes = #{attributes,jdbcType=VARCHAR},
+      targetID = #{targetid,jdbcType=VARCHAR},
+      size = #{size,jdbcType=DOUBLE},
+      stock = #{stock,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   
-  
-  <!-- 2017年10月25日 -->
-  <select id="selectTitleByStock" parameterType="java.util.List"  resultMap="BaseResultMap">
-  	select distinct title,time,id
-  	from industry_newsinfo a
-  	where a.stock in
-	<foreach collection="list" item="item" index="index" open="("  close=")" separator="," >
-		#{item}
-	</foreach>
-	group by title 
-  	order by a.time DESC
-  	limit 0,8
+  <select id="selectEdgesByStock" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select
+		<include refid="Base_Column_List" />
+		from edges where stock = #{stock} or stock='0'
   </select>
-  
-   <!-- 2017年10月25日 -->
-  <select id="selectAllByStockCount" parameterType="java.util.List" resultType="int">
-  	select count(1)
-  	from industry_newsinfo a
-  	where a.stock in
-	<foreach collection="list" item="item" index="index" open="("  close=")" separator="," >
-		#{item}
-	</foreach>
-  </select>
-  
-    <!-- 2017年10月25日 -->
-  <select id="selectAllByStock" resultMap="BaseResultMap">
-  	select distinct title,time,source,content,id
-  	from industry_newsinfo a
-  	where a.stock in
-	<foreach collection="stocklist" item="item" index="index" open="("  close=")" separator="," >
-		#{item}
-	</foreach>
-	group by title 
-  	order by a.time DESC
-  	limit #{page.start}, #{page.pagesize}
-  </select>
-  
-  <!-- 2017年10月25日  -->
-   <select id="selectDetail" parameterType="string" resultMap="BaseResultMap">
-  	select distinct title,time,source,content
-  	from industry_newsinfo 
-  	where id = #{stockId}
-  </select>
-
 </mapper>

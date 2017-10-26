@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.NodesMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Nodes" >
+    <id column="iid" property="iid" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="attributes" property="attributes" jdbcType="VARCHAR" />
+    <result column="y" property="y" jdbcType="DOUBLE" />
+    <result column="x" property="x" jdbcType="DOUBLE" />
+    <result column="size" property="size" jdbcType="DOUBLE" />
+    <result column="stock" property="stock" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    iid, id, color, label, attributes, y, x, size, stock
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.NodesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from nodes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from nodes
+    where iid = #{iid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nodes
+    where iid = #{iid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.NodesExample" >
+    delete from nodes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Nodes" >
+    insert into nodes (iid, id, color, 
+      label, attributes, y, 
+      x, size, stock)
+    values (#{iid,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, 
+      #{label,jdbcType=VARCHAR}, #{attributes,jdbcType=VARCHAR}, #{y,jdbcType=DOUBLE}, 
+      #{x,jdbcType=DOUBLE}, #{size,jdbcType=DOUBLE}, #{stock,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Nodes" >
+    insert into nodes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        iid,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="attributes != null" >
+        attributes,
+      </if>
+      <if test="y != null" >
+        y,
+      </if>
+      <if test="x != null" >
+        x,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        #{iid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="attributes != null" >
+        #{attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="y != null" >
+        #{y,jdbcType=DOUBLE},
+      </if>
+      <if test="x != null" >
+        #{x,jdbcType=DOUBLE},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.NodesExample" resultType="java.lang.Integer" >
+    select count(*) from nodes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update nodes
+    <set >
+      <if test="record.iid != null" >
+        iid = #{record.iid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null" >
+        color = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.label != null" >
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributes != null" >
+        attributes = #{record.attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.y != null" >
+        y = #{record.y,jdbcType=DOUBLE},
+      </if>
+      <if test="record.x != null" >
+        x = #{record.x,jdbcType=DOUBLE},
+      </if>
+      <if test="record.size != null" >
+        size = #{record.size,jdbcType=DOUBLE},
+      </if>
+      <if test="record.stock != null" >
+        stock = #{record.stock,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update nodes
+    set iid = #{record.iid,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      color = #{record.color,jdbcType=VARCHAR},
+      label = #{record.label,jdbcType=VARCHAR},
+      attributes = #{record.attributes,jdbcType=VARCHAR},
+      y = #{record.y,jdbcType=DOUBLE},
+      x = #{record.x,jdbcType=DOUBLE},
+      size = #{record.size,jdbcType=DOUBLE},
+      stock = #{record.stock,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Nodes" >
+    update nodes
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="attributes != null" >
+        attributes = #{attributes,jdbcType=VARCHAR},
+      </if>
+      <if test="y != null" >
+        y = #{y,jdbcType=DOUBLE},
+      </if>
+      <if test="x != null" >
+        x = #{x,jdbcType=DOUBLE},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=DOUBLE},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where iid = #{iid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Nodes" >
+    update nodes
+    set id = #{id,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      attributes = #{attributes,jdbcType=VARCHAR},
+      y = #{y,jdbcType=DOUBLE},
+      x = #{x,jdbcType=DOUBLE},
+      size = #{size,jdbcType=DOUBLE},
+      stock = #{stock,jdbcType=VARCHAR}
+    where iid = #{iid,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectNodesByStock" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select
+		<include refid="Base_Column_List" />
+		from nodes where stock = #{stock} or stock='0'
+  </select>
+  
+  <insert id="insertNodesGaoGuan" >
+    INSERT into nodes (select executive_name,'#EEB422',executive_name,' ',
+    #{y},#{x},30,#{stock},executive_id from company_executive where duty not LIKE "%董事%" and stock = #{stock})
+  </insert>
+</mapper>

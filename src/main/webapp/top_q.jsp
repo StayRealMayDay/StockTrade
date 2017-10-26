@@ -58,45 +58,54 @@
 	<script type="text/javascript" src="js/ie7-fixed.js"></script>
 	<![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-
-<style type="text/css">
- select{display:none;}
-</style>
-
 </head>
+<script type="text/javascript">
+//init method one 
+$(document).ready(function(){ 
+trace("初始化方法进入"); 
+$("#qwertyui").css('display','block'); 
+
+}); 
+function trace(obj){ 
+console.log(obj); 
+}
+</script>
+
 <body class="home-page">
 	<header id="header">
 	<div id="header-top">
-		<div class="wrapper clearfix" >
+		<div class="wrapper clearfix">
 			<div id="welcome">欢迎进入股票交易平台!</div>
 			<!--end:welcome-->
 			<nav id="top-nav">
-				<ul id="top-menu" >
-					<li class="current-menu-item" ><a href="index">首页</a></li>
-					<li><a href="marketIndex?pageNum=1">股市行情<span class="caret"></span></a>
-						<ul>
-							<li><a href="marketIndex?pageNum=1">沪深市场</a></li>
-							<li><a href="#">盘中异动</a></li>
-							<li><a href="#">全球指数</a></li>
-						</ul>
-					</li>
-					<li><a href="#">我的自选股</a></li>
-					<li><a href="#">联系我们</a></li>
-					<li><a href="#">登录</a></li>
-					<li><a href="#">注册</a></li>
-					<li><a href="adminLogin">后台</a></li>
-				</ul>
-
+			<ul id="top-menu" class="clearfix">
+				<li class="current-menu-item"><a href="index">首页</a></li>
+				<li>新闻<span class="caret"></span></a>
+					<ul>
+						<li><a href="economicNews?pageNum=1">财经新闻</a></li>
+						<li><a href="#">时政新闻</a></li>
+						<li><a href="chinaSecurityNews?pageNum=1">证券新闻</a></li>
+						<li><a href="industryNews?pageNum=1">经营新闻</a></li>
+					</ul></li>
+				<li><a href="marketIndex?pageNum=1">股市行情<span class="caret"></span></a>
+					<ul>
+						<li><a href="marketIndex?pageNum=1">沪深市场</a></li>
+						<li><a href="#">盘中异动</a></li>
+						<li><a href="#">全球指数</a></li>
+					</ul></li>
+				<li><a href="#">我的自选股</a></li>
+				<li><a href="#">联系我们</a></li>
+				<li><a href="#">登录</a></li>
+				<li><a href="#">注册</a></li>
+				<li><a href="adminLogin">后台</a></li>
+			</ul>
 			</nav>
 			<!--end:top-nav-->
 		</div>
 		<!--wrapper-->
 	</div>
 	<!--header-top-->
-
-	<div id="header-middle" style="height:100px">
-
+	<div id="header-middle">
 		<div class="wrapper clearfix">
 			<div id="logo-image">
 				<a href="index.html"><img src="placeholders/logo.png" alt="logo" /></a>
@@ -106,10 +115,9 @@
 
 	</div>
 	<!--header-middle-->
-	<div id="navigation" style="height:50px;width:100%">
+	<div id="navigation">
 		<nav id="secondary-menu" class="wrapper clearfix">
-		<ul id="main-nav" style="height:50px">
-
+		<ul class="clearfix" id="main-nav">
 			<li class="current-menu-item"><a href="index">首页</a></li>
 			<li><a href="#">新闻<span class="caret"></span></a>
 				<ul>
@@ -120,12 +128,11 @@
 				</ul></li>
 			<li><a href="#">行情中心<span class="caret"></span></a>
 				<ul>
-
-					<li><a href="#">大盘指数</a></li>
+					<!-- <li><a href="#">大盘指数</a></li> -->
 					<li><a href="marketIndex?pageNum=1">沪深市场</a></li>
 					<li><a href="upRatioRank?pageNum=1">涨速排行</a></li>
-					<li><a href="#">盘中异动</a></li>
-					<li><a href="#">即时大单</a></li>
+					<!-- <li><a href="#">盘中异动</a></li>
+					<li><a href="#">即时大单</a></li> -->
 					<li><a href="industrySectionAll">行业版块</a></li>
 				  <li><a href="conceptionSectionAll">概念版块</a></li>
 			      <li><a href="areaSectionAll">地域板块</a></li>
@@ -133,9 +140,9 @@
 				</ul></li>
 			<li><a href="news.html">数据中心<span class="caret"></span></a>
 				<ul>
-					<li><a href="#">涨停温度计</a></li>
+					<!-- <li><a href="#">涨停温度计</a></li>
 					<li><a href="#">涨停强度</a></li>
-					<li><a href="#">大盘温度计</a></li>
+					<li><a href="#">大盘温度计</a></li> -->
 					<li><a href="#">龙虎榜</a></li>
 					<li><a href="dzjy?pageNum=1">大宗交易</a></li>
 					<li><a href="newStock?pageNum=1">新股申购</a></li>
@@ -149,9 +156,8 @@
 			<li><a href="#">上市公司<span class="caret"></span></a>
 				<ul>
 					<li><a href="companyNews?pageNum=1">公司新闻速递</a></li>
-
-					<li><a href="huBulletinList?pageNum=1">沪市公告</a></li>
-					<li><a href="huBulletinList?pageNum=1">深市公告</a></li>
+					<li><a href="companyNews?pageNum=1">沪市公告</a></li>
+					<li><a href="companyNews?pageNum=1">深市公告</a></li>
 				</ul></li>
 			<li><a href="#">股吧<span class="caret"></span></a>
 				<ul>
@@ -167,15 +173,18 @@
 				</ul></li>
 			<li><a href="newStock?pageNum=1">新股</a></li>
 			<li><a href="#">智能选股</a></li>
+			<!--同花顺-->
 			<li><a href="#">量化回测</a></li>
+			<!--同花顺-->
 			<li><a href="#">投资组合</a></li>
 		</ul>
+		<!--end:main-nav--> </nav>
+		<!--end:secondary-menu-->
 	</div>
-	<div class="clearfix"></div>
 	<!--navigation-->
 	<div id="header-bottom">
-		<div class="wrapper">
-			<div id="headline" >
+		<div class="wrapper clearfix">
+			<div id="headline" class="clearfix">
 				<h6>大盘指数</h6>
 				<div class="horizontal_scroller" style="width:80%;height:30px">
 					<ul class="scrollingtext clearfix">

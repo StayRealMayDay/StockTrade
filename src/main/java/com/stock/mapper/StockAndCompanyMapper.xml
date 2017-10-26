@@ -55,4 +55,7 @@
     from stockinfo a join company b where a.stock_nums = b.stock_numc and company_area = #{area,jdbcType=VARCHAR}
     <!-- from stockinfo where stock_num in (select distinct(stock_num) from company where company_area = #{area,jdbcType=VARCHAR}) -->
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from stockinfo a join company b where a.stock_num = b.stock_num
+  </select>
 </mapper>

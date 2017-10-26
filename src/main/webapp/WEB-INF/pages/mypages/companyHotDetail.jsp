@@ -71,9 +71,7 @@ console.log(obj);
 					<span class="entry-date">&nbsp;&nbsp;|&nbsp;&nbsp;${companyNewsDetail.newsTime }</span>
 					<h1 class="entry-title">${companyNewsDetail.newsTitle }</h1>					          
 				</header>			
-				<blockquote style="font-size:14px">
-				${companyNewsDetail.newsContent }
-				</blockquote>
+				<blockquote>${companyNewsDetail.newsContent }</blockquote>
 			<div class="clear"></div>
 			</article>       
 			<div class="about-author">

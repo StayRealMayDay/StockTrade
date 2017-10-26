@@ -19,9 +19,8 @@ public interface CompanyExecutiveMapper {
     int updateByExampleSelective(@Param("record") CompanyExecutive record, @Param("example") CompanyExecutiveExample example);
 
     int updateByExample(@Param("record") CompanyExecutive record, @Param("example") CompanyExecutiveExample example);
-    
-    //新增部分 2017年10月19日
-    List<CompanyExecutive> selectGaoGuan(String stockId);
-    //新增部分2017年10月29日
-    List<CompanyExecutive> selectDongShi(String stockId);
+
+	List<CompanyExecutive> selectExecutives(String stock);
+
+	List<CompanyExecutive> selectExecutivesDong(String stock);
 }

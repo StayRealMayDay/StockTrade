@@ -256,9 +256,11 @@
       time = #{time,jdbcType=VARCHAR}
     where stockholder_id = #{stockholderId,jdbcType=VARCHAR}
   </update>
-  
-  <select id="selectStockHolderB" parameterType="string" resultMap="BaseResultMap">
-  		select * from stockholder_basic
-  		where stock = #{stockNum}
+  <select id="selecStockholderByStock" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from stockholder_basic 
+		where stock = #{stock}
   </select>
+  
 </mapper>

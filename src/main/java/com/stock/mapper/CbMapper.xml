@@ -288,7 +288,7 @@
   
    <!-- 于花蕾新增部分 2017年9月27日 -->
   <select id="selectAllCbCount" resultType="int">
-  	select count(1)
+  	select count(*)
   	from cb 
   </select>
   

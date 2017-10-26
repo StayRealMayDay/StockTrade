@@ -442,14 +442,14 @@
   <select id="selectAllStockHuACount" resultType="int">
   	select count(*)
   	from stockinfo
-  	where stock_num like '60%'
+  	where stock_num like '%60%'
   </select>
   
   <!-- 于花蕾 2017年9月29 -->
    <select id="selectAllStockShenA"  resultMap="BaseResultMap">
   	select *
   	from stockinfo  
-  	where stock_num like '00%'
+  	where stock_num like '%00%'
   	limit #{start}, #{pagesize}
   </select>
   
@@ -457,33 +457,6 @@
   <select id="selectAllStockShenACount" resultType="int">
   	select count(*)
   	from stockinfo
-  	where stock_num like '00%'
-  </select>
-  
-  <!-- 于花蕾 2017年10月19 -->
-  <select id="selectStockBeiDou" resultMap="BaseResultMap">
-  	select a.* 
-  	from stockinfo a,(select stock_num,max(time) time from stockinfo group by stock_num) b
-	where a.stock_num in('600879','002405','002025','300101','002151','002383','300045','300101','600118','002465')
-	and a.stock_num = b.stock_num
-	and a.stock_num = b.stock_num and a.time  = b.time order by a.time
-  </select>
-  
-  
-  <!-- 于花蕾 2017年10月19 -->
-  <select id="selectConcept" resultMap="BaseResultMap">
-  	select a.*
-  	from stockinfo a,(select stock_num,resolved_concept from company) b
-  	where a.stock_num = b.stock_num
-  	and b.resolved_concept like concat(concat('%',#{conception}),'%')
-  	limit #{page.start}, #{page.pagesize}
-  </select>
-  
-    <!-- 于花蕾 2017年10月19 -->
-  <select id="selectConceptCount" resultType="int">
-  	select count(1)
-  	from stockinfo a,(select stock_num,resolved_concept from company) b
-  	where a.stock_num = b.stock_num
-  	and b.resolved_concept like concat(concat('%',#{conception}),'%')    
+  	where stock_num like '%00%'
   </select>
 </mapper>

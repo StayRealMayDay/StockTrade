@@ -68,11 +68,5 @@ public interface StockinfoMapper {
 	int selectAllStockHuACount();
 	//新增（于花蕾）2017年9月29
 	int selectAllStockShenACount();
-	//新增（于花蕾）2017年10月19
-	List<Stockinfo> selectStockBeiDou();
-	
-	//新增（于花蕾）2017年10月20
-	List<Stockinfo> selectConcept(@Param("page") HashMap<String,Integer> map,@Param("conception") String conception);
-	
-	int selectConceptCount(String conception);
+
 }

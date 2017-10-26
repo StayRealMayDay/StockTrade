@@ -31,6 +31,15 @@
 <link href="http://fonts.googleapis.com/css?family=Muli:300,300i,400,400i" rel="stylesheet">
 <script src="<%=basePath %>/js/bootstrap.min.js"></script>
 
+<!--[if IE 7]><link rel="stylesheet" href="css/ie7.css" type="text/css" media="all" />
+	<![endif]-->
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<link rel="stylesheet" href="css/ie.css" type="text/css" media="all" />
+	<![endif]-->
+<!-- Favicons
+	================================================== -->
 <link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
 <script type="text/javascript"
 	src="<%=basePath %>/js/jquery-1.7.1.min.js"></script>
@@ -80,6 +89,13 @@ $(document).ready(function(){
 			<nav id="top-nav">
 			<ul id="top-menu" class="clearfix">
 				<li class="current-menu-item"><a href="index">首页</a></li>
+				<li>新闻<span class="caret"></span></a>
+					<ul>
+						<li><a href="economicNews?pageNum=1">财经新闻</a></li>
+						<li><a href="#">时政新闻</a></li>
+						<li><a href="chinaSecurityNews?pageNum=1">证券新闻</a></li>
+						<li><a href="industryNews?pageNum=1">经营新闻</a></li>
+					</ul></li>
 				<li><a href="marketIndex?pageNum=1">股市行情<span class="caret"></span></a>
 					<ul>
 						<li><a href="marketIndex?pageNum=1">沪深市场</a></li>
@@ -238,6 +254,7 @@ $(document).ready(function(){
 	</div>
 
 	</header>
+
 	<div class="wrapper">
 		<div id="main-content">
 			<div class="primary" style="width: 525px">
@@ -347,7 +364,7 @@ $(document).ready(function(){
 					</header>
 					<div class="list-carousel responsive">
 						<ul class="feature-news clearfix">
-							<li>
+							<li><article>
 								<div class="feature-item box-hover clearfix">
 									<br>
 									<div class="video-thumb">
@@ -374,7 +391,7 @@ $(document).ready(function(){
 									<!--end:entry_content-->
 								</div>
 								</article></li>
-							<li>
+							<li><article>
 								<div class="feature-item clearfix">
 								<br>
 									<a href="http://image.sinajs.cn/newchart/hollow/small/nsh000300.gif?1506748303853"><img  alt=""
@@ -547,7 +564,6 @@ $(document).ready(function(){
 							<h6>
 								<a href="#">博客</a>
 							</h6>
-
 						</div>
 						<div class="accordion-container" style="height: 320px">
 							<ul>
@@ -627,29 +643,38 @@ $(document).ready(function(){
 					<!--end:widget-->
 					<aside class="widget box-hover" style="border-left:0.5px solid gray"> 
 						<header class="entry-header">
-						<h4 class="widget-title">北斗卫星导航相关股票</h4>
+						<h4 class="widget-title">新股申购</h4>
 						</header>
-						<div class="w3l_stocks">
-							<table style="width: 100%;">
-								<thead>
-								<tr style="width: 100%;height:40px;font-size:15px">
-									<th style="width: 33%;">股票名称</th>
-									<th style="width: 33%;">股票代码</th>
-									<th style="width: 33%;">涨跌幅</th>
-								</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${stockBeiDou}" var="beiDou">
-										<tr style="width: 100%;height:30px">
-											<td><a href="company?stockNum=${beiDou.stockNum}">${beiDou.stockName}</a></td>
-											<td>${beiDou.stockNum}</td>
-											<td>${beiDou.updownRatio}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+						<div class="newsletter">
+							<div class="wpcf7">
+								<form class="wpcf7-form" method="post" action="#" />
+								<p>Enter your email address below to receive updates each
+									time we publish new content</p>
+								<p>
+									<span class="wpcf7-form-control-wrap your-email"><input
+										type="text" size="40"
+										class="wpcf7-form-control wpcf7-text wpcf7-email" value=""
+										name="your-email" /></span> <input type="submit"
+										class="wpcf7-form-control  wpcf7-submit" value="Submit" />
+								</p>
+								</form>
+							</div>
 						</div>
 					</aside>
+					<!--end:widget-->
+					<aside class="widget box-hover" style="border-left:0.5px solid gray">
+						<div class="adv-125-125 clearfix">
+							<a href="#"><img class="hover-effect responsive-img" alt=""
+								src="<%=basePath %>/placeholders/125x125/sample-ad-1.jpg" /></a> <a
+								href="#"><img class="hover-effect responsive-img" alt=""
+								src="<%=basePath %>/placeholders/125x125/sample-ad-1.jpg" /></a> <a
+								href="#"><img class="hover-effect responsive-img" alt=""
+								src="<%=basePath %>/placeholders/125x125/sample-ad-1.jpg" /></a> <a
+								href="#"><img class="hover-effect responsive-img" alt=""
+								src="<%=basePath %>/placeholders/125x125/sample-ad-1.jpg" /></a>
+						</div>
+					</aside>
+					<!--end:widget-->
 					<aside class="widget box-hover" style="border-left:0.5px solid gray"> 
 						<header class="entry-header">
 							<h4 class="widget-title clearfix"><span>个人股票中心</span></h4>

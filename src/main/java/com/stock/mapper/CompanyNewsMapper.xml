@@ -419,8 +419,7 @@
 
 <!--新增部分 热度新闻 -->
 	<select id="selectNewsByHotRatios" resultMap="BaseResultMap">
-
-		select news_title,id,news_time
+		select news_title 
 		from company_news
 		where hot_ratios  &lt;&gt; "" 
 		order by hot_ratios DESC
@@ -468,19 +467,6 @@
 		(select news_time from company_news order by news_time  desc limit 1))a GROUP BY company_name ORDER BY  count(*) desc limit 2
 	</select>
 	
-	<!--2017年10月26 -->
-	<select id="selectNewsByComapny" resultMap="ResultMapWithTime" parameterType="string">
-		select news_time,news_title,id 
-		from company_news 
-		where news_content like "%"#{stockNum}"%"
-		order by news_time DESC
-		limit 0,8
-	</select>
 	
-	<!--2017年10月26 -->
-	<select id="selectNewsDetail" resultMap="BaseResultMap" parameterType="string">
-		select news_time,news_title,news_content,news_source
-		from company_news 
-		where id = #{stockId}
-	</select>
+	
 </mapper>

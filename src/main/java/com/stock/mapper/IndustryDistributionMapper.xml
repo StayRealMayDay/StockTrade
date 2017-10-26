@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.stock.mapper.CompanyBulletinMapper" >
-  <resultMap id="BaseResultMap" type="com.stock.pojo.CompanyBulletin" >
+<mapper namespace="com.stock.mapper.IndustryDistributionMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.IndustryDistribution" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="time" property="time" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
     <result column="stock" property="stock" jdbcType="VARCHAR" />
+    <result column="count" property="coun" jdbcType="NUMERIC"/>
   </resultMap>
+  <resultMap id="PartMap" type="java.util.HashMap">
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+</resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -67,15 +71,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, time, content, stock
+    id, name, value, stock
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.CompanyBulletinExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.IndustryDistributionExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from company_bulletin
+    from industry_distribution
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,39 +90,36 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from company_bulletin
+    from industry_distribution
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from company_bulletin
+    delete from industry_distribution
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.stock.pojo.CompanyBulletinExample" >
-    delete from company_bulletin
+  <delete id="deleteByExample" parameterType="com.stock.pojo.IndustryDistributionExample" >
+    delete from industry_distribution
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.stock.pojo.CompanyBulletin" >
-    insert into company_bulletin (id, title, time, 
-      content, stock)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{stock,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.stock.pojo.IndustryDistribution" >
+    insert into industry_distribution (id, name, value, 
+      stock)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=INTEGER}, 
+      #{stock,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.stock.pojo.CompanyBulletin" >
-    insert into company_bulletin
+  <insert id="insertSelective" parameterType="com.stock.pojo.IndustryDistribution" >
+    insert into industry_distribution
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="title != null" >
-        title,
+      <if test="name != null" >
+        name,
       </if>
-      <if test="time != null" >
-        time,
-      </if>
-      <if test="content != null" >
-        content,
+      <if test="value != null" >
+        value,
       </if>
       <if test="stock != null" >
         stock,
@@ -128,40 +129,34 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="time != null" >
-        #{time,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
+      <if test="value != null" >
+        #{value,jdbcType=INTEGER},
       </if>
       <if test="stock != null" >
         #{stock,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.stock.pojo.CompanyBulletinExample" resultType="java.lang.Integer" >
-    select count(*) from company_bulletin
+  <select id="countByExample" parameterType="com.stock.pojo.IndustryDistributionExample" resultType="java.lang.Integer" >
+    select count(*) from industry_distribution
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update company_bulletin
+    update industry_distribution
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.time != null" >
-        time = #{record.time,jdbcType=VARCHAR},
-      </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
+      <if test="record.value != null" >
+        value = #{record.value,jdbcType=INTEGER},
       </if>
       <if test="record.stock != null" >
         stock = #{record.stock,jdbcType=VARCHAR},
@@ -172,27 +167,23 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update company_bulletin
+    update industry_distribution
     set id = #{record.id,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
-      time = #{record.time,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=INTEGER},
       stock = #{record.stock,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.CompanyBulletin" >
-    update company_bulletin
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.IndustryDistribution" >
+    update industry_distribution
     <set >
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="time != null" >
-        time = #{time,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
+      <if test="value != null" >
+        value = #{value,jdbcType=INTEGER},
       </if>
       <if test="stock != null" >
         stock = #{stock,jdbcType=VARCHAR},
@@ -200,78 +191,17 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.CompanyBulletin" >
-    update company_bulletin
-    set title = #{title,jdbcType=VARCHAR},
-      time = #{time,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.IndustryDistribution" >
+    update industry_distribution
+    set name = #{name,jdbcType=VARCHAR},
+      value = #{value,jdbcType=INTEGER},
       stock = #{stock,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  
-  <!-- 2017年10月25日 -->
-  <select id="selectSomeBulletin" parameterType="string" resultMap="BaseResultMap">
-  	select title,time,id
-  	from company_bulletin
-  	where stock = #{stockNum}
-  	group by title
-  	order by time DESC
-  	limit 0,8
+  <select id="selectDistriAll"  resultMap="PartMap" parameterType="java.lang.String">
+		select
+		name,value
+		from industry_distribution
+		where stock=#{stock} 
   </select>
-  
-      <!-- 2017年10月25日 -->
-  <select id="selectAllByStock" resultMap="BaseResultMap">
-  	select distinct title,time,content,id
-  	from company_bulletin 
-  	where stock = #{stock}
-  	order by time DESC
-  	limit #{page.start}, #{page.pagesize}
-  </select>
-  
-  <!-- 2017年10月25日  -->
-   <select id="selectDetail" parameterType="string" resultMap="BaseResultMap">
-  	select distinct title,time,content
-  	from company_bulletin 
-  	where id = #{stockId}
-  </select>
-  
-  <!-- 2017年10月25日  -->
-   <select id="selectAllByStockCount" parameterType="string" resultType="int">
-  	select count(1)
-  	from company_bulletin 
-  	where stock = #{stockId}
-  </select>
-  
-    <!-- 2017年10月26日  -->
-   <select id="selectHuByStockCount"  resultType="int">
-  	select count(1)
-  	from company_bulletin 
-  	where stock like '60%'
-   </select>
-  
-   <!-- 2017年10月26日  -->
-   <select id="selectShenByStockCount" resultType="int">
-  	select count(1)
-  	from company_bulletin 
-  	where stock like '00%'
-   </select>
-   
-   <!-- 2017年10月26日  -->
-   <select id="selectHuStock" resultMap="BaseResultMap">
-	   	select distinct title,time,content,id
-	  	from company_bulletin 
-	  	where stock like '60%'
-	  	order by time DESC
-	  	limit #{page.start}, #{page.pagesize}      
-   </select>
-   
-   
-     <!-- 2017年10月26日  -->
-   <select id="selectShenStock" resultMap="BaseResultMap">
-	   	select distinct title,time,content,id
-	  	from company_bulletin 
-	  	where stock like '00%'
-	  	order by time DESC
-	  	limit #{page.start}, #{page.pagesize}
-   </select>
 </mapper>

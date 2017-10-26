@@ -19,6 +19,7 @@
     <result column="es_not_profit" property="esNotProfit" jdbcType="VARCHAR" />
     <result column="total_capital" property="totalCapital" jdbcType="VARCHAR" />
     <result column="floating_stock" property="floatingStock" jdbcType="VARCHAR" />
+    <result column="count" property="coun" jdbcType="NUMERIC"/>
   </resultMap>
   
   <sql id="Example_Where_Clause" >
@@ -464,9 +465,16 @@
   </select>
   
       <!-- 2017年10月25日于花蕾 -->
-   <select id="selecResolvedStock" parameterType="java.lang.String" resultMap="BaseResultMap" >
-		select stock_num
+   <select id="selecStockByIndus" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
 		from company 
-		where industry like "%"#{industry}"%"
+		where industry = #{industry}
+  </select>
+    <select id="selectIndustryDistri"  resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		company_area,COUNT(*)count
+		from company
+		where industry=#{industry} GROUP BY company_area
   </select>
 </mapper>

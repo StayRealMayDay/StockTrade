@@ -1,12 +1,10 @@
 package com.stock.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.stock.mapper.BlogMapper;
 import com.stock.mapper.CbMapper;
+import com.stock.mapper.CompanyMapper;
 import com.stock.mapper.CompanyNewsMapper;
 import com.stock.mapper.CsMapper;
 import com.stock.mapper.DdzzMapper;
 import com.stock.mapper.DzjyMapper;
+import com.stock.mapper.EdgesMapper;
 import com.stock.mapper.EeoMapper;
+import com.stock.mapper.IndustryDistributionMapper;
 import com.stock.mapper.NewStockMapper;
 import com.stock.mapper.NewsTypeMapper;
+import com.stock.mapper.NodesMapper;
 import com.stock.mapper.ScrapyNewsMapper;
 import com.stock.mapper.SharesMapper;
 import com.stock.mapper.StatisticsMapper;
@@ -33,14 +35,16 @@ import com.stock.mapper.StockinfoMapper;
 import com.stock.pojo.Blog;
 import com.stock.pojo.Cb;
 import com.stock.pojo.Company;
-import com.stock.pojo.CompanyDetail;
 import com.stock.pojo.CompanyNews;
 import com.stock.pojo.Cs;
 import com.stock.pojo.Ddzz;
 import com.stock.pojo.Dzjy;
+import com.stock.pojo.Edges;
 import com.stock.pojo.Eeo;
+import com.stock.pojo.IndustryDistribution;
 import com.stock.pojo.NewStock;
 import com.stock.pojo.NewsType;
+import com.stock.pojo.Nodes;
 import com.stock.pojo.ScrapyNews;
 import com.stock.pojo.Stock;
 import com.stock.pojo.StockAndCompany;
@@ -85,6 +89,17 @@ public class StockController {
 	DdzzMapper ddzzMapper;
 	@Autowired
 	DzjyMapper dzjyMapper;
+	@Autowired
+	CompanyMapper companyMapper;
+	@Autowired
+	NodesMapper nodesMapper;
+	@Autowired
+	EdgesMapper edgesMapper;
+	@Autowired
+	IndustryDistributionMapper industryDistributionMapper;
+	
+	
+	
 
 	//于花蕾新增  2017年9月27日
 	@RequestMapping(value = "/index")
@@ -97,8 +112,6 @@ public class StockController {
 		List<CompanyNews> compnyNewsList = companyNewsMapper.selectNewsByHotRatios();
 		List<Stockinfo> stockHuA = stockinfoMapper.selectStockHuA();
 		List<Stockinfo> stockShenA = stockinfoMapper.selectStockShenA();
-		
-		List<Stockinfo> stockBeiDou = stockinfoMapper.selectStockBeiDou();
 		List<Cs> csNews = csMapper.selectAllNews();
 		List<com.stock.pojo.Shares> latestSharesList = sharesMapper.selectSharesLatest();
 		List<Blog> latestBlogList = blogMapper.selectBlogLatest();
@@ -117,9 +130,6 @@ public class StockController {
 		model.addAttribute("cbInfo", cbList);
 		model.addAttribute("stockHuA", stockHuA);
 		model.addAttribute("stockShenA", stockShenA);
-		
-		//新增部分--2017年10月19日
-		model.addAttribute("stockBeiDou", stockBeiDou);
 		model.addAttribute("csNews", csNews);
 		return "mypages/index";
 	}
@@ -286,6 +296,52 @@ public class StockController {
 		}
 		model.addAttribute("stock", stock);
 		return stock;
+	}
+	
+	/**
+	 * 测试echarts
+	 */
+	@RequestMapping(value = "/getIndusDistri",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<IndustryDistribution>  getIndusDistri(HttpServletRequest request, Model model){
+//		Map<String,Object> map = new HashMap();
+		List<IndustryDistribution> industryDistributions = industryDistributionMapper.selectDistriAll("002151");
+		//不行： 002383  600879 002405
+//		map.put("nodes", nodes);
+//		map.put("edges", edges);
+//		System.out.println(company.size());
+		
+		return industryDistributions;
+	}
+	
+	
+	
+	/**
+	 * 测试echarts
+	 */
+	@RequestMapping(value = "/getNE",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Map<String,Object>  getStock(HttpServletRequest request, Model model){
+		Map<String,Object> map = new HashMap();
+		List<Nodes> nodes = nodesMapper.selectNodesByStock("300101");
+		List<Edges> edges = edgesMapper.selectEdgesByStock("300101");
+		//不行： 002383  600879 002405
+		map.put("nodes", nodes);
+		map.put("edges", edges);
+//		System.out.println(company.size());
+		
+		return map;
+	}
+	/**
+	 * 测试echarts
+	 */
+	@RequestMapping(value = "/test",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String  test(HttpServletRequest request, Model model){
+		String string = "[{name: '北京',value: 4 },{name: '天津',value: 10 }]";
+//		System.out.println(company.size());
+		
+		return string;
 	}
 	
 	/**
