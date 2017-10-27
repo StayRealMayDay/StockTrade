@@ -85,7 +85,6 @@ public class CompanyNewsController {
 		model.addAttribute("stockShenA", stockShenA);
 		model.addAttribute("stockInfo", stockList);
 		model.addAttribute("companyNewsDetail", companyNewsDetail);
-		
 		return "mypages/companyHotDetail";
 	}
 	

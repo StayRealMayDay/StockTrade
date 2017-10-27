@@ -1,10 +1,10 @@
 package com.stock.controller;
 
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.stock.mapper.CompanyBulletinMapper;
 import com.stock.mapper.CompanyDetailMapper;
 import com.stock.mapper.CompanyExecutiveMapper;
@@ -54,7 +53,6 @@ public class CompanyController {
 	CompanyBulletinMapper companyBulletinMapper;
 	@Autowired
 	CompanyNewsMapper companyNewsMapper;
-
 	
 	@RequestMapping(value = "/company")
 	public String companyNews(Model model,HttpServletRequest req){

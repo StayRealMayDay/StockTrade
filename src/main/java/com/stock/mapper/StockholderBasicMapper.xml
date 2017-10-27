@@ -256,9 +256,9 @@
       time = #{time,jdbcType=VARCHAR}
     where stockholder_id = #{stockholderId,jdbcType=VARCHAR}
   </update>
-  
   <select id="selectStockHolderB" parameterType="string" resultMap="BaseResultMap">
   		select * from stockholder_basic
   		where stock = #{stockNum}
   </select>
+
 </mapper>

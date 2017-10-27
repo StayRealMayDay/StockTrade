@@ -35,6 +35,17 @@ public class Company {
 
     private String floatingStock;
 
+    private int coun;
+
+    public int getCoun() {
+		return coun;
+	}
+
+	public void setCoun(int coun) {
+		this.coun = coun;
+	}
+    
+
     public String getCompanyId() {
         return companyId;
     }

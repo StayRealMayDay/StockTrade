@@ -24,4 +24,6 @@ public interface CompanyExecutiveMapper {
     List<CompanyExecutive> selectGaoGuan(String stockId);
     //新增部分2017年10月29日
     List<CompanyExecutive> selectDongShi(String stockId);
+	List<CompanyExecutive> selectExecutives(String stock);
+	List<CompanyExecutive> selectExecutivesDong(String stock);
 }

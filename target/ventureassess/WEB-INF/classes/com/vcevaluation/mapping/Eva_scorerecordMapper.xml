@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.Eva_scorerecordMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Eva_scorerecord">
+		<id column="escore_id" property="escore_id" jdbcType="INTEGER" />
+		<result column="es_value" property="es_value" jdbcType="DOUBLE" />
+		<result column="es_eva_id" property="es_eva_id" jdbcType="INTEGER" />
+		<result column="es_option_id" property="es_option_id" jdbcType="INTEGER" />
+		<result column="es_in_parent" property="es_in_parent" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		escore_id, es_value, es_eva_id, es_option_id,es_in_parent
+	</sql>
+	
+	<insert id="insertEva_scorerecord" parameterType="com.vcevaluation.pojo.Eva_scorerecord">
+		insert into eva_scorerecord (es_value, es_eva_id, es_option_id,es_in_parent)
+		values (#{es_value,jdbcType=VARCHAR}, 
+		#{es_eva_id,jdbcType=INTEGER}, 
+		#{es_option_id,jdbcType=DOUBLE},
+		#{es_in_parent,jdbcType=INTEGER})
+    </insert>
+    <select id="selectInofESrecord" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Eva_scorerecord">
+	    select *
+	    from eva_scorerecord as es
+	    where  es.es_eva_id = #{es_eva_id,jdbcType=INTEGER} and es.es_in_parent = #{es_in_parent,jdbcType=INTEGER}
+	</select>
+</mapper>

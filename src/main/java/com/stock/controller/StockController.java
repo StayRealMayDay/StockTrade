@@ -7,13 +7,11 @@ import java.util.List;
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.stock.mapper.BlogMapper;
 import com.stock.mapper.CbMapper;
 import com.stock.mapper.CompanyNewsMapper;
@@ -33,11 +31,13 @@ import com.stock.mapper.StockinfoMapper;
 import com.stock.pojo.Blog;
 import com.stock.pojo.Cb;
 import com.stock.pojo.Company;
+
 import com.stock.pojo.CompanyDetail;
 import com.stock.pojo.CompanyNews;
 import com.stock.pojo.Cs;
 import com.stock.pojo.Ddzz;
 import com.stock.pojo.Dzjy;
+
 import com.stock.pojo.Eeo;
 import com.stock.pojo.NewStock;
 import com.stock.pojo.NewsType;
@@ -97,6 +97,7 @@ public class StockController {
 		List<CompanyNews> compnyNewsList = companyNewsMapper.selectNewsByHotRatios();
 		List<Stockinfo> stockHuA = stockinfoMapper.selectStockHuA();
 		List<Stockinfo> stockShenA = stockinfoMapper.selectStockShenA();
+
 		
 		List<Stockinfo> stockBeiDou = stockinfoMapper.selectStockBeiDou();
 		List<Cs> csNews = csMapper.selectAllNews();
@@ -117,7 +118,6 @@ public class StockController {
 		model.addAttribute("cbInfo", cbList);
 		model.addAttribute("stockHuA", stockHuA);
 		model.addAttribute("stockShenA", stockShenA);
-		
 		//新增部分--2017年10月19日
 		model.addAttribute("stockBeiDou", stockBeiDou);
 		model.addAttribute("csNews", csNews);

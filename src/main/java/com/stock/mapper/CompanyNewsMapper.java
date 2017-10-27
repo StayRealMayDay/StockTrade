@@ -56,10 +56,12 @@ public interface CompanyNewsMapper {
 	List<CompanyNews> selectTopNews();
 	//新增部分  于花蕾 2017年9月28日
 	CompanyNews newsByHotRatiosDetail(int id);
+
 	
 	//2017年10月26日
 	List<CompanyNews> selectNewsByComapny(String stockNum);
 	
 	//2017年10月26
 	CompanyNews selectNewsDetail(String stockId);
+
 }

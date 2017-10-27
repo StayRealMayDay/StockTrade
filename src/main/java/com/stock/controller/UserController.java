@@ -28,9 +28,7 @@ public class UserController {
 	@RequestMapping(value = "/toAboutMe")
 	public String toAboutMe(Model model){
 		return "toAboutMe";
-	}
-
-	
+	}	
 	//查看所有（more）政策法规
 		@RequestMapping(value = "/selectNews3")
 		public String selectNews3(Model model){

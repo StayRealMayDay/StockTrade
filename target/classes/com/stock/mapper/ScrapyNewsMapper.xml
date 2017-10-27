@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ScrapyNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.ScrapyNews" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="operate_date" property="operateDate" jdbcType="VARCHAR" />
+    <result column="avgupdn10" property="avgupdn10" jdbcType="VARCHAR" />
+    <result column="updn10" property="updn10" jdbcType="VARCHAR" />
+    <result column="avgday10" property="avgday10" jdbcType="VARCHAR" />
+    <result column="updn05" property="updn05" jdbcType="VARCHAR" />
+    <result column="avgday05" property="avgday05" jdbcType="VARCHAR" />
+    <result column="updn03" property="updn03" jdbcType="VARCHAR" />
+    <result column="avgday03" property="avgday03" jdbcType="VARCHAR" />
+    <result column="updn01" property="updn01" jdbcType="VARCHAR" />
+    <result column="avgday01" property="avgday01" jdbcType="VARCHAR" />
+    <result column="amountc" property="amountc" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="volume" property="volume" jdbcType="VARCHAR" />
+    <result column="closeavg10" property="closeavg10" jdbcType="VARCHAR" />
+    <result column="closeavgl" property="closeavgl" jdbcType="VARCHAR" />
+    <result column="closep" property="closep" jdbcType="VARCHAR" />
+    <result column="close" property="close" jdbcType="VARCHAR" />
+    <result column="low" property="low" jdbcType="VARCHAR" />
+    <result column="high" property="high" jdbcType="VARCHAR" />
+    <result column="open" property="open" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="second_category" property="secondCategory" jdbcType="VARCHAR" />
+    <result column="first_category" property="firstCategory" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, operate_date, avgupdn10, updn10, avgday10, updn05, avgday05, updn03, avgday03, 
+    updn01, avgday01, amountc, amount, volume, closeavg10, closeavgl, closep, close, 
+    low, high, open, date, stock_id, stock_name, second_category, first_category
+  </sql>
+  <sql id="Base_stock_List" >
+    date, open, close,  avgday05,updn05,low, high, amount, volume
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.ScrapyNewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scrapy_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scrapy_news
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scrapy_news
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.ScrapyNewsExample" >
+    delete from scrapy_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.ScrapyNews" >
+    insert into scrapy_news (id, operate_date, avgupdn10, 
+      updn10, avgday10, updn05, 
+      avgday05, updn03, avgday03, 
+      updn01, avgday01, amountc, 
+      amount, volume, closeavg10, 
+      closeavgl, closep, close, 
+      low, high, open, date, 
+      stock_id, stock_name, second_category, 
+      first_category)
+    values (#{id,jdbcType=INTEGER}, #{operateDate,jdbcType=VARCHAR}, #{avgupdn10,jdbcType=VARCHAR}, 
+      #{updn10,jdbcType=VARCHAR}, #{avgday10,jdbcType=VARCHAR}, #{updn05,jdbcType=VARCHAR}, 
+      #{avgday05,jdbcType=VARCHAR}, #{updn03,jdbcType=VARCHAR}, #{avgday03,jdbcType=VARCHAR}, 
+      #{updn01,jdbcType=VARCHAR}, #{avgday01,jdbcType=VARCHAR}, #{amountc,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=VARCHAR}, #{volume,jdbcType=VARCHAR}, #{closeavg10,jdbcType=VARCHAR}, 
+      #{closeavgl,jdbcType=VARCHAR}, #{closep,jdbcType=VARCHAR}, #{close,jdbcType=VARCHAR}, 
+      #{low,jdbcType=VARCHAR}, #{high,jdbcType=VARCHAR}, #{open,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{stockId,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, #{secondCategory,jdbcType=VARCHAR}, 
+      #{firstCategory,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.ScrapyNews" >
+    insert into scrapy_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="operateDate != null" >
+        operate_date,
+      </if>
+      <if test="avgupdn10 != null" >
+        avgupdn10,
+      </if>
+      <if test="updn10 != null" >
+        updn10,
+      </if>
+      <if test="avgday10 != null" >
+        avgday10,
+      </if>
+      <if test="updn05 != null" >
+        updn05,
+      </if>
+      <if test="avgday05 != null" >
+        avgday05,
+      </if>
+      <if test="updn03 != null" >
+        updn03,
+      </if>
+      <if test="avgday03 != null" >
+        avgday03,
+      </if>
+      <if test="updn01 != null" >
+        updn01,
+      </if>
+      <if test="avgday01 != null" >
+        avgday01,
+      </if>
+      <if test="amountc != null" >
+        amountc,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="closeavg10 != null" >
+        closeavg10,
+      </if>
+      <if test="closeavgl != null" >
+        closeavgl,
+      </if>
+      <if test="closep != null" >
+        closep,
+      </if>
+      <if test="close != null" >
+        close,
+      </if>
+      <if test="low != null" >
+        low,
+      </if>
+      <if test="high != null" >
+        high,
+      </if>
+      <if test="open != null" >
+        open,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="secondCategory != null" >
+        second_category,
+      </if>
+      <if test="firstCategory != null" >
+        first_category,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="operateDate != null" >
+        #{operateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="avgupdn10 != null" >
+        #{avgupdn10,jdbcType=VARCHAR},
+      </if>
+      <if test="updn10 != null" >
+        #{updn10,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday10 != null" >
+        #{avgday10,jdbcType=VARCHAR},
+      </if>
+      <if test="updn05 != null" >
+        #{updn05,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday05 != null" >
+        #{avgday05,jdbcType=VARCHAR},
+      </if>
+      <if test="updn03 != null" >
+        #{updn03,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday03 != null" >
+        #{avgday03,jdbcType=VARCHAR},
+      </if>
+      <if test="updn01 != null" >
+        #{updn01,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday01 != null" >
+        #{avgday01,jdbcType=VARCHAR},
+      </if>
+      <if test="amountc != null" >
+        #{amountc,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="closeavg10 != null" >
+        #{closeavg10,jdbcType=VARCHAR},
+      </if>
+      <if test="closeavgl != null" >
+        #{closeavgl,jdbcType=VARCHAR},
+      </if>
+      <if test="closep != null" >
+        #{closep,jdbcType=VARCHAR},
+      </if>
+      <if test="close != null" >
+        #{close,jdbcType=VARCHAR},
+      </if>
+      <if test="low != null" >
+        #{low,jdbcType=VARCHAR},
+      </if>
+      <if test="high != null" >
+        #{high,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="secondCategory != null" >
+        #{secondCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="firstCategory != null" >
+        #{firstCategory,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.ScrapyNewsExample" resultType="java.lang.Integer" >
+    select count(*) from scrapy_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scrapy_news
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.operateDate != null" >
+        operate_date = #{record.operateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgupdn10 != null" >
+        avgupdn10 = #{record.avgupdn10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updn10 != null" >
+        updn10 = #{record.updn10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgday10 != null" >
+        avgday10 = #{record.avgday10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updn05 != null" >
+        updn05 = #{record.updn05,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgday05 != null" >
+        avgday05 = #{record.avgday05,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updn03 != null" >
+        updn03 = #{record.updn03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgday03 != null" >
+        avgday03 = #{record.avgday03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updn01 != null" >
+        updn01 = #{record.updn01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgday01 != null" >
+        avgday01 = #{record.avgday01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountc != null" >
+        amountc = #{record.amountc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.volume != null" >
+        volume = #{record.volume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeavg10 != null" >
+        closeavg10 = #{record.closeavg10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeavgl != null" >
+        closeavgl = #{record.closeavgl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closep != null" >
+        closep = #{record.closep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.close != null" >
+        close = #{record.close,jdbcType=VARCHAR},
+      </if>
+      <if test="record.low != null" >
+        low = #{record.low,jdbcType=VARCHAR},
+      </if>
+      <if test="record.high != null" >
+        high = #{record.high,jdbcType=VARCHAR},
+      </if>
+      <if test="record.open != null" >
+        open = #{record.open,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondCategory != null" >
+        second_category = #{record.secondCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstCategory != null" >
+        first_category = #{record.firstCategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scrapy_news
+    set id = #{record.id,jdbcType=INTEGER},
+      operate_date = #{record.operateDate,jdbcType=VARCHAR},
+      avgupdn10 = #{record.avgupdn10,jdbcType=VARCHAR},
+      updn10 = #{record.updn10,jdbcType=VARCHAR},
+      avgday10 = #{record.avgday10,jdbcType=VARCHAR},
+      updn05 = #{record.updn05,jdbcType=VARCHAR},
+      avgday05 = #{record.avgday05,jdbcType=VARCHAR},
+      updn03 = #{record.updn03,jdbcType=VARCHAR},
+      avgday03 = #{record.avgday03,jdbcType=VARCHAR},
+      updn01 = #{record.updn01,jdbcType=VARCHAR},
+      avgday01 = #{record.avgday01,jdbcType=VARCHAR},
+      amountc = #{record.amountc,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=VARCHAR},
+      volume = #{record.volume,jdbcType=VARCHAR},
+      closeavg10 = #{record.closeavg10,jdbcType=VARCHAR},
+      closeavgl = #{record.closeavgl,jdbcType=VARCHAR},
+      closep = #{record.closep,jdbcType=VARCHAR},
+      close = #{record.close,jdbcType=VARCHAR},
+      low = #{record.low,jdbcType=VARCHAR},
+      high = #{record.high,jdbcType=VARCHAR},
+      open = #{record.open,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      second_category = #{record.secondCategory,jdbcType=VARCHAR},
+      first_category = #{record.firstCategory,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.ScrapyNews" >
+    update scrapy_news
+    <set >
+      <if test="operateDate != null" >
+        operate_date = #{operateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="avgupdn10 != null" >
+        avgupdn10 = #{avgupdn10,jdbcType=VARCHAR},
+      </if>
+      <if test="updn10 != null" >
+        updn10 = #{updn10,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday10 != null" >
+        avgday10 = #{avgday10,jdbcType=VARCHAR},
+      </if>
+      <if test="updn05 != null" >
+        updn05 = #{updn05,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday05 != null" >
+        avgday05 = #{avgday05,jdbcType=VARCHAR},
+      </if>
+      <if test="updn03 != null" >
+        updn03 = #{updn03,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday03 != null" >
+        avgday03 = #{avgday03,jdbcType=VARCHAR},
+      </if>
+      <if test="updn01 != null" >
+        updn01 = #{updn01,jdbcType=VARCHAR},
+      </if>
+      <if test="avgday01 != null" >
+        avgday01 = #{avgday01,jdbcType=VARCHAR},
+      </if>
+      <if test="amountc != null" >
+        amountc = #{amountc,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=VARCHAR},
+      </if>
+      <if test="closeavg10 != null" >
+        closeavg10 = #{closeavg10,jdbcType=VARCHAR},
+      </if>
+      <if test="closeavgl != null" >
+        closeavgl = #{closeavgl,jdbcType=VARCHAR},
+      </if>
+      <if test="closep != null" >
+        closep = #{closep,jdbcType=VARCHAR},
+      </if>
+      <if test="close != null" >
+        close = #{close,jdbcType=VARCHAR},
+      </if>
+      <if test="low != null" >
+        low = #{low,jdbcType=VARCHAR},
+      </if>
+      <if test="high != null" >
+        high = #{high,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null" >
+        open = #{open,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="secondCategory != null" >
+        second_category = #{secondCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="firstCategory != null" >
+        first_category = #{firstCategory,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.ScrapyNews" >
+    update scrapy_news
+    set operate_date = #{operateDate,jdbcType=VARCHAR},
+      avgupdn10 = #{avgupdn10,jdbcType=VARCHAR},
+      updn10 = #{updn10,jdbcType=VARCHAR},
+      avgday10 = #{avgday10,jdbcType=VARCHAR},
+      updn05 = #{updn05,jdbcType=VARCHAR},
+      avgday05 = #{avgday05,jdbcType=VARCHAR},
+      updn03 = #{updn03,jdbcType=VARCHAR},
+      avgday03 = #{avgday03,jdbcType=VARCHAR},
+      updn01 = #{updn01,jdbcType=VARCHAR},
+      avgday01 = #{avgday01,jdbcType=VARCHAR},
+      amountc = #{amountc,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      volume = #{volume,jdbcType=VARCHAR},
+      closeavg10 = #{closeavg10,jdbcType=VARCHAR},
+      closeavgl = #{closeavgl,jdbcType=VARCHAR},
+      closep = #{closep,jdbcType=VARCHAR},
+      close = #{close,jdbcType=VARCHAR},
+      low = #{low,jdbcType=VARCHAR},
+      high = #{high,jdbcType=VARCHAR},
+      open = #{open,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      stock_id = #{stockId,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      second_category = #{secondCategory,jdbcType=VARCHAR},
+      first_category = #{firstCategory,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectStockByNum" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_stock_List" />
+    from scrapy_news
+    where stock_id = #{stock_id,jdbcType=VARCHAR}
+    order by date DESC
+  </select>
+</mapper>

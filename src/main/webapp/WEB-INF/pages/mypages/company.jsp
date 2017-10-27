@@ -14,7 +14,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-
 <!-- //for-mobile-apps -->
 <link href="<%=basePath %>/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="<%=basePath %>/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -29,6 +28,7 @@
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="<%=basePath %>/js/move-top.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/easing.js"></script>
+<<<<<<< HEAD
 <!-- start-smoth-scrolling -->
 
 <style type="text/css">
@@ -98,7 +98,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div style="height:30px"></div>
 			<div class="agileinfo_news_original_grids">
 				<div class="col-md-3 agileinfo_news_original_grids_left">

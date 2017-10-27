@@ -27,6 +27,10 @@ public interface StockholderBasicMapper {
     int updateByPrimaryKeySelective(StockholderBasic record);
 
     int updateByPrimaryKey(StockholderBasic record);
+
     
     List<StockholderBasic> selectStockHolderB(String stockNum);
+
+	List<StockholderBasic> selecStockholderByStock(String stock);
+
 }

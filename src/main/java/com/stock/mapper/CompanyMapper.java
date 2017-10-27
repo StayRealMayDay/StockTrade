@@ -49,8 +49,12 @@ public interface CompanyMapper {
 	
 	//于花蕾2017年10月25日
 	String selecResolvedIndustry(String stockNum);
-	
+
 	//于花蕾2017年10月25日
 	List<Company> selecResolvedStock(String industry);
+	//
+	List<Company> selecStockByIndus(String industry);
+
+	List<Company> selectIndustryDistri(String industry);
 
 }

@@ -30,7 +30,6 @@
 <script src="<%=basePath %>/js/jquery.flot.animator.min.js" type="text/javascript"></script>
 <link href="http://fonts.googleapis.com/css?family=Muli:300,300i,400,400i" rel="stylesheet">
 <script src="<%=basePath %>/js/bootstrap.min.js"></script>
-
 <link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
 <script type="text/javascript"
 	src="<%=basePath %>/js/jquery-1.7.1.min.js"></script>
@@ -547,7 +546,6 @@ $(document).ready(function(){
 							<h6>
 								<a href="#">博客</a>
 							</h6>
-
 						</div>
 						<div class="accordion-container" style="height: 320px">
 							<ul>

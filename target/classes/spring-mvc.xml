@@ -1,0 +1,308 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc 
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+                        
+	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+	<context:component-scan base-package="com.stock.controller" />
+	
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->
+			</list>
+		</property>
+	</bean>
+	<!-- 定义跳转的文件的前后缀 ，视图模式配置（视图解析器） -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!--扫描包 -->
+	<context:component-scan base-package="com.stock.service"
+		annotation-config="true" />
+	<context:component-scan base-package="com.stock" />
+	<!-- ASPECTJ注解 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+	<!--切面 -->
+	<bean id="systemLogAspect" class="com.stock.annotation.SystemLogAspect"></bean>
+
+	<!-- 得到springMVC所提供的注解驱动，识别全部的@RequestMapping -->
+	<mvc:annotation-driven />
+	<!-- 处理对静态资源的请求 -->
+	<!--location用于指定静态资源的位置，mapping用来过滤请求 -->
+	<mvc:resources location="/static/adStyle/" mapping="/static/adStyle/**" />
+	<mvc:resources location="/static/adStyle/css/" mapping="/static/adStyle/css/**" />
+	<mvc:resources location="/static/adStyle/css/animatecss/"
+		mapping="/static/adStyle/css/animatecss/**" />
+	<mvc:resources location="/static/adStyle/css/flags/"
+		mapping="/static/adStyle/css/flags/**" />
+	<mvc:resources location="/static/adStyle/css/themes/"
+		mapping="/static/adStyle/css/themes/**" />
+	<mvc:resources location="/static/adStyle/email_templates/"
+		mapping="/static/adStyle/email_templates/**" />
+	<mvc:resources location="/static/adStyle/font-awesome/"
+		mapping="/static/adStyle/font-awesome/**" />
+	<mvc:resources location="/static/adStyle/font-awesome/css/"
+		mapping="/static/adStyle/font-awesome/css/**" />
+	<mvc:resources location="/static/adStyle/font-awesome/fonts/"
+		mapping="/static/adStyle/font-awesome/fonts/**" />
+	<mvc:resources location="/static/adStyle/font-awesome/less/"
+		mapping="/static/adStyle/font-awesome/less/**" />
+	<mvc:resources location="/static/adStyle/font-awesome/scss/"
+		mapping="/static/adStyle/font-awesome/scss/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/"
+		mapping="/static/adStyle/frontend_theme/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/bootstrap-dist/"
+		mapping="/static/adStyle/frontend_theme/bootstrap-dist/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/bootstrap-dist/css/"
+		mapping="/static/adStyle/frontend_theme/bootstrap-dist/css/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/bootstrap-dist/fonts/"
+		mapping="/static/adStyle/frontend_theme/bootstrap-dist/fonts/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/bootstrap-dist/js/"
+		mapping="/static/adStyle/frontend_theme/bootstrap-dist/js/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/css/"
+		mapping="/static/adStyle/frontend_theme/css/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/css/amimatecss/"
+		mapping="/static/adStyle/frontend_theme/css/amimatecss/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/font-awesome/"
+		mapping="/static/adStyle/frontend_theme/font-awesome/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/font-awesome/css/"
+		mapping="/static/adStyle/frontend_theme/font-awesome/css/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/font-awesome/fonts/"
+		mapping="/static/adStyle/frontend_theme/font-awesome/fonts/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/font-awesome/less/"
+		mapping="/static/adStyle/frontend_theme/font-awesome/less/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/font-awesome/scss/"
+		mapping="/static/adStyle/frontend_theme/font-awesome/scss/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/img/"
+		mapping="/static/adStyle/rontend_theme/img/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/img/gallery/"
+		mapping="/static/adStyle/frontend_theme/img/gallery/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/img/logo/"
+		mapping="/static/adStyle/frontend_theme/img/logo/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/img/testimonials/"
+		mapping="/static/adStyle/frontend_theme/img/testimonials/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/js/"
+		mapping="/static/adStyle/frontend_theme/js/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/js/colorbox/"
+		mapping="/static/adStyle/frontend_theme/js/colorbox/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/js/colorbox/images/"
+		mapping="/static/adStyle/frontend_theme/js/colorbox/images/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/js/isotope/"
+		mapping="/static/adStyle/frontend_theme/js/isotope/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/js/navmaster/"
+		mapping="/static/adStyle/frontend_theme/js/navmaster/**" />
+	<mvc:resources location="/static/adStyle/frontend_theme/js/waypoint/"
+		mapping="/static/adStyle/frontend_theme/js/waypoint/**" />
+	<mvc:resources location="/static/adStyle/img/" mapping="/static/adStyle/img/**" />
+	<mvc:resources location="/static/adStyle/img/addressbook/"
+		mapping="/static/adStyle/img/addressbook/**" />
+	<mvc:resources location="/static/adStyle/img/avatars/"
+		mapping="/static/adStyle/img/avatars/**" />
+	<mvc:resources location="/static/adStyle/img/carousel/"
+		mapping="/static/adStyle/img/carousel/**" />
+	<mvc:resources location="/static/adStyle/img/chat/"
+		mapping="/static/adStyle/img/chat/**" />
+	<mvc:resources location="/static/adStyle/img/gallery/"
+		mapping="/static/adStyle/img/gallery/**" />
+	<mvc:resources location="/static/adStyle/img/gallery/img/"
+		mapping="/static/adStyle/img/gallery/img/**" />
+	<mvc:resources location="/static/adStyle/img/gritter/"
+		mapping="/static/adStyle/img/gritter/**" />
+	<mvc:resources location="/static/adStyle/img/inbox/"
+		mapping="/static/adStyle/img/inbox/**" />
+	<mvc:resources location="/static/adStyle/img/loaders"
+		mapping="/static/adStyle/img/loaders/**" />
+	<mvc:resources location="/static/adStyle/img/login/"
+		mapping="/static/adStyle/img/login/**" />
+	<mvc:resources location="/static/adStyle/img/logo/"
+		mapping="/static/adStyle/img/logo/**" />
+	<mvc:resources location="/static/adStyle/img/profile/"
+		mapping="/static/adStyle/img/profile/**" />
+	<mvc:resources location="/static/adStyle/img/search/"
+		mapping="/static/adStyle/img/search/**" />
+	<mvc:resources location="/static/adStyle/img/slider/"
+		mapping="/static/adStyle/img/slider/**" />
+	<mvc:resources location="/static/adStyle/js/" mapping="/static/adStyle/js/**" />
+	<mvc:resources location="/static/adStyle/js/autosize/"
+		mapping="/static/adStyle/js/autosize/**" />
+	<mvc:resources location="/static/adStyle/js/backstretch/"
+		mapping="/static/adStyle/js/backstretch/**" />
+	<mvc:resources location="/static/adStyle/js/blueimp/"
+		mapping="/static/adStyle/js/blueimp/**" />
+	<mvc:resources location="/static/adStyle/js/bootbox/"
+		mapping="/static/adStyle/js/bootbox/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-daterangepicker/"
+		mapping="/static/adStyle/js/bootstrap-daterangepicker/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-fileupload/"
+		mapping="/static/adStyle/js/bootstrap-fileupload/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-inputmask/"
+		mapping="/static/adStyle/js/bootstrap-inputmask/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-markdown/"
+		mapping="/static/adStyle/js/bootstrap-markdown/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-onhover/"
+		mapping="/static/adStyle/js/bootstrap-onhover/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-switch/"
+		mapping="/static/adStyle/js/bootstrap-switch/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-wizard/"
+		mapping="/static/adStyle/js/bootstrap-wizard/**" />
+	<mvc:resources location="/static/adStyle/js/bootstrap-wysiwyg/"
+		mapping="/static/adStyle/js/bootstrap-wysiwyg/**" />
+	<mvc:resources location="/static/adStyle/js/ckeditor/"
+		mapping="/static/adStyle/js/ckeditor/**" />
+	<mvc:resources location="/static/adStyle/js/colorbox/"
+		mapping="/static/adStyle/js/colorbox/**" />
+	<mvc:resources location="/static/adStyle/js/colorpicker/"
+		mapping="/static/adStyle/js/colorpicker/**" />
+	<mvc:resources location="/static/adStyle/js/d3/" mapping="/static/adStyle/js/d3/**" />
+	<mvc:resources location="/static/adStyle/js/datatables/"
+		mapping="/static/adStyle/js/datatables/**" />
+	<mvc:resources location="/static/adStyle/js/datepicker/"
+		mapping="/static/adStyle/js/datepicker/**" />
+	<mvc:resources location="/static/adStyle/js/dropzone/"
+		mapping="/static/adStyle/js/dropzone/**" />
+	<mvc:resources location="/static/adStyle/js/easypiechart/"
+		mapping="/static/adStyle/js/easypiechart/**" />
+	<mvc:resources location="/static/adStyle/js/flot/"
+		mapping="/static/adStyle/js/flot/**" />
+	<mvc:resources location="/static/adStyle/js/flot-growraf/"
+		mapping="/static/adStyle/js/flot-growraf/**" />
+	<mvc:resources location="/static/adStyle/js/fuelux-tree/"
+		mapping="/static/adStyle/js/fuelux-tree/**" />
+	<mvc:resources location="/static/adStyle/js/fullcalendar/"
+		mapping="/static/adStyle/js/fullcalendar/**" />
+	<mvc:resources location="/static/adStyle/js/gmaps/"
+		mapping="/static/adStyle/js/gmaps/**" />
+	<mvc:resources location="/static/adStyle/js/gritter/"
+		mapping="/static/adStyle/js/gritter/**" />
+	<mvc:resources location="/static/adStyle/js/hubspot-messenger/"
+		mapping="/static/adStyle/js/hubspot-messenger/**" />
+	<mvc:resources location="/static/adStyle/js/isotope/"
+		mapping="/static/adStyle/js/isotope/**" />
+	<mvc:resources location="/static/adStyle/js/jqgrid/"
+		mapping="/static/adStyle/js/jqgrid/**" />
+	<mvc:resources location="/static/adStyle/js/jquery/"
+		mapping="/static/adStyle/js/jquery/**" />
+	<mvc:resources location="/static/adStyle/js/jQuery-BlockUI/"
+		mapping="/static/adStyle/js/jQuery-BlockUI/**" />
+	<mvc:resources location="/static/adStyle/js/jQuery-Cookie/"
+		mapping="/static/adStyle/js/jQuery-Cookie/**" />
+	<mvc:resources location="/static/adStyle/js/jquery-easing/"
+		mapping="/static/adStyle/js/jquery-easing/**" />
+	<mvc:resources location="/static/adStyle/js/jQuery-Knob/"
+		mapping="/static/adStyle/js/jQuery-Knob/**" />
+	<mvc:resources location="/static/adStyle/js/jquery-raty/"
+		mapping="/static/adStyle/js/jquery-raty/**" />
+	<mvc:resources location="/static/adStyle/js/jQuery-slimScroll-1.3.0/"
+		mapping="/static/adStyle/js/jQuery-slimScroll-1.3.0/**" />
+	<mvc:resources location="/static/adStyle/js/jquery-todo/"
+		mapping="/static/adStyle/js/jquery-todo/**" />
+	<mvc:resources location="/static/adStyle/js/jquery-ui-1.10.3.custom/"
+		mapping="/static/adStyle/js/jquery-ui-1.10.3.custom/**" />
+	<mvc:resources location="/static/adStyle/js/jquery-upload/"
+		mapping="/static/adStyle/js/jquery-upload/**" />
+	<mvc:resources location="/static/adStyle/js/jquery-validate/"
+		mapping="/static/adStyle/js/jquery-validate/**" />
+	<mvc:resources location="/static/adStyle/js/jqvmap/"
+		mapping="/static/adStyle/js/jqvmap/**" />
+	<mvc:resources location="/static/adStyle/js/justgage/"
+		mapping="/static/adStyle/js/justgage/**" />
+	<mvc:resources location="/static/adStyle/js/magic-suggest/"
+		mapping="/static/adStyle/js/magic-suggest/**" />
+	<mvc:resources location="/static/adStyle/js/navmaster/"
+		mapping="/static/adStyle/js/navmaster/**" />
+	<mvc:resources location="/static/adStyle/js/nestable/"
+		mapping="/static/adStyle/js/nestable/**" />
+	<mvc:resources location="/static/adStyle/js/prettify/"
+		mapping="/static/adStyle/js/prettify/**" />
+	<mvc:resources location="/static/adStyle/js/select2/"
+		mapping="/static/adStyle/js/select2/**" />
+	<mvc:resources location="/static/adStyle/js/slidernav/"
+		mapping="/static/adStyle/js/slidernav/**" />
+	<mvc:resources location="/static/adStyle/js/sparklines/"
+		mapping="/static/adStyle/js/sparklines/**" />
+	<mvc:resources location="/static/adStyle/js/tablecloth/"
+		mapping="/static/adStyle/js/tablecloth/**" />
+	<mvc:resources location="/static/adStyle/js/timeago/"
+		mapping="/static/adStyle/js/timeago/**" />
+	<mvc:resources location="/static/adStyle/js/timelinejs/"
+		mapping="/static/adStyle/js/timelinejs/**" />
+	<mvc:resources location="/static/adStyle/js/typeahead/"
+		mapping="/static/adStyle/js/typeahead/**" />
+	<mvc:resources location="/static/adStyle/js/uniform/"
+		mapping="/static/adStyle/js/uniform/**" />
+	<mvc:resources location="/static/adStyle/js/vertical-timeline/"
+		mapping="/static/adStyle/js/vertical-timeline/**" />
+	<mvc:resources location="/static/adStyle/js/xcharts/"
+		mapping="/static/adStyle/js/xcharts/**" />
+
+	<mvc:resources location="/static/adStyle/bootstrap-dist/css/"
+		mapping="/static/adStyle/bootstrap-dist/css/**" />
+	<mvc:resources location="/static/adStyle/bootstrap-dist/fonts/"
+		mapping="/static/adStyle/bootstrap-dist/fonts/**" />
+	<mvc:resources location="/static/adStyle/bootstrap-dist/js/"
+		mapping="/static/adStyle/bootstrap-dist/js/**" />
+	<mvc:resources location="/static/user_files/" mapping="/static/user_files/**" />
+	<!-- 2017-6-23 作者：张玉筱 合并工作：刘禄霞 -->
+	<mvc:resources location="/static/adStyle/" mapping="/static/adStyle/**" />
+	<mvc:resources location="/static/uStyle/" mapping="/static/uStyle/**" />
+	<mvc:resources location="/static/uStyle/css/" mapping="/static/uStyle/css/**" />
+	<mvc:resources location="/static/uStyle/fonts/" mapping="/static/uStyle/fonts/**" />
+	<mvc:resources location="/static/uStyle/images/" mapping="/static/uStyle/images/**" />
+	<mvc:resources location="/static/uStyle/js/" mapping="/static/uStyle/js/**" />
+	<mvc:resources location="/static/uStyle/style/" mapping="/static/uStyle/style/**" />
+	<mvc:resources location="/static/uStyle/zyupload/"
+		mapping="/static/uStyle/zyupload/**" />
+	<mvc:resources location="/static/uStyle/zyupload/skins/"
+		mapping="/static/uStyle/zyupload/skins/**" />
+	<mvc:resources location="/static/uStyle/zyupload/skins/images/"
+		mapping="/static/uStyle/zyupload/skins/images/**" />
+	<mvc:resources location="/static/uStyle/zyupload/skins/images/fileType/"
+		mapping="/static/uStyle/zyupload/skins/images/fileType/**" />
+
+	<mvc:resources location="/static/user_files/" mapping="/static/user_files/**" />
+	<mvc:resources location="/static/uStyle/img/" mapping="/static/uStyle/img/**" />
+	<!-- 前端添加静态资源 -->
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/fonts/" mapping="/fonts/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />  
+	<mvc:resources location="/placeholders/" mapping="/placeholders/**" />  
+	
+	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 默认编码 -->
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 文件大小最大值 -->
+		<property name="maxUploadSize" value="10485760000" />
+		<!-- 内存中的最大值 -->
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+
+</beans>

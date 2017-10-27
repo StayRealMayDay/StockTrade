@@ -75,4 +75,5 @@ public interface StockinfoMapper {
 	List<Stockinfo> selectConcept(@Param("page") HashMap<String,Integer> map,@Param("conception") String conception);
 	
 	int selectConceptCount(String conception);
+
 }

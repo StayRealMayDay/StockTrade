@@ -195,8 +195,7 @@
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  
+  </update>  
   <select id="selectGaoGuan"  parameterType="string" resultMap="BaseResultMap">
   	select *
   	from company_executive
@@ -209,5 +208,6 @@
   	from company_executive
   	where duty like '%董事%'
   	limit 0,10
+
   </select>
 </mapper>

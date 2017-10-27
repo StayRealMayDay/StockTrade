@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.WorkExperienceMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.WorkExperience" >
+    <id column="we_uuid" property="weUuid" jdbcType="VARCHAR" />
+    <result column="we_start" property="weStart" jdbcType="VARCHAR" />
+    <result column="we_end" property="weEnd" jdbcType="VARCHAR" />
+    <result column="we_company" property="weCompany" jdbcType="VARCHAR" />
+    <result column="we_rank" property="weRank" jdbcType="VARCHAR" />
+    <result column="coo_uuid" property="cooUuid" jdbcType="VARCHAR" />
+    <result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    we_uuid, we_start, we_end, we_company, we_rank, coo_uuid, user_uuid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from work_experience
+    where we_uuid = #{weUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from work_experience
+    where we_uuid = #{weUuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ventureassess.pojo.WorkExperience" >
+    insert into work_experience (we_uuid, we_start, we_end, 
+      we_company, we_rank, coo_uuid, 
+      user_uuid)
+    values (#{weUuid,jdbcType=VARCHAR}, #{weStart,jdbcType=VARCHAR}, #{weEnd,jdbcType=VARCHAR}, 
+      #{weCompany,jdbcType=VARCHAR}, #{weRank,jdbcType=VARCHAR}, #{cooUuid,jdbcType=VARCHAR}, 
+      #{userUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.WorkExperience" >
+    insert into work_experience
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="weUuid != null" >
+        we_uuid,
+      </if>
+      <if test="weStart != null" >
+        we_start,
+      </if>
+      <if test="weEnd != null" >
+        we_end,
+      </if>
+      <if test="weCompany != null" >
+        we_company,
+      </if>
+      <if test="weRank != null" >
+        we_rank,
+      </if>
+      <if test="cooUuid != null" >
+        coo_uuid,
+      </if>
+      <if test="userUuid != null" >
+        user_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="weUuid != null" >
+        #{weUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="weStart != null" >
+        #{weStart,jdbcType=VARCHAR},
+      </if>
+      <if test="weEnd != null" >
+        #{weEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="weCompany != null" >
+        #{weCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="weRank != null" >
+        #{weRank,jdbcType=VARCHAR},
+      </if>
+      <if test="cooUuid != null" >
+        #{cooUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.WorkExperience" >
+    update work_experience
+    <set >
+      <if test="weStart != null" >
+        we_start = #{weStart,jdbcType=VARCHAR},
+      </if>
+      <if test="weEnd != null" >
+        we_end = #{weEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="weCompany != null" >
+        we_company = #{weCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="weRank != null" >
+        we_rank = #{weRank,jdbcType=VARCHAR},
+      </if>
+      <if test="cooUuid != null" >
+        coo_uuid = #{cooUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        user_uuid = #{userUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where we_uuid = #{weUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.WorkExperience" >
+    update work_experience
+    set we_start = #{weStart,jdbcType=VARCHAR},
+      we_end = #{weEnd,jdbcType=VARCHAR},
+      we_company = #{weCompany,jdbcType=VARCHAR},
+      we_rank = #{weRank,jdbcType=VARCHAR},
+      coo_uuid = #{cooUuid,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=VARCHAR}
+    where we_uuid = #{weUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
