@@ -17,14 +17,15 @@
 </head>
 <body>
 	<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-    <div id="main" style="width: 1200px;height:1200px;border:1px;align:center;"></div>
+	<div id="aa" style="width: 1800px;height:20px;border:1px;align:center;">股票代码:&nbsp;&nbsp;<font color='red'>${stock}</font><br></div>
+    <div id="main" style="width: 1800px;height:900px;border:1px;align:center;"></div>
+    
     <input type="text" name="stock" id="stock" style="display:none" value="${stock}"/>
-    11111
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
         var stock = document.getElementById('stock').value;
-        alert(stock);
+        /* alert("daima"+stock); */
         // 指定图表的配置项和数据
         myChart.showLoading();
 		$.getJSON('http://localhost:8080/Stock-Trade/getNE?stock='+stock, function (json) {
@@ -82,41 +83,5 @@
 		});
     </script>
     
-    <form action="/Stock-Trade/GaoguanNodes">
-       <button type="submit">高管成员节点</button>
-       </form>
-       
-    <form action="/Stock-Trade/StockBasicAttr">
-       <button type="submit">各股票基本属性关系</button>
-    </form>
-    
-    <form action="/Stock-Trade/StockNode">
-       <button type="submit">各股票节点</button>
-    </form>
-    <form action="/Stock-Trade/GaoguanEdges">
-       <button type="submit">高管边关系</button>
-    </form>
-    <form action="/Stock-Trade/DongshiNodes">
-       <button type="submit">董事成员节点</button>
-    </form>
-    
-    <form action="/Stock-Trade/IndustryNodes">
-       <button type="submit">行业节点</button>
-    </form>
-    <form action="/Stock-Trade/MStockholderNodes">
-       <button type="submit">主要股东节点</button>
-    </form>
-    <form action="/Stock-Trade/hangye">
-       <button type="submit">同行业边</button>
-    </form>
-    <form action="/Stock-Trade/MStockEdges">
-       <button type="submit">主要股东边</button>
-    </form>
-    <form action="/Stock-Trade/ConceptType">
-       <button type="submit">概念类型</button>
-    </form>
-    <form action="/Stock-Trade/ConceptTypeEdges">
-       <button type="submit">概念类型边</button>
-    </form>
 </body>
 </html>

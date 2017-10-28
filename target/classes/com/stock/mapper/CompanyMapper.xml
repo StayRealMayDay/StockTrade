@@ -467,6 +467,6 @@
    <select id="selecResolvedStock" parameterType="java.lang.String" resultMap="BaseResultMap" >
 		select stock_num
 		from company 
-		where industry like "%"#{industry}"%"
+		where industry like  concat(concat('%',#{industry}),'%')
   </select>
 </mapper>

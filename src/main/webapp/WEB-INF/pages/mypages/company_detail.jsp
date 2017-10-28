@@ -61,10 +61,45 @@ jQuery(document).ready(function($) {
 	#myTabContent2{display:block !important;}
 	
 </style>
-
+		
 </head>
 
 <body class="home-page">
+<input type="text" name="stock" id="stock" style="display:none" value="${fn:substring(beiDouDetail.stockName,5,11)}"/>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=sz${fn:substring(beiDouDetail.stockName,5,11)}" charset="utf-8"></script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=sh${fn:substring(beiDouDetail.stockName,5,11)}" charset="utf-8"></script>  
+			<script type="text/javascript">
+			var stock = document.getElementById('stock').value;
+			 /* var ul=window.location.href.split("?")[1].split('=')[1]
+			 alert(ul); */
+			 alert(stock);
+			 var temp=stock.substring(0,1);
+			 alert(temp);
+			 if(temp=="6"){
+				 var url ="hq_str_sh"+stock;
+			 }else{
+				 var url ="hq_str_sz"+stock;
+			 }
+			var elements=eval(url).split(",");
+			var updown=elements[3]-elements[2];
+			var updownratio=updown/elements[2]*100;
+			var updown10=elements[2]*0.1;
+			var up=Number(elements[2])+Number(updown10);
+			var down=Number(elements[2])-Number(updown10);
+			var chengjiao=Number(elements[9]).toFixed(0)
+			$(function () {
+				$('#current').html(elements[3]);
+				$('#updownprice').html(updown.toFixed(3));
+				$('#updownratio').html(updownratio.toFixed(3));
+	 	        $('#updown').html("涨停："+up.toFixed(3)+"跌停："+down.toFixed(3));
+	 	        $('#jinkai').html("今开："+elements[1]);
+	 	        $('#zuigao').html("最高："+elements[4]);
+	 	        $('#zuidi').html("最低："+elements[5]);
+	 	        $('#zuoshou').html("昨收："+elements[2]);
+	 	        $('#chengjiaoliang').html("成交量："+elements[8]);
+	 	        $('#chengjiaoe').html("成交额："+chengjiao);
+	     	});
+</script>
 	<jsp:include page="/top_q.jsp" flush="true" />
 
 <div class="news-original">
@@ -91,26 +126,56 @@ jQuery(document).ready(function($) {
 												<th style="width: 25%;">股价</th>
 												<th style="width: 25%;">涨跌幅</th>
 											</thread>
-											<tr style="height:30px">
-												<td><a href="company">横店东磁</a></td>
+											<tr>
+												<td><a href="company?stockNum=${fn:substring(beiDouDetail.stockName,5,11)}">${fn:substring(beiDouDetail.stockName,0,4)}</a></td>
+												
+												<td>
+												<script type="text/javascript">
+													var elements=hq_str_sz002383.split(",");
+													document.write(""+elements[3]+""); 
+												</script>
+												</td>
+												
+												<td>
+												<script type="text/javascript">
+													var elements=hq_str_sz002383.split(",");
+													var updown=elements[3]-elements[2];
+													var updownratio=updown/elements[2]*100;
+													document.write(""+updownratio.toFixed(3)+"%"); 
+												</script>
+												</td>
+											
+											</tr>
+											<tr>
+												<td><a href="company">江丰电子</a></td>
 												<td>11.88</td>
 												<td>-3.41%</td>
+											
 											</tr>
-											<tr style="height:30px">
+											<tr>
+												<td><a href="company">祥和实业</a></td>
+												<td>15.48</td>
+												<td>-5.78%</td>
+											</tr>
+											<tr>
+												<td><a href="company">天安新材</a></td>
+												<td>18.60</td>
+												<td>1.61%</td>
+											
+											</tr>
+											
+	
+											<tr>
+												<td><a href="company">振华科技</a></td>
+												<td>11.12</td>
+												<td>2.56%</td>
+												
+											</tr>
+											<tr>
 												<td><a href="company">横店东磁</a></td>
-												<td>11.88</td>
-												<td>-3.41%</td>
+												<td>6.52</td>
+												<td>-1.02%</td>
 											</tr>
-											<tr style="height:30px">
-												<td><a href="company">横店东磁</a></td>
-												<td>11.88</td>
-												<td>-3.41%</td>
-											</tr>
-												<tr style="height:30px">
-													<td><a href="company">横店东磁</a></td>
-													<td>11.88</td>
-													<td>-3.41%</td>
-												</tr>
 											</table>
 										</div>
 									</div>
@@ -141,26 +206,26 @@ jQuery(document).ready(function($) {
 										<th style="width: 25%;">涨跌幅</th>
 									</tr>
 									<tr style="height:30px">
-										<td><a href="company">横店东磁</a></td>
-										<td>11.88</td>
-										<td>-3.41%</td>
+										<td><a href="company">华森制药</a></td>
+										<td>10.51</td>
+										<td>10.05%</td>
 									
 									</tr>
 									<tr style="height:30px">
-										<td><a href="company">横店东磁</a></td>
-										<td>11.88</td>
-										<td>-3.41%</td>
+										<td><a href="company">集泰股份</a></td>
+										<td>11.84</td>
+										<td>10.04%</td>
 									
 									</tr>
 									<tr style="height:30px">
-										<td><a href="company">横店东磁</a></td>
-										<td>11.88</td>
-										<td>-3.41%</td>
+										<td><a href="company">德生科技</a></td>
+										<td>17.58</td>
+										<td>10.01</td>
 									</tr>
 									<tr style="height:30px">
-										<td><a href="company">横店东磁</a></td>
-										<td>11.88</td>
-										<td>-3.41%</td>
+										<td><a href="company">金辰股份</a></td>
+										<td>54.62</td>
+										<td>10.01%</td>
 									</tr>
 								</table>
 							</div>
@@ -171,16 +236,18 @@ jQuery(document).ready(function($) {
 								<div role="tabpanel" style="margin:20px"  class="w3l_stocks">
 								<table style="width:100%;text-align:center;font-size:13px">
 									<tr style="height:20px">
-										<td style=""><a>公司公告</a></td>			
+										<td style="">
+										<a href="companyBulletinList?stockNum=${fn:substring(beiDouDetail.stockName,5,11)}&pageNum=1">公司公告</a>
+										</td>			
 										<td><a>新股申购</a></td>
 									</tr>
 									<tr style="height:20px">
-										<td><a>股吧</a></td>
-										<td><a>论坛</a></td>
+										<td><a href="shares">股吧</a></td>
+										<td><a href="latestBlog">博客</a></td>
 									</tr>
 									<tr style="height:20px">
 										<td><a>大宗交易</a></td>		
-										<td><a>沪深市场</a></td>
+										<td><a href="marketIndex?pageNum=1">沪深市场</a></td>
 									</tr>
 								</table>
 							</div>
@@ -195,11 +262,11 @@ jQuery(document).ready(function($) {
 									</tr>
 									<tr style="height:20px">
 										<td><a>龙虎榜</a></td>
-										<td><a>行情板块</a></td>
+										<td><a href="industrySectionAll">行业板块</a></td>
 									</tr>
 									<tr style="height:20px">
-										<td><a>概念板块</a></td>
-										<td><a>地域版块</a></td>
+										<td><a href="conceptionSectionAll">概念板块</a></td>
+										<td><a href="areaSectionAll">地域版块</a></td>
 									</tr>
 								</table>
 							</div>
@@ -240,30 +307,26 @@ jQuery(document).ready(function($) {
 					<div class="col-md-9">	
 						<div style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px;width:15%;float:left;height:120px">
 							<h4>${fn:substring(beiDouDetail.stockName,0,4)}</h4>
-							<h4>${fn:substring(beiDouDetail.stockName,5,10)}</h4>
+							<h4>${fn:substring(beiDouDetail.stockName,5,11)}</h4>
 							<input type="button" value="加入自选"  />
 						</div>
 						<div style="border: 1px solid #F0F0F0; margin-top: 20px; width:25%;float:left;height:120px">
-							<table style="margin: 0px; width: 200px; ">
+							<table style="margin-top:30px; width: 200px; ">
 								<tr>
 									<td rowspan="2">
-										<p><span style="color:#C10D01; font-size: 40px; ">20.33</span></p>
+										<p><span id="current" style="color:#C10D01; font-size: 40px; ">20.33</span></p>
 									</td>
 									<td>
-										<p><span style="color:#C10D01; font-size: 20px; ">1.85</span></p>
+										<p><span id="updownprice" style="color:#C10D01; font-size: 20px; ">1.85</span></p>
 									</td>
 								</tr>
 								<tr>
-									<td><p><span style="color:#C10D01; font-size: 20px; ">10.01%</span></p></td>
+									<td><p><span id="updownratio" style="color:#C10D01; font-size: 20px; ">10.01%</span></p></td>
 								</tr>
-								<tr>
-									<td colspan="2">
-										<span>涨停：2033     跌停：16.63</span>
-									</td>
-								</tr>
+								
 								<tr>		
 									<td colspan="2">
-										<span>涨停：2033     跌停：16.63</span>
+										<span id="updown"></span>
 									</td>
 								</tr>
 							</table>
@@ -271,24 +334,24 @@ jQuery(document).ready(function($) {
 						<div style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px; font-size: 14px;width:40%;float:left;height:120px">
 							<table style="width:350px;font-size:10px;">
 								<tr style="height:20px">
-									<td>今开：20.33</td>
-									<td>成交量：4.57万</td>
-									<td>振幅：0.00%</td>
+									<td style="width: 28%;" id="jinkai">今开：20.33</td>
+									<td style="width: 36%;" id="chengjiaoliang">成交量：4.57万</td>
+									<td style="width: 34%;">振幅：${stockinfo.amplitude}</td>
 								</tr>
 								<tr style="height:20px">
-									<td>最高：20.33</td>
-									<td>成交额：4.57万</td>
-									<td>换手率：0.00%</td>
+									<td style="width: 28%;" id="zuigao">最高：20.33</td>
+									<td style="width: 36%;"  id="chengjiaoe">成交额：4.57万</td>
+									<td style="width: 34%;">换手率：${stockinfo.turnoverRate}%</td>
 								</tr>
 								<tr style="height:20px">
-									<td>最低：20.33</td>
-									<td>总市值：4.57万</td>
-									<td>市净率：0.00%</td>
+									<td style="width: 28%;" id="zuidi">最低：20.33</td>
+									<td style="width: 36%;">流通市值：${stockinfo.circulationMarketValue}</td>
+									<td style="width: 34%;">量比：${stockinfo.equivalentRatio}</td>
 								</tr>
 								<tr style="height:20px">
-									<td>昨收：20.33</td>
-									<td>流通市值：4.57万</td>
-									<td>市盈率(动)：0.00%</td>
+									<td  style="width: 28%;"id="zuoshou">昨收：20.33</td>
+									<td style="width: 36%;" >流通股：${stockinfo.floatingStock}</td>
+									<td style="width: 34%;">市盈率：${stockinfo.peRatio}</td>
 								</tr>
 							</table>
 						</div>
@@ -297,9 +360,23 @@ jQuery(document).ready(function($) {
 						</div>
 						<div class="clearfix"></div>
 					<div style="width:100%;float:left">
-						<div style="border: 1px solid #F0F0F0; margin: 20px 15px 10px 10px; width:30%;float:left;height:150px"></div>
-						<div style="border: 1px solid #F0F0F0; margin: 20px 15px 10px 10px; width:30%;float:left;height:150px"></div>
-						<div style="border: 1px solid #F0F0F0; margin: 20px 15px 10px 10px; width:30%;float:left;height:150px"></div>
+					<div style="border: 1px solid #F0F0F0; margin: 20px 15px 10px 10px; width:45%;float:left;height:150px">
+						<div style="border: 1px solid #F0F0F0; width:80%;float:left;height:150px">
+							<img style="width:280px;height:145px" alt="" src="<%= basePath%>/static/uStyle/img/relation_gragh.png">
+						</div>
+						<div style="border: 1px solid #F0F0F0; background-color:#FFFAF0; width:20%;float:left;height:50px;margin-top:45px">
+    						<a style="color:#FFC125;" href="relationGragh?stock=${fn:substring(beiDouDetail.stockName,5,11)}" style="float:left">查看企业关系图谱</a>
+						</div>
+					</div>
+					<div style="border: 1px solid #F0F0F0; margin: 20px 15px 10px 10px; width:45%;float:left;height:150px">
+						<div style="border: 1px solid #F0F0F0;  width:80%;float:left;height:150px">
+							<img style="width:280px;height:145px" alt="" src="<%= basePath%>/static/uStyle/img/china.png">
+							
+						</div>
+						<div style="border: 1px solid #F0F0F0; background-color:#FFFAF0; width:20%;float:left;height:50px;margin-top:45px">
+    						<a style="color:#FFC125;" href="china?stock=${fn:substring(beiDouDetail.stockName,5,11)}" style="float:left">查看企业所在行业分布情况</a>
+						</div>
+					</div>
 						<div class="clearfix"></div>
 						<nav class="agileinfo_news_original_grids" >
 							<ul class="nav nav-tabs nav-tabs1 " style="background-color:#E0F2FA ;width:100%" role="tablist">

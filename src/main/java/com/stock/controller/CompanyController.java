@@ -60,6 +60,7 @@ public class CompanyController {
 		Company company = companyMapper.selectCompanyByStockNum(stockNum);
 		String industry = companyMapper.selecResolvedIndustry(stockNum);
 		List<Company> stock = companyMapper.selecResolvedStock(industry);
+		Stockinfo stockinfo = stockinfoMapper.selectStockByCode(stockNum);
 		List<String> stocklist = new ArrayList<String>();
 		for(int i = 0; i < stock.size(); i++){
 			String s = stock.get(i).getStockNum();
@@ -69,6 +70,7 @@ public class CompanyController {
 		List<CompanyBulletin> bulletins = companyBulletinMapper.selectSomeBulletin(stockNum);
 		List<CompanyNews> companyNewsList = companyNewsMapper.selectNewsByComapny(stockNum);
 		System.out.println("1111111111111");
+		model.addAttribute("stockinfo",stockinfo );
 		model.addAttribute("industryList",industryList );
 		model.addAttribute("stockNum", stockNum);
 		model.addAttribute("company", company);
@@ -88,6 +90,7 @@ public class CompanyController {
 		String resolvedConcept = companyMapper.selecResolvedConcept(beiDou);
 		String[] concept = resolvedConcept.split("，");
 		List<String> concepts = new ArrayList<String>();
+		Stockinfo stockinfo = stockinfoMapper.selectStockByCode(beiDou);
 		int i=0;
 		int size = concept.length;
 		while( i < size && concept[i]!=null) {
@@ -96,6 +99,7 @@ public class CompanyController {
 		}
 		List<StockholderBasic> listStockBasic = stockholderBasicMapper.selectStockHolderB(beiDou);
 		StockholderRelative listStockRelative = stockholderRelativeMapper.selectStockHolderR(beiDou);
+		model.addAttribute("stockinfo", stockinfo);
 		model.addAttribute("beiDouDetail", beiDouDetail);
 		model.addAttribute("listGaoGuan", listGaoGuan);
 		model.addAttribute("listDongShi", listDongShi);

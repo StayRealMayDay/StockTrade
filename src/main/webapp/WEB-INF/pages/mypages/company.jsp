@@ -15,7 +15,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
 <!-- //for-mobile-apps -->
-<link href="<%=basePath %>/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<%-- <link href="<%=basePath %>/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /> --%>
 <link href="<%=basePath %>/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="<%=basePath %>/css/font-awesome.min.css" />
@@ -28,71 +28,145 @@
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="<%=basePath %>/js/move-top.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/easing.js"></script>
-<<<<<<< HEAD
 <!-- start-smoth-scrolling -->
-
+<script src="<%= basePath%>/static/uStyle/js/jquery.js"></script>
 <style type="text/css">
 	#myTabContent2{display:block !important;}
 </style>
+			
+
 
 </head>
+<script type="text/javascript">
+//init method one 
+$(document).ready(function(){ 
+trace("初始化方法进入"); 
+$("#myTabContent").css('display','block'); 
 
+}); 
+function trace(obj){ 
+console.log(obj); 
+}
+
+</script>
 <body class="home-page">
-<jsp:include page="/top_q.jsp" flush="true" />
+<input type="text" name="stock" id="stock" style="display:none" value="${company.stockNum}"/>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=sz${company.stockNum}" charset="utf-8"></script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=sh${company.stockNum}" charset="utf-8"></script>  
+		<script type="text/javascript">
+			
+			 var stock = document.getElementById('stock').value;
+			 /* var ul=window.location.href.split("?")[1].split('=')[1]
+			 alert(ul); */
+			 alert(stock);
+			 var temp=stock.substring(0,1);
+			 alert(temp);
+			 if(temp=="6"){
+				 var url ="hq_str_sh"+stock;
+			 }else{
+				 var url ="hq_str_sz"+stock;
+			 }
+			var elements=eval(url).split(",");
+			var updown=elements[3]-elements[2];
+			var updownratio=updown/elements[2]*100;
+			var updown10=elements[2]*0.1;
+			var up=Number(elements[2])+Number(updown10);
+			var down=Number(elements[2])-Number(updown10);
+			var chengjiao=Number(elements[9]).toFixed(0)
+			$(function () {
+				$('#current').html(elements[3]);
+				$('#updownprice').html(updown.toFixed(3));
+				$('#updownratio').html(updownratio.toFixed(3));
+	 	        $('#updown').html("涨停："+up.toFixed(3)+"跌停："+down.toFixed(3));
+	 	        $('#jinkai').html("今开："+elements[1]);
+	 	        $('#zuigao').html("最高："+elements[4]);
+	 	        $('#zuidi').html("最低："+elements[5]);
+	 	        $('#zuoshou').html("昨收："+elements[2]);
+	 	        $('#chengjiaoliang').html("成交量："+elements[8]);
+	 	        $('#chengjiaoe').html("成交额："+chengjiao);
+	 	        $('#fivehandicapbuy').html("<p>买一	--	<font color='red'>"+elements[11]+"</font>"+"	--	<font color='blue'>"+elements[10]+"</font></p>"+
+						"<p>买二	--	<font color='red'>"+elements[13]+"</font>"+"	--	<font color='blue'>"+elements[12]+"</font></p>"+
+						"<p>买三	--	<font color='red'>"+elements[15]+"</font>"+"	--	<font color='blue'>"+elements[14]+"</font></p>"+
+						"<p>买四	--	<font color='red'>"+elements[17]+"</font>"+"	--	<font color='blue'>"+elements[16]+"</font></p>"+
+						"<p>买五	--	<font color='red'>"+elements[19]+"</font>"+"	--	<font color='blue'>"+elements[18]+"</font></p>");
+	 	       $('#fivehandicapsale').html("<p>买一	--	<font color='red'>"+elements[21]+"</font>"+"	--	<font color='blue'>"+elements[20]+"</font></p>"+
+						"<p>买二	--	<font color='red'>"+elements[23]+"</font>"+"	--	<font color='blue'>"+elements[22]+"</font></p>"+
+						"<p>买三	--	<font color='red'>"+elements[25]+"</font>"+"	--	<font color='blue'>"+elements[24]+"</font></p>"+
+						"<p>买四	--	<font color='red'>"+elements[27]+"</font>"+"	--	<font color='blue'>"+elements[26]+"</font></p>"+
+						"<p>买五	--	<font color='red'>"+elements[29]+"</font>"+"	--	<font color='blue'>"+elements[28]+"</font></p>");
+	     	});
+</script>
+
+	<jsp:include page="/top_q.jsp" flush="true" />
 <!-- news-original -->
 <div class="news-original">
 <div class="container">
 	<div class="company_info">
-		<div class="col-md-10 " style="margin-left:50px">
+		<div class="col-md-10 " style="margin-left:5px;border: 1px solid #F0F0F0;width:1100px">
 			<div>
 				<div class="col-md-2" style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px;">
 					<h3>${company.stockName}</h3>
 					<h3>${company.stockNum}</h3>
-					<input type="button" value="加入自选"  />
+					<input type="button" value="加入自选"  /><br>
 				</div>
 			</div>
-			<div class="col-xs-4" style="border: 1px solid #F0F0F0; margin-top: 20px; height: 113px; ">
-				<table style="margin: 0px; width: 200px; ">
+			<div class="col-xs-4" style="border: 1px solid #F0F0F0; margin-top: 20px; height: 115px; ">
+				<table style="margin-top:10px;margin-left:40px; width: 200px; height:100px">
 					<tr >
-						<td rowspan="2">
-							<p><span style="color:#C10D01; font-size: 40px; ">20.33</span></p>
+						<td rowspan="2" style="text-align:center;">
+							<p><span style="color:#C10D01; font-size: 40px; " id="current">
+							</span></p>
 						</td>
 					
 						<td>
-							<p><span style="color:#C10D01; font-size: 20px; ">1.85</span></p>
+							<p><span style="color:#C10D01; font-size: 20px; " id="updownprice">
+							</span></p>
 						</td>
 					</tr>
 					<tr>
-						<td><p><span style="color:#C10D01; font-size: 20px; ">10.01%</span></p></td>
+						<td><p><span style="color:#C10D01; font-size: 20px; " id="updownratio">
+						</span></p></td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<span>涨停：2033     跌停：16.63</span>
+							<span id="updown">
+							</span>
 						</td>
 					</tr>
 				</table>
+				<br>
 			</div>
-			<div class="col-md-6"style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px; font-size: 14px;">
-				<table style="width:450px">
+			
+			
+			
+			<div class="col-md-6"style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px; font-size: 14px;width:530px;">
+				<table style="width:530px">
 					<tr>
-						<td style="width: 33.3%;">今日：20.33</td>
-						<td  style="width: 33.3%;">成交量：4.57万</td>
-						<td  style="width: 33.3%;">振幅：0.00%</td>
+					
+						<td style="width: 30%;" id="jinkai">
+						
+						<td  style="width: 37%;" id="chengjiaoliang">
+						</td>
+						<td  style="width: 33%;">振幅：${stockinfo.amplitude}</td>
 					</tr>
 					<tr>
-						<td>最高：20.33</td>
-						<td>成交量：4.57万</td>
-						<td>换手：0.00%</td>
+						<td style="width: 30%;"id="zuigao">
+						</td>
+						<td style="width: 37%;" id="chengjiaoe">
+						</td>
+						<td style="width: 33%;">换手率：${stockinfo.turnoverRate}%</td>
 					</tr>
 					<tr>
-						<td>最低：20.33</td>
-						<td>总市值：4.57万</td>
-						<td>市净率：0.00%</td>
+						<td style="width: 30%;" id="zuidi">
+						</td>
+						<td style="width: 37%;">流通市值：${stockinfo.circulationMarketValue}</td>
+						<td style="width: 33%;">量比：${stockinfo.equivalentRatio}</td>
 					</tr>
 					<tr>
-						<td>昨收：20.33</td>
-						<td>流通市值：4.57万</td>
-						<td>市盈率(动)：0.00%</td>
+						<td style="width: 30%;" id="zuoshou">
+						</td>
+						<td style="width: 37%;">流通股：${stockinfo.floatingStock}</td>
+						<td style="width: 33%;">市盈率：${stockinfo.peRatio}</td>
 					</tr>
 				</table>
 			</div>
@@ -123,40 +197,46 @@
 											
 											</tr>
 											<tr>
-												<td><a href="company">横店东磁</a></td>
+												<td><a href="company">万马科技</a></td>
+												
+												<td>
+												10.25
+												</td>
+												
+												<td>
+												1.56%
+												</td>
+											
+											</tr>
+											<tr>
+												<td><a href="company">江丰电子</a></td>
 												<td>11.88</td>
 												<td>-3.41%</td>
 											
 											</tr>
 											<tr>
-												<td><a href="company">横店东磁</a></td>
-												<td>11.88</td>
-												<td>-3.41%</td>
-											
+												<td><a href="company">祥和实业</a></td>
+												<td>15.48</td>
+												<td>-5.78%</td>
 											</tr>
 											<tr>
-												<td><a href="company">横店东磁</a></td>
-												<td>11.88</td>
-												<td>-3.41%</td>
-											</tr>
-											<tr>
-												<td>横店东磁</td>
-												<td>11.88</td>
-												<td>-3.41%</td>
+												<td><a href="company">天安新材</a></td>
+												<td>18.60</td>
+												<td>1.61%</td>
 											
 											</tr>
 											
 	
 											<tr>
-												<td><a href="company">横店东磁</a></td>
-												<td>11.88</td>
-												<td>-3.41%</td>
+												<td><a href="company">振华科技</a></td>
+												<td>11.12</td>
+												<td>2.56%</td>
 												
 											</tr>
 											<tr>
 												<td><a href="company">横店东磁</a></td>
-												<td>11.88</td>
-												<td>-3.41%</td>
+												<td>6.52</td>
+												<td>-1.02%</td>
 											</tr>
 										</table>
 									</div>
@@ -224,8 +304,9 @@
 				</div>
 				
 				<!--首页中间部分开始处 -->>
-				<div class="col-md-5 agileinfo_news_original_grids_left1">
-					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs" style="border: 1px solid #ADADAD; height: 350px;">
+				<div class="col-md-5 agileinfo_news_original_grids_left1" style="border: 1px solid #F0F0F0;width:550px;">
+					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs" style="border: 1px solid #ADADAD; height: 350px;width:533px;">
+							
 							<ul id="myTab" class="nav nav-tabs" role="tablist">
 								<li role="presentation" class="active">
 									<a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">分时图</a>
@@ -240,22 +321,25 @@
 									<a href="#read" role="tab" id="read-tab" data-toggle="tab" aria-controls="read">月K线图</a>
 								</li>
 							</ul>
-							<div id="myTabContent" class="tab-content">
+							<div id="myTabContent2" class="tab-content">
+							
+							
 								<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-									<img alt="" src="http://image.sinajs.cn/newchart/min/n/sh${stockNum}.gif">
-									<img alt="" src="http://image.sinajs.cn/newchart/min/n/sz${stockNum}.gif">
+									<img  alt="" src="http://image.sinajs.cn/newchart/min/n/sz${stockNum}.gif"/>
+									<img  alt="" src="http://image.sinajs.cn/newchart/min/n/sh${stockNum}.gif"/>
+									<!-- style="width:450px;height:320px" -->
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="latest" aria-labelledby="latest-tab">
-									<img alt="" src="http://image.sinajs.cn/newchart/daily/n/sh${stockNum}.gif">
-									<img alt="" src="http://image.sinajs.cn/newchart/min/n/sz${stockNum}.gif">
+									<img alt="" src="http://image.sinajs.cn/newchart/daily/n/sh${stockNum}.gif"/>
+									<img alt="" src="http://image.sinajs.cn/newchart/daily/n/sz${stockNum}.gif"/>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="experts" aria-labelledby="experts-tab">
-									<img alt="" src="http://image.sinajs.cn/newchart/weekly/n/sh${stockNum}.gif">
-									<img alt="" src="http://image.sinajs.cn/newchart/min/n/sz${stockNum}.gif">
+									<img alt="" src="http://image.sinajs.cn/newchart/weekly/n/sh${stockNum}.gif"/>
+									<img alt="" src="http://image.sinajs.cn/newchart/weekly/n/sz${stockNum}.gif"/>
 								</div>
 								<div role="tabpanel" class="tab-pane fade" id="read" aria-labelledby="read-tab">
-									<img alt="" src="http://image.sinajs.cn/newchart/monthly/n/sh${stockNum}.gif">
-									<img alt="" src="http://image.sinajs.cn/newchart/min/n/sz${stockNum}.gif">
+									<img alt="" src="http://image.sinajs.cn/newchart/monthly/n/sh${stockNum}.gif"/>
+									<img alt="" src="http://image.sinajs.cn/newchart/monthly/n/sz${stockNum}.gif"/>
 								</div>
 							</div>
 					</div>
@@ -395,19 +479,11 @@
 										<div style="border-bottom: 1px dotted ;">
 											<p>委比：100%  委差：50809</p>
 										</div >
-										<div style="border-bottom: 1px dotted;">
-										<p>卖五	--	0</p>
-										<p>卖四	--	0</p>
-										<p>卖三	--	0</p>
-										<p>卖二	--	0</p>
-										<p>卖一	--	0</p>
+										<div style="border-bottom: 1px dotted;" id="fivehandicapbuy">
+										
 										</div>
-										<div>
-										<p>买一	13.15	5.9万</p>
-										<p>买二	13.14	200</p>
-										<p>买三	13.13	15</p>
-										<p>买四	13.12	5</p>
-										<p>买五	13.10	42</p>
+										<div id="fivehandicapsale">
+											
 										</div>
 									</div>
 								</div>
@@ -466,45 +542,45 @@
 												<td>卖出</td>
 											</tr>
 											<tr>
-												<td>15:00</td>
-												<td>13.15</td>
-												<td>30</td>
+												<td>15:10</td>
+												<td>18.23</td>
+												<td>45</td>
+												<td>买入</td>
+											</tr>
+											<tr>
+												<td>15:15</td>
+												<td>18.45</td>
+												<td>80</td>
 												<td>卖出</td>
 											</tr>
 											<tr>
-												<td>15:00</td>
-												<td>13.15</td>
-												<td>30</td>
+												<td>15:20</td>
+												<td>14.30</td>
+												<td>38</td>
 												<td>卖出</td>
 											</tr>
 											<tr>
-												<td>15:00</td>
-												<td>13.15</td>
-												<td>30</td>
+												<td>15:50</td>
+												<td>15.25</td>
+												<td>78</td>
 												<td>卖出</td>
 											</tr>
 											<tr>
-												<td>15:00</td>
-												<td>13.15</td>
-												<td>30</td>
+												<td>16:01</td>
+												<td>16.14</td>
+												<td>56</td>
 												<td>卖出</td>
 											</tr>
 											<tr>
-												<td>15:00</td>
-												<td>13.15</td>
-												<td>30</td>
-												<td>卖出</td>
+												<td>16:10</td>
+												<td>16.20</td>
+												<td>46</td>
+												<td>买入</td>
 											</tr>
 											<tr>
-												<td>15:00</td>
-												<td>13.15</td>
-												<td>30</td>
-												<td>卖出</td>
-											</tr>
-											<tr>
-												<td>15:00</td>
-												<td>13.15</td>
-												<td>30</td>
+												<td>16:20</td>
+												<td>16.32</td>
+												<td>50</td>
 												<td>卖出</td>
 											</tr>
 										</table>

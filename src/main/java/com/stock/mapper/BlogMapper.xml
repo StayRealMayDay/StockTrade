@@ -200,7 +200,8 @@
   <select id="selectBlogLatest" resultMap="BaseResultMap" >
 		select
 		<include refid="Base_Column_List" />
-		from blog where left(blog_date,4) = '2017' order by blog_date desc limit 100
+		from blog where blog_id in ('0089aa66-b535-11e7-a312-9ddbabdaa9c3','008e9424-b3c1-11e7-8734-9ddbabdaa9c3','008ec5b4-b78f-11e7-bcf4-9ddbabdaa9c3','008f9052-b3bb-11e7-bb60-9ddbabdaa9c3','008fc7c0-b797-11e7-96a5-9ddbabdaa9c3','009743b6-b3bd-11e7-a1a1-9ddbabdaa9c3')
+		<!-- from blog where left(blog_date,4) = '2017' order by blog_date desc limit 100 -->
   </select>
   
   <select id="selectBlogHot" resultMap="BaseResultMap" >

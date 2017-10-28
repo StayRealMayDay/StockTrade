@@ -48,6 +48,35 @@
 	<script type="text/javascript" src="js/ie7-fixed.js"></script>
 	<![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001,s_sh000300,s_sh000001,s_sz399006" charset="utf-8"></script>
+<script type="text/javascript">
+	var elements=hq_str_s_sz399001.split(",");
+	var elementss=hq_str_s_sh000300.split(",");
+	var elementsss=hq_str_s_sh000001.split(",");
+	var elementssss=hq_str_s_sz399006.split(",");
+	$(function () {
+		$('#currentprice1').html("当前价格："+"<font color='red'>"+elements[2]+"</font>");
+		$('#updownratio1').html("涨跌幅："+"<font color='red'>"+elements[3]+"</font>");
+	    $('#chengjiaoliang1').html("成交量："+elements[4]);
+	    $('#chengjiaoe1').html("成交额："+elements[5]);
+	    
+	    $('#currentprice2').html("当前价格："+"<font color='red'>"+elementss[2]+"</font>");
+		$('#updownratio2').html("涨跌幅："+"<font color='red'>"+elementss[3]+"</font>");
+	    $('#chengjiaoliang2').html("成交量："+elements[4]);
+	    $('#chengjiaoe2').html("成交额："+elements[5]);
+	    
+	    $('#currentprice3').html("当前价格："+"<font color='red'>"+elementsss[2]+"</font>");
+		$('#updownratio3').html("涨跌幅："+"<font color='red'>"+elementsss[3]+"</font>");
+	    $('#chengjiaoliang3').html("成交量："+elements[4]);
+	    $('#chengjiaoe3').html("成交额："+elements[5]);
+	    
+	    $('#currentprice4').html("当前价格："+"<font color='red'>"+elementssss[2]+"</font>");
+		$('#updownratio4').html("涨跌幅："+"<font color='red'>"+elementssss[3]+"</font>");
+	    $('#chengjiaoliang4').html("成交量："+elements[4]);
+	    $('#chengjiaoe4').html("成交额："+elements[5]);
+	});
+</script>
 </head>
 <script type="text/javascript">
 //init method one 
@@ -62,12 +91,13 @@ console.log(obj);
 
 $(document).ready(function(){ 
 	trace("初始化方法进入"); 
-	$("#qwertyui1").css('display','block'); 
+	$("#xianshi").css('display','block'); 
 
 	}); 
 	function trace(obj){ 
 	console.log(obj); 
 	}
+
 </script>
 
 <body class="home-page">
@@ -346,68 +376,70 @@ $(document).ready(function(){
 					</header>
 					<div class="list-carousel responsive">
 						<ul class="feature-news clearfix">
-							<li>
+							<li><article>
 								<div class="feature-item box-hover clearfix">
-									<br>
+								<br>
 									<div class="video-thumb">
-										<a href="http://image.sinajs.cn/newchart/hollow/small/nsh000001.gif?1506747358051"> <img 
+									<a href="http://image.sinajs.cn/newchart/hollow/small/nsz399001.gif?1506747237053">
+										<img style="width=30px;"
+											src="http://image.sinajs.cn/newchart/hollow/small/nsz399001.gif?1506747237053"
+											alt="" /></a> 
+										</a>
+									</div>
+									<!--video-thumb-->
+									<div class="entry-content">
+										<span class="entry-meta">On:&nbsp;</span><a class="entry-date"
+											href="#">深证成指</a>
+										<p id="currentprice1">+12.25</p>
+										<p id="updownratio1">0.66%</p>
+										<p id="chengjiaoliang1">0.66%</p>
+										<p id="chengjiaoe1"></p>
+										<br>
+									</div>
+									<!--end:entry_content-->
+								</div>
+								</article></li>
+							<li><article>
+								<div class="feature-item box-hover clearfix">
+								<br>
+									<div class="video-thumb">
+									<a href="http://image.sinajs.cn/newchart/hollow/small/nsh000300.gif?1506748303853">
+										<img style="width=30px;"
+											src="http://image.sinajs.cn/newchart/hollow/small/nsh000300.gif?1506748303853"
+											alt="" /></a> 
+										</a>
+									</div>
+									<!--video-thumb-->
+									<div class="entry-content">
+										<span class="entry-meta">On:&nbsp;</span><a class="entry-date"
+											href="#">沪深300</a>
+										<p id="currentprice2">+12.25</p>
+										<p id="updownratio2">0.66%</p>
+										<p id="chengjiaoliang2">0.66%</p>
+										<p id="chengjiaoe2"></p>
+										<br>
+									</div>
+									<!--end:entry_content-->
+								</div>
+								</article></li>
+							<li><article>
+								<div class="feature-item box-hover clearfix">
+								<br>
+									<div class="video-thumb">
+									<a href="http://image.sinajs.cn/newchart/hollow/small/nsh000001.gif?1506747358051">
+										<img style="width=30px;"
 											src="http://image.sinajs.cn/newchart/hollow/small/nsh000001.gif?1506747358051"
-											alt="" /> </a><a class="play-icon"
-											href="http://www.cssmoban.com/" rel="prettyPhoto"> <span
-											class="black-overlay"></span>
+											alt="" /></a> 
 										</a>
 									</div>
 									<!--video-thumb-->
 									<div class="entry-content">
 										<span class="entry-meta">On:&nbsp;</span><a class="entry-date"
 											href="#">上证指数</a>
-										<h4 class="entry-title">
-											<a href="#">3348.94</a>
-										</h4>
-										<p>+9.30</p>
-										<p>+0.28</p>
-										<p></p>
-										<p></p>
-										<br>
-									</div>
-									<!--end:entry_content-->
-								</div>
-								</article></li>
-							<li>
-								<div class="feature-item clearfix">
-								<br>
-									<a href="http://image.sinajs.cn/newchart/hollow/small/nsh000300.gif?1506748303853"><img  alt=""
-										src="http://image.sinajs.cn/newchart/hollow/small/nsh000300.gif?1506748303853" /></a>
-									<div class="entry-content">
-										<span class="entry-meta">On:&nbsp;</span><a class="entry-date"
-											href="#">沪深300</a>
-										<h4 class="entry-title">
-											<a href="#">3836.50</a>
-										</h4>
-										<p>+13.96</p>
-										<p>0.37%</p>
-										<p></p>
-										<p></p>
-										<br>
-									</div>
-									<!--end:entry_content-->
-								</div>
-								</article></li>
-							<li><article>
-								<div class="feature-item clearfix">
-								<br>
-									<a href="http://image.sinajs.cn/newchart/hollow/small/nsz399001.gif?1506747237053"><img  alt=""
-										src="http://image.sinajs.cn/newchart/hollow/small/nsz399001.gif?1506747237053" /></a>
-									<div class="entry-content">
-										<span class="entry-meta">On:&nbsp;</span><a class="entry-date"
-											href="#">深证指数</a>
-										<h4 class="entry-title">
-											<a href="#">11087.19</a>
-										</h4>
-										<p>+55.77</p>
-										<p>0.51%</p>
-										<p></p>
-										<p></p>
+										<p id="currentprice3">+12.25</p>
+										<p id="updownratio3">0.66%</p>
+										<p id="chengjiaoliang3">0.66%</p>
+										<p id="chengjiaoe3"></p>
 										<br>
 									</div>
 									<!--end:entry_content-->
@@ -417,25 +449,20 @@ $(document).ready(function(){
 								<div class="feature-item box-hover clearfix">
 								<br>
 									<div class="video-thumb">
-									<a href="http://image.sinajs.cn/newchart/hollow/small/nsz399006.gif?1506748411586">
-										<img 
+									<a href="http://image.sinajs.cn/newchart/hollow/small/nsz399001.gif?1506747237053">
+										<img style="width=30px;"
 											src="http://image.sinajs.cn/newchart/hollow/small/nsz399006.gif?1506748411586"
-											alt="" /></a> <a class="play-icon"
-											href="http://www.cssmoban.com/" rel="prettyPhoto"> <span
-											class="black-overlay"></span>
+											alt="" /></a> 
 										</a>
 									</div>
 									<!--video-thumb-->
 									<div class="entry-content">
 										<span class="entry-meta">On:&nbsp;</span><a class="entry-date"
 											href="#">创业版指</a>
-										<h4 class="entry-title">
-											<a href="#">1866.98</a>
-										</h4>
-										<p>+12.25</p>
-										<p>0.66%</p>
-										<p></p>
-										<p></p>
+										<p id="currentprice4">+12.25</p>
+										<p id="updownratio4">0.66%</p>
+										<p id="chengjiaoliang4">0.66%</p>
+										<p id="chengjiaoe4"></p>
 										<br>
 									</div>
 									<!--end:entry_content-->
@@ -444,9 +471,9 @@ $(document).ready(function(){
 						</ul>
 						<!--end:feature-news-->
 						<div class="clear"></div>
-						<div class="feature-nav" id="qwertyui1">
-							<a id="prev-1" class="prev" href="#">&nbsp;</a> 
-							<a id="next-1" class="next" href="#">&nbsp;</a>
+						<div class="feature-nav" id="qwertyui">
+							<a id="prev-1" class="prev" href="#">前&nbsp;</a> 
+							<a id="next-1" class="next" href="#">后</a>
 						</div>
 						<!--feature-nav-->
 					</div>
@@ -660,7 +687,7 @@ $(document).ready(function(){
 								<a href="#my_news" role="tab" id="news-tabnew" data-toggle="tab" aria-controls="newTab">自选股新闻</a>
 							</li>
 						</ul>	
-						<div id="qwertyui" class="tab-content" >
+						<div id="xianshi" class="tab-content" >
 							<div role="tabpanel" class="tab-pane fade in active" id="mystock" aria-labelledby="my_tabstock">
 								<div class="w3l_stocks" style="padding-top:5px">
 									<table style="width: 100%;">
@@ -783,7 +810,7 @@ $(document).ready(function(){
                 });
 
             });       
-        }
+        };
 
         //根据股票数字，动态创建内容表格
         function inittable()

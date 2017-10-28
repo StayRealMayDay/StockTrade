@@ -3,6 +3,7 @@ package com.stock.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.stock.mapper.BlogMapper;
 import com.stock.mapper.CbMapper;
+import com.stock.mapper.CompanyMapper;
 import com.stock.mapper.CompanyNewsMapper;
 import com.stock.mapper.CsMapper;
 import com.stock.mapper.DdzzMapper;
 import com.stock.mapper.DzjyMapper;
+import com.stock.mapper.EdgesMapper;
 import com.stock.mapper.EeoMapper;
+import com.stock.mapper.IndustryDistributionMapper;
 import com.stock.mapper.NewStockMapper;
 import com.stock.mapper.NewsTypeMapper;
+import com.stock.mapper.NodesMapper;
 import com.stock.mapper.ScrapyNewsMapper;
 import com.stock.mapper.SharesMapper;
 import com.stock.mapper.StatisticsMapper;
@@ -37,10 +42,12 @@ import com.stock.pojo.CompanyNews;
 import com.stock.pojo.Cs;
 import com.stock.pojo.Ddzz;
 import com.stock.pojo.Dzjy;
-
+import com.stock.pojo.Edges;
 import com.stock.pojo.Eeo;
+import com.stock.pojo.IndustryDistribution;
 import com.stock.pojo.NewStock;
 import com.stock.pojo.NewsType;
+import com.stock.pojo.Nodes;
 import com.stock.pojo.ScrapyNews;
 import com.stock.pojo.Stock;
 import com.stock.pojo.StockAndCompany;
@@ -85,24 +92,110 @@ public class StockController {
 	DdzzMapper ddzzMapper;
 	@Autowired
 	DzjyMapper dzjyMapper;
-
+	@Autowired
+	CompanyMapper companyMapper;
+	@Autowired
+	NodesMapper nodesMapper;
+	@Autowired
+	EdgesMapper edgesMapper;
+	@Autowired
+	IndustryDistributionMapper industryDistributionMapper;
+	
+	/**
+	 *展示企业关系图 
+	 */
+	@RequestMapping(value = "/relationGragh")
+	public String relationGragh(HttpServletRequest request,Model model){
+		String stock = request.getParameter("stock");
+		System.out.println(stock);
+		model.addAttribute("stock", stock);
+		return "mypages/relationGragh"; 
+	}
+	/**
+	 *展示行业分布图 
+	 */
+	@RequestMapping(value = "/china")
+	public String china(HttpServletRequest request,Model model){
+		String stock = request.getParameter("stock");
+		model.addAttribute("stock", stock);
+		return "mypages/china"; 
+	}
+	
+	/**
+	 * 测试echarts
+	 */
+	@RequestMapping(value = "/getIndusDistri",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public List<IndustryDistribution>  getIndusDistri(HttpServletRequest request, Model model){
+		String stock = request.getParameter("stock");
+		Map<String,Object> map = new HashMap();
+		List<IndustryDistribution> industryDistributions = industryDistributionMapper.selectDistriAll(stock);
+		//不行： 002383  600879 002405
+		
+		return industryDistributions;
+	}
+	
+	
+	
+	/**
+	 * 测试echarts
+	 */
+	@RequestMapping(value = "/getNE",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Map<String,Object>  getStock(HttpServletRequest request, Model model){
+		String stock = request.getParameter("stock");
+		System.out.println(stock);
+		Map<String,Object> map = new HashMap();
+		List<Nodes> nodes = nodesMapper.selectNodesByStock(stock);
+		List<Edges> edges = edgesMapper.selectEdgesByStock(stock);
+		//不行： 002383  600879 002405
+		map.put("nodes", nodes);
+		map.put("edges", edges);
+//		System.out.println(company.size());
+		
+		return map;
+	}
+	/**
+	 * 测试echarts
+	 */
+	@RequestMapping(value = "/test",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String  test(HttpServletRequest request, Model model){
+		String string = "[{name: '北京',value: 4 },{name: '天津',value: 10 }]";
+//		System.out.println(company.size());
+		
+		return string;
+	}
+	
 	//于花蕾新增  2017年9月27日
 	@RequestMapping(value = "/index")
+	
 	public String index1(Model model){
 		List<Cb> cbList = cbMapper.selectSomeCbNews();
+		System.out.println("cbList:");
 		List<Eeo> eeoList = eeoMapper.selectSomeEeoNews();
+		System.out.println("eeoList:");
 		List<CompanyNews> companyNewsListByTime = companyNewsMapper.selectNewsByTime();
+		System.out.println("companyNewsListByTime:");
 		List<Stockinfo> stockList = stockinfoMapper.selectStockInfo();
+		System.out.println("stockList:");
 		List<CompanyNews> newsList = companyNewsMapper.selectAllNews();	
+		System.out.println("newsList:");
 		List<CompanyNews> compnyNewsList = companyNewsMapper.selectNewsByHotRatios();
+		System.out.println("compnyNewsList:");
 		List<Stockinfo> stockHuA = stockinfoMapper.selectStockHuA();
+		System.out.println("stockHuA:");
 		List<Stockinfo> stockShenA = stockinfoMapper.selectStockShenA();
-
+		System.out.println("stockShenA:");
 		
 		List<Stockinfo> stockBeiDou = stockinfoMapper.selectStockBeiDou();
+		System.out.println("stockBeiDou:");
 		List<Cs> csNews = csMapper.selectAllNews();
+		System.out.println("csNews:");
 		List<com.stock.pojo.Shares> latestSharesList = sharesMapper.selectSharesLatest();
+		System.out.println("latestSharesList:");
 		List<Blog> latestBlogList = blogMapper.selectBlogLatest();
+		System.out.println("latestBlogList:");
 		CompanyNews TopNews1 = companyNewsMapper.selectTopNews().get(0);
 		CompanyNews TopNews2 = companyNewsMapper.selectTopNews().get(1);
 		

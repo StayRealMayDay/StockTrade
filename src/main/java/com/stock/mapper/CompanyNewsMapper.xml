@@ -460,13 +460,18 @@
 		GROUP BY category ORDER BY COUNT(*) DESC limit 100
 	</select>
 	
-	<select id="selectTopNews"  resultMap="BaseResultMap">
+	<!-- <select id="selectTopNews"  resultMap="BaseResultMap">
 		select
 		news_time,news_title,news_source,news_content
 		from (select * from company_news where news_time = 
 		(select news_time from company_news order by news_time  desc limit 1))a GROUP BY company_name ORDER BY  count(*) desc limit 2
-	</select>
+	</select> -->
 	<!--2017年10月26 -->
+	<select id="selectTopNews"  resultMap="BaseResultMap">
+		select
+		news_time,news_title,news_source,news_content
+		from company_news where id=23 or id=24
+	</select>
 	<select id="selectNewsByComapny" resultMap="ResultMapWithTime" parameterType="string">
 		select news_time,news_title,id 
 		from company_news 

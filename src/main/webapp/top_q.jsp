@@ -103,8 +103,7 @@
 	</div>
 	<!--header-middle-->
 	<div id="navigation" style="height:50px;width:100%">
-		<nav id="secondary-menu" class="wrapper clearfix">
-		<ul id="main-nav" style="height:50px">
+		<ul id="main-nav" style="height:50px;width:100%;margin-left:400px">
 			<li class="current-menu-item"><a href="index">首页</a></li>
 			<li><a href="#">新闻<span class="caret"></span></a>
 				<ul>

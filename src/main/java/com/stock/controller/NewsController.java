@@ -26,7 +26,7 @@ public class NewsController {
 	}*/
 	/**
 	 * 新闻详情
-	 * @author 张玉筱
+	 * @author 
 	 */
 	@RequestMapping(value = "/newsDetail")
 	public String newsDetail(Model model,HttpServletRequest req){
