@@ -72,9 +72,9 @@ jQuery(document).ready(function($) {
 			var stock = document.getElementById('stock').value;
 			 /* var ul=window.location.href.split("?")[1].split('=')[1]
 			 alert(ul); */
-			 alert(stock);
+			 /* alert(stock); */
 			 var temp=stock.substring(0,1);
-			 alert(temp);
+			 /* alert(temp); */
 			 if(temp=="6"){
 				 var url ="hq_str_sh"+stock;
 			 }else{
@@ -87,17 +87,23 @@ jQuery(document).ready(function($) {
 			var up=Number(elements[2])+Number(updown10);
 			var down=Number(elements[2])-Number(updown10);
 			var chengjiao=Number(elements[9]).toFixed(0)
+			var chengjiaoliang=elements[8];
+			var elements1=elements[1];
+			var elements2=elements[2];
+			var elements3=elements[3];
+			var elements4=elements[4];
+			var elements5=elements[5];
 			$(function () {
-				$('#current').html(elements[3]);
+				$('#current').html(elements3);
 				$('#updownprice').html(updown.toFixed(3));
 				$('#updownratio').html(updownratio.toFixed(3));
 	 	        $('#updown').html("涨停："+up.toFixed(3)+"跌停："+down.toFixed(3));
-	 	        $('#jinkai').html("今开："+elements[1]);
-	 	        $('#zuigao').html("最高："+elements[4]);
-	 	        $('#zuidi').html("最低："+elements[5]);
-	 	        $('#zuoshou').html("昨收："+elements[2]);
-	 	        $('#chengjiaoliang').html("成交量："+elements[8]);
+	 	        $('#jinkai').html("今开："+elements1);
+	 	        $('#zuigao').html("最高："+elements4);
+	 	        $('#zuidi').html("最低："+elements5);
+	 	        $('#zuoshou').html("昨收："+elements2);
 	 	        $('#chengjiaoe').html("成交额："+chengjiao);
+	 	       $('#chengjiaoliang').html("成交量："+chengjiaoliang);
 	     	});
 </script>
 	<jsp:include page="/top_q.jsp" flush="true" />
@@ -356,7 +362,10 @@ jQuery(document).ready(function($) {
 							</table>
 						</div>
 						<div style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px; font-size: 14px;width:20%;float:left;height:120px">
+							<a href="http://image.sinajs.cn/newchart/min/n/sz${fn:substring(beiDouDetail.stockName,5,11)}.gif">
 							<img style="width:150px;height:100px" alt="" src="http://image.sinajs.cn/newchart/min/n/sz${fn:substring(beiDouDetail.stockName,5,11)}.gif">
+							<img style="width:150px;height:100px" alt="" src="http://image.sinajs.cn/newchart/min/n/sh${fn:substring(beiDouDetail.stockName,5,11)}.gif">
+							</a>
 						</div>
 						<div class="clearfix"></div>
 					<div style="width:100%;float:left">
@@ -604,8 +613,8 @@ jQuery(document).ready(function($) {
 														<td>同行业个股</td>
 													</tr>
 													<tr>
-														<td>制造业</td>
-														<td><a href="#">点击查看</a></td>
+														<td>${industry}</td>
+														<td><a href="relationIndustry?industry=${industry}&pageNum=1">点击查看</a></td>
 													</tr>
 													<tr>
 														<td colspan="2" style="text-align:center">备注：此为证监会行业分类</td>

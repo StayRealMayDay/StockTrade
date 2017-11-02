@@ -58,42 +58,53 @@ console.log(obj);
 			 var stock = document.getElementById('stock').value;
 			 /* var ul=window.location.href.split("?")[1].split('=')[1]
 			 alert(ul); */
-			 alert(stock);
+			 /* alert(stock); */
 			 var temp=stock.substring(0,1);
-			 alert(temp);
+			 /* alert(temp); */
 			 if(temp=="6"){
 				 var url ="hq_str_sh"+stock;
 			 }else{
 				 var url ="hq_str_sz"+stock;
 			 }
 			var elements=eval(url).split(",");
+			var elements1=elements[1];
+			var elements2=elements[2];
+			var elements3=elements[3];
+			var elements4=elements[4];
+			var elements5=elements[5];
 			var updown=elements[3]-elements[2];
 			var updownratio=updown/elements[2]*100;
 			var updown10=elements[2]*0.1;
 			var up=Number(elements[2])+Number(updown10);
 			var down=Number(elements[2])-Number(updown10);
-			var chengjiao=Number(elements[9]).toFixed(0)
+			var chengjiao=Number(elements[9]).toFixed(0);
+			var chengjiaoliang=elements[8];
+			var elements10=elements[10];
+			var elements11=elements[11];var elements12=elements[12];var elements13=elements[13];var elements14=elements[14];var elements15=elements[15];
+			var elements16=elements[16];var elements17=elements[17];var elements18=elements[18];var elements19=elements[19];var elements20=elements[20];
+			var elements21=elements[21];var elements22=elements[22];var elements23=elements[23];var elements24=elements[24];var elements25=elements[25];
+			var elements26=elements[26];var elements27=elements[27];var elements28=elements[28];var elements29=elements[29];
 			$(function () {
-				$('#current').html(elements[3]);
+				$('#current').html(elements3);
 				$('#updownprice').html(updown.toFixed(3));
 				$('#updownratio').html(updownratio.toFixed(3));
 	 	        $('#updown').html("涨停："+up.toFixed(3)+"跌停："+down.toFixed(3));
-	 	        $('#jinkai').html("今开："+elements[1]);
-	 	        $('#zuigao').html("最高："+elements[4]);
-	 	        $('#zuidi').html("最低："+elements[5]);
-	 	        $('#zuoshou').html("昨收："+elements[2]);
-	 	        $('#chengjiaoliang').html("成交量："+elements[8]);
+	 	        $('#jinkai').html("今开："+elements1);
+	 	        $('#zuigao').html("最高："+elements4);
+	 	        $('#zuidi').html("最低："+elements5);
+	 	        $('#zuoshou').html("昨收："+elements2);
+	 	        $('#chengjiaoliang').html("成交量："+chengjiaoliang);
 	 	        $('#chengjiaoe').html("成交额："+chengjiao);
-	 	        $('#fivehandicapbuy').html("<p>买一	--	<font color='red'>"+elements[11]+"</font>"+"	--	<font color='blue'>"+elements[10]+"</font></p>"+
-						"<p>买二	--	<font color='red'>"+elements[13]+"</font>"+"	--	<font color='blue'>"+elements[12]+"</font></p>"+
-						"<p>买三	--	<font color='red'>"+elements[15]+"</font>"+"	--	<font color='blue'>"+elements[14]+"</font></p>"+
-						"<p>买四	--	<font color='red'>"+elements[17]+"</font>"+"	--	<font color='blue'>"+elements[16]+"</font></p>"+
-						"<p>买五	--	<font color='red'>"+elements[19]+"</font>"+"	--	<font color='blue'>"+elements[18]+"</font></p>");
-	 	       $('#fivehandicapsale').html("<p>买一	--	<font color='red'>"+elements[21]+"</font>"+"	--	<font color='blue'>"+elements[20]+"</font></p>"+
-						"<p>买二	--	<font color='red'>"+elements[23]+"</font>"+"	--	<font color='blue'>"+elements[22]+"</font></p>"+
-						"<p>买三	--	<font color='red'>"+elements[25]+"</font>"+"	--	<font color='blue'>"+elements[24]+"</font></p>"+
-						"<p>买四	--	<font color='red'>"+elements[27]+"</font>"+"	--	<font color='blue'>"+elements[26]+"</font></p>"+
-						"<p>买五	--	<font color='red'>"+elements[29]+"</font>"+"	--	<font color='blue'>"+elements[28]+"</font></p>");
+	 	        $('#fivehandicapbuy').html("<p>买一	--	<font color='red'>"+elements11+"</font>"+"	--	<font color='blue'>"+elements10+"</font></p>"+
+						"<p>买二	--	<font color='red'>"+elements13+"</font>"+"	--	<font color='blue'>"+elements12+"</font></p>"+
+						"<p>买三	--	<font color='red'>"+elements15+"</font>"+"	--	<font color='blue'>"+elements14+"</font></p>"+
+						"<p>买四	--	<font color='red'>"+elements17+"</font>"+"	--	<font color='blue'>"+elements16+"</font></p>"+
+						"<p>买五	--	<font color='red'>"+elements19+"</font>"+"	--	<font color='blue'>"+elements18+"</font></p>");
+	 	       $('#fivehandicapsale').html("<p>买一	--	<font color='red'>"+elements21+"</font>"+"	--	<font color='blue'>"+elements20+"</font></p>"+
+						"<p>买二	--	<font color='red'>"+elements23+"</font>"+"	--	<font color='blue'>"+elements22+"</font></p>"+
+						"<p>买三	--	<font color='red'>"+elements25+"</font>"+"	--	<font color='blue'>"+elements24+"</font></p>"+
+						"<p>买四	--	<font color='red'>"+elements27+"</font>"+"	--	<font color='blue'>"+elements26+"</font></p>"+
+						"<p>买五	--	<font color='red'>"+elements29+"</font>"+"	--	<font color='blue'>"+elements28+"</font></p>");
 	     	});
 </script>
 

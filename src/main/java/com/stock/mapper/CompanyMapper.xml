@@ -469,4 +469,14 @@
 		from company 
 		where industry like  concat(concat('%',#{industry}),'%')
   </select>
+  <select id="selecResolvedConceptCount" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		select stock_num
+		from company 
+		where resolved_concept like  concat(concat('%',#{concept}),'%')
+  </select>
+  <select id="selecResolvedIndustryCount" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		select stock_num
+		from company 
+		where industry = #{industry}
+  </select>
 </mapper>

@@ -472,10 +472,20 @@
   
   <!-- 于花蕾 2017年10月19 -->
   <select id="selectConcept" resultMap="BaseResultMap">
+  <!--   select * from company where resolved_concept LIKE concat(concat('%',#{conception}),'%')
+  	limit #{page.start}, #{page.pagesize} -->
   	select a.*
   	from stockinfo a,(select stock_num,resolved_concept from company) b
   	where a.stock_num = b.stock_num
   	and b.resolved_concept like concat(concat('%',#{conception}),'%')
+  	limit #{page.start}, #{page.pagesize}
+  </select>
+  
+  <select id="selectIndustry" resultMap="BaseResultMap">
+  	select a.*
+  	from stockinfo a,(select stock_num,industry from company) b
+  	where a.stock_num = b.stock_num
+  	and  b.industry = #{industry}
   	limit #{page.start}, #{page.pagesize}
   </select>
   
@@ -486,4 +496,6 @@
   	where a.stock_num = b.stock_num
   	and b.resolved_concept like concat(concat('%',#{conception}),'%')    
   </select>
+  
+  
 </mapper>
