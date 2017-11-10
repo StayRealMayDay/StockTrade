@@ -53,7 +53,6 @@
 		
  		$.getJSON('http://localhost:8080/Stock-Trade/getIndusDistri?stock='+stock, function (json) {
  			
- 			
  			myChart.setOption( option = {
             title: {
                 text: '本行业在全国各地分布情况',

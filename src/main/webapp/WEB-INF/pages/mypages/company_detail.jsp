@@ -38,6 +38,8 @@ function hideURLbar() {
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="<%=basePath %>/js/move-top.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/easing.js"></script>
+<script type="text/javascript" src="<%=basePath %>js/script.js"></script>
+
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 	$(".scroll").click(function(event) {
@@ -49,7 +51,6 @@ jQuery(document).ready(function($) {
 });
 </script>
 <!-- start-smoth-scrolling -->
-
 <style type="text/css">
 	.tableOne{border:1px solid #DCE5F4;border-collapse:collapse;font-size:12px}
 	.tableOne td{border:1px solid #DCE5F4;}
@@ -60,6 +61,13 @@ jQuery(document).ready(function($) {
 	.tableTwo tr{height:30px}
 	#myTabContent2{display:block !important;}
 	
+	
+	#tagbox{position:relative;margin:20px;width:300px;height:250px;}
+	#tagbox a{position:absolute;padding:3px 6px;font-family:Microsoft YaHei;color:#FF5000;TOP:0px;font-weight:bold;text-decoration:none;left:0px}
+	#tagbox a:hover{border:#eee 1px solid;background:#000;}
+	#tagbox .blue{color:blue}
+	#tagbox .red{color:red}
+	#tagbox .yellow{color:yellow}
 </style>
 		
 </head>
@@ -290,19 +298,7 @@ jQuery(document).ready(function($) {
 								</table>
 							</div>
 						</div>
-						
-						<div class="w3layouts_market_movers" >
-							<h3 ><i class="fa fa-bar-chart" aria-hidden="true"></i>公司公告</h3> 
-							<div role="tabpanel" style="margin:20px"  class="w3l_stocks">
-								
-							</div>
-						</div>
-						
 					</div>
-
-
-
-
 
 					<div class="col-md-9">	
 						<div style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px;width:15%;float:left;height:120px">
@@ -388,10 +384,7 @@ jQuery(document).ready(function($) {
 									<a href="#leader" id="leader_tab" role="tab" data-toggle="tab" aria-controls="leaderTab">公司高管</a>
 								</li>
 								<li role="presentation">
-									<a href="#industry" id="industry_tab" role="tab" data-toggle="tab" aria-controls="industryTab">所属行业</a>
-								</li>
-								<li role="presentation">
-									<a href="#concept" id="concept_tab" role="tab" data-toggle="tab" aria-controls="conceptTab">所属概念板块</a>
+									<a href="#industry" id="industry_tab" role="tab" data-toggle="tab" aria-controls="industryTab">所属行业/概念板块</a>
 								</li>
 								<li role="presentation">
 									<a href="#shareHolder" id="shareHolder_tab" role="tab" data-toggle="tab" aria-controls="shareHolderTab">股本股东</a>
@@ -570,69 +563,20 @@ jQuery(document).ready(function($) {
 												</table>
 												
 												<div style="height:50px"></div>
-												
-													<table class="tableTwo" style="width:50%;margin-left:200px">
-													<tr style="background:#EEF5FF">
-														<td colspan="2" style="text-align:center">所属概念板块</td>
-													</tr>
-													<tr>
-														<td>概念板块</td>
-														<td>同行业个股</td>
-													</tr>
-													<c:forEach items="${concepts}" var="concepts">
-														<tr>
-															<td>${concepts }</td>
-															<td><a href="relationConcept?conc=${concepts}&pageNum=1">点击查看</a></td>
-														</tr>
-													</c:forEach>
-												</table>
+												<!-- 词云 -->
+												<script type="text/javascript" src="js/script.js"></script>
+												<div id="tagbox" style="width:50%;margin-left:160px">
+
+													<ul>
+														<c:forEach items="${concepts}" var="concepts">
+															<li><a href="relationConcept?conc=${concepts}&pageNum=1">${concepts }</a></li>
+														</c:forEach>
+													</ul>
+												</div>
 												
 											</div>
 									</div>
-								</div>
-								<div role="tabpanel" class="tab-pane fade" id="concept" aria-labelledby="concept_tab">
-										<div class="w3l_stocks">	
-										<div style="background:#F7F7F8;height:30px;text-align:center">板块信息--<span><b>${fn:substring(beiDouDetail.stockName,0,4)}</b></span></div>
-											<div>
-												<div style="height:20px"></div>
-												<table class="tableTwo" style="width:50%;margin-left:200px">
-													<tr style="background:#EEF5FF">
-														<td colspan="2" style="text-align:center">所属行业板块</td>
-													</tr>
-													<tr>
-														<td>所属行业板块</td>
-														<td>同行业个股</td>
-													</tr>
-													<tr>
-														<td>制造业</td>
-														<td><a href="#">点击查看</a></td>
-													</tr>
-													<tr>
-														<td colspan="2" style="text-align:center">备注：此为证监会行业分类</td>
-													</tr>
-												</table>
-												
-												<div style="height:50px"></div>
-												
-													<table class="tableTwo" style="width:50%;margin-left:200px">
-													<tr style="background:#EEF5FF">
-														<td colspan="2" style="text-align:center">所属概念板块</td>
-													</tr>
-													<tr>
-														<td>概念板块</td>
-														<td>同行业个股</td>
-													</tr>
-													<c:forEach items="${concepts}" var="concepts">
-														<tr>
-															<td>${concepts }</td>
-															<td><a href="relationConcept?conc=${concepts}&pageNum=1">点击查看</a></td>
-														</tr>
-													</c:forEach>
-												</table>
-											</div>
-									</div>
-									</div>
-									
+								</div>	
 									<div role="tabpanel" class="tab-pane fade" id="shareHolder" aria-labelledby="shareHolder_tab">
 									<div class="w3l_stocks">	
 										<div style="background:#F7F7F8;height:30px;text-align:center"><span><b>${fn:substring(beiDouDetail.stockName,0,4)}</b></span>&nbsp;&nbsp;主要股东</div>
@@ -780,5 +724,6 @@ $(document).ready(function(){
 			});
 	</script>
 <!-- //here ends scrolling icon -->
+
 </body>
 </html>
