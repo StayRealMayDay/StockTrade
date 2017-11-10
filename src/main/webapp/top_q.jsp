@@ -61,7 +61,24 @@
 <style type="text/css">
  select{display:none;}
 </style>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001,s_sh000300,s_sh000001,s_sz399006,s_sh399415" charset="utf-8"></script>
+<script type="text/javascript">
+	var elements=hq_str_s_sz399001.split(",");
+	var elementss=hq_str_s_sh000300.split(",");
+	var elementsss=hq_str_s_sh000001.split(",");
+	var elementssss=hq_str_s_sz399006.split(",");
+	var element415=hq_str_s_sh399415.split(",");
+	$(function () {
+	    
+	    $('#sz399001').html(elements[1]+"&nbsp;&nbsp;"+elements[2]+"&nbsp;&nbsp;"+elements[3]+"%");
+	    $('#sh000001').html(elementsss[1]+"&nbsp;&nbsp;"+elementsss[2]+"&nbsp;&nbsp;"+elementsss[3]+"%");
+	    $('#sz399006').html(elementssss[1]+"&nbsp;&nbsp;"+elementssss[2]+"&nbsp;&nbsp;"+elementssss[3]+"%");
+	    $('#sh000300').html(elementss[1]+"&nbsp;&nbsp;"+elementss[2]+"&nbsp;&nbsp;"+elementss[3]+"%");
+	    $('#sh399415').html(element415[1]+"&nbsp;&nbsp;"+element415[2]+"&nbsp;&nbsp;"+element415[3]+"%");
+	});
+	
 
+</script>
 </head>
 <body class="home-page">
 	<header id="header">
@@ -174,15 +191,15 @@
 				<div class="horizontal_scroller" style="width:80%;height:30px">
 					<ul class="scrollingtext clearfix">
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsz399001.gif?1506747237053">
-								深圳成指</a>&nbsp;&nbsp;<font color="red">11087.19&nbsp;&nbsp;+55.77&nbsp;&nbsp;+0.51%</font></li>
+								深圳成指</a>&nbsp;&nbsp;<font color="red" id="sz399001">11087.19&nbsp;&nbsp;+55.77&nbsp;&nbsp;+0.51%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsh000001.gif?1506747358051">
-						上证指数</a>&nbsp;&nbsp;<font color="red">3348.94&nbsp;&nbsp;+9.3&nbsp;&nbsp;+0.28%</font></li>
+						上证指数</a>&nbsp;&nbsp;<font color="red" id="sh000001">3348.94&nbsp;&nbsp;+9.3&nbsp;&nbsp;+0.28%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsh000300.gif?1506748303853">
-						沪深300</a>&nbsp;&nbsp;<font color="red">3836.50&nbsp;&nbsp;+13.96&nbsp;&nbsp;+0.37%</font></li>
+						沪深300</a>&nbsp;&nbsp;<font color="red" id="sh000300">3836.50&nbsp;&nbsp;+13.96&nbsp;&nbsp;+0.37%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsz399006.gif?1506748411586">
-						创业板指</a>&nbsp;&nbsp;<font color="red">6508.01&nbsp;&nbsp;+67.9&nbsp;&nbsp;+1.05%</font></li>
+						创业板指</a>&nbsp;&nbsp;<font color="red" id="sz399006">6508.01&nbsp;&nbsp;+67.9&nbsp;&nbsp;+1.05%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsz399415.gif?1506748372036">
-						大数据100</a>&nbsp;&nbsp;<font color="red">1866.98&nbsp;&nbsp;+12.25&nbsp;&nbsp;+0.66%</font></li>
+						大数据100</a>&nbsp;&nbsp;<font color="red" id="sz399415">1866.98&nbsp;&nbsp;+12.25&nbsp;&nbsp;+0.66%</font></li>
 					
 					</ul>
 					

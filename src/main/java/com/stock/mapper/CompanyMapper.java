@@ -56,5 +56,9 @@ public interface CompanyMapper {
 	List<Company> selecStockByIndus(String industry);
 
 	List<Company> selectIndustryDistri(String industry);
+	
+	List<Company> selecResolvedConceptCount(String concept);
+
+	List<Company> selecResolvedIndustryCount(String industry);
 
 }

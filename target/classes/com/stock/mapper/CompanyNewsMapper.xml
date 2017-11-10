@@ -435,7 +435,7 @@
 	
 <!-- 新增部分 实时资讯 -->
 	<select id="selectNewsByTime" resultMap="ResultMapWithTime">
-		select news_time,news_title 
+		select news_title,id,news_time
 		from company_news 
 		order by news_time DESC
 		limit 0,8

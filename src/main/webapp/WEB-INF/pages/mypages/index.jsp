@@ -49,33 +49,47 @@
 	<![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001,s_sh000300,s_sh000001,s_sz399006" charset="utf-8"></script>
+<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001,s_sh000300,s_sh000001,s_sz399006,s_sz399415" charset="utf-8"></script>
 <script type="text/javascript">
 	var elements=hq_str_s_sz399001.split(",");
+	var elements2=elements[2];var elements3=elements[3];var elements4=elements[4];var elements5=elements[5];
 	var elementss=hq_str_s_sh000300.split(",");
+	var elementss2=elementss[2];var elementss3=elementss[3];var elementss4=elementss[4];var elementss5=elementss[5];
 	var elementsss=hq_str_s_sh000001.split(",");
+	var elementsss2=elementsss[2];var elementsss3=elementsss[3];var elementsss4=elementsss[4];var elementsss5=elementsss[5];
 	var elementssss=hq_str_s_sz399006.split(",");
+	var elementssss2=elementssss[2];var elementssss3=elementssss[3];var elementssss4=elementssss[4];var elementssss5=elementssss[5];
+	var element415=hq_str_s_sh399415.split(",");
+	var element4151=element415[1];var element4152=element415[2];var element4153=element415[3];
 	$(function () {
-		$('#currentprice1').html("当前价格："+"<font color='red'>"+elements[2]+"</font>");
-		$('#updownratio1').html("涨跌幅："+"<font color='red'>"+elements[3]+"</font>");
-	    $('#chengjiaoliang1').html("成交量："+elements[4]);
-	    $('#chengjiaoe1').html("成交额："+elements[5]);
+		$('#currentprice1').html("当前价格："+"<font color='red'>"+elements2+"</font>");
+		$('#updownratio1').html("涨跌幅："+"<font color='red'>"+elements3+"%</font>");
+	    $('#chengjiaoliang1').html("成交量："+elements4);
+	    $('#chengjiaoe1').html("成交额："+elements5);
 	    
-	    $('#currentprice2').html("当前价格："+"<font color='red'>"+elementss[2]+"</font>");
-		$('#updownratio2').html("涨跌幅："+"<font color='red'>"+elementss[3]+"</font>");
-	    $('#chengjiaoliang2').html("成交量："+elements[4]);
-	    $('#chengjiaoe2').html("成交额："+elements[5]);
+	    $('#currentprice2').html("当前价格："+"<font color='red'>"+elementss2+"</font>");
+		$('#updownratio2').html("涨跌幅："+"<font color='red'>"+elementss3+"%</font>");
+	    $('#chengjiaoliang2').html("成交量："+elements4);
+	    $('#chengjiaoe2').html("成交额："+elements5);
 	    
-	    $('#currentprice3').html("当前价格："+"<font color='red'>"+elementsss[2]+"</font>");
-		$('#updownratio3').html("涨跌幅："+"<font color='red'>"+elementsss[3]+"</font>");
-	    $('#chengjiaoliang3').html("成交量："+elements[4]);
-	    $('#chengjiaoe3').html("成交额："+elements[5]);
+	    $('#currentprice3').html("当前价格："+"<font color='red'>"+elementsss2+"</font>");
+		$('#updownratio3').html("涨跌幅："+"<font color='red'>"+elementsss3+"%</font>");
+	    $('#chengjiaoliang3').html("成交量："+elementsss4);
+	    $('#chengjiaoe3').html("成交额："+elementsss5);
 	    
-	    $('#currentprice4').html("当前价格："+"<font color='red'>"+elementssss[2]+"</font>");
-		$('#updownratio4').html("涨跌幅："+"<font color='red'>"+elementssss[3]+"</font>");
-	    $('#chengjiaoliang4').html("成交量："+elements[4]);
-	    $('#chengjiaoe4').html("成交额："+elements[5]);
+	    $('#currentprice4').html("当前价格："+"<font color='red'>"+elementssss2+"</font>");
+		$('#updownratio4').html("涨跌幅："+"<font color='red'>"+elementssss3+"%</font>");
+	    $('#chengjiaoliang4').html("成交量："+elementssss4);
+	    $('#chengjiaoe4').html("成交额："+elementssss5);
+	    
+	    $('#sz399001').html(elements[1]+"&nbsp;&nbsp;"+elements[2]+"&nbsp;&nbsp;"+elements[3]+"%");
+	    $('#sh000001').html(elementsss[1]+"&nbsp;&nbsp;"+elementsss[2]+"&nbsp;&nbsp;"+elementsss[3]+"%");
+	    $('#sz399006').html(elementssss[1]+"&nbsp;&nbsp;"+elementssss[2]+"&nbsp;&nbsp;"+elementssss[3]+"%");
+	    $('#sh000300').html(elementss[1]+"&nbsp;&nbsp;"+elementss[2]+"&nbsp;&nbsp;"+elementss[3]+"%");
+	    $('#sh399415').html(element415[1]+"&nbsp;&nbsp;"+element415[2]+"&nbsp;&nbsp;"+element415[3]+"%");
 	});
+	
+
 </script>
 </head>
 <script type="text/javascript">
@@ -211,15 +225,15 @@ $(document).ready(function(){
 				<div class="horizontal_scroller" style="width:80%;height:30px">
 					<ul class="scrollingtext clearfix">
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsz399001.gif?1506747237053">
-								深圳成指</a>&nbsp;&nbsp;<font color="red">11087.19&nbsp;&nbsp;+55.77&nbsp;&nbsp;+0.51%</font></li>
+								深圳成指</a>&nbsp;&nbsp;<font color="red" id="sz399001">11087.19&nbsp;&nbsp;+55.77&nbsp;&nbsp;+0.51%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsh000001.gif?1506747358051">
-						上证指数</a>&nbsp;&nbsp;<font color="red">3348.94&nbsp;&nbsp;+9.3&nbsp;&nbsp;+0.28%</font></li>
+						上证指数</a>&nbsp;&nbsp;<font color="red" id="sh000001">3348.94&nbsp;&nbsp;+9.3&nbsp;&nbsp;+0.28%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsh000300.gif?1506748303853">
-						沪深300</a>&nbsp;&nbsp;<font color="red">3836.50&nbsp;&nbsp;+13.96&nbsp;&nbsp;+0.37%</font></li>
+						沪深300</a>&nbsp;&nbsp;<font color="red" id="sh000300">3836.50&nbsp;&nbsp;+13.96&nbsp;&nbsp;+0.37%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsz399006.gif?1506748411586">
-						创业板指</a>&nbsp;&nbsp;<font color="red">6508.01&nbsp;&nbsp;+67.9&nbsp;&nbsp;+1.05%</font></li>
+						创业板指</a>&nbsp;&nbsp;<font color="red" id="sh399006">6508.01&nbsp;&nbsp;+67.9&nbsp;&nbsp;+1.05%</font></li>
 						<li> <a href="http://image.sinajs.cn/newchart/hollow/small/nsz399415.gif?1506748372036">
-						大数据100</a>&nbsp;&nbsp;<font color="red">1866.98&nbsp;&nbsp;+12.25&nbsp;&nbsp;+0.66%</font></li>
+						大数据100</a>&nbsp;&nbsp;<font color="red" id="sh399415">1866.98&nbsp;&nbsp;+12.25&nbsp;&nbsp;+0.66%</font></li>
 					
 					</ul>
 					
@@ -246,12 +260,13 @@ $(document).ready(function(){
 				</ul>
 				<!--end:social-links-->
 				<div class="search-box clearfix">
-					<form action="#" class="search-form" method="get" />
+					<form action="company" class="search-form" method="get" />
 					<input type="text"
-						onBlur="if(this.value=='')this.value=this.defaultValue;"
+						onBlur="if(this.value=='')this.value='002151';"
 						onFocus="if(this.value==this.defaultValue)this.value='';"
-						value="Search" name="s" class="search-text" /> <input
-						type="submit" value="" name="submit" class="search-submit" />
+						value="股票代码" name="stockNum" class="search-text" /> 
+						<input
+						type="submit" value="Search" name="submit" class="search-submit" />
 					</form>
 					<!-- search-form -->
 				</div>

@@ -199,6 +199,7 @@
   	order by a.time DESC
   	limit 0,8
   </select>
+
   
    <!-- 2017年10月25日 -->
   <select id="selectAllByStockCount" parameterType="java.util.List" resultType="int">
