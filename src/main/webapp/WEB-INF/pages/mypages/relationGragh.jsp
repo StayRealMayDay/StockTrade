@@ -28,8 +28,7 @@
         /* alert("daima"+stock); */
         // 指定图表的配置项和数据
         myChart.showLoading();
-		$.getJSON('http://localhost:8080/Stock-Trade/getNE?stock='+stock, function (json) {
-			
+		$('http://localhost:8080/Stock-Trade/getNE?stock='+stock, function (json) {
 		    myChart.hideLoading();
 		    myChart.setOption(option = {
 		        title: {
