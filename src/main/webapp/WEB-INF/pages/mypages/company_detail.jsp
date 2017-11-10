@@ -570,8 +570,8 @@ jQuery(document).ready(function($) {
 														<td>同行业个股</td>
 													</tr>
 													<tr>
-														<td>制造业</td>
-														<td><a href="#">点击查看</a></td>
+														<td>${industry}</td>
+														<td><a href="relationIndustry?industry=${industry}&pageNum=1">点击查看</a></td>
 													</tr>
 													<tr>
 														<td colspan="2" style="text-align:center">备注：此为证监会行业分类</td>

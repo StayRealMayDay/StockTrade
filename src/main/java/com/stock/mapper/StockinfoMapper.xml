@@ -497,5 +497,11 @@
   	and b.resolved_concept like concat(concat('%',#{conception}),'%')    
   </select>
   
+  <select id="selectIndustryBystock" resultMap="BaseResultMap">
+  	select a.*
+  	from stockinfo a,(select stock_num,industry from company) b
+  	where a.stock_num = b.stock_num
+  	and  b.industry = #{industry} and time like '%2017-09-20%'
+  </select>
   
 </mapper>

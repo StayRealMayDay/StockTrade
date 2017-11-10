@@ -77,4 +77,6 @@ public interface StockinfoMapper {
 
 	List<Stockinfo> selectIndustry(@Param("page") HashMap<String,Integer> map,@Param("industry") String conception);
 
+	List<Stockinfo> selectIndustryBystock(String industry);
+
 }

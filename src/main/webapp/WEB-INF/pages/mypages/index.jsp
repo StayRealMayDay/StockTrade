@@ -49,7 +49,7 @@
 	<![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001,s_sh000300,s_sh000001,s_sz399006,s_sz399415" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001,s_sh000300,s_sh000001,s_sz399006,s_sz399415" charset="utf-8"></script>
 <script type="text/javascript">
 	var elements=hq_str_s_sz399001.split(",");
 	var elements2=elements[2];var elements3=elements[3];var elements4=elements[4];var elements5=elements[5];
@@ -82,6 +82,50 @@
 	    $('#chengjiaoliang4').html("成交量："+elementssss4);
 	    $('#chengjiaoe4').html("成交额："+elementssss5);
 	    
+	    /* $('#sz399001').html(elements[1]+"&nbsp;&nbsp;"+elements[2]+"&nbsp;&nbsp;"+elements[3]+"%");
+	    $('#sh000001').html(elementsss[1]+"&nbsp;&nbsp;"+elementsss[2]+"&nbsp;&nbsp;"+elementsss[3]+"%");
+	    $('#sz399006').html(elementssss[1]+"&nbsp;&nbsp;"+elementssss[2]+"&nbsp;&nbsp;"+elementssss[3]+"%");
+	    $('#sh000300').html(elementss[1]+"&nbsp;&nbsp;"+elementss[2]+"&nbsp;&nbsp;"+elementss[3]+"%");
+	    $('#sh399415').html(element415[1]+"&nbsp;&nbsp;"+element415[2]+"&nbsp;&nbsp;"+element415[3]+"%"); */
+	    
+	    $('#sz399001').html(elements[1]+"&nbsp;&nbsp;"+elements[2]+"&nbsp;&nbsp;"+elements[3]+"%");
+	    $('#sh000001').html(elementsss[1]+"&nbsp;&nbsp;"+elementsss[2]+"&nbsp;&nbsp;"+elementsss[3]+"%");
+	    $('#sz399006').html(elementssss[1]+"&nbsp;&nbsp;"+elementssss[2]+"&nbsp;&nbsp;"+elementssss[3]+"%");
+	    $('#sh000300').html(elementss[1]+"&nbsp;&nbsp;"+elementss[2]+"&nbsp;&nbsp;"+elementss[3]+"%");
+	    $('#sh399415').html(element415[1]+"&nbsp;&nbsp;"+element415[2]+"&nbsp;&nbsp;"+element415[3]+"%");
+	});
+	
+
+</script> -->
+
+<script type="text/javascript" src="http://hq.sinajs.cn/list=s_sz399001,s_sh000300,s_sh000001,s_sz399006,s_sh399415" charset="utf-8"></script>
+<script type="text/javascript">
+	var elements=hq_str_s_sz399001.split(",");
+	var elementss=hq_str_s_sh000300.split(",");
+	var elementsss=hq_str_s_sh000001.split(",");
+	var elementssss=hq_str_s_sz399006.split(",");
+	var element415=hq_str_s_sh399415.split(",");
+	$(function () {
+		$('#currentprice1').html("当前价格："+"<font color='red'>"+elements[2]+"</font>");
+		$('#updownratio1').html("涨跌幅："+"<font color='red'>"+elements[3]+"%</font>");
+	    $('#chengjiaoliang1').html("成交量："+elements[4]);
+	    $('#chengjiaoe1').html("成交额："+elements[5]);
+	    
+	    $('#currentprice2').html("当前价格："+"<font color='red'>"+elementss[2]+"</font>");
+		$('#updownratio2').html("涨跌幅："+"<font color='red'>"+elementss[3]+"%</font>");
+	    $('#chengjiaoliang2').html("成交量："+elements[4]);
+	    $('#chengjiaoe2').html("成交额："+elements[5]);
+	    
+	    $('#currentprice3').html("当前价格："+"<font color='red'>"+elementsss[2]+"</font>");
+		$('#updownratio3').html("涨跌幅："+"<font color='red'>"+elementsss[3]+"%</font>");
+	    $('#chengjiaoliang3').html("成交量："+elementsss[4]);
+	    $('#chengjiaoe3').html("成交额："+elementsss[5]);
+	    
+	    $('#currentprice4').html("当前价格："+"<font color='red'>"+elementssss[2]+"</font>");
+		$('#updownratio4').html("涨跌幅："+"<font color='red'>"+elementssss[3]+"%</font>");
+	    $('#chengjiaoliang4').html("成交量："+elementssss[4]);
+	    $('#chengjiaoe4').html("成交额："+elementssss[5]);
+	    
 	    $('#sz399001').html(elements[1]+"&nbsp;&nbsp;"+elements[2]+"&nbsp;&nbsp;"+elements[3]+"%");
 	    $('#sh000001').html(elementsss[1]+"&nbsp;&nbsp;"+elementsss[2]+"&nbsp;&nbsp;"+elementsss[3]+"%");
 	    $('#sz399006').html(elementssss[1]+"&nbsp;&nbsp;"+elementssss[2]+"&nbsp;&nbsp;"+elementssss[3]+"%");
@@ -91,6 +135,8 @@
 	
 
 </script>
+
+
 </head>
 <script type="text/javascript">
 //init method one 
@@ -213,6 +259,8 @@ $(document).ready(function(){
 			<li><a href="#">量化回测</a></li>
 			<!--同花顺-->
 			<li><a href="#">投资组合</a></li>
+			<!--同花顺-->
+			<li><a href="#">产业链中心</a></li>
 		</ul>
 		<!--end:main-nav--> </nav>
 		<!--end:secondary-menu-->

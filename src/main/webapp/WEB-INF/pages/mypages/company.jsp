@@ -108,6 +108,7 @@ console.log(obj);
 	     	});
 </script>
 
+
 	<jsp:include page="/top_q.jsp" flush="true" />
 <!-- news-original -->
 <div class="news-original">
@@ -118,7 +119,8 @@ console.log(obj);
 				<div class="col-md-2" style="border: 1px solid #F0F0F0; padding: 15px; margin-top: 20px;">
 					<h3>${company.stockName}</h3>
 					<h3>${company.stockNum}</h3>
-					<input type="button" value="加入自选"  /><br>
+					<input type="button" value="加入自选"  />
+					
 				</div>
 			</div>
 			<div class="col-xs-4" style="border: 1px solid #F0F0F0; margin-top: 20px; height: 115px; ">
@@ -196,7 +198,12 @@ console.log(obj);
 								<li role="presentation">
 									<a href="#my_news" role="tab" id="news-tab" data-toggle="tab" aria-controls="newTab">我的自选股</a>
 								</li>
+								<li role="presentation">
+									<a href="#my_link" role="tab" id="news-tab" data-toggle="tab" aria-controls="newTab">产业链</a>
+								</li>
+								
 							</ul>
+							
 							<div id="myTabContent2" class="tab-content">
 								<div role="tabpanel" class="tab-pane fade in active" id="mystock" aria-labelledby="my_tab">
 									<div class="w3l_stocks">
@@ -259,6 +266,16 @@ console.log(obj);
 							<li><a  href="companySingle"> 9月12日午间公告一览：岭南园林中标5亿元工程</a></li>
 
 							<li><a href="companySingle">强势股机构分歧大</a></li>
+							</ul>
+									</div>
+								</div>
+								
+								<div role="tabpanel" class="tab-pane fade" id="my_link" aria-labelledby="news-tab">
+									<div class="w3l_stocks">
+										<ul id="myTab1" class="nav nav-tabs" role="tablist">
+							<li><a href="industryChain?stock=${company.stockNum}"><b>行业概况</b></a><br></li>
+							<li><a  href="industryChain?stock=${company.stockNum}"> <b>行业分析</b></a></li>
+
 							</ul>
 									</div>
 								</div>

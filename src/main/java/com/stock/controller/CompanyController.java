@@ -18,6 +18,8 @@ import com.stock.mapper.CompanyExecutiveMapper;
 import com.stock.mapper.CompanyMapper;
 import com.stock.mapper.CompanyNewsMapper;
 import com.stock.mapper.IndustryNewsinfoMapper;
+import com.stock.mapper.IndustryStatusMapper;
+import com.stock.mapper.MarketPerformanceMapper;
 import com.stock.mapper.StockholderBasicMapper;
 import com.stock.mapper.StockholderRelativeMapper;
 import com.stock.mapper.StockinfoMapper;
@@ -27,6 +29,8 @@ import com.stock.pojo.CompanyDetail;
 import com.stock.pojo.CompanyExecutive;
 import com.stock.pojo.CompanyNews;
 import com.stock.pojo.IndustryNewsinfo;
+import com.stock.pojo.IndustryStatus;
+import com.stock.pojo.MarketPerformance;
 import com.stock.pojo.StockholderBasic;
 import com.stock.pojo.StockholderRelative;
 import com.stock.pojo.Stockinfo;
@@ -53,6 +57,11 @@ public class CompanyController {
 	CompanyBulletinMapper companyBulletinMapper;
 	@Autowired
 	CompanyNewsMapper companyNewsMapper;
+	@Autowired
+	IndustryStatusMapper industryStatusMapper;
+	@Autowired
+	MarketPerformanceMapper marketPerformanceMapper;
+	
 	
 	@RequestMapping(value = "/company")
 	public String companyNews(Model model,HttpServletRequest req){
@@ -81,6 +90,22 @@ public class CompanyController {
 		return "mypages/company";
 	}
 	
+	
+		@RequestMapping(value = "/industryChain")
+		public String industryChain(Model model,HttpServletRequest req){
+			String Stock = req.getParameter("stock");
+			List<IndustryStatus> industryStatus = industryStatusMapper.selectAllIndustryStatus();
+			List<MarketPerformance> marketPerformance = marketPerformanceMapper.selectAllMarketPerformance();
+			String industry = companyMapper.selecResolvedIndustry(Stock);
+			List<Stockinfo> stockIndustry = stockinfoMapper.selectIndustryBystock(industry);
+			System.out.println(stockIndustry.size());
+			model.addAttribute("stock", Stock);
+			model.addAttribute("stockIndustry",stockIndustry);
+			model.addAttribute("industryStatus",industryStatus);
+			model.addAttribute("marketPerformance",marketPerformance);
+			return "mypages/industryChain";
+		}
+	
 	//2017年10月19日新增
 	@RequestMapping(value = "/company_detail")
 	public String companyDetail(Model model,HttpServletRequest req){
@@ -101,6 +126,7 @@ public class CompanyController {
 		}
 		List<StockholderBasic> listStockBasic = stockholderBasicMapper.selectStockHolderB(beiDou);
 		StockholderRelative listStockRelative = stockholderRelativeMapper.selectStockHolderR(beiDou);
+		System.out.println(listStockRelative);
 		model.addAttribute("stockinfo", stockinfo);
 		model.addAttribute("beiDouDetail", beiDouDetail);
 		model.addAttribute("listGaoGuan", listGaoGuan);

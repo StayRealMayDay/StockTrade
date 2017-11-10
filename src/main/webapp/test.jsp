@@ -80,6 +80,7 @@
 		        ]
 		    }, true);
 		});
+		
     </script>
     
     <form action="/Stock-Trade/GaoguanNodes">
