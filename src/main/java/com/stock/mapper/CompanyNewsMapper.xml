@@ -423,7 +423,7 @@
 		from company_news
 		where hot_ratios  &lt;&gt; "" 
 		order by hot_ratios DESC
-		limit 0,8
+		limit 0,7
 	</select>
 	
 	<!-- 于花蕾新增 2017年9月28日 -->
@@ -438,7 +438,7 @@
 		select news_title,id,news_time
 		from company_news 
 		order by news_time DESC
-		limit 0,8
+		limit 0,7
 	</select>
 	<select id="selectNewsAboutCompany"  resultMap="BaseResultMap">
 		select

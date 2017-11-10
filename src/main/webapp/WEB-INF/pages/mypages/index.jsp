@@ -284,113 +284,13 @@ $(document).ready(function(){
 	</header>
 	<div class="wrapper">
 		<div id="main-content">
-			<div class="primary" style="width: 525px">
-				<div class="slider-box-hover">
-					<div class="slider-wrapper">
-						<div id="slider" class="nivoSlider">
-							<img src="<%=basePath %>/placeholders/slider/slide-1.jpg" alt=""
-								title="#slide-caption-1" /> <img
-								src="<%=basePath %>/placeholders/slider/slide-2.jpg" alt=""
-								title="#slide-caption-2" />
-						</div>
-						<div id="slide-caption-1" class="nivo-html-caption">
-						<header>                    
-							<span class="entry-category">时间:${TopNews1.newsTime}&nbsp;</span>
-							<h1><a href="single.html">${TopNews1.newsTitle}</a></h1>
-						</header>
-						<p>内容：${TopNews1.newsContent.substring(0,70)}......</p>
-						<span class="entry-author">新闻来源:${TopNews1.newsSource}&nbsp;</span>
-						</div>
-						<div id="slide-caption-2" class="nivo-html-caption">
-							<header>                    
-								<span class="entry-category">时间:${TopNews2.newsTime}&nbsp;</span>
-								<h1><a href="single.html">${TopNews2.newsTitle}</a></h1>
-							</header>
-							<p>内容：${TopNews2.newsContent.substring(0,70)}......</p>
-							<span class="entry-author">新闻来源:${TopNews2.newsSource}&nbsp;</span>
-						</div>      
-					</div>
-					<!--end:slider-wrapper-->
+			<div id="top-sidebar" style="border:0.5px solid gray;border-radius:15px;margin-top:20px;height:270px">
+				<section class="feature-widget" > 
+				 <div class="entry-header" style="border-radius: 15px;height:30px;>
+					<h4 class="widget-title clearfix"><span>大盘行情</span></h4>
 				</div>
-				<!--box-hover-->
-				<section id="main-section"> 
-					<header class="entry-header">
-						<div class="header-inner" style="height:35px">
-							<a href="#" style="float:left">热点新闻</a>
-						</div>
-					</header>
-				<div class="article-wrap" style="height: 300px">
-					<ol class="w3_tab_list w3_tab_list_home" style="padding:8px;height:300px">
-						<c:forEach items="${companyHot}" var="hot"> 
-							<li style="height: 25px">
-								<a href="companyHotDetail?id=${hot.id}" style="float:left">${hot.newsTitle}</a>
-								<span style="float:right">${hot.newsTime}</span>
-							</li>
-							<div class="clearfix"></div>
-						</c:forEach>
-					</ol>
-				</div>
-				<!--article-wrap--> <header class="entry-header">
-				<div class="header-inner" style="height:35px">
-					<a href="#" style="float:left">最新新闻</a>
-				</div>
-				<!--header-inner--> </header>
-				<div class="article-wrap" style="height: 300px">
-					<ol class="w3_tab_list" style="padding:8px;height: 300px">
-						<c:forEach items="${companyNewByTime}" var="rowTime">
-							<li style="height: 25px">
-								<a href="companyHotDetail?id=${rowTime.id}" style="float:left">${fn:substring(rowTime.newsTitle,0,25)}...</a>
-								<span style="float:right">${rowTime.newsTime}</span>
-							</li>
-							<div class="clearfix"></div>
-						</c:forEach>
-					</ol>
-				</div>
-				<!--article-wrap--> <header class="entry-header">
-				<div class="header-inner" style="height:35px">
-					<a href="#" style="float:left">财经新闻</a>
-					<a href="economicNews?pageNum=1" style="float:right">更多</a>
-				</div>
-				<!--header-inner--> </header>
-				<div class="article-wrap" style="height:450px;">
-					<div class="w3layouts_research_grid scrollbar" id="style-2" style="height:450px;">	
-						<table style="width: 100%;">	
-							<c:forEach items="${eeolist}" var="r">
-							<tr>
-								<table style="width: 100%;border-bottom:1px solid #e8eaec;">
-									<tr style="width: 100%;height:30px;">
-										<td><a href="economicNewsDetail?id=${r.id}">${r.title}</a></td>	
-									</tr>
-									<tr>
-										<td><span>${r.newsTime}</span></td>
-									</tr>
-									<tr>
-										<c:if test="${fn:length(r.newsContent) > 75 }">
-											<td>${fn:substring(r.newsContent,0,75)}.....</td>
-										</c:if>
-										<c:if test="${fn:length(r.newsContent)  <= 75 }">
-											<td>${r.newsContent}</td>
-										</c:if>									
-									</tr>
-									
-								</table>
-							</tr>
-							</c:forEach>
-						</table>
-					</div>
-				</div>
-				<!--article-wrap--> </section>
-			</div>
-			<!--end:primary-->
-			<div class="secondary">
-				<div id="top-sidebar">
-					<section class="feature-widget"
-						style="border-left:0.5px solid gray"> <header
-						style="border-left:0.5px solid gray">
-					<h6 class="feature-title">大盘行情</h6><br>
-					</header>
 					<div class="list-carousel responsive">
-						<ul class="feature-news clearfix">
+						<ul class="feature-news clearfix" >
 							<li><article>
 								<div class="feature-item box-hover clearfix">
 								<br>
@@ -487,39 +387,137 @@ $(document).ready(function(){
 						<!--end:feature-news-->
 						<div class="clear"></div>
 						<div class="feature-nav" id="qwertyui">
-							<a id="prev-1" class="prev" href="#">前&nbsp;</a> 
-							<a id="next-1" class="next" href="#">后</a>
+							<a id="prev-1" class="prev" href="#"><&nbsp;</a> 
+							<a id="next-1" class="next" href="#">></a>
 						</div>
 						<!--feature-nav-->
 					</div>
 					<!--end:list-carousel--> </section>
 					<!--end:feature-widget-->
 				</div>
-				<!--top-sidebar-->
-				<div class="sidebar" id="sidebar-a">
-					<aside class="widget box-hover"
-						style="border-left:0.5px solid gray">
-						 <header class="entry-header">
-							<h4 class="widget-title clearfix"><span>中证新闻</span><a href="chinaSecurityNews?pageNum=1" style="float:right">更多</a></h4>
-							
-						 </header> 
-						 <ol class="w3_tab_list" style="padding:8px;height: 380px">
-								<c:forEach items="${csNews}" var="rowcs">
-									<li style="height: 25px">
-										<a href="csNewsDetail?id=${rowcs.id}" style="float:left">${fn:substring(rowcs.title,0,16)}...</a>
-										<span style="float:right">${rowcs.newsSource}</span>
-									</li>
-									<div class="clearfix"></div>
-								</c:forEach>
-						</ol>
-					
+			
+			<div class="primary" style="width: 480px">
+				<div class="slider-box-hover">
+					<div class="slider-wrapper">
+						<div id="slider" class="nivoSlider">
+							<img src="<%=basePath %>/placeholders/slider/slide-1.jpg" alt=""
+								title="#slide-caption-1" /> <img
+								src="<%=basePath %>/placeholders/slider/slide-2.jpg" alt=""
+								title="#slide-caption-2" />
+						</div>
+						<div id="slide-caption-1" class="nivo-html-caption">
+						<header>                    
+							<span class="entry-category">时间:${TopNews1.newsTime}&nbsp;</span>
+							<h1><a href="single.html">${TopNews1.newsTitle}</a></h1>
+						</header>
+						<p>内容：${TopNews1.newsContent.substring(0,75)}....</p>
+						<span class="entry-author">新闻来源:${TopNews1.newsSource}&nbsp;</span>
+						</div>
+						<div id="slide-caption-2" class="nivo-html-caption">
+							<header>                    
+								<span class="entry-category">时间:${TopNews2.newsTime}&nbsp;</span>
+								<h1><a href="single.html">${TopNews2.newsTitle}</a></h1>
+							</header>
+							<p>内容：${TopNews2.newsContent.substring(0,75)}....</p>
+							<span class="entry-author">新闻来源:${TopNews2.newsSource}&nbsp;</span>
+						</div>      
+					</div>
+					<!--end:slider-wrapper-->
+				</div>
+				<!--box-hover-->
+				<section id="main-section"> 
+					<header class="entry-header">
+						<div class="header-inner" style="height:35px">
+							<a href="#" style="float:left">热点新闻</a>
+						</div>
+					</header>
+				<div class="article-wrap" style="height: 235px">
+					<ol class="w3_tab_list w3_tab_list_home" style="padding:8px;height:300px">
+						<c:forEach items="${companyHot}" var="hot"> 
+							<li style="height: 18px">
+								<a href="companyHotDetail?id=${hot.id}" style="float:left">${fn:substring(hot.newsTitle,0,25)}...</a>
+								<span style="float:right">${hot.newsTime}</span>
+							</li>
+							<div class="clearfix"></div>
+						</c:forEach>
+					</ol>
+				</div>
+				<!--article-wrap--> <header class="entry-header">
+				<div class="header-inner" style="height:35px">
+					<a href="#" style="float:left">最新新闻</a>
+				</div>
+				<!--header-inner--> </header>
+				<div class="article-wrap" style="height: 230px">
+					<ol class="w3_tab_list" style="padding:8px;height: 300px">
+						<c:forEach items="${companyNewByTime}" var="rowTime">
+							<li style="height: 18px">
+								<a href="companyHotDetail?id=${rowTime.id}" style="float:left">${fn:substring(rowTime.newsTitle,0,25)}...</a>
+								<span style="float:right">${rowTime.newsTime}</span>
+							</li>
+							<div class="clearfix"></div>
+						</c:forEach>
+					</ol>
+				</div>
+				<!--article-wrap--> <header class="entry-header">
+				<div class="header-inner" style="height:35px">
+					<a href="#" style="float:left">财经新闻</a>
+					<a href="economicNews?pageNum=1" style="float:right">更多</a>
+				</div>
+				<!--header-inner--> </header>
+				<div class="article-wrap" style="height:380px;">
+					<div class="w3layouts_research_grid scrollbar" id="style-2" style="height:380px;">	
+						<table style="width: 100%;">	
+							<c:forEach items="${eeolist}" var="r">
+							<tr>
+								<table style="width: 100%;border-bottom:1px solid #e8eaec;">
+									<tr style="width: 100%;height:30px;">
+										<td><a href="economicNewsDetail?id=${r.id}">${r.title}</a></td>	
+									</tr>
+									<tr>
+										<td><span>${r.newsTime}</span></td>
+									</tr>
+									<tr>
+										<c:if test="${fn:length(r.newsContent) > 65 }">
+											<td>${fn:substring(r.newsContent,0,65)}.....</td>
+										</c:if>
+										<c:if test="${fn:length(r.newsContent)  <= 65 }">
+											<td>${r.newsContent}</td>
+										</c:if>									
+									</tr>
+									
+								</table>
+							</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+				<!--article-wrap--> </section>
+			</div>
+			<!--end:primary-->
+			<div class="secondary">
+				<div class="sidebar" id="sidebar-a" >
+					<aside class="widget box-hover">
+						<div style="border-radius: 15px;border-left:1px solid gray;height:370px">
+							 <div class="entry-header" style="border-radius: 15px;">
+								<h4 class="widget-title clearfix"><span>中证新闻</span><a href="chinaSecurityNews?pageNum=1" style="float:right">更多</a></h4>
+							 </div>
+							 <ol class="w3_tab_list" style="padding:8px;height: 290px">
+									<c:forEach items="${csNews}" var="rowcs">
+										<li style="height: 19px">
+											<a href="csNewsDetail?id=${rowcs.id}" style="float:left">${fn:substring(rowcs.title,0,15)}...</a>
+											<span style="float:right">${rowcs.newsSource}</span>
+										</li>
+										<div class="clearfix"></div>
+									</c:forEach>
+							</ol>
+						</div>
 					</aside>
 					<!--end:widget-->
 					<aside class="widget box-hover" style="border-left:0.5px solid gray">
 						<header class="entry-header">
 							<h4 class="widget-title clearfix"><span>产经新闻</span><a href="industryNews?pageNum=1" style="float:right">更多</a></h4>
 						</header> 
-						<div class="w3layouts_research_grid scrollbar" id="style-2">	
+						<div class="w3layouts_research_grid scrollbar" id="style-2" style="height:500px">	
 							<table style="width: 100%;">	
 									<c:forEach items="${cbInfo}" var="rcb">
 									<tr>
@@ -619,10 +617,10 @@ $(document).ready(function(){
 						</ul>
 						<div  class="tab-content">
 							<div role="tabpanel" class="tab-pane fade in active" id="hu" aria-labelledby="hu_tab">
-								<div class="w3l_stocks" style="width: 100%;">
-									<table style="width: 100%;">
+								<div class="w3l_stocks" style="width:100%;padding:13px 10px 0px 18px">
+									<table style="width: 100%;height: 280px;border:0px">
 										<thead>
-										<tr style="width: 100%;height:40px;font-size:15px">
+										<tr style="width: 100%;height:20px;font-size:15px">
 											<th style="width: 33%;">股票名称</th>
 											<th style="width: 33%;">股票代码</th>
 											<th style="width: 33%;">涨跌幅</th>
@@ -644,7 +642,7 @@ $(document).ready(function(){
 								<div class="w3l_stocks">
 									<table style="width: 100%;">
 										<thead>
-										<tr style="width: 100%;height:40px;font-size:15px">
+										<tr style="width: 100%;height:20px;font-size:15px">
 											<th style="width: 33%;">股票名称</th>
 											<th style="width: 33%;">股票代码</th>
 											<th style="width: 33%;">涨跌幅</th>
@@ -707,7 +705,7 @@ $(document).ready(function(){
 								<div class="w3l_stocks" style="padding-top:5px">
 									<table style="width: 100%;">
 									<thead>
-										<tr style="width: 100%;height:40px;font-size:12px ">
+										<tr style="width: 100%;height:25px;font-size:12px ">
 											<th style="width: 25%;">股票名称</th>
 											<th style="width: 25%;">股价</th>
 											<th style="width: 25%;">涨跌幅</th>

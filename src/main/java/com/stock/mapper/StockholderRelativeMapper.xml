@@ -260,6 +260,7 @@
   <select id="selectStockHolderR" parameterType="string" resultMap="BaseResultMap">
   	select * from stockholder_relative
   	where stock = #{stockNum}
+  	ORDER BY declaration_date LIMIT 1
   </select>
   
 </mapper>

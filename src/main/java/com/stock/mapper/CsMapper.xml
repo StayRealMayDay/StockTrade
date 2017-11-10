@@ -273,7 +273,7 @@
 	<select id="selectAllNews" resultMap="BaseResultMap">
 		select id,title,news_source
 		from cs
-		limit 0,11
+		limit 0,10
 	</select>
 	
 	<!-- 于花蕾新增 2017年9月27 -->

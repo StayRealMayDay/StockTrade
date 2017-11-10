@@ -160,11 +160,11 @@ Clear Floated Elements
 }
 .home-page .secondary {
 	float:left;
-	width:569px;
+	width:609px;
 }
 .sidebar {
 	float:left;
-	width:284px;
+	width:304px;
 }
 .last {
 	margin-right:0 !important;
@@ -227,7 +227,7 @@ Clear Floated Elements
 }
 /*-- Header top ---------------------------------------*/
 #header-top {
-	background-color:#131212;
+	background-color:#053D5E;
 }
 #welcome {
 	color:#ffffff;
@@ -354,7 +354,7 @@ Clear Floated Elements
 #header-bottom {
     padding-bottom: 1px;
     padding-top: 1px;
-    background: #272625;
+    background: #053D5E;
     height: 33px;
 }
 #headline {
@@ -378,12 +378,12 @@ Clear Floated Elements
     text-transform: uppercase;
 }
 
-#headline ul li a {
+/* #headline ul li a {
 	color:#acacac;
 }
 #headline ul li a:hover {
 	color:#aaaaaa;
-}
+} */
 .horizontal_scroller{
 	padding-top:5px;
 	position:relative;
@@ -536,9 +536,9 @@ Clear Floated Elements
 	display:inline-block;
 	width:170px;
 }
-#main-nav li ul > li:hover > a {
+/* #main-nav li ul > li:hover > a {
 	color:#ffffff;
-}
+} */
 #main-nav li ul > li:hover{
 	background-color:#131212;
 }
@@ -578,9 +578,10 @@ a.entry-category, .entry-date, a.entry-author {
 	padding:1px;
 }
 .entry-header .header-inner {
-	background-color:#272625;
+	background-color:#053D5E;
 	padding:10px 15px;
 	margin-bottom:0;
+	border-radius: 15px 15px 0 0;
 }
 .entry-header .header-inner a {
 	text-transform:uppercase;
@@ -589,9 +590,9 @@ a.entry-category, .entry-date, a.entry-author {
 	font-family: 'bebas_neueregular',Arial,sans-serif;
 	margin-right:40px;
 }
-.entry-header .header-inner a:hover {
+/* .entry-header .header-inner a:hover {
 	color:#aaaaaa;
-}
+} */
 .entry-header .header-inner select{
 	cursor:pointer;
 	font: 400 14px/20px 'bebas_neueregular',Arial,sans-serif;
@@ -783,11 +784,12 @@ a.entry-category, .entry-date, a.entry-author {
 ============================================================ */
 
 .sidebar .widget .widget-title {
-	background-color:#272625;
+	background-color:#053D5E;
 	padding:10px;
 	margin-bottom:0;
 	color:#fff;
 	font-size:20px;
+	border-radius: 15px 15px 0 0;
 }
 .sidebar .widget .widget-title span {
 	float:left;
