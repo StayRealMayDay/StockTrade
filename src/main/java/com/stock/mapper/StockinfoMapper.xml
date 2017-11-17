@@ -314,7 +314,7 @@
   <select id="selectStockInfo"  resultMap="BaseResultMap">
   	select stock_num,stock_name, current_price,updown_ratio,turnover_rate
   	from stockinfo
-  	limit 0,6
+  	limit 0,10
   </select>
   
   <!-- 于花蕾 新增部分 -->
@@ -340,14 +340,14 @@
   	select stock_name,stock_num,updown_ratio
   	from stockinfo  
   	where stock_num like '%60%'
-  	limit 0,10
+  	limit 0,8
   </select>
   <!-- 于花蕾新增部分 深A股票 -->
    <select id="selectStockShenA"  resultMap="BaseResultMap">
   	select stock_name,stock_num,updown_ratio
   	from stockinfo  
   	where stock_num like '%000%'
-  	limit 0,10
+  	limit 0,8
   </select>
   <select id="selectStockUp" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select

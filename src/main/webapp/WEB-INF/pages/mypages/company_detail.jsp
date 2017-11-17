@@ -582,7 +582,6 @@ jQuery(document).ready(function($) {
 														</c:forEach>
 													</ul>
 												</div>
-												
 
 											</div>
 									</div>
