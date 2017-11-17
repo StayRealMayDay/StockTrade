@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.stock.mapper.CapitalFlowMapper;
 import com.stock.mapper.CompanyBulletinMapper;
 import com.stock.mapper.CompanyDetailMapper;
 import com.stock.mapper.CompanyExecutiveMapper;
@@ -20,9 +25,11 @@ import com.stock.mapper.CompanyNewsMapper;
 import com.stock.mapper.IndustryNewsinfoMapper;
 import com.stock.mapper.IndustryStatusMapper;
 import com.stock.mapper.MarketPerformanceMapper;
+import com.stock.mapper.RankandpredictMapper;
 import com.stock.mapper.StockholderBasicMapper;
 import com.stock.mapper.StockholderRelativeMapper;
 import com.stock.mapper.StockinfoMapper;
+import com.stock.pojo.CapitalFlow;
 import com.stock.pojo.Company;
 import com.stock.pojo.CompanyBulletin;
 import com.stock.pojo.CompanyDetail;
@@ -31,6 +38,7 @@ import com.stock.pojo.CompanyNews;
 import com.stock.pojo.IndustryNewsinfo;
 import com.stock.pojo.IndustryStatus;
 import com.stock.pojo.MarketPerformance;
+import com.stock.pojo.Rankandpredict;
 import com.stock.pojo.StockholderBasic;
 import com.stock.pojo.StockholderRelative;
 import com.stock.pojo.Stockinfo;
@@ -61,7 +69,32 @@ public class CompanyController {
 	IndustryStatusMapper industryStatusMapper;
 	@Autowired
 	MarketPerformanceMapper marketPerformanceMapper;
+	@Autowired
+	CapitalFlowMapper capitalFlowMapper;
+	@Autowired
+	RankandpredictMapper rankandpredictMapper;
 	
+	@RequestMapping(value = "/profit_predict",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Map<String,Object> profitPredict(Model model,HttpServletRequest req){
+		/*["预测每股收益","预测净利润","预测主营业务营收"]
+		 * 
+		 * */
+		String stockNum = req.getParameter("stockNum");
+		Map<String,Object> map = new HashMap();
+		String[] str1 = {"预测每股收益","预测净利润","预测主营业务营收"};
+		Rankandpredict rankandpredicts = rankandpredictMapper.selectPredict(stockNum);
+		
+		String[] str2 = new String[3];
+		str2[0] = rankandpredicts.getPredictEveryProfit();
+		str2[1] = rankandpredicts.getPredictNetProfit();
+		str2[2] = rankandpredicts.getPredictMainIncome();
+		System.out.println(str2);
+		map.put("categories", str1);
+		map.put("data", str2);
+		
+		return map;
+	}
 	
 	@RequestMapping(value = "/company")
 	public String companyNews(Model model,HttpServletRequest req){
@@ -79,7 +112,11 @@ public class CompanyController {
 		List<IndustryNewsinfo> industryList = industryNewsinfoMapper.selectTitleByStock(stocklist);
 		List<CompanyBulletin> bulletins = companyBulletinMapper.selectSomeBulletin(stockNum);
 		List<CompanyNews> companyNewsList = companyNewsMapper.selectNewsByComapny(stockNum);
-		System.out.println("1111111111111");
+		List<CapitalFlow> capitalFlowInlist = capitalFlowMapper.selectFlowIn();
+		List<CapitalFlow> capitalFlowOutlist = capitalFlowMapper.selectFlowOut();
+		Rankandpredict rankAndPredict = rankandpredictMapper.selectAll(stockNum);
+		model.addAttribute("rankAndPredict",rankAndPredict );
+		System.out.println("评级数量"+rankAndPredict);
 		model.addAttribute("stockinfo",stockinfo );
 		model.addAttribute("industryList",industryList );
 		model.addAttribute("stockNum", stockNum);
@@ -87,6 +124,8 @@ public class CompanyController {
 		model.addAttribute("stocklist",stocklist );
 		model.addAttribute("bulletins",bulletins );
 		model.addAttribute("companyNewsList",companyNewsList );
+		model.addAttribute("capitalFlowInlist",capitalFlowInlist );
+		model.addAttribute("capitalFlowOutlist",capitalFlowOutlist );
 		return "mypages/company";
 	}
 	

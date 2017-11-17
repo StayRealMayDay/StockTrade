@@ -590,9 +590,9 @@ $(document).ready(function(){
        var myChart1 = echarts.init(document.getElementById('market'));
        var labelTag = true;
        var resultData = {
-           "times": ["2016Q2", "2016Q1", "2015Q4", "2015Q3", "2015Q2", "2015Q1", "2014Q4", "2014Q3", "2014Q2", "2014Q1", "2013Q4", "2013Q3", "2013Q2", "2013Q1", "2012Q4", "2012Q3", "2012Q2", "2012Q1", "2011Q4", "2011Q3"],
-           "totalGDPs": ["1742.0", "1434.7", "2078.5", "1859.8", "1882.6", "1459.6", "1578.7", "1780.9", "2049.5", "1689.6", "1935.5", "1700.1", "1941.1", "1581.9", "1800.8", "1596.4", "1779.6", "1430.0", "1593.8", "1458.4"],
-           "increaseGDPs": ["-7.5", "-1.7", "31.7", "4.4", "-8.1", "-13.6", "-18.4", "4.8", "5.6", "6.8", "7.5", "6.5", "9.1", "10.6", "13.0", "9.5", "11.2", "13.2", "16.0", "17.4"]
+           "times": ["影视传媒", "新能源汽车", "稀土", "钛白粉", "超导材料", "智能家居", "VR", "OLED", "机器人", "医药生物", "飞机制造", "畜牧养殖", "体育", "无人机", "环保", "智能手表", "食品饮料", "高铁", "量子通信", "石墨烯", "智能手机", "无人驾驶", "3D打印", "核电", "网络安全", "风电", "蓝宝石", "建筑材料", "人工智能", "大数据", "芯片", "煤炭", "金融", "锂电池", "电子竞技", "LED节能灯", "PPP", "光伏", "物联网", "教育", "物流", "房地产", "消费金融", "大健康"],
+           "totalGDPs": ["2.28", "3.18", "3.53", "3.35", "2.53", "3.36", "3.74", "4.53", "2.78", "2.32", "2.01", "-2.06", "2.58", "1.68", "2.2", "3.84", "2.28", "0.85", "4.64", "3.85", "3.8", "3.92", "2.77", "2.36", "6.06", "2.32", "4.98", "1.7", "4.63", "3.64", "7.55", "4.41", "0.55", "2.64", "1.72", "3.76", "1.41", "3.11", "4.22", "2.67", "0.65", "1.21", "2.4", "3.16"],
+           "increaseGDPs": ["-23.71", "-7.84", "-1.09", "0.99", "-16.8", "-12.14", "-16.14", "3.61", "-13.74", "1.12", "-18.83", "-11.64", "-26.72", "-15.42", "-7.8", "-7.36", "46.48", "-7.91", "-0.58", "-8.23", "-20.64", "-11.21", "-17.09", "-10.8", "-18.3", "-10.81", "4.72", "4.5", "-10.25", "-20.04", "46.08", "-1.66", "2.75", "-1.28", "-24.3", "-11.83", "-9.69", "-7.36", "-15.29", "-15.7", "-11.77", "-10.94", "5.48", "-10.07"]
        };
 
        function label() {
@@ -600,6 +600,9 @@ $(document).ready(function(){
                return {
                    normal: {
                        show: true,
+                       formatter: function(param) {
+                           return param.value + '%'
+                       },
                        position: 'top'
                    }
                }
@@ -638,7 +641,7 @@ $(document).ready(function(){
            return [{
                type: 'category',
                axisLabel: {
-                   interval: 3
+                   interval: 2
                },
 
                inverse: true,
@@ -647,15 +650,15 @@ $(document).ready(function(){
        }
       var option = {
            title: [{
-               text: "季度GDP总值趋势图",
+               text: "",
                left: 'center',
                textStyle: {
                    color: "#454545",
-                   fontSize: 16,
+                   fontSize: 10,
                    fontWeight: 'bold'
                }
            }, {
-               text: '单位：亿元',
+               text: '单位：%',
                right: 10,
                textStyle: {
                    color: "#006486",
@@ -667,11 +670,11 @@ $(document).ready(function(){
                trigger: 'axis',
                formatter: function(params) {
                    console.log(params)
-                   return params[0].name + '<br/>' + params[0].seriesName + ': ' + params[0].value + '<br/>' + params[1].seriesName + ': ' + params[1].value + '%'
+                   return params[0].name + '<br/>' + params[0].seriesName + ': ' + params[0].value + '%'+ '<br/>' + params[1].seriesName + ': ' + params[1].value + '%'
                }
            },
            legend: {
-               data: ['GDP总值', 'GDP增长率'],
+               data: ['近一周涨跌幅', '近一年涨跌幅'],
                selectedMode: true,
                bottom: 'bottom'
            },
@@ -689,7 +692,7 @@ $(document).ready(function(){
                min: 0,
                interval: 500,
                axisLabel: {
-                   formatter: '{value}'
+                   formatter: '{value}%'
                }
            }, {
                type: 'value',
@@ -708,12 +711,12 @@ $(document).ready(function(){
            }],
            series: [{
                showAllSymbol: true, //当使用interval隔断时，显示所有的数据
-               name: 'GDP总值',
+               name: '近一周涨跌幅',
                type: 'line',
                label: label(),
                data: resultData.totalGDPs
            }, {
-               name: 'GDP增长率',
+               name: '近一年涨跌幅',
                type: 'bar',
                barMaxWidth: '30px',
                label: label2(),
@@ -745,7 +748,7 @@ $(document).ready(function(){
     		    },
     		    series : [
     		        {
-    		            name: '访问来源',
+    		            name: '上市板块',
     		            type: 'pie',
     		            radius : '55%',
     		            center: ['50%', '60%'],
@@ -936,7 +939,7 @@ $(document).ready(function(){
     	    ],
     	    legend: {
     	        y: 'top',
-    	        data: ['北京'],
+    	        data: [''],
     	        textStyle: {
     	            color: '#fff',
     	            fontSize: 16

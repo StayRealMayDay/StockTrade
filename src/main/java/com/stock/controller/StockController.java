@@ -135,6 +135,16 @@ public class StockController {
 		return industryDistributions;
 	}
 	
+	@ResponseBody
+	@RequestMapping("list")
+	public List<IndustryDistribution>  IndusDistri(HttpServletRequest request, Model model){
+		String stock = "002151";
+		Map<String,Object> map = new HashMap();
+		List<IndustryDistribution> industryDistributions = industryDistributionMapper.selectDistriAll(stock);
+		//不行： 002383  600879 002405
+		
+		return industryDistributions;
+	}
 	
 	
 	/**

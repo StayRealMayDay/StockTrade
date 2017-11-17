@@ -34,8 +34,18 @@ public class Company {
     private String totalCapital;
 
     private String floatingStock;
+    
+    private String industry;
 
-    private int coun;
+    public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+	private int coun;
 
     public int getCoun() {
 		return coun;

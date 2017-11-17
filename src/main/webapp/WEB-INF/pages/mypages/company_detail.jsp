@@ -583,67 +583,7 @@ jQuery(document).ready(function($) {
 													</ul>
 												</div>
 												
-<<<<<<< HEAD
-=======
-													<table class="tableTwo" style="width:50%;margin-left:200px">
-													<tr style="background:#EEF5FF">
-														<td colspan="2" style="text-align:center">所属概念板块</td>
-													</tr>
-													<tr>
-														<td>概念板块</td>
-														<td>同行业个股</td>
-													</tr>
-													<c:forEach items="${concepts}" var="concepts">
-														<tr>
-															<td>${concepts }</td>
-															<td><a href="relationConcept?conc=${concepts}&pageNum=1">点击查看</a></td>
-														</tr>
-													</c:forEach>
-												</table>
-												
-											</div>
-									</div>
-								</div>
-								<div role="tabpanel" class="tab-pane fade" id="concept" aria-labelledby="concept_tab">
-										<div class="w3l_stocks">	
-										<div style="background:#F7F7F8;height:30px;text-align:center">板块信息--<span><b>${fn:substring(beiDouDetail.stockName,0,4)}</b></span></div>
-											<div>
-												<div style="height:20px"></div>
-												<table class="tableTwo" style="width:50%;margin-left:200px">
-													<tr style="background:#EEF5FF">
-														<td colspan="2" style="text-align:center">所属行业板块</td>
-													</tr>
-													<tr>
-														<td>所属行业板块</td>
-														<td>同行业个股</td>
-													</tr>
-													<tr>
-														<td>${industry}</td>
-														<td><a href="relationIndustry?industry=${industry}&pageNum=1">点击查看</a></td>
-													</tr>
-													<tr>
-														<td colspan="2" style="text-align:center">备注：此为证监会行业分类</td>
-													</tr>
-												</table>
-												
-												<div style="height:50px"></div>
-												
-													<table class="tableTwo" style="width:50%;margin-left:200px">
-													<tr style="background:#EEF5FF">
-														<td colspan="2" style="text-align:center">所属概念板块</td>
-													</tr>
-													<tr>
-														<td>概念板块</td>
-														<td>同行业个股</td>
-													</tr>
-													<c:forEach items="${concepts}" var="concepts">
-														<tr>
-															<td>${concepts }</td>
-															<td><a href="relationConcept?conc=${concepts}&pageNum=1">点击查看</a></td>
-														</tr>
-													</c:forEach>
-												</table>
->>>>>>> bceaa4ab34b4bbc29f257580718e84cbab543530
+
 											</div>
 									</div>
 								</div>	
