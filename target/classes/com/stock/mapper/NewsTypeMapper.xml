@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.NewsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.NewsType" >
+    <id column="news_type_id" property="newsTypeId" jdbcType="VARCHAR" />
+    <result column="new_type_name" property="newTypeName" jdbcType="VARCHAR" />
+    <result column="news_type_remark" property="newsTypeRemark" jdbcType="VARCHAR" />
+    <result column="news_type_num" property="newsTypeNum" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    news_type_id, new_type_name, news_type_remark, news_type_num, flag
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.NewsTypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from news_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from news_type
+    where news_type_id = #{newsTypeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from news_type
+    where news_type_id = #{newsTypeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.NewsTypeExample" >
+    delete from news_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.NewsType" >
+    insert into news_type (news_type_id, new_type_name, news_type_remark, 
+      news_type_num, flag)
+    values (#{newsTypeId,jdbcType=VARCHAR}, #{newTypeName,jdbcType=VARCHAR}, #{newsTypeRemark,jdbcType=VARCHAR}, 
+      #{newsTypeNum,jdbcType=INTEGER}, #{flag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.NewsType" >
+    insert into news_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsTypeId != null" >
+        news_type_id,
+      </if>
+      <if test="newTypeName != null" >
+        new_type_name,
+      </if>
+      <if test="newsTypeRemark != null" >
+        news_type_remark,
+      </if>
+      <if test="newsTypeNum != null" >
+        news_type_num,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsTypeId != null" >
+        #{newsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="newTypeName != null" >
+        #{newTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTypeRemark != null" >
+        #{newsTypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTypeNum != null" >
+        #{newsTypeNum,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.NewsTypeExample" resultType="java.lang.Integer" >
+    select count(*) from news_type
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update news_type
+    <set >
+      <if test="record.newsTypeId != null" >
+        news_type_id = #{record.newsTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newTypeName != null" >
+        new_type_name = #{record.newTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsTypeRemark != null" >
+        news_type_remark = #{record.newsTypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsTypeNum != null" >
+        news_type_num = #{record.newsTypeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update news_type
+    set news_type_id = #{record.newsTypeId,jdbcType=VARCHAR},
+      new_type_name = #{record.newTypeName,jdbcType=VARCHAR},
+      news_type_remark = #{record.newsTypeRemark,jdbcType=VARCHAR},
+      news_type_num = #{record.newsTypeNum,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.NewsType" >
+    update news_type
+    <set >
+      <if test="newTypeName != null" >
+        new_type_name = #{newTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTypeRemark != null" >
+        news_type_remark = #{newsTypeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTypeNum != null" >
+        news_type_num = #{newsTypeNum,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where news_type_id = #{newsTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.NewsType" >
+    update news_type
+    set new_type_name = #{newTypeName,jdbcType=VARCHAR},
+      news_type_remark = #{newsTypeRemark,jdbcType=VARCHAR},
+      news_type_num = #{newsTypeNum,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=VARCHAR}
+    where news_type_id = #{newsTypeId,jdbcType=VARCHAR}
+  </update>
+  
+<!-- 查看所有的新闻类型 -->
+	<select id="selectNewsTypesByFlag" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from news_type 
+		where flag = #{flag,jdbcType=VARCHAR} 
+		order by news_type_num DESC
+	</select>
+</mapper>

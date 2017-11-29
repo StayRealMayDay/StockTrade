@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.Pro_policysupportMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Pro_policysupport">
+		<id column="pro_ps_id" property="pro_ps_id" jdbcType="INTEGER" />
+		<result column="pro_ps_name" property="pro_ps_name" jdbcType="VARCHAR" />
+		<result column="pro_id" property="pro_id" jdbcType="INTEGER" />
+		<result column="ps_id" property="ps_id" jdbcType="INTEGER" />
+		<result column="fund" property="fund" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		pro_ps_id, pro_ps_name, pro_id, ps_id, fund
+	</sql>
+	
+	<insert id="insertPro_policysupport" parameterType="com.vcevaluation.pojo.Pro_policysupport">
+		insert into pro_policysupport (pro_ps_name, pro_id, ps_id, fund)
+		values (#{pro_ps_name,jdbcType=VARCHAR}, 
+		#{pro_id,jdbcType=INTEGER}, 
+		#{ps_id,jdbcType=INTEGER}, 
+		#{fund,jdbcType=DOUBLE})
+    </insert>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from pro_policysupport
+	    where pro_ps_id = #{pro_ps_id,jdbcType=INTEGER}
+    </delete>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from pro_policysupport
+	    where pro_ps_id = #{pro_ps_id,jdbcType=INTEGER}
+	</select>
+  
+    <select id="selectallPolicysupportByPro" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * 
+  		from pro_policysupport
+  		where pro_id = #{pro_id,jdbcType=INTEGER}
+    </select>
+    <select id="selectallPsByPro" resultType="java.util.Map"  parameterType="java.lang.Integer">
+  		select * 
+  		from pro_policysupport as ps,policy_support as p
+  		where ps.ps_id = p.ps_id and  ps.pro_id = #{pro_id,jdbcType=INTEGER}
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Pro_policysupport" >
+	    update pro_policysupport
+	    <set >
+	    <if test="pro_ps_name != null" >
+	        pro_ps_name = #{pro_ps_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_id != null" >
+	        pro_id = #{pro_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="ps_id != null" >
+	        ps_id = #{ps_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="fund != null" >
+	        fund = #{fund,jdbcType=DOUBLE},
+	      </if>
+	    </set>
+	    where pro_ps_id = #{pro_ps_id,jdbcType=INTEGER}
+	</update>
+</mapper>

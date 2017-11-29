@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.TeamMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Team">
+		<id column="team_id" property="team_id" jdbcType="INTEGER" />
+		<result column="pro_id" property="pro_id" jdbcType="INTEGER" />
+		<result column="member_id" property="member_id" jdbcType="INTEGER" />
+		<result column="team_job" property="team_job" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		team_id, pro_id, member_id, team_job
+	</sql>
+	
+	<insert id="insertTeam" parameterType="com.vcevaluation.pojo.Team">
+		insert into team ( pro_id, member_id, team_job)
+		values (#{pro_id,jdbcType=INTEGER}, 
+		#{member_id,jdbcType=INTEGER}, 
+		#{team_job,jdbcType=VARCHAR})
+    </insert>
+	   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from team
+	    where team_id = #{team_id,jdbcType=INTEGER}
+    </delete>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from team
+	    where team_id = #{team_id,jdbcType=INTEGER}
+	</select>
+  
+<!--     <select id="selectallMember" resultMap="BaseResultMap">
+  		select * from member 
+    </select>
+        <select id="getMemberCount" resultType="java.lang.Integer">
+  		select count(*)
+  		from member 
+    </select>
+      <select id="listallMember" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from member
+  		limit #{start},#{pagesize} 
+    </select>
+   
+  -->
+		<select id="selectMemberByPro" parameterType="java.lang.Integer" resultType="java.util.Map"  >
+		select * 
+  		from team as t,member as m
+  		where t.member_id= m.member_id and  t.pro_id = #{pro_id,jdbcType=INTEGER}
+  		</select>
+       <select id="selectallMemberByPro" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * 
+  		from Team
+  		where pro_id = #{pro_id,jdbcType=INTEGER}
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Team" >
+	    update team
+	    <set >
+	      <if test="pro_id != null" >
+	        pro_id = #{pro_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="member_id != null" >
+	        member_id = #{member_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="team_job != null" >
+	        team_job = #{team_job,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where team_id = #{team_id,jdbcType=INTEGER}
+	</update>
+	  
+</mapper>

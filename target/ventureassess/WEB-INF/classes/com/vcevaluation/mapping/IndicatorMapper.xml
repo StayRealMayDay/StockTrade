@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.IndicatorMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Indicator">
+		<id column="in_id" property="in_id" jdbcType="INTEGER" />
+		<result column="in_name" property="in_name" jdbcType="VARCHAR" />
+		<result column="in_optiontype" property="in_optiontype" jdbcType="INTEGER" />
+		<result column="in_optioncategory" property="in_optioncategory" jdbcType="INTEGER" />
+		<result column="in_flag" property="in_flag" jdbcType="INTEGER" />
+		<result column="in_parent" property="in_parent" jdbcType="INTEGER" />
+		<result column="in_level" property="in_level" jdbcType="INTEGER" />
+		<result column="in_weight" property="in_weight" jdbcType="DOUBLE" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		in_id, in_name, in_optiontype, in_optioncategory, in_flag, in_parent, in_level, in_weight
+	</sql>
+
+	<insert id="insertIndicator" parameterType="com.vcevaluation.pojo.Indicator">
+		insert into indicator (in_name, in_optiontype, in_optioncategory, in_flag, in_parent, in_level, in_weight)
+		values (#{in_name,jdbcType=VARCHAR},
+		#{in_optiontype,jdbcType=INTEGER}, 
+		#{in_optioncategory,jdbcType=INTEGER},
+		#{in_flag,jdbcType=INTEGER},
+		#{in_parent,jdbcType=INTEGER},
+		#{in_level,jdbcType=INTEGER},
+		#{in_weight,jdbcType=DOUBLE})
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from indicator
+	    where in_id = #{in_id,jdbcType=INTEGER}
+    </delete>
+	<select id="selectfirstIndicator" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Indicator" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from indicator 
+	     where in_flag = #{in_flag,jdbcType=INTEGER}   and in_level = #{in_level,jdbcType=INTEGER} 
+	            and in_parent = #{in_parent,jdbcType=INTEGER} 
+	</select>
+	<select id="selectNextIndicators" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Indicator" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from indicator
+	    where in_flag = #{in_flag,jdbcType=INTEGER}   and in_level = #{in_level,jdbcType=INTEGER}  
+	</select> 
+	<select id="selectIndicatorById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from indicator
+	    where in_id = #{in_id,jdbcType=INTEGER}
+	</select>
+<!--    <select id="" resultMap="" parameterType="" >
+	    select *
+	    from indicator as i,eva_scorerecord as es,eva_option as op
+	    where es.es_option_id = op.option_id and op.option_in_id = i.in_id
+            and es.es_eva_id = 40 and i.in_parent = 143
+	</select>  -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Indicator" >
+	    update indicator
+	    <set >
+	      <if test="in_name != null" >
+	        in_name = #{in_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="in_optiontype != null" >
+	        in_optiontype = #{in_optiontype,jdbcType=INTEGER},
+	      </if>
+	      <if test="in_optioncategory != null" >
+	        in_optioncategory = #{in_optioncategory,jdbcType=INTEGER},
+	      </if>
+	      <if test="in_flag != null" >
+	        in_flag = #{in_flag,jdbcType=INTEGER},
+	      </if>
+	      <if test="in_parent != null" >
+	        in_parent = #{in_parent,jdbcType=INTEGER},
+	      </if>
+	      <if test="in_level != null" >
+	        in_level = #{in_level,jdbcType=INTEGER},
+	      </if>
+	      <if test="in_weight != null" >
+	        in_weight = #{in_weight,jdbcType=DOUBLE},
+	      </if>
+	    </set>
+	    where in_id = #{in_id,jdbcType=INTEGER}
+	</update>
+</mapper>

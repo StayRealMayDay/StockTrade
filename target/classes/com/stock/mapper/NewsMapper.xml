@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.NewsMapper">
+	<resultMap id="BaseResultMap" type="com.stock.pojo.News">
+		<id column="news_uuid" property="newsUuid" jdbcType="VARCHAR" />
+		<result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+		<result column="news_content" property="newsContent" jdbcType="VARCHAR" />
+		<result column="news_time" property="newsTime" jdbcType="VARCHAR" />
+		<result column="news_origin" property="newsOrigin" jdbcType="VARCHAR" />
+		<result column="news_author" property="newsAuthor" jdbcType="VARCHAR" />
+		<result column="news_hot" property="newsHot" jdbcType="VARCHAR" />
+		<result column="news_type" property="newsType" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		news_uuid, news_title, news_content, news_time, news_origin, news_author,
+		news_hot,
+		news_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where news_uuid = #{newsUuid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from news
+		where news_uuid = #{newsUuid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.stock.pojo.News">
+		insert into news (news_uuid, news_title, news_content,
+		news_time, news_origin, news_author,
+		news_hot, news_type)
+		values (#{newsUuid,jdbcType=VARCHAR}, #{newsTitle,jdbcType=VARCHAR},
+		#{newsContent,jdbcType=VARCHAR},
+		#{newsTime,jdbcType=VARCHAR}, #{newsOrigin,jdbcType=VARCHAR}, #{newsAuthor,jdbcType=VARCHAR},
+		#{newsHot,jdbcType=VARCHAR}, #{newsType,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.stock.pojo.News">
+		insert into news
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="newsUuid != null">
+				news_uuid,
+			</if>
+			<if test="newsTitle != null">
+				news_title,
+			</if>
+			<if test="newsContent != null">
+				news_content,
+			</if>
+			<if test="newsTime != null">
+				news_time,
+			</if>
+			<if test="newsOrigin != null">
+				news_origin,
+			</if>
+			<if test="newsAuthor != null">
+				news_author,
+			</if>
+			<if test="newsHot != null">
+				news_hot,
+			</if>
+			<if test="newsType != null">
+				news_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="newsUuid != null">
+				#{newsUuid,jdbcType=VARCHAR},
+			</if>
+			<if test="newsTitle != null">
+				#{newsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="newsContent != null">
+				#{newsContent,jdbcType=VARCHAR},
+			</if>
+			<if test="newsTime != null">
+				#{newsTime,jdbcType=VARCHAR},
+			</if>
+			<if test="newsOrigin != null">
+				#{newsOrigin,jdbcType=VARCHAR},
+			</if>
+			<if test="newsAuthor != null">
+				#{newsAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="newsHot != null">
+				#{newsHot,jdbcType=VARCHAR},
+			</if>
+			<if test="newsType != null">
+				#{newsType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.News">
+		update news
+		<set>
+			<if test="newsTitle != null">
+				news_title = #{newsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="newsContent != null">
+				news_content = #{newsContent,jdbcType=VARCHAR},
+			</if>
+			<if test="newsTime != null">
+				news_time = #{newsTime,jdbcType=VARCHAR},
+			</if>
+			<if test="newsOrigin != null">
+				news_origin = #{newsOrigin,jdbcType=VARCHAR},
+			</if>
+			<if test="newsAuthor != null">
+				news_author = #{newsAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="newsHot != null">
+				news_hot = #{newsHot,jdbcType=VARCHAR},
+			</if>
+			<if test="newsType != null">
+				news_type = #{newsType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where news_uuid = #{newsUuid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.stock.pojo.News">
+		update news
+		set news_title = #{newsTitle,jdbcType=VARCHAR},
+		news_content = #{newsContent,jdbcType=VARCHAR},
+		news_time = #{newsTime,jdbcType=VARCHAR},
+		news_origin = #{newsOrigin,jdbcType=VARCHAR},
+		news_author = #{newsAuthor,jdbcType=VARCHAR},
+		news_hot = #{newsHot,jdbcType=VARCHAR},
+		news_type = #{newsType,jdbcType=VARCHAR}
+		where news_uuid = #{newsUuid,jdbcType=VARCHAR}
+	</update>
+	<!-- 查询全部的新闻 -->
+	<select id="selectAllNews" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+	</select>
+	<!-- 查询全部的新闻-分页 -->
+	<select id="selectAllNewsByPager" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		order by news_time DESC
+		limit #{start},#{pagesize}
+	</select>
+	<!-- 查询最近一个礼拜的新闻政策 -->
+	<select id="selectLastWeekNews" parameterType="hashMap"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where
+		news_time
+		between #{lastWeekDate} and #{today}
+		order by
+		news_time DESC
+	</select>
+	<!-- 2017-6-23合并 作者：张玉筱 合并者：刘禄霞 -->
+	<select id="selectByNewsType" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where news_type = #{newsType,jdbcType=VARCHAR}
+		order by news_time DESC
+	</select>
+</mapper>

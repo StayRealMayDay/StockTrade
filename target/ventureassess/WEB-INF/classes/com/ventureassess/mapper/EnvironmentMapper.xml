@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.EnvironmentMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.Environment" >
+    <id column="enviro_uuid" property="enviroUuid" jdbcType="VARCHAR" />
+    <result column="enviro_macro" property="enviroMacro" jdbcType="VARCHAR" />
+    <result column="enviro_micro" property="enviroMicro" jdbcType="VARCHAR" />
+    <result column="enviro_policy" property="enviroPolicy" jdbcType="VARCHAR" />
+    <result column="enviro_economy" property="enviroEconomy" jdbcType="VARCHAR" />
+    <result column="enviro_culture" property="enviroCulture" jdbcType="VARCHAR" />
+    <result column="enviro_technology" property="enviroTechnology" jdbcType="VARCHAR" />
+    <result column="enviro_evalue" property="enviroEvalue" jdbcType="VARCHAR" />
+    <result column="ma_uuid" property="maUuid" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    enviro_uuid, enviro_macro, enviro_micro, enviro_policy, enviro_economy, enviro_culture, 
+    enviro_technology, enviro_evalue, ma_uuid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from environment
+    where enviro_uuid = #{enviroUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from environment
+    where enviro_uuid = #{enviroUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.ventureassess.pojo.Environment" >
+    insert into environment (enviro_uuid, enviro_macro, enviro_micro, 
+      enviro_policy, enviro_economy, enviro_culture, 
+      enviro_technology, enviro_evalue, ma_uuid
+      )
+    values (#{enviroUuid,jdbcType=VARCHAR}, #{enviroMacro,jdbcType=VARCHAR}, #{enviroMicro,jdbcType=VARCHAR}, 
+      #{enviroPolicy,jdbcType=VARCHAR}, #{enviroEconomy,jdbcType=VARCHAR}, #{enviroCulture,jdbcType=VARCHAR}, 
+      #{enviroTechnology,jdbcType=VARCHAR}, #{enviroEvalue,jdbcType=VARCHAR}, #{maUuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.Environment" >
+    insert into environment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enviroUuid != null" >
+        enviro_uuid,
+      </if>
+      <if test="enviroMacro != null" >
+        enviro_macro,
+      </if>
+      <if test="enviroMicro != null" >
+        enviro_micro,
+      </if>
+      <if test="enviroPolicy != null" >
+        enviro_policy,
+      </if>
+      <if test="enviroEconomy != null" >
+        enviro_economy,
+      </if>
+      <if test="enviroCulture != null" >
+        enviro_culture,
+      </if>
+      <if test="enviroTechnology != null" >
+        enviro_technology,
+      </if>
+      <if test="enviroEvalue != null" >
+        enviro_evalue,
+      </if>
+      <if test="maUuid != null" >
+        ma_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enviroUuid != null" >
+        #{enviroUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroMacro != null" >
+        #{enviroMacro,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroMicro != null" >
+        #{enviroMicro,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroPolicy != null" >
+        #{enviroPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroEconomy != null" >
+        #{enviroEconomy,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroCulture != null" >
+        #{enviroCulture,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroTechnology != null" >
+        #{enviroTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroEvalue != null" >
+        #{enviroEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="maUuid != null" >
+        #{maUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.Environment" >
+    update environment
+    <set >
+      <if test="enviroMacro != null" >
+        enviro_macro = #{enviroMacro,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroMicro != null" >
+        enviro_micro = #{enviroMicro,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroPolicy != null" >
+        enviro_policy = #{enviroPolicy,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroEconomy != null" >
+        enviro_economy = #{enviroEconomy,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroCulture != null" >
+        enviro_culture = #{enviroCulture,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroTechnology != null" >
+        enviro_technology = #{enviroTechnology,jdbcType=VARCHAR},
+      </if>
+      <if test="enviroEvalue != null" >
+        enviro_evalue = #{enviroEvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="maUuid != null" >
+        ma_uuid = #{maUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where enviro_uuid = #{enviroUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.Environment" >
+    update environment
+    set enviro_macro = #{enviroMacro,jdbcType=VARCHAR},
+      enviro_micro = #{enviroMicro,jdbcType=VARCHAR},
+      enviro_policy = #{enviroPolicy,jdbcType=VARCHAR},
+      enviro_economy = #{enviroEconomy,jdbcType=VARCHAR},
+      enviro_culture = #{enviroCulture,jdbcType=VARCHAR},
+      enviro_technology = #{enviroTechnology,jdbcType=VARCHAR},
+      enviro_evalue = #{enviroEvalue,jdbcType=VARCHAR},
+      ma_uuid = #{maUuid,jdbcType=VARCHAR}
+    where enviro_uuid = #{enviroUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

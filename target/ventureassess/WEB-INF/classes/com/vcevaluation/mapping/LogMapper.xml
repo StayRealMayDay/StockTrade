@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.LogMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Log">
+		<id column="log_id" property="log_id" jdbcType="INTEGER" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="VARCHAR" />
+		<result column="logType" property="logType" jdbcType="VARCHAR" />
+		<result column="requestIp" property="requestIp" jdbcType="VARCHAR" />
+		<result column="exceptioncode" property="exceptioncode" jdbcType="VARCHAR" />
+		<result column="exceptionDetail" property="exceptionDetail" jdbcType="VARCHAR" />
+		<result column="params" property="params" jdbcType="VARCHAR"/>
+		<result column="createBy" property="createBy" jdbcType="VARCHAR"/>
+		<result column="dateTimeStart" property="dateTimeStart" jdbcType="VARCHAR"/>
+		<result column="dateTimeEnd" property="dateTimeEnd" jdbcType="VARCHAR" />
+		<result column="userType" property="userType" jdbcType="VARCHAR" />
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+		log_id,description,method,logType,requestIp,exceptioncode,
+		exceptionDetail,params,createBy,dateTimeStart,dateTimeEnd,userType
+  </sql>
+  <!-- 根据日志id删除日志 -->
+  <delete id="deleteOptions" parameterType="java.lang.Integer" >
+    delete from log
+    where log_id = #{log_id,jdbcType=INTEGER}
+  </delete>
+  <!-- 查询一条日志 -->
+  <select id="getOneOptions" resultMap="BaseResultMap" parameterType="java.lang.Integer"> 
+    select 
+    <include refid="Base_Column_List" />
+    from log
+    where log_id = #{log_id,jdbcType=INTEGER}
+  </select>
+  <!-- 查询所有的日志 -->
+  <select id="getAllOptions" resultMap="BaseResultMap">
+  	select * from log 
+  </select>
+  <insert id="addOptions" parameterType="com.vcevaluation.pojo.Log">
+		insert into log ( description, method, logType, requestIp, exceptioncode, 
+		exceptionDetail, params, createBy, dateTimeStart, dateTimeEnd,userType)
+		values ( #{description,jdbcType=VARCHAR}, 
+		#{method,jdbcType=VARCHAR},
+		#{logType,jdbcType=VARCHAR}, 
+		#{requestIp,jdbcType=VARCHAR},
+		#{exceptioncode,jdbcType=VARCHAR}, 
+		#{exceptionDetail,jdbcType=VARCHAR},
+		#{params,jdbcType=VARCHAR}, 
+        #{createBy,jdbcType=VARCHAR}, 
+		#{dateTimeStart,jdbcType=VARCHAR}, 
+		#{dateTimeEnd,jdbcType=VARCHAR},
+		#{userType,jdbcType=VARCHAR})
+ </insert>
+ <!-- 带分页的查询所有日志信息 -->
+ 
+ <select id="listAllLogByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from log 
+  		<!-- where pro_flag = #{pro_flag,jdbcType=INTEGER} 
+  		order by pro_protime DESC-->
+  		limit #{start},#{pagesize} 
+ </select>
+<!--  根据用户角色类型查找日志 -->
+  <select id="getUserTypeLogs"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from log 
+  	 <where>
+  	    <if test="userType!=null"> 
+          userType=#{userType}
+        </if>
+           <if test="createBy!=null"> 
+          and createBy LIKE "%"#{createBy}"%"
+         </if>
+          <if test="dateTimeStart!=null"> 
+          and dateTimeStart LIKE "%"#{dateTimeStart}"%"
+         </if>
+          <if test="dateTimeEnd!=null"> 
+          and dateTimeEnd LIKE "%"#{dateTimeEnd}"%"
+        </if> 
+     </where>
+  </select>
+  <!-- 模糊查找数据库中日志操作角色名称 -->
+  <select id="getOptionDateLogs"  parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select  createBy
+  	from log 
+  	where createBy like #{createBy,jdbcType=VARCHAR} 
+  </select>
+         
+</mapper>

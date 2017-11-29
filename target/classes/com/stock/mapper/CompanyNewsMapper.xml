@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.CompanyNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.CompanyNews" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="main_service" property="mainService" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="VARCHAR" />
+    <result column="controller" property="controller" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+    <result column="news_source" property="newsSource" jdbcType="VARCHAR" />
+    <result column="news_time" property="newsTime" jdbcType="VARCHAR" />
+    <result column="operate_date" property="operateDate" jdbcType="VARCHAR" />
+    <result column="hot_ratios" property="hotRatios" jdbcType="VARCHAR" />
+    <result column="news_content" property="newsContent" jdbcType="VARCHAR"/>
+    <result column="count" property="coun" jdbcType="NUMERIC"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.stock.pojo.CompanyNews" extends="BaseResultMap" >
+    <result column="news_content" property="newsContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap type="com.stock.pojo.CompanyNews" id="ResultMapWithTime">
+   	  <id column="id" property="id" jdbcType="INTEGER" />
+  	  <result column="news_title" property="newsTitle" jdbcType="VARCHAR" />
+  	  <result column="news_time" property="newsTime" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, main_service, category, rank, controller, company_name, news_title, news_source, 
+    news_time, operate_date
+  </sql>
+  <sql id="Base_Column_List_Content" >
+    id,company_name, news_title, news_source,news_content,news_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    news_content
+  </sql>
+  <sql id="Hot_News_List" >
+    news_title, news_source, 
+    news_time, hot_ratios
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.stock.pojo.CompanyNewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from company_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.CompanyNewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from company_news
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company_news
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.CompanyNewsExample" >
+    delete from company_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.CompanyNews" >
+    insert into company_news (id, main_service, category, 
+      rank, controller, company_name, 
+      news_title, news_source, news_time, 
+      operate_date, hot_ratios, news_content
+      )
+    values (#{id,jdbcType=INTEGER}, #{mainService,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{rank,jdbcType=VARCHAR}, #{controller,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{newsTitle,jdbcType=VARCHAR}, #{newsSource,jdbcType=VARCHAR}, #{newsTime,jdbcType=VARCHAR}, 
+      #{operateDate,jdbcType=VARCHAR}, #{hotRatios,jdbcType=VARCHAR}, #{newsContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.CompanyNews" >
+    insert into company_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mainService != null" >
+        main_service,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="controller != null" >
+        controller,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="newsTitle != null" >
+        news_title,
+      </if>
+      <if test="newsSource != null" >
+        news_source,
+      </if>
+      <if test="newsTime != null" >
+        news_time,
+      </if>
+      <if test="operateDate != null" >
+        operate_date,
+      </if>
+      <if test="hotRatios != null" >
+        hot_ratios,
+      </if>
+      <if test="newsContent != null" >
+        news_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mainService != null" >
+        #{mainService,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="controller != null" >
+        #{controller,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTitle != null" >
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsSource != null" >
+        #{newsSource,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTime != null" >
+        #{newsTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDate != null" >
+        #{operateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="hotRatios != null" >
+        #{hotRatios,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent != null" >
+        #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.CompanyNewsExample" resultType="java.lang.Integer" >
+    select count(*) from company_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company_news
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mainService != null" >
+        main_service = #{record.mainService,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controller != null" >
+        controller = #{record.controller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsTitle != null" >
+        news_title = #{record.newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsSource != null" >
+        news_source = #{record.newsSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsTime != null" >
+        news_time = #{record.newsTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateDate != null" >
+        operate_date = #{record.operateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hotRatios != null" >
+        hot_ratios = #{record.hotRatios,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent != null" >
+        news_content = #{record.newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update company_news
+    set id = #{record.id,jdbcType=INTEGER},
+      main_service = #{record.mainService,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      rank = #{record.rank,jdbcType=VARCHAR},
+      controller = #{record.controller,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      news_title = #{record.newsTitle,jdbcType=VARCHAR},
+      news_source = #{record.newsSource,jdbcType=VARCHAR},
+      news_time = #{record.newsTime,jdbcType=VARCHAR},
+      operate_date = #{record.operateDate,jdbcType=VARCHAR},
+      hot_ratios = #{record.hotRatios,jdbcType=VARCHAR},
+      news_content = #{record.newsContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company_news
+    set id = #{record.id,jdbcType=INTEGER},
+      main_service = #{record.mainService,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      rank = #{record.rank,jdbcType=VARCHAR},
+      controller = #{record.controller,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      news_title = #{record.newsTitle,jdbcType=VARCHAR},
+      news_source = #{record.newsSource,jdbcType=VARCHAR},
+      news_time = #{record.newsTime,jdbcType=VARCHAR},
+      operate_date = #{record.operateDate,jdbcType=VARCHAR},
+      hot_ratios = #{record.hotRatios,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.CompanyNews" >
+    update company_news
+    <set >
+      <if test="mainService != null" >
+        main_service = #{mainService,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="controller != null" >
+        controller = #{controller,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTitle != null" >
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsSource != null" >
+        news_source = #{newsSource,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTime != null" >
+        news_time = #{newsTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDate != null" >
+        operate_date = #{operateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="hotRatios != null" >
+        hot_ratios = #{hotRatios,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent != null" >
+        news_content = #{newsContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.stock.pojo.CompanyNews" >
+    update company_news
+    set main_service = #{mainService,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=VARCHAR},
+      controller = #{controller,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_source = #{newsSource,jdbcType=VARCHAR},
+      news_time = #{newsTime,jdbcType=VARCHAR},
+      operate_date = #{operateDate,jdbcType=VARCHAR},
+      hot_ratios = #{hotRatios,jdbcType=VARCHAR},
+      news_content = #{newsContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.CompanyNews" >
+    update company_news
+    set main_service = #{mainService,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=VARCHAR},
+      controller = #{controller,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_source = #{newsSource,jdbcType=VARCHAR},
+      news_time = #{newsTime,jdbcType=VARCHAR},
+      operate_date = #{operateDate,jdbcType=VARCHAR},
+      hot_ratios = #{hotRatios,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 查看所有的项目 -->
+	<select id="getHotNews" resultMap="BaseResultMap">
+		select
+		<include refid="Hot_News_List" />
+		from company_news where convert(hot_ratios,signed) >100
+		order by hot_ratios DESC limit 100
+	</select>
+	
+	
+<!--（于花蕾） 一下为新增部分 -->
+
+<!-- 查看所有新闻 ,但仅显示6条-->
+	<select id="selectAllNews" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from company_news  limit 100
+	</select>
+	
+<!-- 显示所有新闻 -->
+	<select id="selectAllNewsShow"  resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List_Content" />
+		from company_news
+		order by news_time DESC 
+		limit #{start}, #{pagesize}
+	</select>	
+
+
+<!--新增部分 热度新闻 -->
+	<select id="selectNewsByHotRatios" resultMap="BaseResultMap">
+		select news_title,id,news_time
+		from company_news
+		where hot_ratios  &lt;&gt; "" 
+		order by hot_ratios DESC
+		limit 0,7
+	</select>
+	
+	<!-- 于花蕾新增 2017年9月28日 -->
+	<select id="newsByHotRatiosDetail" parameterType="int" resultMap="BaseResultMap">
+		select news_title,news_time,news_content,news_source,main_service
+		from company_news
+		where id = #{id}
+	</select>
+	
+<!-- 新增部分 实时资讯 -->
+	<select id="selectNewsByTime" resultMap="ResultMapWithTime">
+		select news_title,id,news_time
+		from company_news 
+		order by news_time DESC
+		limit 0,7
+	</select>
+	<select id="selectNewsAboutCompany"  resultMap="BaseResultMap">
+		select
+		company_name,main_service,category,rank,controller,COUNT(*)count
+		from company_news
+		GROUP BY company_name  ORDER BY COUNT(*) DESC limit 100
+	</select>
+	<select id="selectNewsAboutSource"  resultMap="BaseResultMap">
+		select
+		id,news_source,COUNT(*)coun,news_title
+		from company_news
+		GROUP BY news_source ORDER BY COUNT(*) DESC 
+	</select>
+	
+	<select id="selectNewsAboutHangye"  resultMap="BaseResultMap">
+		select
+		id,category,COUNT(*)coun,news_title
+		from company_news
+		GROUP BY category ORDER BY COUNT(*) DESC limit 100
+	</select>
+	
+	<!-- <select id="selectTopNews"  resultMap="BaseResultMap">
+		select
+		news_time,news_title,news_source,news_content
+		from (select * from company_news where news_time = 
+		(select news_time from company_news order by news_time  desc limit 1))a GROUP BY company_name ORDER BY  count(*) desc limit 2
+	</select> -->
+	<!--2017年10月26 -->
+	<select id="selectTopNews"  resultMap="BaseResultMap">
+		select
+		news_time,news_title,news_source,news_content
+		from company_news where id=23 or id=24
+	</select>
+	<select id="selectNewsByComapny" resultMap="ResultMapWithTime" parameterType="string">
+		select news_time,news_title,id 
+		from company_news 
+		where news_content like "%"#{stockNum}"%"
+		order by news_time DESC
+		limit 0,8
+	</select>
+	
+	<!--2017年10月26 -->
+	<select id="selectNewsDetail" resultMap="BaseResultMap" parameterType="string">
+		select news_time,news_title,news_content,news_source
+		from company_news 
+		where id = #{stockId}
+	</select>
+</mapper>

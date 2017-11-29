@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.InnovationMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.Innovation" >
+    <id column="inno_uuid" property="innoUuid" jdbcType="VARCHAR" />
+    <result column="inno_level" property="innoLevel" jdbcType="VARCHAR" />
+    <result column="inno_description" property="innoDescription" jdbcType="VARCHAR" />
+    <result column="inno_prove" property="innoProve" jdbcType="VARCHAR" />
+    <result column="product_uuid" property="productUuid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    inno_uuid, inno_level, inno_description, inno_prove, product_uuid
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from innovation
+    where inno_uuid = #{innoUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from innovation
+    where inno_uuid = #{innoUuid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.ventureassess.pojo.Innovation" >
+    insert into innovation (inno_uuid, inno_level, inno_description, 
+      inno_prove, product_uuid)
+    values (#{innoUuid,jdbcType=VARCHAR}, #{innoLevel,jdbcType=VARCHAR}, #{innoDescription,jdbcType=VARCHAR}, 
+      #{innoProve,jdbcType=VARCHAR}, #{productUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.Innovation" >
+    insert into innovation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="innoUuid != null" >
+        inno_uuid,
+      </if>
+      <if test="innoLevel != null" >
+        inno_level,
+      </if>
+      <if test="innoDescription != null" >
+        inno_description,
+      </if>
+      <if test="innoProve != null" >
+        inno_prove,
+      </if>
+      <if test="productUuid != null" >
+        product_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="innoUuid != null" >
+        #{innoUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="innoLevel != null" >
+        #{innoLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="innoDescription != null" >
+        #{innoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="innoProve != null" >
+        #{innoProve,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.Innovation" >
+    update innovation
+    <set >
+      <if test="innoLevel != null" >
+        inno_level = #{innoLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="innoDescription != null" >
+        inno_description = #{innoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="innoProve != null" >
+        inno_prove = #{innoProve,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        product_uuid = #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where inno_uuid = #{innoUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.Innovation" >
+    update innovation
+    set inno_level = #{innoLevel,jdbcType=VARCHAR},
+      inno_description = #{innoDescription,jdbcType=VARCHAR},
+      inno_prove = #{innoProve,jdbcType=VARCHAR},
+      product_uuid = #{productUuid,jdbcType=VARCHAR}
+    where inno_uuid = #{innoUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

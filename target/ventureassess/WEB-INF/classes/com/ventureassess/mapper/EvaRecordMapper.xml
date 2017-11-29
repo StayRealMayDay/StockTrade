@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.EvaRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.EvaRecord" >
+    <id column="er_uuid" property="erUuid" jdbcType="VARCHAR" />
+    <result column="er_value" property="erValue" jdbcType="VARCHAR" />
+    <result column="project_uuid" property="projectUuid" jdbcType="VARCHAR" />
+    <result column="product_uuid" property="productUuid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    er_uuid, er_value, project_uuid, product_uuid
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eva_record
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eva_record
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.ventureassess.pojo.EvaRecord" >
+    insert into eva_record (er_uuid, er_value, project_uuid, 
+      product_uuid)
+    values (#{erUuid,jdbcType=VARCHAR}, #{erValue,jdbcType=VARCHAR}, #{projectUuid,jdbcType=VARCHAR}, 
+      #{productUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.EvaRecord" >
+    insert into eva_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="erUuid != null" >
+        er_uuid,
+      </if>
+      <if test="erValue != null" >
+        er_value,
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid,
+      </if>
+      <if test="productUuid != null" >
+        product_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="erUuid != null" >
+        #{erUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="erValue != null" >
+        #{erValue,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.EvaRecord" >
+    update eva_record
+    <set >
+      <if test="erValue != null" >
+        er_value = #{erValue,jdbcType=VARCHAR},
+      </if>
+      <if test="projectUuid != null" >
+        project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        product_uuid = #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.EvaRecord" >
+    update eva_record
+    set er_value = #{erValue,jdbcType=VARCHAR},
+      project_uuid = #{projectUuid,jdbcType=VARCHAR},
+      product_uuid = #{productUuid,jdbcType=VARCHAR}
+    where er_uuid = #{erUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.DataDictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.DataDictionary" >
+    <id column="dd_id" property="ddId" jdbcType="INTEGER" />
+    <result column="dd_datatype" property="ddDatatype" jdbcType="VARCHAR" />
+    <result column="dd_value" property="ddValue" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    dd_id, dd_datatype, dd_value
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_dictionary
+    where dd_id = #{ddId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from data_dictionary
+    where dd_id = #{ddId,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.ventureassess.pojo.DataDictionary" >
+    insert into data_dictionary (dd_id, dd_datatype, dd_value
+      )
+    values (#{ddId,jdbcType=INTEGER}, #{ddDatatype,jdbcType=VARCHAR}, #{ddValue,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.DataDictionary" >
+    insert into data_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ddId != null" >
+        dd_id,
+      </if>
+      <if test="ddDatatype != null" >
+        dd_datatype,
+      </if>
+      <if test="ddValue != null" >
+        dd_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ddId != null" >
+        #{ddId,jdbcType=INTEGER},
+      </if>
+      <if test="ddDatatype != null" >
+        #{ddDatatype,jdbcType=VARCHAR},
+      </if>
+      <if test="ddValue != null" >
+        #{ddValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.DataDictionary" >
+    update data_dictionary
+    <set >
+      <if test="ddDatatype != null" >
+        dd_datatype = #{ddDatatype,jdbcType=VARCHAR},
+      </if>
+      <if test="ddValue != null" >
+        dd_value = #{ddValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dd_id = #{ddId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.DataDictionary" >
+    update data_dictionary
+    set dd_datatype = #{ddDatatype,jdbcType=VARCHAR},
+      dd_value = #{ddValue,jdbcType=VARCHAR}
+    where dd_id = #{ddId,jdbcType=INTEGER}
+  </update>
+</mapper>

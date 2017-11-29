@@ -1,6 +1,7 @@
 package com.stock.controller;
 
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -10,14 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.alibaba.fastjson.JSONObject;
 import com.mysql.fabric.Response;
@@ -31,6 +33,7 @@ import com.stock.mapper.IndustryNewsinfoMapper;
 import com.stock.mapper.IndustryStatusMapper;
 import com.stock.mapper.MarketPerformanceMapper;
 import com.stock.mapper.RankandpredictMapper;
+
 import com.stock.mapper.StockDetailMapper;
 import com.stock.mapper.StockHolderNumberMapper;
 import com.stock.mapper.StockholderBasicMapper;
@@ -45,11 +48,13 @@ import com.stock.pojo.CompanyBulletin;
 import com.stock.pojo.CompanyDetail;
 import com.stock.pojo.CompanyExecutive;
 import com.stock.pojo.CompanyNews;
+
 import com.stock.pojo.IndustryDistribution;
 import com.stock.pojo.IndustryNewsinfo;
 import com.stock.pojo.IndustryStatus;
 import com.stock.pojo.MarketPerformance;
 import com.stock.pojo.Rankandpredict;
+
 import com.stock.pojo.StockDetail;
 import com.stock.pojo.StockHolderNumber;
 import com.stock.pojo.StockholderBasic;
@@ -100,7 +105,6 @@ public class CompanyController {
 	TotalShareStructureMapper totalShareStructureMapper;
 	@Autowired
 	StockDetailMapper stockDetailMapper;
-	
 	@RequestMapping(value = "/profit_predict",produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public Map<String,Object> profitPredict(Model model,HttpServletRequest req){
@@ -405,7 +409,6 @@ public class CompanyController {
 		System.out.println("111111111");
 		return "mypages/shenBulletinDetail";
 	}
-	
 	//2017年11月23日新增
 		@RequestMapping(value = "/shareholderEquity")
 		public String shareholder(Model model,HttpServletRequest req){
@@ -596,5 +599,4 @@ public class CompanyController {
 			model.addAttribute("company", company);
 			return "mypages/financialAnalysis";
 		}
-
 }

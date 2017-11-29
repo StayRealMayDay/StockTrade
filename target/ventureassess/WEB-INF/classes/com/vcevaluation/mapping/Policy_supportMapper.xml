@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.Policy_supportMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Policy_support">
+		<id column="ps_id" property="ps_id" jdbcType="INTEGER" />
+		<result column="ps_way" property="ps_way" jdbcType="VARCHAR" />
+		<result column="ps_rank" property="ps_rank" jdbcType="VARCHAR" />
+		<result column="ps_category" property="ps_category" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ps_id, ps_way, ps_rank, ps_category
+	</sql>
+	
+	<insert id="insertPolicy_support" parameterType="com.vcevaluation.pojo.Policy_support">
+		insert into policy_support (ps_way, ps_rank, ps_category)
+		values (#{ps_way,jdbcType=VARCHAR}, 
+		#{ps_rank,jdbcType=VARCHAR}, 
+		#{ps_category,jdbcType=VARCHAR})
+    </insert>
+	    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from policy_support
+	    where ps_id = #{ps_id,jdbcType=INTEGER}
+    </delete>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from policy_support
+	    where ps_id = #{ps_id,jdbcType=INTEGER}
+	</select>
+  
+    <select id="selectallPolicy_support" resultMap="BaseResultMap">
+  		select * from policy_support 
+    </select>
+    <select id="getPolicy_supportCount" resultType="java.lang.Integer">
+  		select count(*)
+  		from policy_support 
+    </select>
+      <select id="listallPolicy_support" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from policy_support
+  		limit #{start},#{pagesize} 
+    </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Policy_support" >
+	    update policy_support 
+	    <set >
+	      <if test="ps_way != null" >
+	        ps_way = #{ps_way,jdbcType=VARCHAR},
+	      </if>
+	      <if test="ps_rank != null" >
+	        ps_rank = #{ps_rank,jdbcType=VARCHAR},
+	      </if>
+	      <if test="ps_category != null" >
+	        ps_category = #{ps_category,jdbcType=VARCHAR},
+	      </if>
+	      
+	    </set>
+	    where ps_id = #{ps_id,jdbcType=INTEGER}
+	</update>
+</mapper>
