@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.TotalShareStructureMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.TotalShareStructure" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="stock_total" property="stockTotal" jdbcType="VARCHAR" />
+    <result column="stock_A_total" property="stockATotal" jdbcType="VARCHAR" />
+    <result column="stock_circulate" property="stockCirculate" jdbcType="VARCHAR" />
+    <result column="stock_limit" property="stockLimit" jdbcType="VARCHAR" />
+    <result column="change_reason" property="changeReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_id, date, stock_total, stock_A_total, stock_circulate, stock_limit, change_reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.TotalShareStructureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from total_share_structure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from total_share_structure
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from total_share_structure
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.TotalShareStructureExample" >
+    delete from total_share_structure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.TotalShareStructure" >
+    insert into total_share_structure (id, stock_id, date, 
+      stock_total, stock_A_total, stock_circulate, 
+      stock_limit, change_reason)
+    values (#{id,jdbcType=VARCHAR}, #{stockId,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{stockTotal,jdbcType=VARCHAR}, #{stockATotal,jdbcType=VARCHAR}, #{stockCirculate,jdbcType=VARCHAR}, 
+      #{stockLimit,jdbcType=VARCHAR}, #{changeReason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.TotalShareStructure" >
+    insert into total_share_structure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="stockTotal != null" >
+        stock_total,
+      </if>
+      <if test="stockATotal != null" >
+        stock_A_total,
+      </if>
+      <if test="stockCirculate != null" >
+        stock_circulate,
+      </if>
+      <if test="stockLimit != null" >
+        stock_limit,
+      </if>
+      <if test="changeReason != null" >
+        change_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockTotal != null" >
+        #{stockTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="stockATotal != null" >
+        #{stockATotal,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCirculate != null" >
+        #{stockCirculate,jdbcType=VARCHAR},
+      </if>
+      <if test="stockLimit != null" >
+        #{stockLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="changeReason != null" >
+        #{changeReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.TotalShareStructureExample" resultType="java.lang.Integer" >
+    select count(*) from total_share_structure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update total_share_structure
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockTotal != null" >
+        stock_total = #{record.stockTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockATotal != null" >
+        stock_A_total = #{record.stockATotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockCirculate != null" >
+        stock_circulate = #{record.stockCirculate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockLimit != null" >
+        stock_limit = #{record.stockLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeReason != null" >
+        change_reason = #{record.changeReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update total_share_structure
+    set id = #{record.id,jdbcType=VARCHAR},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      stock_total = #{record.stockTotal,jdbcType=VARCHAR},
+      stock_A_total = #{record.stockATotal,jdbcType=VARCHAR},
+      stock_circulate = #{record.stockCirculate,jdbcType=VARCHAR},
+      stock_limit = #{record.stockLimit,jdbcType=VARCHAR},
+      change_reason = #{record.changeReason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.TotalShareStructure" >
+    update total_share_structure
+    <set >
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockTotal != null" >
+        stock_total = #{stockTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="stockATotal != null" >
+        stock_A_total = #{stockATotal,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCirculate != null" >
+        stock_circulate = #{stockCirculate,jdbcType=VARCHAR},
+      </if>
+      <if test="stockLimit != null" >
+        stock_limit = #{stockLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="changeReason != null" >
+        change_reason = #{changeReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.TotalShareStructure" >
+    update total_share_structure
+    set stock_id = #{stockId,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      stock_total = #{stockTotal,jdbcType=VARCHAR},
+      stock_A_total = #{stockATotal,jdbcType=VARCHAR},
+      stock_circulate = #{stockCirculate,jdbcType=VARCHAR},
+      stock_limit = #{stockLimit,jdbcType=VARCHAR},
+      change_reason = #{changeReason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+     <!-- 于花蕾新增 2017年11月23日 -->
+	<select id="structureAll" parameterType="string" resultMap="BaseResultMap">
+		select stock_id,date,stock_total,stock_A_total,stock_circulate,stock_limit,change_reason
+		from total_share_structure
+		where stock_id = #{stock_id}
+	</select>
+</mapper>

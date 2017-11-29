@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.MarketPerformanceMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.MarketPerformance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="industry_name" property="industryName" jdbcType="VARCHAR" />
+    <result column="one_week" property="oneWeek" jdbcType="VARCHAR" />
+    <result column="one_month" property="oneMonth" jdbcType="VARCHAR" />
+    <result column="three_month" property="threeMonth" jdbcType="VARCHAR" />
+    <result column="current_year" property="currentYear" jdbcType="VARCHAR" />
+    <result column="one_year" property="oneYear" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, industry_name, one_week, one_month, three_month, current_year, one_year
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.MarketPerformanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from market_performance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from market_performance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from market_performance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.MarketPerformanceExample" >
+    delete from market_performance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.MarketPerformance" >
+    insert into market_performance (id, industry_name, one_week, 
+      one_month, three_month, current_year, 
+      one_year)
+    values (#{id,jdbcType=INTEGER}, #{industryName,jdbcType=VARCHAR}, #{oneWeek,jdbcType=VARCHAR}, 
+      #{oneMonth,jdbcType=VARCHAR}, #{threeMonth,jdbcType=VARCHAR}, #{currentYear,jdbcType=VARCHAR}, 
+      #{oneYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.MarketPerformance" >
+    insert into market_performance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="industryName != null" >
+        industry_name,
+      </if>
+      <if test="oneWeek != null" >
+        one_week,
+      </if>
+      <if test="oneMonth != null" >
+        one_month,
+      </if>
+      <if test="threeMonth != null" >
+        three_month,
+      </if>
+      <if test="currentYear != null" >
+        current_year,
+      </if>
+      <if test="oneYear != null" >
+        one_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="industryName != null" >
+        #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="oneWeek != null" >
+        #{oneWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="oneMonth != null" >
+        #{oneMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="threeMonth != null" >
+        #{threeMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="currentYear != null" >
+        #{currentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="oneYear != null" >
+        #{oneYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.MarketPerformanceExample" resultType="java.lang.Integer" >
+    select count(*) from market_performance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update market_performance
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.industryName != null" >
+        industry_name = #{record.industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oneWeek != null" >
+        one_week = #{record.oneWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oneMonth != null" >
+        one_month = #{record.oneMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.threeMonth != null" >
+        three_month = #{record.threeMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentYear != null" >
+        current_year = #{record.currentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oneYear != null" >
+        one_year = #{record.oneYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update market_performance
+    set id = #{record.id,jdbcType=INTEGER},
+      industry_name = #{record.industryName,jdbcType=VARCHAR},
+      one_week = #{record.oneWeek,jdbcType=VARCHAR},
+      one_month = #{record.oneMonth,jdbcType=VARCHAR},
+      three_month = #{record.threeMonth,jdbcType=VARCHAR},
+      current_year = #{record.currentYear,jdbcType=VARCHAR},
+      one_year = #{record.oneYear,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.MarketPerformance" >
+    update market_performance
+    <set >
+      <if test="industryName != null" >
+        industry_name = #{industryName,jdbcType=VARCHAR},
+      </if>
+      <if test="oneWeek != null" >
+        one_week = #{oneWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="oneMonth != null" >
+        one_month = #{oneMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="threeMonth != null" >
+        three_month = #{threeMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="currentYear != null" >
+        current_year = #{currentYear,jdbcType=VARCHAR},
+      </if>
+      <if test="oneYear != null" >
+        one_year = #{oneYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.MarketPerformance" >
+    update market_performance
+    set industry_name = #{industryName,jdbcType=VARCHAR},
+      one_week = #{oneWeek,jdbcType=VARCHAR},
+      one_month = #{oneMonth,jdbcType=VARCHAR},
+      three_month = #{threeMonth,jdbcType=VARCHAR},
+      current_year = #{currentYear,jdbcType=VARCHAR},
+      one_year = #{oneYear,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllMarketPerformance" resultMap="BaseResultMap">
+  	select 
+  	*
+  	from market_performance
+  </select>
+  
+</mapper>

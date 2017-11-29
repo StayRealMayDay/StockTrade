@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.BlogMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Blog" >
+    <result column="blog_id" property="blogId" jdbcType="VARCHAR" />
+    <result column="blog_tittle" property="blogTittle" jdbcType="VARCHAR" />
+    <result column="blog_author" property="blogAuthor" jdbcType="VARCHAR" />
+    <result column="blog_content" property="blogContent" jdbcType="VARCHAR" />
+    <result column="blog_clicknum" property="blogClicknum" jdbcType="VARCHAR" />
+    <result column="blog_renqi" property="blogRenqi" jdbcType="VARCHAR" />
+    <result column="blog_date" property="blogDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    blog_id, blog_tittle, blog_author, blog_content, blog_clicknum, blog_renqi, blog_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.BlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.BlogExample" >
+    delete from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Blog" >
+    insert into blog (blog_id, blog_tittle, blog_author, 
+      blog_content, blog_clicknum, blog_renqi, 
+      blog_date)
+    values (#{blogId,jdbcType=VARCHAR}, #{blogTittle,jdbcType=VARCHAR}, #{blogAuthor,jdbcType=VARCHAR}, 
+      #{blogContent,jdbcType=VARCHAR}, #{blogClicknum,jdbcType=VARCHAR}, #{blogRenqi,jdbcType=VARCHAR}, 
+      #{blogDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Blog" >
+    insert into blog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blogId != null" >
+        blog_id,
+      </if>
+      <if test="blogTittle != null" >
+        blog_tittle,
+      </if>
+      <if test="blogAuthor != null" >
+        blog_author,
+      </if>
+      <if test="blogContent != null" >
+        blog_content,
+      </if>
+      <if test="blogClicknum != null" >
+        blog_clicknum,
+      </if>
+      <if test="blogRenqi != null" >
+        blog_renqi,
+      </if>
+      <if test="blogDate != null" >
+        blog_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blogId != null" >
+        #{blogId,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTittle != null" >
+        #{blogTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="blogAuthor != null" >
+        #{blogAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="blogContent != null" >
+        #{blogContent,jdbcType=VARCHAR},
+      </if>
+      <if test="blogClicknum != null" >
+        #{blogClicknum,jdbcType=VARCHAR},
+      </if>
+      <if test="blogRenqi != null" >
+        #{blogRenqi,jdbcType=VARCHAR},
+      </if>
+      <if test="blogDate != null" >
+        #{blogDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.BlogExample" resultType="java.lang.Integer" >
+    select count(*) from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update blog
+    <set >
+      <if test="record.blogId != null" >
+        blog_id = #{record.blogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogTittle != null" >
+        blog_tittle = #{record.blogTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogAuthor != null" >
+        blog_author = #{record.blogAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogContent != null" >
+        blog_content = #{record.blogContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogClicknum != null" >
+        blog_clicknum = #{record.blogClicknum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogRenqi != null" >
+        blog_renqi = #{record.blogRenqi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogDate != null" >
+        blog_date = #{record.blogDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update blog
+    set blog_id = #{record.blogId,jdbcType=VARCHAR},
+      blog_tittle = #{record.blogTittle,jdbcType=VARCHAR},
+      blog_author = #{record.blogAuthor,jdbcType=VARCHAR},
+      blog_content = #{record.blogContent,jdbcType=VARCHAR},
+      blog_clicknum = #{record.blogClicknum,jdbcType=VARCHAR},
+      blog_renqi = #{record.blogRenqi,jdbcType=VARCHAR},
+      blog_date = #{record.blogDate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <select id="selectBlogLatest" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from blog where blog_id in ('0089aa66-b535-11e7-a312-9ddbabdaa9c3','008e9424-b3c1-11e7-8734-9ddbabdaa9c3','008ec5b4-b78f-11e7-bcf4-9ddbabdaa9c3','008f9052-b3bb-11e7-bb60-9ddbabdaa9c3','008fc7c0-b797-11e7-96a5-9ddbabdaa9c3','009743b6-b3bd-11e7-a1a1-9ddbabdaa9c3')
+		<!-- from blog where left(blog_date,4) = '2017' order by blog_date desc limit 100 -->
+  </select>
+  
+  <select id="selectBlogHot" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from blog where left(blog_date,4) = '2017' order by blog_clicknum desc limit 100
+  </select>
+  
+  <select id="selectBlogRenqi" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from blog where left(blog_date,4) = '2017' order by blog_renqi desc limit 100
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from blog where blog_id = #{blolId}
+  </select>
+</mapper>

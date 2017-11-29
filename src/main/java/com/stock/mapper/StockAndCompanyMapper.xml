@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.StockAndCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.StockAndCompany" >
+    
+    <collection property="stockinfo" ofType="com.stock.pojo.Stockinfo"> 
+    	<!-- <id column="VENUE_RESERVE_ID2" property="venueReserveId2" jdbcType="DECIMAL"></id>  -->
+        <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+	    <result column="stock_names" property="stockName" jdbcType="VARCHAR" />
+	    <result column="stock_nums" property="stockNum" jdbcType="VARCHAR" />
+	    <result column="current_price" property="currentPrice" jdbcType="VARCHAR" />
+	    <result column="updown_ratio" property="updownRatio" jdbcType="VARCHAR" />
+	    <result column="updown_price" property="updownPrice" jdbcType="VARCHAR" />
+	    <result column="up_speed" property="upSpeed" jdbcType="VARCHAR" />
+	    <result column="turnover_rate" property="turnoverRate" jdbcType="VARCHAR" />
+	    <result column="equivalent_ratio" property="equivalentRatio" jdbcType="VARCHAR" />
+	    <result column="amplitude" property="amplitude" jdbcType="VARCHAR" />
+	    <result column="turn_volume" property="turnVolume" jdbcType="VARCHAR" />
+	    <result column="floating_stocks" property="floatingStock" jdbcType="VARCHAR" />
+	    <result column="circulation_market_value" property="circulationMarketValue" jdbcType="VARCHAR" />
+	    <result column="pe_ratio" property="peRatio" jdbcType="VARCHAR" />
+	    <result column="time" property="time" jdbcType="VARCHAR" />
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+	    <association  property="company" javaType="com.stock.pojo.Company">  
+	    	<!-- <id column="VENUE_RESERVE_ID1" property="venueReserveId1" jdbcType="DECIMAL"></id> -->
+		    <result column="stock_numc" property="stockNum" jdbcType="VARCHAR" />
+		    <result column="stock_namec" property="stockName" jdbcType="VARCHAR" />
+		    <result column="company_area" property="companyArea" jdbcType="VARCHAR" />
+		    <result column="resolved_concept" property="resolvedConcept" jdbcType="VARCHAR" />
+		    <result column="main_business" property="mainBusiness" jdbcType="VARCHAR" />
+		    <result column="lunch_date" property="lunchDate" jdbcType="VARCHAR" />
+		    <result column="es_net_asset" property="esNetAsset" jdbcType="VARCHAR" />
+		    <result column="es_income" property="esIncome" jdbcType="VARCHAR" />
+		    <result column="net_profit" property="netProfit" jdbcType="VARCHAR" />
+		    <result column="net_profit_growth_rate" property="netProfitGrowthRate" jdbcType="VARCHAR" />
+		    <result column="revenue" property="revenue" jdbcType="VARCHAR" />
+		    <result column="es_cash_flow" property="esCashFlow" jdbcType="VARCHAR" />
+		    <result column="es_public_fund" property="esPublicFund" jdbcType="VARCHAR" />
+		    <result column="es_not_profit" property="esNotProfit" jdbcType="VARCHAR" />
+		    <result column="total_capital" property="totalCapital" jdbcType="VARCHAR" />
+		    <result column="floating_stockc" property="floatingStock" jdbcType="VARCHAR" />
+    	</association >
+    </collection>
+  </resultMap>
+ 
+  <sql id="Base_Stock_List" >
+    stock_id, stock_names, a.stock_nums, current_price, updown_ratio, updown_price, up_speed, 
+    turnover_rate, equivalent_ratio, amplitude, turn_volume, floating_stocks, circulation_market_value, 
+    pe_ratio, time, id, company_area
+  </sql>
+ 
+  <select id="selectStockList" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Stock_List" />
+    from stockinfo a join company b where a.stock_nums = b.stock_numc and company_area = #{area,jdbcType=VARCHAR}
+    <!-- from stockinfo where stock_num in (select distinct(stock_num) from company where company_area = #{area,jdbcType=VARCHAR}) -->
+  </select>
+</mapper>

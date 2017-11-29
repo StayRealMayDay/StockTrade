@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.TopStockCirculationHolderMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.TopStockCirculationHolder" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="stock_held" property="stockHeld" jdbcType="VARCHAR" />
+    <result column="stock_held_rate" property="stockHeldRate" jdbcType="VARCHAR" />
+    <result column="change_before" property="changeBefore" jdbcType="VARCHAR" />
+    <result column="institution_name" property="institutionName" jdbcType="VARCHAR" />
+    <result column="holder_num" property="holderNum" jdbcType="VARCHAR" />
+    <result column="holder_change" property="holderChange" jdbcType="VARCHAR" />
+    <result column="stock_propotion_rate" property="stockPropotionRate" jdbcType="VARCHAR" />
+    <result column="real_increase" property="realIncrease" jdbcType="VARCHAR" />
+    <result column="stock_type" property="stockType" jdbcType="VARCHAR" />
+    <result column="stock_detail_id" property="stockDetailId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_id, date, stock_held, stock_held_rate, change_before, institution_name, 
+    holder_num, holder_change, stock_propotion_rate, real_increase, stock_type, stock_detail_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.TopStockCirculationHolderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from top_stock_circulation_holder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from top_stock_circulation_holder
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from top_stock_circulation_holder
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.TopStockCirculationHolderExample" >
+    delete from top_stock_circulation_holder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.TopStockCirculationHolder" >
+    insert into top_stock_circulation_holder (id, stock_id, date, 
+      stock_held, stock_held_rate, change_before, 
+      institution_name, holder_num, holder_change, 
+      stock_propotion_rate, real_increase, stock_type, 
+      stock_detail_id)
+    values (#{id,jdbcType=VARCHAR}, #{stockId,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{stockHeld,jdbcType=VARCHAR}, #{stockHeldRate,jdbcType=VARCHAR}, #{changeBefore,jdbcType=VARCHAR}, 
+      #{institutionName,jdbcType=VARCHAR}, #{holderNum,jdbcType=VARCHAR}, #{holderChange,jdbcType=VARCHAR}, 
+      #{stockPropotionRate,jdbcType=VARCHAR}, #{realIncrease,jdbcType=VARCHAR}, #{stockType,jdbcType=VARCHAR}, 
+      #{stockDetailId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.TopStockCirculationHolder" >
+    insert into top_stock_circulation_holder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="stockHeld != null" >
+        stock_held,
+      </if>
+      <if test="stockHeldRate != null" >
+        stock_held_rate,
+      </if>
+      <if test="changeBefore != null" >
+        change_before,
+      </if>
+      <if test="institutionName != null" >
+        institution_name,
+      </if>
+      <if test="holderNum != null" >
+        holder_num,
+      </if>
+      <if test="holderChange != null" >
+        holder_change,
+      </if>
+      <if test="stockPropotionRate != null" >
+        stock_propotion_rate,
+      </if>
+      <if test="realIncrease != null" >
+        real_increase,
+      </if>
+      <if test="stockType != null" >
+        stock_type,
+      </if>
+      <if test="stockDetailId != null" >
+        stock_detail_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockHeld != null" >
+        #{stockHeld,jdbcType=VARCHAR},
+      </if>
+      <if test="stockHeldRate != null" >
+        #{stockHeldRate,jdbcType=VARCHAR},
+      </if>
+      <if test="changeBefore != null" >
+        #{changeBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionName != null" >
+        #{institutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="holderNum != null" >
+        #{holderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="holderChange != null" >
+        #{holderChange,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPropotionRate != null" >
+        #{stockPropotionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="realIncrease != null" >
+        #{realIncrease,jdbcType=VARCHAR},
+      </if>
+      <if test="stockType != null" >
+        #{stockType,jdbcType=VARCHAR},
+      </if>
+      <if test="stockDetailId != null" >
+        #{stockDetailId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.TopStockCirculationHolderExample" resultType="java.lang.Integer" >
+    select count(*) from top_stock_circulation_holder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update top_stock_circulation_holder
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockHeld != null" >
+        stock_held = #{record.stockHeld,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockHeldRate != null" >
+        stock_held_rate = #{record.stockHeldRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeBefore != null" >
+        change_before = #{record.changeBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionName != null" >
+        institution_name = #{record.institutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holderNum != null" >
+        holder_num = #{record.holderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holderChange != null" >
+        holder_change = #{record.holderChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockPropotionRate != null" >
+        stock_propotion_rate = #{record.stockPropotionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realIncrease != null" >
+        real_increase = #{record.realIncrease,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockType != null" >
+        stock_type = #{record.stockType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockDetailId != null" >
+        stock_detail_id = #{record.stockDetailId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update top_stock_circulation_holder
+    set id = #{record.id,jdbcType=VARCHAR},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      stock_held = #{record.stockHeld,jdbcType=VARCHAR},
+      stock_held_rate = #{record.stockHeldRate,jdbcType=VARCHAR},
+      change_before = #{record.changeBefore,jdbcType=VARCHAR},
+      institution_name = #{record.institutionName,jdbcType=VARCHAR},
+      holder_num = #{record.holderNum,jdbcType=VARCHAR},
+      holder_change = #{record.holderChange,jdbcType=VARCHAR},
+      stock_propotion_rate = #{record.stockPropotionRate,jdbcType=VARCHAR},
+      real_increase = #{record.realIncrease,jdbcType=VARCHAR},
+      stock_type = #{record.stockType,jdbcType=VARCHAR},
+      stock_detail_id = #{record.stockDetailId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.TopStockCirculationHolder" >
+    update top_stock_circulation_holder
+    <set >
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockHeld != null" >
+        stock_held = #{stockHeld,jdbcType=VARCHAR},
+      </if>
+      <if test="stockHeldRate != null" >
+        stock_held_rate = #{stockHeldRate,jdbcType=VARCHAR},
+      </if>
+      <if test="changeBefore != null" >
+        change_before = #{changeBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionName != null" >
+        institution_name = #{institutionName,jdbcType=VARCHAR},
+      </if>
+      <if test="holderNum != null" >
+        holder_num = #{holderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="holderChange != null" >
+        holder_change = #{holderChange,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPropotionRate != null" >
+        stock_propotion_rate = #{stockPropotionRate,jdbcType=VARCHAR},
+      </if>
+      <if test="realIncrease != null" >
+        real_increase = #{realIncrease,jdbcType=VARCHAR},
+      </if>
+      <if test="stockType != null" >
+        stock_type = #{stockType,jdbcType=VARCHAR},
+      </if>
+      <if test="stockDetailId != null" >
+        stock_detail_id = #{stockDetailId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.TopStockCirculationHolder" >
+    update top_stock_circulation_holder
+    set stock_id = #{stockId,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      stock_held = #{stockHeld,jdbcType=VARCHAR},
+      stock_held_rate = #{stockHeldRate,jdbcType=VARCHAR},
+      change_before = #{changeBefore,jdbcType=VARCHAR},
+      institution_name = #{institutionName,jdbcType=VARCHAR},
+      holder_num = #{holderNum,jdbcType=VARCHAR},
+      holder_change = #{holderChange,jdbcType=VARCHAR},
+      stock_propotion_rate = #{stockPropotionRate,jdbcType=VARCHAR},
+      real_increase = #{realIncrease,jdbcType=VARCHAR},
+      stock_type = #{stockType,jdbcType=VARCHAR},
+      stock_detail_id = #{stockDetailId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 于花蕾新增 2017年11月23日 -->
+	<select id="topStockCircuDate" parameterType="string" resultType="string">
+		select distinct date
+		from top_stock_circulation_holder
+		where stock_id = #{stock_id}
+	</select>
+	
+	<!-- 于花蕾新增 2017年11月23日 -->
+	<select id="topStockDateOne" parameterType="string" resultMap="BaseResultMap">
+		select 
+		stock_id,stock_held,stock_held_rate,change_before,institution_name,holder_num,holder_change,
+		stock_propotion_rate,real_increase,stock_type,stock_detail_id
+		from top_stock_circulation_holder
+		where date = #{date} and stock_id = #{stock_id}
+	</select>
+</mapper>
