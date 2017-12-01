@@ -338,14 +338,18 @@
 								<tbody id="tbody1">
 									<c:forEach items="${topCircuList}" var="list">
 										<tr class="gradeX" id="" style="height:35px">
-											<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">${list.institutionName}</td>
+											<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">
+												<c:if test="${list.holderChange == '退出' }">
+													<a href="javascript:;" onclick="selectOutCircuStock('${list.institutionName}')">${list.institutionName}</a>
+												</c:if>
+												<c:if test="${list.holderChange != '退出' }">${list.institutionName}</c:if>
+											</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${list.holderNum}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${list.holderChange}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${list.stockPropotionRate}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${list.realIncrease}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${list.stockType}</td> <!-- ${list.stockDetailId} -->
 											<td style="border-left:1px solid;border-top:1px solid;width:20%;text-align:center">
-												<div id="need" style="display:none"></div>
 												<c:if test="${list.holderChange != '退出' }">
 													<a href="javascript:;" class="md-trigger btn btn-primary btn-sm" onclick="selectStockDetail('${list.stockDetailId}','${list.institutionName}','${company.stockName}')">查看详情</a>
 												</c:if>
@@ -356,7 +360,6 @@
 								</tbody>
 							</table>
 							</div>
-							
 							<div class="md-modal md-effect-1" id="modal-1">
 							    <div class="md-content">
 							      <h3 style="height:20px;border:2px;margin:2px" id="modalhead">华勇持有顺网科技详情</h3>
@@ -383,6 +386,9 @@
 					</div>
 				</div>
 			</div>
+			<!-- 用于显示某一时间段的某一个公司的投资股票图 -->
+			<div id="outStockGraph" style="height:350px;width:100%;border:1px solid #EBEBEB;display:none"></div>
+					
 			<div class="company_holder"  style="border:1px solid #EBEBEB">
 				<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px">十大股东</div>
 				<div style="margin:10px">
@@ -410,15 +416,19 @@
 								<tbody id="tbody2">
 									<c:forEach items="${topList}" var="toplist">
 										<tr class="gradeX" id="" style="height:35px">
-											<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">${toplist.institutionName}</td>
+											<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">
+												<c:if test="${toplist.holderChange == '退出' }">
+													<a href="javascript:;" onclick="selectOutStock('${toplist.institutionName}')">${toplist.institutionName}</a>
+												</c:if>
+												<c:if test="${toplist.holderChange != '退出' }">${toplist.institutionName}</c:if>											
+											</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${toplist.holderNum}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${toplist.holderChange}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${toplist.stockPropotionRate}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${toplist.realIncrease}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${toplist.stockType}</td>
 											<%-- <td style="border-left:1px solid;border-top:1px solid;width:20%;text-align:center">${toplist.stockDetailId}</td> --%>
-												<td style="border-left:1px solid;border-top:1px solid;width:20%;text-align:center">
-												<div id="need" style="display:none"></div>
+											<td style="border-left:1px solid;border-top:1px solid;width:20%;text-align:center">
 												<c:if test="${toplist.holderChange != '退出' }">
 													<a href="javascript:;" class="md-trigger btn btn-primary btn-sm" onclick="selectStockDetail('${toplist.stockDetailId}','${toplist.institutionName}','${company.stockName}')">查看详情</a>
 												</c:if>
@@ -434,6 +444,9 @@
 				</div>
 				
 			</div>
+			<!-- 用于显示某一时间段的某一个公司的投资股票图 -->
+			<div id="outStockGraphTwo" style="height:350px;width:100%;border:1px solid #EBEBEB;display:none"></div>
+					
 			<div class="company_holder"  style="border:1px solid #EBEBEB">
 				<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px">总股本结构</div>
 				<div style="margin:10px">
@@ -552,18 +565,6 @@
       });
     </script>
 <!-- //stacked-graph -->
-<!-- script for marque -->
-	<script>
-	  $('.marquee').marquee({
-		gap: 100,
-		delayBeforeStart: 0,
-		direction: 'left',
-		duplicated: true,
-		pauseOnHover: true
-	});
-	</script>
-	
-<!-- //script for marque -->
 <!-- Bootstrap Core JavaScript -->
 <script src="<%=basePath %>/js/bootstrap.min.js "></script>
 <script>
@@ -602,6 +603,7 @@ $(document).ready(function(){
  			/* var first = mapList.listInfo[0];
  			var second = mapList.listInfo[1];
  			var third = mapList.listInfo[2]; */
+ 			
           	if(topCircuList.length == 0){
           	}else{	
           		var threeInforHtml ='前十大股东累计持有'+mapList.listInfo[0]+'亿股，累计占总股本比：'+mapList.listInfo[1]+'，较上期变化：'+mapList.listInfo[2]+'万股';
@@ -610,8 +612,14 @@ $(document).ready(function(){
   				for (var i = 0; i < topCircuList.length; i++) {
   					 permissionHtml = permissionHtml
   					   +'<tr class="gradeX" id="" style="height:35px">'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">'+topCircuList[i].institutionName+'</td>'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topCircuList[i].holderNum+'</td>'
+          			   +'<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">'
+          			   if(topCircuList[i].holderChange == '退出'){
+          				 permissionHtml += '<a href="javascript:;" onclick="selectOutCircuStock(\''+topCircuList[i].institutionName+'\')">'+topCircuList[i].institutionName+'</a></td>'
+          			   }else{
+          				 permissionHtml += topCircuList[i].institutionName+'</td>';  
+          			   }  
+          			   permissionHtml +=
+          			   '<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topCircuList[i].holderNum+'</td>'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topCircuList[i].holderChange+'</td>'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topCircuList[i].stockPropotionRate+'</td>'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topCircuList[i].realIncrease+'</td>'
@@ -626,17 +634,256 @@ $(document).ready(function(){
 					$("#tbody1")[0].innerHTML = permissionHtml;    
   				}
           	}
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
-          	//这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
-          	alert(XMLHttpRequest.responseText); 
-          alert(XMLHttpRequest.status);
-          alert(XMLHttpRequest.readyState);
-          alert(textStatus); // parser error;
-          }   
+          }
       }) 	   
      } 
+    //显示流通公司投资股票的关系图
+     function selectOutCircuStock(institutionName){
+		if($("#outStockGraph").css("display") == "none"){
+			$('#outStockGraph').css('display','block');
+		}else{
+			$('#outStockGraph').css('display','none');
+		}
+		 var element = document.getElementById("roleId");
+         var roleId = element.options[element.selectedIndex].value;
+         $.ajax({
+             type: "POST",
+             url: "ajaxCircuSingleCompanyGraph",
+             data: {
+             	"institutionName":institutionName,
+   				"roleId":roleId
+             },
+             dataType: "json",
+             success: function(data) {
+            	var myChart = echarts.init(document.getElementById("outStockGraph"));
+             	var mapList = data.mapList;	
+             	var edgeList = [];
+             	var nodeList = [];
+             	if(mapList.length == 0){
+             	}else{
+             		edgeList = mapList.edgeslist;//边 
+             		var infors= [];
+             		for(var i = 0; i < edgeList.length; i++){
+             			var r= edgeList[i].info;
+             			infors[i] =r;
+             		}
+             		nodeList = mapList.stockNamelist;//点	
+             	}
+             	
+             	option = {
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                dataView: {
+                                    show: true,
+                                    readOnly: true
+                                },
+                                restore: {
+                                    show: true
+                                },
+                                saveAsImage: {
+                                    show: true
+                                }
+                            }
+                        },
+                        animationDuration: 1500,
+                        animationEasingUpdate: 'quinticInOut',
+                        series: [{
+                            type: 'graph',
+                            layout: 'force',
+
+                            force: {
+                                initLayout:'circular',
+                                edgeLength: 50,
+                                repulsion: 50,
+                                gravity: 0.2,
+                                layoutAnimation : true
+                            },
+                            data: nodeList,
+                            edges: edgeList,
+                            // categories: category,
+                            edgeLabel: {
+								normal: {
+									show: true,
+									textStyle: {
+										fontSize: 14
+									},
+									
+								formatter:function(params){//触发之后返回的参数，这个函数是关
+										  if (params.data.info !=undefined) {//如果触发节点
+			               		              return '状态:'+ params.data.info;//返回标签
+			               		            }else {//如果触发边
+			               		              return '状态:'+params.data.info;
+			               		            }	
+									}
+	             		          
+	               		          } 
+							},
+                            focusNodeAdjacency: true,
+                            roam: true,
+                            label: {
+                                normal: {
+                                    textStyle: {
+                                        color: ["#327df8"],
+                                        fontSize: 15
+                                    },
+                                    show: true,
+                                    position: 'middle',
+                                    formatter: '{c}'
+                                }
+                            },
+                            edgeSymbol:['none', 'arrow'],
+                           /*  lineStyle: {
+                                normal: {
+                                    color: {
+                                        type: 'linear',
+                                        x: 0,
+                                        y: 0,
+                                        x2: 0,
+                                        y2: 1,
+                                        colorStops: [{
+                                            offset: 0, color: 'black' // 0% 处的颜色
+                                        }, {
+                                            offset: 1, color: 'blue' // 100% 处的颜色
+                                        }],
+                                        globalCoord: false // 缺省为 false
+                                    },
+                                    width: 2
+                                }
+                            } */
+                        }]
+                    };
+                    myChart.setOption(option)
+             }
+
+         }) 	 
+     }
+     
+   //显示公司投资股票的关系图
+     function selectOutStock(institutionName){
+		if($("#outStockGraphTwo").css("display") == "none"){
+			$('#outStockGraphTwo').css('display','block');
+		}else{
+			$('#outStockGraphTwo').css('display','none');
+		}
+		 var element = document.getElementById("roleIdTwo");
+         var roleId = element.options[element.selectedIndex].value;
+         $.ajax({
+             type: "POST",
+             url: "ajaxSingleCompanyGraph",
+             data: {
+             	"institutionName":institutionName,
+   				"roleId":roleId
+             },
+             dataType: "json",
+             success: function(data) {
+             	var myChart = echarts.init(document.getElementById("outStockGraphTwo"));
+              	var mapList = data.mapList;	
+              	var edgeList = [];
+              	var nodeList = [];
+              	if(mapList.length == 0){
+              	}else{
+              		edgeList = mapList.edgeslist;//边 
+              		var infors= [];
+              		for(var i = 0; i < edgeList.length; i++){
+              			var r= edgeList[i].info;
+              			infors[i] =r;
+              		}
+              		nodeList = mapList.stockNamelist;//点	
+              	}
+              	
+              	option = {
+                         toolbox: {
+                             show: true,
+                             feature: {
+                                 dataView: {
+                                     show: true,
+                                     readOnly: true
+                                 },
+                                 restore: {
+                                     show: true
+                                 },
+                                 saveAsImage: {
+                                     show: true
+                                 }
+                             }
+                         },
+                         animationDuration: 1500,
+                         animationEasingUpdate: 'quinticInOut',
+                         series: [{
+                             type: 'graph',
+                             layout: 'force',
+
+                             force: {
+                                 initLayout:'circular',
+                                 edgeLength: 50,
+                                 repulsion: 50,
+                                 gravity: 0.2,
+                                 layoutAnimation : true
+                             },
+                             data: nodeList,
+                             edges: edgeList,
+                             // categories: category,
+                             edgeLabel: {
+ 								normal: {
+ 									show: true,
+ 									textStyle: {
+ 										fontSize: 14
+ 									},
+ 									
+ 								formatter:function(params){//触发之后返回的参数，这个函数是关
+ 										  if (params.data.info !=undefined) {//如果触发节点
+ 			               		              return '状态:'+ params.data.info;//返回标签
+ 			               		            }else {//如果触发边
+ 			               		              return '状态:'+params.data.info;
+ 			               		            }	
+ 									}
+ 	             		          
+ 	               		          } 
+ 							},
+                             focusNodeAdjacency: true,
+                             roam: true,
+                             label: {
+                                 normal: {
+                                     textStyle: {
+                                         color: ["#327df8"],
+                                         fontSize: 15
+                                     },
+                                     show: true,
+                                     position: 'right',
+                                     formatter: '{c}'
+                                 }
+                             },
+                             edgeSymbol:['none', 'arrow'],
+                            /*  lineStyle: {
+                                 normal: {
+                                     color: {
+                                         type: 'linear',
+                                         x: 0,
+                                         y: 0,
+                                         x2: 0,
+                                         y2: 1,
+                                         colorStops: [{
+                                             offset: 0, color: 'black' // 0% 处的颜色
+                                         }, {
+                                             offset: 1, color: 'blue' // 100% 处的颜色
+                                         }],
+                                         globalCoord: false // 缺省为 false
+                                     },
+                                     width: 2
+                                 }
+                             } */
+                         }]
+                     };
+                     myChart.setOption(option)
+              	
+              	
+              }
+
+         }) 	 
+     }
     
+     
      function selectRoleTwo() {
          var element = document.getElementById("roleIdTwo");
          var roleId = element.options[element.selectedIndex].value;
@@ -656,10 +903,17 @@ $(document).ready(function(){
           	}else{
           		var permissionHtml = "";
   				for (var i = 0; i < topList.length; i++) {
+  					
   					 permissionHtml = permissionHtml
-  					   +'<tr class="gradeX" id="" style="height:35px">'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">'+topList[i].institutionName+'</td>'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].holderNum+'</td>'
+					   +'<tr class="gradeX" id="" style="height:35px">'
+        			   +'<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">'
+        			   if(topList[i].holderChange == '退出'){
+        				 permissionHtml += '<a href="javascript:;" onclick="selectOutStock(\''+topList[i].institutionName+'\')">'+topList[i].institutionName+'</a></td>'
+        			   }else{
+        				 permissionHtml += topList[i].institutionName+'</td>';  
+        			   }  
+        			   permissionHtml +=
+        			   '<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].holderNum+'</td>'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].holderChange+'</td>'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].stockPropotionRate+'</td>'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].realIncrease+'</td>'
@@ -674,14 +928,7 @@ $(document).ready(function(){
 					$("#tbody2")[0].innerHTML = permissionHtml;    
   				}
           	}
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
-          	//这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
-          	alert(XMLHttpRequest.responseText); 
-          alert(XMLHttpRequest.status);
-          alert(XMLHttpRequest.readyState);
-          alert(textStatus); // parser error;
-          }   
+          } 
       }) 	   
      }
 </script>
@@ -689,9 +936,10 @@ $(document).ready(function(){
 	function closeDiv(){
 		$("#modal-1").removeClass("md-show");
 	}
-	
+
 	 //弹出得模态框得填充
      function selectStockDetail(roleId,institutionName,stockName){
+    	 $("#modal-1").addClass("md-show");
     	 var myChartTwo = echarts.init(document.getElementById('myEchartTwo'));
          $.ajax({
           type: "POST",
@@ -765,7 +1013,7 @@ $(document).ready(function(){
   					    ]
   					};
   			   myChartTwo.setOption(option);
-  			 $("#modal-1").addClass("md-show");
+  			
   			   /* $('modal-1').css('visibility','visible');
   			   $('modal-1').show(); */
           	}
@@ -780,8 +1028,5 @@ $(document).ready(function(){
       }) 	  
      }
 </script>
-
-<!-- <script src="js/classie.js"></script>
-<script src="js/modalEffects.js"></script> -->
 </body>
 </html>

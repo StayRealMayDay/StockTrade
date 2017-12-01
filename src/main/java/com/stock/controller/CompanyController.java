@@ -555,14 +555,78 @@ public class CompanyController {
 		public void shareholderDetail(Model model,HttpServletRequest req,HttpServletResponse rsp){
 			
 			String roleIdTwo = req.getParameter("roleId");
-	
-			 List<StockDetail> listDetail = stockDetailMapper.selectStockDetail(roleIdTwo);
-			
-			System.out.println("aaaaa"+roleIdTwo);
+			List<StockDetail> listDetail = stockDetailMapper.selectStockDetail(roleIdTwo);
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("listDetail", listDetail);
 			String result = JsonUtil.toJsonString(jsonObject);
-			/*result = result.replaceAll("%(?![0-9a-fA-F]{2})", "%25"); */
+			System.out.println(result);
+			PrintWriter out;
+			try {
+				out = rsp.getWriter();
+				out.write(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		//2017年11月20日  某一时间段内，投资--撤资关系图
+		@RequestMapping(value = "/ajaxCircuSingleCompanyGraph",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
+		public void selectInforSingleCompany(Model model,HttpServletRequest req,HttpServletResponse rsp){
+			//传过来一个公司的名字；institutionName
+			String institutionName = req.getParameter("institutionName");
+			//传过来一个选中的日期；roleId
+			String roleId = req.getParameter("roleId");
+			//利用这两个去十大流通股票表中去查询，得到List;
+			List<TopStockCirculationHolder> outStocklist = topStockCirculationMapper.selectCircuOutStock(roleId, institutionName);
+			//把这个list中的内容用来形成边表、点表；（可能会去股票相关的表中进行查询，查股票的名称）
+			//1、把股票的名称查出来(生成点表)   
+			List<String> stockIdlist = new ArrayList<>();
+			List<String> stockTypelist = new ArrayList<>();
+			for(int i = 0; i < outStocklist.size(); i++){
+				String temp = outStocklist.get(i).getStockId();
+				String typeTemp = outStocklist.get(i).getHolderChange();
+				stockIdlist.add(temp);
+				stockTypelist.add(typeTemp); // String[] categorieslist = {"不变","退出","新进","增股","减股"};
+			}
+			System.out.println(stockIdlist);
+			List<Company> stockNamelisttemp = companyMapper.getStockNameArray(stockIdlist);
+			List<String> stockNamelist = new ArrayList<String>();
+			for(int l = 0; l < stockNamelisttemp.size();l++){
+				stockNamelist.add("1");
+			}
+			for(int i = 0; i < stockNamelisttemp.size(); i++){
+				String q = stockNamelisttemp.get(i).getStockName();
+				String control = stockNamelisttemp.get(i).getStockNum();
+				for(int j = 0; j < stockIdlist.size(); j++){
+					if(stockIdlist.get(j).equals(control)){
+						stockNamelist.set(j, q);
+						break;
+					}
+				}
+			}
+			stockNamelist.add(institutionName);
+			System.out.println(stockNamelist);
+			//2、构造边表
+			List<Map<String, String>> edgeslist = new ArrayList<>();
+			for(int i = 0; i < stockNamelist.size()-1; i++){
+				//info: stockTypelist.add(typeTemp);  end :stockNamelist   start: stockNamelist.add(institutionName);
+				Map<String, String> mapOne = new HashMap<>();
+				mapOne.put("source", Integer.toString(stockNamelist.size()-1));
+				mapOne.put("target", Integer.toString(i));
+				mapOne.put("info",stockTypelist.get(i));
+				edgeslist.add(mapOne);
+			}		
+			System.out.println(edgeslist);
+			//通过Map传给前台...
+			Map<Object, Object> map = new HashMap<>();
+			map.put("edgeslist",edgeslist);
+			map.put("stockNamelist",stockNamelist);
+			//定义JSON对象把点表、边表封装成Map,传递过去；
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("mapList", map);
+			String result = JsonUtil.toJsonString(jsonObject);
+			
 			System.out.println(result);
 			PrintWriter out;
 			try {
@@ -574,29 +638,93 @@ public class CompanyController {
 			}
 		}
 
+		//2017年11月20日  某一时间段内，投资--撤资关系图
+		@RequestMapping(value = "/ajaxSingleCompanyGraph",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
+		public void selectSingleCompany(Model model,HttpServletRequest req,HttpServletResponse rsp){
+			//传过来一个公司的名字；institutionName
+			String institutionName = req.getParameter("institutionName");
+			//传过来一个选中的日期；roleId
+			String roleId = req.getParameter("roleId");
+			//利用这两个去十大流通股票表中去查询，得到List;
+			List<TopStockHolder> outStocklist = topStockHolderMapper.selectOutStock(roleId, institutionName);
+			//把这个list中的内容用来形成边表、点表；（可能会去股票相关的表中进行查询，查股票的名称）
+			//1、把股票的名称查出来(生成点表)   
+			List<String> stockIdlist = new ArrayList<>();
+			List<String> stockTypelist = new ArrayList<>();
+			for(int i = 0; i < outStocklist.size(); i++){
+				String temp = outStocklist.get(i).getStockId();
+				String typeTemp = outStocklist.get(i).getHolderChange();
+				stockIdlist.add(temp);
+				stockTypelist.add(typeTemp); // String[] categorieslist = {"不变","退出","新进","增股","减股"};
+			}
+			System.out.println(stockIdlist);
+			List<Company> stockNamelisttemp = companyMapper.getStockNameArray(stockIdlist);
+			List<String> stockNamelist = new ArrayList<String>();
+			for(int l = 0; l < stockNamelisttemp.size();l++){
+				stockNamelist.add("1");
+			}
+			for(int i = 0; i < stockNamelisttemp.size(); i++){
+				String q = stockNamelisttemp.get(i).getStockName();
+				String control = stockNamelisttemp.get(i).getStockNum();
+				for(int j = 0; j < stockIdlist.size(); j++){
+					if(stockIdlist.get(j).equals(control)){
+						stockNamelist.set(j, q);
+						break;
+					}
+				}
+			}
+			stockNamelist.add(institutionName);
+			System.out.println(stockNamelist);
+			//2、构造边表
+			List<Map<String, String>> edgeslist = new ArrayList<>();
+			for(int i = 0; i < stockNamelist.size()-1; i++){
+				//info: stockTypelist.add(typeTemp);  end :stockNamelist   start: stockNamelist.add(institutionName);
+				Map<String, String> mapOne = new HashMap<>();
+				mapOne.put("source", Integer.toString(stockNamelist.size()-1));
+				mapOne.put("target", Integer.toString(i));
+				mapOne.put("info",stockTypelist.get(i));
+				edgeslist.add(mapOne);
+			}		
+			System.out.println(edgeslist);
+			//通过Map传给前台...
+			Map<Object, Object> map = new HashMap<>();
+			map.put("edgeslist",edgeslist);
+			map.put("stockNamelist",stockNamelist);
+			//定义JSON对象把点表、边表封装成Map,传递过去；
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("mapList", map);
+			String result = JsonUtil.toJsonString(jsonObject);
+			
+			System.out.println(result);
+			PrintWriter out;
+			try {
+				out = rsp.getWriter();
+				out.write(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		//2017年11月16日新增
 		@RequestMapping(value = "/industryInfor")
 		public String showindustryInfor(Model model,HttpServletRequest req){
 			String stockNum = req.getParameter("stockNum");
 			Company company = companyMapper.selectCompanyByStockNum(stockNum);
 			Stockinfo stockinfo = stockinfoMapper.selectStockByCode(stockNum);
-			System.out.println(company);
-			
+			System.out.println(company);	
 			model.addAttribute("stockinfo",stockinfo);
 			model.addAttribute("company", company);
 			return "mypages/industryInfor";
-		}
-		
+		}	
 		//2017年11月16日新增
 		@RequestMapping(value = "/financialAnalysis")
 		public String showfinancialAnalysis(Model model,HttpServletRequest req){
 			String stockNum = req.getParameter("stockNum");
 			Company company = companyMapper.selectCompanyByStockNum(stockNum);
 			Stockinfo stockinfo = stockinfoMapper.selectStockByCode(stockNum);
-			System.out.println(company);
-			
 			model.addAttribute("stockinfo",stockinfo);
 			model.addAttribute("company", company);
 			return "mypages/financialAnalysis";
 		}
+		
 }

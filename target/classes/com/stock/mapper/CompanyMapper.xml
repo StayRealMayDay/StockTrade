@@ -479,4 +479,15 @@
 		from company 
 		where industry = #{industry}
   </select>
+  
+   <!--Array:forech中的collection属性类型是array,collection的值必须是:list,item的值可以随意,Dao接口中参数名字随意 -->
+  <select id="getStockNameArray" resultMap="BaseResultMap">
+      select distinct stock_num,stock_name
+      from company
+      where stock_num in
+      <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+          #{stockId}
+      </foreach>
+  </select>
+  
 </mapper>

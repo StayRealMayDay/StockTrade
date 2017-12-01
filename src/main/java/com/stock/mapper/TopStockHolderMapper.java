@@ -33,4 +33,6 @@ public interface TopStockHolderMapper {
     List<String> topStockDate(String stock_id);
     //11月23日
     List<TopStockHolder> topStockDateTwo(@Param("date") String date,@Param("stock_id") String stock_id);
+    
+    List<TopStockHolder> selectOutStock(@Param("date") String date,@Param("institution_name") String institution_name);
 }

@@ -52,7 +52,7 @@ public interface CompanyMapper {
 
 	//于花蕾2017年10月25日
 	List<Company> selecResolvedStock(String industry);
-	//
+	
 	List<Company> selecStockByIndus(String industry);
 
 	List<Company> selectIndustryDistri(String industry);
@@ -60,5 +60,6 @@ public interface CompanyMapper {
 	List<Company> selecResolvedConceptCount(String concept);
 
 	List<Company> selecResolvedIndustryCount(String industry);
-
+	//于花蕾11月30日
+	List<Company> getStockNameArray(List<String> stockIds);
 }

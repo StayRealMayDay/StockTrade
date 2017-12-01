@@ -31,4 +31,6 @@ public interface TopStockCirculationHolderMapper {
     List<String> topStockCircuDate(String stock_id);
     //11月23日
     List<TopStockCirculationHolder> topStockDateOne(@Param("date") String date,@Param("stock_id") String stock_id);
+    //11月30日
+    List<TopStockCirculationHolder> selectCircuOutStock(@Param("date") String date,@Param("institution_name") String institution_name);
 }

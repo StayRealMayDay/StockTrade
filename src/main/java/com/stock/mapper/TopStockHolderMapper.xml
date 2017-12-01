@@ -341,6 +341,7 @@
 		select distinct date
 		from top_stock_holder
 		where stock_id = #{stock_id}
+		Order by date DESC
 	</select>
 	
 	<!-- 于花蕾新增 2017年11月23日 -->
@@ -350,5 +351,14 @@
 		stock_propotion_rate,real_increase,stock_type,stock_detail_id
 		from top_stock_holder
 		where date = #{date} and stock_id = #{stock_id}
+	</select>
+	
+	<!--于花蕾新增 2017年11月30日  -->
+	<select id="selectOutStock" parameterType="string" resultMap="BaseResultMap">
+		select 
+		stock_id,stock_held,stock_held_rate,change_before,holder_num,holder_change,stock_propotion_rate,
+		real_increase,stock_type
+		from top_stock_holder
+		where date = #{date} and institution_name = #{institution_name}
 	</select>
 </mapper>
