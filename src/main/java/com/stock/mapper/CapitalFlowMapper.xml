@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.CapitalFlowMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.CapitalFlow" >
+    <!-- <id column="flow_id" property="flowId" jdbcType="INTEGER" /> -->
+    <result column="flow_code" property="flowCode" jdbcType="VARCHAR" />
+    <result column="flow_name" property="flowName" jdbcType="VARCHAR" />
+    <result column="sbig_day_active_in_count" property="sbigDayActiveInCount" jdbcType="VARCHAR" />
+    <result column="sbig_day_active_in_money" property="sbigDayActiveInMoney" jdbcType="VARCHAR" />
+    <result column="sbig_day_passitive_in_count" property="sbigDayPassitiveInCount" jdbcType="VARCHAR" />
+    <result column="sbig_day_passitive_in_money" property="sbigDayPassitiveInMoney" jdbcType="VARCHAR" />
+    <result column="sbig_day_active_out_count" property="sbigDayActiveOutCount" jdbcType="VARCHAR" />
+    <result column="sbig_day_active_out_money" property="sbigDayActiveOutMoney" jdbcType="VARCHAR" />
+    <result column="sbig_day_passitive_out_count" property="sbigDayPassitiveOutCount" jdbcType="VARCHAR" />
+    <result column="sbig_day_passitive_out_money" property="sbigDayPassitiveOutMoney" jdbcType="VARCHAR" />
+    <result column="big_day_active_in_count" property="bigDayActiveInCount" jdbcType="VARCHAR" />
+    <result column="big_day_active_in_money" property="bigDayActiveInMoney" jdbcType="VARCHAR" />
+    <result column="big_day_passitive_in_count" property="bigDayPassitiveInCount" jdbcType="VARCHAR" />
+    <result column="big_day_passitive_in_money" property="bigDayPassitiveInMoney" jdbcType="VARCHAR" />
+    <result column="big_day_active_out_count" property="bigDayActiveOutCount" jdbcType="VARCHAR" />
+    <result column="big_day_active_out_money" property="bigDayActiveOutMoney" jdbcType="VARCHAR" />
+    <result column="big_day_passitive_out_count" property="bigDayPassitiveOutCount" jdbcType="VARCHAR" />
+    <result column="big_day_passitive_out_money" property="bigDayPassitiveOutMoney" jdbcType="VARCHAR" />
+    <result column="sbig_week_active_in_count" property="sbigWeekActiveInCount" jdbcType="VARCHAR" />
+    <result column="sbig_week_active_in_money" property="sbigWeekActiveInMoney" jdbcType="VARCHAR" />
+    <result column="sbig_week_passitive_in_count" property="sbigWeekPassitiveInCount" jdbcType="VARCHAR" />
+    <result column="sbig_week_passitive_in_money" property="sbigWeekPassitiveInMoney" jdbcType="VARCHAR" />
+    <result column="sbig_week_active_out_count" property="sbigWeekActiveOutCount" jdbcType="VARCHAR" />
+    <result column="sbig_week_active_out_money" property="sbigWeekActiveOutMoney" jdbcType="VARCHAR" />
+    <result column="sbig_week_passitive_out_count" property="sbigWeekPassitiveOutCount" jdbcType="VARCHAR" />
+    <result column="sbig_week_passitive_out_money" property="sbigWeekPassitiveOutMoney" jdbcType="VARCHAR" />
+    <result column="big_week_active_in_count" property="bigWeekActiveInCount" jdbcType="VARCHAR" />
+    <result column="big_week_active_in_money" property="bigWeekActiveInMoney" jdbcType="VARCHAR" />
+    <result column="big_week_passitive_in_count" property="bigWeekPassitiveInCount" jdbcType="VARCHAR" />
+    <result column="big_week_passitive_in_money" property="bigWeekPassitiveInMoney" jdbcType="VARCHAR" />
+    <result column="big_week_active_out_count" property="bigWeekActiveOutCount" jdbcType="VARCHAR" />
+    <result column="big_week_active_out_money" property="bigWeekActiveOutMoney" jdbcType="VARCHAR" />
+    <result column="big_week_passitive_out_count" property="bigWeekPassitiveOutCount" jdbcType="VARCHAR" />
+    <result column="big_week_passitive_out_money" property="bigWeekPassitiveOutMoney" jdbcType="VARCHAR" />
+    
+    <result column="flowincount" property="flowinCount" jdbcType="VARCHAR" />
+    <result column="flowinmoney" property="flowinMoney" jdbcType="VARCHAR" />
+    <result column="flowoutcount" property="flowoutCount" jdbcType="VARCHAR" />
+    <result column="flowoutmoney" property="flowoutMoney" jdbcType="VARCHAR" />
+    
+    <result column="day_flowin_rate" property="dayFlowinRate" jdbcType="VARCHAR" />
+    <result column="net_flowin_count" property="netFlowinCount" jdbcType="VARCHAR" />
+    <result column="current_price" property="currentPrice" jdbcType="VARCHAR" />
+    <result column="updown_rate" property="updownRate" jdbcType="VARCHAR" />
+    
+    <association property="company" javaType="com.stock.pojo.Company">
+		<!-- <id property="company_id" column="companyId"/> -->
+		<result property="stock_num" column="stockNum"/>
+		<result property="industry" column="industry"/>
+		<result property="companyArea" column="company_area"/>
+	</association>
+    
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    flow_id, flow_code, flow_name, sbig_day_active_in_count, sbig_day_active_in_money, 
+    sbig_day_passitive_in_count, sbig_day_passitive_in_money, sbig_day_active_out_count, 
+    sbig_day_active_out_money, sbig_day_passitive_out_count, sbig_day_passitive_out_money, 
+    big_day_active_in_count, big_day_active_in_money, big_day_passitive_in_count, big_day_passitive_in_money, 
+    big_day_active_out_count, big_day_active_out_money, big_day_passitive_out_count, 
+    big_day_passitive_out_money, sbig_week_active_in_count, sbig_week_active_in_money, 
+    sbig_week_passitive_in_count, sbig_week_passitive_in_money, sbig_week_active_out_count, 
+    sbig_week_active_out_money, sbig_week_passitive_out_count, sbig_week_passitive_out_money, 
+    big_week_active_in_count, big_week_active_in_money, big_week_passitive_in_count, 
+    big_week_passitive_in_money, big_week_active_out_count, big_week_active_out_money, 
+    big_week_passitive_out_count, big_week_passitive_out_money
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.CapitalFlowExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from capital_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from capital_flow
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from capital_flow
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.CapitalFlowExample" >
+    delete from capital_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.CapitalFlow" >
+    insert into capital_flow (flow_id, flow_code, flow_name, 
+      sbig_day_active_in_count, sbig_day_active_in_money, 
+      sbig_day_passitive_in_count, sbig_day_passitive_in_money, 
+      sbig_day_active_out_count, sbig_day_active_out_money, 
+      sbig_day_passitive_out_count, sbig_day_passitive_out_money, 
+      big_day_active_in_count, big_day_active_in_money, 
+      big_day_passitive_in_count, big_day_passitive_in_money, 
+      big_day_active_out_count, big_day_active_out_money, 
+      big_day_passitive_out_count, big_day_passitive_out_money, 
+      sbig_week_active_in_count, sbig_week_active_in_money, 
+      sbig_week_passitive_in_count, sbig_week_passitive_in_money, 
+      sbig_week_active_out_count, sbig_week_active_out_money, 
+      sbig_week_passitive_out_count, sbig_week_passitive_out_money, 
+      big_week_active_in_count, big_week_active_in_money, 
+      big_week_passitive_in_count, big_week_passitive_in_money, 
+      big_week_active_out_count, big_week_active_out_money, 
+      big_week_passitive_out_count, big_week_passitive_out_money
+      )
+    values (#{flowId,jdbcType=INTEGER}, #{flowCode,jdbcType=VARCHAR}, #{flowName,jdbcType=VARCHAR}, 
+      #{sbigDayActiveInCount,jdbcType=VARCHAR}, #{sbigDayActiveInMoney,jdbcType=VARCHAR}, 
+      #{sbigDayPassitiveInCount,jdbcType=VARCHAR}, #{sbigDayPassitiveInMoney,jdbcType=VARCHAR}, 
+      #{sbigDayActiveOutCount,jdbcType=VARCHAR}, #{sbigDayActiveOutMoney,jdbcType=VARCHAR}, 
+      #{sbigDayPassitiveOutCount,jdbcType=VARCHAR}, #{sbigDayPassitiveOutMoney,jdbcType=VARCHAR}, 
+      #{bigDayActiveInCount,jdbcType=VARCHAR}, #{bigDayActiveInMoney,jdbcType=VARCHAR}, 
+      #{bigDayPassitiveInCount,jdbcType=VARCHAR}, #{bigDayPassitiveInMoney,jdbcType=VARCHAR}, 
+      #{bigDayActiveOutCount,jdbcType=VARCHAR}, #{bigDayActiveOutMoney,jdbcType=VARCHAR}, 
+      #{bigDayPassitiveOutCount,jdbcType=VARCHAR}, #{bigDayPassitiveOutMoney,jdbcType=VARCHAR}, 
+      #{sbigWeekActiveInCount,jdbcType=VARCHAR}, #{sbigWeekActiveInMoney,jdbcType=VARCHAR}, 
+      #{sbigWeekPassitiveInCount,jdbcType=VARCHAR}, #{sbigWeekPassitiveInMoney,jdbcType=VARCHAR}, 
+      #{sbigWeekActiveOutCount,jdbcType=VARCHAR}, #{sbigWeekActiveOutMoney,jdbcType=VARCHAR}, 
+      #{sbigWeekPassitiveOutCount,jdbcType=VARCHAR}, #{sbigWeekPassitiveOutMoney,jdbcType=VARCHAR}, 
+      #{bigWeekActiveInCount,jdbcType=VARCHAR}, #{bigWeekActiveInMoney,jdbcType=VARCHAR}, 
+      #{bigWeekPassitiveInCount,jdbcType=VARCHAR}, #{bigWeekPassitiveInMoney,jdbcType=VARCHAR}, 
+      #{bigWeekActiveOutCount,jdbcType=VARCHAR}, #{bigWeekActiveOutMoney,jdbcType=VARCHAR}, 
+      #{bigWeekPassitiveOutCount,jdbcType=VARCHAR}, #{bigWeekPassitiveOutMoney,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.CapitalFlow" >
+    insert into capital_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        flow_id,
+      </if>
+      <if test="flowCode != null" >
+        flow_code,
+      </if>
+      <if test="flowName != null" >
+        flow_name,
+      </if>
+      <if test="sbigDayActiveInCount != null" >
+        sbig_day_active_in_count,
+      </if>
+      <if test="sbigDayActiveInMoney != null" >
+        sbig_day_active_in_money,
+      </if>
+      <if test="sbigDayPassitiveInCount != null" >
+        sbig_day_passitive_in_count,
+      </if>
+      <if test="sbigDayPassitiveInMoney != null" >
+        sbig_day_passitive_in_money,
+      </if>
+      <if test="sbigDayActiveOutCount != null" >
+        sbig_day_active_out_count,
+      </if>
+      <if test="sbigDayActiveOutMoney != null" >
+        sbig_day_active_out_money,
+      </if>
+      <if test="sbigDayPassitiveOutCount != null" >
+        sbig_day_passitive_out_count,
+      </if>
+      <if test="sbigDayPassitiveOutMoney != null" >
+        sbig_day_passitive_out_money,
+      </if>
+      <if test="bigDayActiveInCount != null" >
+        big_day_active_in_count,
+      </if>
+      <if test="bigDayActiveInMoney != null" >
+        big_day_active_in_money,
+      </if>
+      <if test="bigDayPassitiveInCount != null" >
+        big_day_passitive_in_count,
+      </if>
+      <if test="bigDayPassitiveInMoney != null" >
+        big_day_passitive_in_money,
+      </if>
+      <if test="bigDayActiveOutCount != null" >
+        big_day_active_out_count,
+      </if>
+      <if test="bigDayActiveOutMoney != null" >
+        big_day_active_out_money,
+      </if>
+      <if test="bigDayPassitiveOutCount != null" >
+        big_day_passitive_out_count,
+      </if>
+      <if test="bigDayPassitiveOutMoney != null" >
+        big_day_passitive_out_money,
+      </if>
+      <if test="sbigWeekActiveInCount != null" >
+        sbig_week_active_in_count,
+      </if>
+      <if test="sbigWeekActiveInMoney != null" >
+        sbig_week_active_in_money,
+      </if>
+      <if test="sbigWeekPassitiveInCount != null" >
+        sbig_week_passitive_in_count,
+      </if>
+      <if test="sbigWeekPassitiveInMoney != null" >
+        sbig_week_passitive_in_money,
+      </if>
+      <if test="sbigWeekActiveOutCount != null" >
+        sbig_week_active_out_count,
+      </if>
+      <if test="sbigWeekActiveOutMoney != null" >
+        sbig_week_active_out_money,
+      </if>
+      <if test="sbigWeekPassitiveOutCount != null" >
+        sbig_week_passitive_out_count,
+      </if>
+      <if test="sbigWeekPassitiveOutMoney != null" >
+        sbig_week_passitive_out_money,
+      </if>
+      <if test="bigWeekActiveInCount != null" >
+        big_week_active_in_count,
+      </if>
+      <if test="bigWeekActiveInMoney != null" >
+        big_week_active_in_money,
+      </if>
+      <if test="bigWeekPassitiveInCount != null" >
+        big_week_passitive_in_count,
+      </if>
+      <if test="bigWeekPassitiveInMoney != null" >
+        big_week_passitive_in_money,
+      </if>
+      <if test="bigWeekActiveOutCount != null" >
+        big_week_active_out_count,
+      </if>
+      <if test="bigWeekActiveOutMoney != null" >
+        big_week_active_out_money,
+      </if>
+      <if test="bigWeekPassitiveOutCount != null" >
+        big_week_passitive_out_count,
+      </if>
+      <if test="bigWeekPassitiveOutMoney != null" >
+        big_week_passitive_out_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="flowCode != null" >
+        #{flowCode,jdbcType=VARCHAR},
+      </if>
+      <if test="flowName != null" >
+        #{flowName,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveInCount != null" >
+        #{sbigDayActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveInMoney != null" >
+        #{sbigDayActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveInCount != null" >
+        #{sbigDayPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveInMoney != null" >
+        #{sbigDayPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveOutCount != null" >
+        #{sbigDayActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveOutMoney != null" >
+        #{sbigDayActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveOutCount != null" >
+        #{sbigDayPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveOutMoney != null" >
+        #{sbigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveInCount != null" >
+        #{bigDayActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveInMoney != null" >
+        #{bigDayActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveInCount != null" >
+        #{bigDayPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveInMoney != null" >
+        #{bigDayPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveOutCount != null" >
+        #{bigDayActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveOutMoney != null" >
+        #{bigDayActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveOutCount != null" >
+        #{bigDayPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveOutMoney != null" >
+        #{bigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveInCount != null" >
+        #{sbigWeekActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveInMoney != null" >
+        #{sbigWeekActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveInCount != null" >
+        #{sbigWeekPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveInMoney != null" >
+        #{sbigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveOutCount != null" >
+        #{sbigWeekActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveOutMoney != null" >
+        #{sbigWeekActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveOutCount != null" >
+        #{sbigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveOutMoney != null" >
+        #{sbigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveInCount != null" >
+        #{bigWeekActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveInMoney != null" >
+        #{bigWeekActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveInCount != null" >
+        #{bigWeekPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveInMoney != null" >
+        #{bigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveOutCount != null" >
+        #{bigWeekActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveOutMoney != null" >
+        #{bigWeekActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveOutCount != null" >
+        #{bigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveOutMoney != null" >
+        #{bigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.CapitalFlowExample" resultType="java.lang.Integer" >
+    select count(*) from capital_flow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update capital_flow
+    <set >
+      <if test="record.flowId != null" >
+        flow_id = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowCode != null" >
+        flow_code = #{record.flowCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flowName != null" >
+        flow_name = #{record.flowName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayActiveInCount != null" >
+        sbig_day_active_in_count = #{record.sbigDayActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayActiveInMoney != null" >
+        sbig_day_active_in_money = #{record.sbigDayActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayPassitiveInCount != null" >
+        sbig_day_passitive_in_count = #{record.sbigDayPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayPassitiveInMoney != null" >
+        sbig_day_passitive_in_money = #{record.sbigDayPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayActiveOutCount != null" >
+        sbig_day_active_out_count = #{record.sbigDayActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayActiveOutMoney != null" >
+        sbig_day_active_out_money = #{record.sbigDayActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayPassitiveOutCount != null" >
+        sbig_day_passitive_out_count = #{record.sbigDayPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigDayPassitiveOutMoney != null" >
+        sbig_day_passitive_out_money = #{record.sbigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayActiveInCount != null" >
+        big_day_active_in_count = #{record.bigDayActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayActiveInMoney != null" >
+        big_day_active_in_money = #{record.bigDayActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayPassitiveInCount != null" >
+        big_day_passitive_in_count = #{record.bigDayPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayPassitiveInMoney != null" >
+        big_day_passitive_in_money = #{record.bigDayPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayActiveOutCount != null" >
+        big_day_active_out_count = #{record.bigDayActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayActiveOutMoney != null" >
+        big_day_active_out_money = #{record.bigDayActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayPassitiveOutCount != null" >
+        big_day_passitive_out_count = #{record.bigDayPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigDayPassitiveOutMoney != null" >
+        big_day_passitive_out_money = #{record.bigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekActiveInCount != null" >
+        sbig_week_active_in_count = #{record.sbigWeekActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekActiveInMoney != null" >
+        sbig_week_active_in_money = #{record.sbigWeekActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekPassitiveInCount != null" >
+        sbig_week_passitive_in_count = #{record.sbigWeekPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekPassitiveInMoney != null" >
+        sbig_week_passitive_in_money = #{record.sbigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekActiveOutCount != null" >
+        sbig_week_active_out_count = #{record.sbigWeekActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekActiveOutMoney != null" >
+        sbig_week_active_out_money = #{record.sbigWeekActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekPassitiveOutCount != null" >
+        sbig_week_passitive_out_count = #{record.sbigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sbigWeekPassitiveOutMoney != null" >
+        sbig_week_passitive_out_money = #{record.sbigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekActiveInCount != null" >
+        big_week_active_in_count = #{record.bigWeekActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekActiveInMoney != null" >
+        big_week_active_in_money = #{record.bigWeekActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekPassitiveInCount != null" >
+        big_week_passitive_in_count = #{record.bigWeekPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekPassitiveInMoney != null" >
+        big_week_passitive_in_money = #{record.bigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekActiveOutCount != null" >
+        big_week_active_out_count = #{record.bigWeekActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekActiveOutMoney != null" >
+        big_week_active_out_money = #{record.bigWeekActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekPassitiveOutCount != null" >
+        big_week_passitive_out_count = #{record.bigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bigWeekPassitiveOutMoney != null" >
+        big_week_passitive_out_money = #{record.bigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update capital_flow
+    set flow_id = #{record.flowId,jdbcType=INTEGER},
+      flow_code = #{record.flowCode,jdbcType=VARCHAR},
+      flow_name = #{record.flowName,jdbcType=VARCHAR},
+      sbig_day_active_in_count = #{record.sbigDayActiveInCount,jdbcType=VARCHAR},
+      sbig_day_active_in_money = #{record.sbigDayActiveInMoney,jdbcType=VARCHAR},
+      sbig_day_passitive_in_count = #{record.sbigDayPassitiveInCount,jdbcType=VARCHAR},
+      sbig_day_passitive_in_money = #{record.sbigDayPassitiveInMoney,jdbcType=VARCHAR},
+      sbig_day_active_out_count = #{record.sbigDayActiveOutCount,jdbcType=VARCHAR},
+      sbig_day_active_out_money = #{record.sbigDayActiveOutMoney,jdbcType=VARCHAR},
+      sbig_day_passitive_out_count = #{record.sbigDayPassitiveOutCount,jdbcType=VARCHAR},
+      sbig_day_passitive_out_money = #{record.sbigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      big_day_active_in_count = #{record.bigDayActiveInCount,jdbcType=VARCHAR},
+      big_day_active_in_money = #{record.bigDayActiveInMoney,jdbcType=VARCHAR},
+      big_day_passitive_in_count = #{record.bigDayPassitiveInCount,jdbcType=VARCHAR},
+      big_day_passitive_in_money = #{record.bigDayPassitiveInMoney,jdbcType=VARCHAR},
+      big_day_active_out_count = #{record.bigDayActiveOutCount,jdbcType=VARCHAR},
+      big_day_active_out_money = #{record.bigDayActiveOutMoney,jdbcType=VARCHAR},
+      big_day_passitive_out_count = #{record.bigDayPassitiveOutCount,jdbcType=VARCHAR},
+      big_day_passitive_out_money = #{record.bigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      sbig_week_active_in_count = #{record.sbigWeekActiveInCount,jdbcType=VARCHAR},
+      sbig_week_active_in_money = #{record.sbigWeekActiveInMoney,jdbcType=VARCHAR},
+      sbig_week_passitive_in_count = #{record.sbigWeekPassitiveInCount,jdbcType=VARCHAR},
+      sbig_week_passitive_in_money = #{record.sbigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      sbig_week_active_out_count = #{record.sbigWeekActiveOutCount,jdbcType=VARCHAR},
+      sbig_week_active_out_money = #{record.sbigWeekActiveOutMoney,jdbcType=VARCHAR},
+      sbig_week_passitive_out_count = #{record.sbigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      sbig_week_passitive_out_money = #{record.sbigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      big_week_active_in_count = #{record.bigWeekActiveInCount,jdbcType=VARCHAR},
+      big_week_active_in_money = #{record.bigWeekActiveInMoney,jdbcType=VARCHAR},
+      big_week_passitive_in_count = #{record.bigWeekPassitiveInCount,jdbcType=VARCHAR},
+      big_week_passitive_in_money = #{record.bigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      big_week_active_out_count = #{record.bigWeekActiveOutCount,jdbcType=VARCHAR},
+      big_week_active_out_money = #{record.bigWeekActiveOutMoney,jdbcType=VARCHAR},
+      big_week_passitive_out_count = #{record.bigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      big_week_passitive_out_money = #{record.bigWeekPassitiveOutMoney,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.CapitalFlow" >
+    update capital_flow
+    <set >
+      <if test="flowCode != null" >
+        flow_code = #{flowCode,jdbcType=VARCHAR},
+      </if>
+      <if test="flowName != null" >
+        flow_name = #{flowName,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveInCount != null" >
+        sbig_day_active_in_count = #{sbigDayActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveInMoney != null" >
+        sbig_day_active_in_money = #{sbigDayActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveInCount != null" >
+        sbig_day_passitive_in_count = #{sbigDayPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveInMoney != null" >
+        sbig_day_passitive_in_money = #{sbigDayPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveOutCount != null" >
+        sbig_day_active_out_count = #{sbigDayActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayActiveOutMoney != null" >
+        sbig_day_active_out_money = #{sbigDayActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveOutCount != null" >
+        sbig_day_passitive_out_count = #{sbigDayPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigDayPassitiveOutMoney != null" >
+        sbig_day_passitive_out_money = #{sbigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveInCount != null" >
+        big_day_active_in_count = #{bigDayActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveInMoney != null" >
+        big_day_active_in_money = #{bigDayActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveInCount != null" >
+        big_day_passitive_in_count = #{bigDayPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveInMoney != null" >
+        big_day_passitive_in_money = #{bigDayPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveOutCount != null" >
+        big_day_active_out_count = #{bigDayActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayActiveOutMoney != null" >
+        big_day_active_out_money = #{bigDayActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveOutCount != null" >
+        big_day_passitive_out_count = #{bigDayPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigDayPassitiveOutMoney != null" >
+        big_day_passitive_out_money = #{bigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveInCount != null" >
+        sbig_week_active_in_count = #{sbigWeekActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveInMoney != null" >
+        sbig_week_active_in_money = #{sbigWeekActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveInCount != null" >
+        sbig_week_passitive_in_count = #{sbigWeekPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveInMoney != null" >
+        sbig_week_passitive_in_money = #{sbigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveOutCount != null" >
+        sbig_week_active_out_count = #{sbigWeekActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekActiveOutMoney != null" >
+        sbig_week_active_out_money = #{sbigWeekActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveOutCount != null" >
+        sbig_week_passitive_out_count = #{sbigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sbigWeekPassitiveOutMoney != null" >
+        sbig_week_passitive_out_money = #{sbigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveInCount != null" >
+        big_week_active_in_count = #{bigWeekActiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveInMoney != null" >
+        big_week_active_in_money = #{bigWeekActiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveInCount != null" >
+        big_week_passitive_in_count = #{bigWeekPassitiveInCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveInMoney != null" >
+        big_week_passitive_in_money = #{bigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveOutCount != null" >
+        big_week_active_out_count = #{bigWeekActiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekActiveOutMoney != null" >
+        big_week_active_out_money = #{bigWeekActiveOutMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveOutCount != null" >
+        big_week_passitive_out_count = #{bigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      </if>
+      <if test="bigWeekPassitiveOutMoney != null" >
+        big_week_passitive_out_money = #{bigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.CapitalFlow" >
+    update capital_flow
+    set flow_code = #{flowCode,jdbcType=VARCHAR},
+      flow_name = #{flowName,jdbcType=VARCHAR},
+      sbig_day_active_in_count = #{sbigDayActiveInCount,jdbcType=VARCHAR},
+      sbig_day_active_in_money = #{sbigDayActiveInMoney,jdbcType=VARCHAR},
+      sbig_day_passitive_in_count = #{sbigDayPassitiveInCount,jdbcType=VARCHAR},
+      sbig_day_passitive_in_money = #{sbigDayPassitiveInMoney,jdbcType=VARCHAR},
+      sbig_day_active_out_count = #{sbigDayActiveOutCount,jdbcType=VARCHAR},
+      sbig_day_active_out_money = #{sbigDayActiveOutMoney,jdbcType=VARCHAR},
+      sbig_day_passitive_out_count = #{sbigDayPassitiveOutCount,jdbcType=VARCHAR},
+      sbig_day_passitive_out_money = #{sbigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      big_day_active_in_count = #{bigDayActiveInCount,jdbcType=VARCHAR},
+      big_day_active_in_money = #{bigDayActiveInMoney,jdbcType=VARCHAR},
+      big_day_passitive_in_count = #{bigDayPassitiveInCount,jdbcType=VARCHAR},
+      big_day_passitive_in_money = #{bigDayPassitiveInMoney,jdbcType=VARCHAR},
+      big_day_active_out_count = #{bigDayActiveOutCount,jdbcType=VARCHAR},
+      big_day_active_out_money = #{bigDayActiveOutMoney,jdbcType=VARCHAR},
+      big_day_passitive_out_count = #{bigDayPassitiveOutCount,jdbcType=VARCHAR},
+      big_day_passitive_out_money = #{bigDayPassitiveOutMoney,jdbcType=VARCHAR},
+      sbig_week_active_in_count = #{sbigWeekActiveInCount,jdbcType=VARCHAR},
+      sbig_week_active_in_money = #{sbigWeekActiveInMoney,jdbcType=VARCHAR},
+      sbig_week_passitive_in_count = #{sbigWeekPassitiveInCount,jdbcType=VARCHAR},
+      sbig_week_passitive_in_money = #{sbigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      sbig_week_active_out_count = #{sbigWeekActiveOutCount,jdbcType=VARCHAR},
+      sbig_week_active_out_money = #{sbigWeekActiveOutMoney,jdbcType=VARCHAR},
+      sbig_week_passitive_out_count = #{sbigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      sbig_week_passitive_out_money = #{sbigWeekPassitiveOutMoney,jdbcType=VARCHAR},
+      big_week_active_in_count = #{bigWeekActiveInCount,jdbcType=VARCHAR},
+      big_week_active_in_money = #{bigWeekActiveInMoney,jdbcType=VARCHAR},
+      big_week_passitive_in_count = #{bigWeekPassitiveInCount,jdbcType=VARCHAR},
+      big_week_passitive_in_money = #{bigWeekPassitiveInMoney,jdbcType=VARCHAR},
+      big_week_active_out_count = #{bigWeekActiveOutCount,jdbcType=VARCHAR},
+      big_week_active_out_money = #{bigWeekActiveOutMoney,jdbcType=VARCHAR},
+      big_week_passitive_out_count = #{bigWeekPassitiveOutCount,jdbcType=VARCHAR},
+      big_week_passitive_out_money = #{bigWeekPassitiveOutMoney,jdbcType=VARCHAR}
+    where flow_id = #{flowId,jdbcType=INTEGER}
+  </update>
+  <select id="selectFlowIn" resultMap="BaseResultMap">
+  	select flow_name,(cast(sbig_day_active_in_count as SIGNED INTEGER)+cast(sbig_day_passitive_in_count as SIGNED INTEGER)) as 'flowincount',(cast(sbig_day_active_in_money as SIGNED INTEGER)+cast(sbig_day_passitive_in_money as SIGNED INTEGER)) as 'flowinmoney' 
+  	FROM capital_flow 
+  	ORDER BY (cast(sbig_day_active_in_money as SIGNED INTEGER)+cast(sbig_day_passitive_in_money as SIGNED INTEGER)) DESC limit 5
+  </select>
+  <select id="selectFlowOut" resultMap="BaseResultMap">
+  	select flow_name,(cast(sbig_day_active_out_count as SIGNED INTEGER)+cast(sbig_day_passitive_out_count as SIGNED INTEGER)) as 'flowoutcount',(cast(sbig_day_active_out_money as SIGNED INTEGER)+cast(sbig_day_passitive_out_money as SIGNED INTEGER)) as 'flowoutmoney' 
+  	FROM capital_flow 
+  	ORDER BY (cast(sbig_day_active_out_money as SIGNED INTEGER)+cast(sbig_day_passitive_out_money as SIGNED INTEGER)) DESC limit 5
+  </select>
+  
+  <select id="selectFlowByIndustry" resultMap="BaseResultMap">
+  	select AVG(current_price) as 'current_price' ,AVG(updown_rate) as 'updown_rate',sum((cast(sbig_day_passitive_out_money as SIGNED INTEGER)+cast(sbig_day_active_out_money as SIGNED INTEGER))) as 'flowoutmoney',sum((cast(sbig_day_active_in_money as SIGNED INTEGER)+cast(sbig_day_passitive_in_money as SIGNED INTEGER))) as 'flowinmoney',sum(cast(net_flowin_count as SIGNED INTEGER)) as 'net_flowin_count',AVG(cast(day_flowin_rate as DECIMAL)) as 'day_flowin_rate',industry
+  	from company a,capital_flow b
+  	where  SUBSTR(flow_code FROM 1 FOR 6)=a.stock_num GROUP BY industry
+  </select>
+  
+  <select id="selectFlowByArea" resultMap="BaseResultMap">
+  	select AVG(current_price) as 'current_price' ,AVG(updown_rate) as 'updown_rate',sum((cast(sbig_day_passitive_out_money as SIGNED INTEGER)+cast(sbig_day_active_out_money as SIGNED INTEGER))) as 'flowoutmoney',sum((cast(sbig_day_active_in_money as SIGNED INTEGER)+cast(sbig_day_passitive_in_money as SIGNED INTEGER))) as 'flowinmoney',sum(cast(net_flowin_count as SIGNED INTEGER)) as 'net_flowin_count',AVG(cast(day_flowin_rate as DECIMAL)) as 'day_flowin_rate',company_area
+  	from company a,capital_flow b
+  	where  SUBSTR(flow_code FROM 1 FOR 6)=a.stock_num GROUP BY company_area ORDER BY net_flowin_count
+  </select>
+  <select id="selectFlowByNet" resultMap="BaseResultMap">
+  select flow_code,flow_name,current_price,updown_rate,(cast(net_flowin_count as SIGNED INTEGER)) as 'net_flowin_count'
+  from capital_flow ORDER BY net_flowin_count desc
+  </select>
+  <select id="selectFlowByMoneyRate" resultMap="BaseResultMap">
+  select flow_code,flow_name,current_price,updown_rate,day_flowin_rate
+  from capital_flow ORDER BY day_flowin_rate  DESC
+  </select>
+  <select id="selectFlowBySActiveOut" resultMap="BaseResultMap">
+  select flow_code,flow_name,current_price,updown_rate,sbig_day_active_out_money
+  from capital_flow ORDER BY sbig_day_active_out_money  DESC  
+  </select>
+  <select id="selectFlowBySActiveIn" resultMap="BaseResultMap">
+ select flow_code,flow_name,current_price,updown_rate,sbig_day_active_in_money
+  from capital_flow ORDER BY sbig_day_active_in_money  DESC 
+  </select>
+  <select id="selectFlowBySPassitiveIn" resultMap="BaseResultMap">
+  select flow_code,flow_name,current_price,updown_rate,sbig_day_passitive_in_money
+  from capital_flow ORDER BY sbig_day_passitive_in_money  DESC 
+  </select>
+  <select id="selectFlowBySPassitiveOut" resultMap="BaseResultMap">
+  select flow_code,flow_name,current_price,updown_rate,sbig_day_passitive_out_money
+  from capital_flow ORDER BY sbig_day_passitive_out_money  DESC 
+  </select>
+</mapper>

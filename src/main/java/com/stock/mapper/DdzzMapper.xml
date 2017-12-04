@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.DdzzMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Ddzz" >
+    <id column="ddzz_id" property="ddzzId" jdbcType="VARCHAR" />
+    <result column="news_tittle" property="newsTittle" jdbcType="VARCHAR" />
+    <result column="news_time" property="newsTime" jdbcType="VARCHAR" />
+    <result column="news_content1" property="newsContent1" jdbcType="VARCHAR" />
+    <result column="news_origin" property="newsOrigin" jdbcType="VARCHAR" />
+    <result column="news_stock1" property="newsStock1" jdbcType="VARCHAR" />
+    <result column="news_stock2" property="newsStock2" jdbcType="VARCHAR" />
+    <result column="news_content2" property="newsContent2" jdbcType="VARCHAR" />
+    <result column="news_content3" property="newsContent3" jdbcType="VARCHAR" />
+    <result column="news_content4" property="newsContent4" jdbcType="VARCHAR" />
+    <result column="news_content5" property="newsContent5" jdbcType="VARCHAR" />
+    <result column="news_content6" property="newsContent6" jdbcType="VARCHAR" />
+    <result column="news_content7" property="newsContent7" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ddzz_id, news_tittle, news_time, news_content1, news_origin, news_stock1, news_stock2, 
+    news_content2, news_content3, news_content4, news_content5, news_content6, news_content7
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.DdzzExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ddzz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ddzz
+    where ddzz_id = #{ddzzId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ddzz
+    where ddzz_id = #{ddzzId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.DdzzExample" >
+    delete from ddzz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Ddzz" >
+    insert into ddzz (ddzz_id, news_tittle, news_time, 
+      news_content1, news_origin, news_stock1, 
+      news_stock2, news_content2, news_content3, 
+      news_content4, news_content5, news_content6, 
+      news_content7)
+    values (#{ddzzId,jdbcType=VARCHAR}, #{newsTittle,jdbcType=VARCHAR}, #{newsTime,jdbcType=VARCHAR}, 
+      #{newsContent1,jdbcType=VARCHAR}, #{newsOrigin,jdbcType=VARCHAR}, #{newsStock1,jdbcType=VARCHAR}, 
+      #{newsStock2,jdbcType=VARCHAR}, #{newsContent2,jdbcType=VARCHAR}, #{newsContent3,jdbcType=VARCHAR}, 
+      #{newsContent4,jdbcType=VARCHAR}, #{newsContent5,jdbcType=VARCHAR}, #{newsContent6,jdbcType=VARCHAR}, 
+      #{newsContent7,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Ddzz" >
+    insert into ddzz
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ddzzId != null" >
+        ddzz_id,
+      </if>
+      <if test="newsTittle != null" >
+        news_tittle,
+      </if>
+      <if test="newsTime != null" >
+        news_time,
+      </if>
+      <if test="newsContent1 != null" >
+        news_content1,
+      </if>
+      <if test="newsOrigin != null" >
+        news_origin,
+      </if>
+      <if test="newsStock1 != null" >
+        news_stock1,
+      </if>
+      <if test="newsStock2 != null" >
+        news_stock2,
+      </if>
+      <if test="newsContent2 != null" >
+        news_content2,
+      </if>
+      <if test="newsContent3 != null" >
+        news_content3,
+      </if>
+      <if test="newsContent4 != null" >
+        news_content4,
+      </if>
+      <if test="newsContent5 != null" >
+        news_content5,
+      </if>
+      <if test="newsContent6 != null" >
+        news_content6,
+      </if>
+      <if test="newsContent7 != null" >
+        news_content7,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ddzzId != null" >
+        #{ddzzId,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTittle != null" >
+        #{newsTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTime != null" >
+        #{newsTime,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent1 != null" >
+        #{newsContent1,jdbcType=VARCHAR},
+      </if>
+      <if test="newsOrigin != null" >
+        #{newsOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="newsStock1 != null" >
+        #{newsStock1,jdbcType=VARCHAR},
+      </if>
+      <if test="newsStock2 != null" >
+        #{newsStock2,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent2 != null" >
+        #{newsContent2,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent3 != null" >
+        #{newsContent3,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent4 != null" >
+        #{newsContent4,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent5 != null" >
+        #{newsContent5,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent6 != null" >
+        #{newsContent6,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent7 != null" >
+        #{newsContent7,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.DdzzExample" resultType="java.lang.Integer" >
+    select count(*) from ddzz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ddzz
+    <set >
+      <if test="record.ddzzId != null" >
+        ddzz_id = #{record.ddzzId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsTittle != null" >
+        news_tittle = #{record.newsTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsTime != null" >
+        news_time = #{record.newsTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent1 != null" >
+        news_content1 = #{record.newsContent1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsOrigin != null" >
+        news_origin = #{record.newsOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsStock1 != null" >
+        news_stock1 = #{record.newsStock1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsStock2 != null" >
+        news_stock2 = #{record.newsStock2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent2 != null" >
+        news_content2 = #{record.newsContent2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent3 != null" >
+        news_content3 = #{record.newsContent3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent4 != null" >
+        news_content4 = #{record.newsContent4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent5 != null" >
+        news_content5 = #{record.newsContent5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent6 != null" >
+        news_content6 = #{record.newsContent6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsContent7 != null" >
+        news_content7 = #{record.newsContent7,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ddzz
+    set ddzz_id = #{record.ddzzId,jdbcType=VARCHAR},
+      news_tittle = #{record.newsTittle,jdbcType=VARCHAR},
+      news_time = #{record.newsTime,jdbcType=VARCHAR},
+      news_content1 = #{record.newsContent1,jdbcType=VARCHAR},
+      news_origin = #{record.newsOrigin,jdbcType=VARCHAR},
+      news_stock1 = #{record.newsStock1,jdbcType=VARCHAR},
+      news_stock2 = #{record.newsStock2,jdbcType=VARCHAR},
+      news_content2 = #{record.newsContent2,jdbcType=VARCHAR},
+      news_content3 = #{record.newsContent3,jdbcType=VARCHAR},
+      news_content4 = #{record.newsContent4,jdbcType=VARCHAR},
+      news_content5 = #{record.newsContent5,jdbcType=VARCHAR},
+      news_content6 = #{record.newsContent6,jdbcType=VARCHAR},
+      news_content7 = #{record.newsContent7,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Ddzz" >
+    update ddzz
+    <set >
+      <if test="newsTittle != null" >
+        news_tittle = #{newsTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTime != null" >
+        news_time = #{newsTime,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent1 != null" >
+        news_content1 = #{newsContent1,jdbcType=VARCHAR},
+      </if>
+      <if test="newsOrigin != null" >
+        news_origin = #{newsOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="newsStock1 != null" >
+        news_stock1 = #{newsStock1,jdbcType=VARCHAR},
+      </if>
+      <if test="newsStock2 != null" >
+        news_stock2 = #{newsStock2,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent2 != null" >
+        news_content2 = #{newsContent2,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent3 != null" >
+        news_content3 = #{newsContent3,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent4 != null" >
+        news_content4 = #{newsContent4,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent5 != null" >
+        news_content5 = #{newsContent5,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent6 != null" >
+        news_content6 = #{newsContent6,jdbcType=VARCHAR},
+      </if>
+      <if test="newsContent7 != null" >
+        news_content7 = #{newsContent7,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ddzz_id = #{ddzzId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Ddzz" >
+    update ddzz
+    set news_tittle = #{newsTittle,jdbcType=VARCHAR},
+      news_time = #{newsTime,jdbcType=VARCHAR},
+      news_content1 = #{newsContent1,jdbcType=VARCHAR},
+      news_origin = #{newsOrigin,jdbcType=VARCHAR},
+      news_stock1 = #{newsStock1,jdbcType=VARCHAR},
+      news_stock2 = #{newsStock2,jdbcType=VARCHAR},
+      news_content2 = #{newsContent2,jdbcType=VARCHAR},
+      news_content3 = #{newsContent3,jdbcType=VARCHAR},
+      news_content4 = #{newsContent4,jdbcType=VARCHAR},
+      news_content5 = #{newsContent5,jdbcType=VARCHAR},
+      news_content6 = #{newsContent6,jdbcType=VARCHAR},
+      news_content7 = #{newsContent7,jdbcType=VARCHAR}
+    where ddzz_id = #{ddzzId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- 于花蕾新增部分 2017年9月27日 -->
+  <select id="selectDdzzNewsList" resultMap="BaseResultMap">
+  	select *
+  	from ddzz
+  	order by news_time DESC 
+ 	limit #{start}, #{pagesize}
+  </select>
+  
+  <!-- 于花蕾新增部分 2017年9月27日 -->
+  <select id="selectAllDdzzCount" resultType="int">
+  	select count(*)
+  	from ddzz
+  </select>
+  
+	<!-- 于花蕾新增 2017年9月28日 -->
+	<select id="ddzzNewsDetail" parameterType="string" resultMap="BaseResultMap">
+		select *
+		from ddzz
+		where ddzz_id = #{id}
+	</select>
+  
+</mapper>

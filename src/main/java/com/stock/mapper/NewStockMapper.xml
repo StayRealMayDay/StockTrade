@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.NewStockMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.NewStock" >
+    <id column="nstock_id" property="nstockId" jdbcType="INTEGER" />
+    <result column="nstock_code" property="nstockCode" jdbcType="VARCHAR" />
+    <result column="nstock_apcode" property="nstockApcode" jdbcType="VARCHAR" />
+    <result column="nstock_name" property="nstockName" jdbcType="VARCHAR" />
+    <result column="apply_date" property="applyDate" jdbcType="VARCHAR" />
+    <result column="pay_date" property="payDate" jdbcType="VARCHAR" />
+    <result column="list_date" property="listDate" jdbcType="VARCHAR" />
+    <result column="issue_price" property="issuePrice" jdbcType="VARCHAR" />
+    <result column="issue_pe_ratio" property="issuePeRatio" jdbcType="VARCHAR" />
+    <result column="issue_total" property="issueTotal" jdbcType="VARCHAR" />
+    <result column="industry_pe_ratio" property="industryPeRatio" jdbcType="VARCHAR" />
+    <result column="apply_uplimit" property="applyUplimit" jdbcType="VARCHAR" />
+    <result column="top_apply_mvalue" property="topApplyMvalue" jdbcType="VARCHAR" />
+    <result column="center_check_ratio" property="centerCheckRatio" jdbcType="VARCHAR" />
+    <result column="center_check_num" property="centerCheckNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    nstock_id, nstock_code, nstock_apcode, nstock_name, apply_date, pay_date, list_date, 
+    issue_price, issue_pe_ratio, issue_total, industry_pe_ratio, apply_uplimit, top_apply_mvalue, 
+    center_check_ratio, center_check_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.NewStockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from new_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from new_stock
+    where nstock_id = #{nstockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from new_stock
+    where nstock_id = #{nstockId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.NewStockExample" >
+    delete from new_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.NewStock" >
+    insert into new_stock (nstock_id, nstock_code, nstock_apcode, 
+      nstock_name, apply_date, pay_date, 
+      list_date, issue_price, issue_pe_ratio, 
+      issue_total, industry_pe_ratio, apply_uplimit, 
+      top_apply_mvalue, center_check_ratio, center_check_num
+      )
+    values (#{nstockId,jdbcType=INTEGER}, #{nstockCode,jdbcType=VARCHAR}, #{nstockApcode,jdbcType=VARCHAR}, 
+      #{nstockName,jdbcType=VARCHAR}, #{applyDate,jdbcType=VARCHAR}, #{payDate,jdbcType=VARCHAR}, 
+      #{listDate,jdbcType=VARCHAR}, #{issuePrice,jdbcType=VARCHAR}, #{issuePeRatio,jdbcType=VARCHAR}, 
+      #{issueTotal,jdbcType=VARCHAR}, #{industryPeRatio,jdbcType=VARCHAR}, #{applyUplimit,jdbcType=VARCHAR}, 
+      #{topApplyMvalue,jdbcType=VARCHAR}, #{centerCheckRatio,jdbcType=VARCHAR}, #{centerCheckNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.NewStock" >
+    insert into new_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nstockId != null" >
+        nstock_id,
+      </if>
+      <if test="nstockCode != null" >
+        nstock_code,
+      </if>
+      <if test="nstockApcode != null" >
+        nstock_apcode,
+      </if>
+      <if test="nstockName != null" >
+        nstock_name,
+      </if>
+      <if test="applyDate != null" >
+        apply_date,
+      </if>
+      <if test="payDate != null" >
+        pay_date,
+      </if>
+      <if test="listDate != null" >
+        list_date,
+      </if>
+      <if test="issuePrice != null" >
+        issue_price,
+      </if>
+      <if test="issuePeRatio != null" >
+        issue_pe_ratio,
+      </if>
+      <if test="issueTotal != null" >
+        issue_total,
+      </if>
+      <if test="industryPeRatio != null" >
+        industry_pe_ratio,
+      </if>
+      <if test="applyUplimit != null" >
+        apply_uplimit,
+      </if>
+      <if test="topApplyMvalue != null" >
+        top_apply_mvalue,
+      </if>
+      <if test="centerCheckRatio != null" >
+        center_check_ratio,
+      </if>
+      <if test="centerCheckNum != null" >
+        center_check_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nstockId != null" >
+        #{nstockId,jdbcType=INTEGER},
+      </if>
+      <if test="nstockCode != null" >
+        #{nstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nstockApcode != null" >
+        #{nstockApcode,jdbcType=VARCHAR},
+      </if>
+      <if test="nstockName != null" >
+        #{nstockName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="payDate != null" >
+        #{payDate,jdbcType=VARCHAR},
+      </if>
+      <if test="listDate != null" >
+        #{listDate,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePrice != null" >
+        #{issuePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePeRatio != null" >
+        #{issuePeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="issueTotal != null" >
+        #{issueTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="industryPeRatio != null" >
+        #{industryPeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUplimit != null" >
+        #{applyUplimit,jdbcType=VARCHAR},
+      </if>
+      <if test="topApplyMvalue != null" >
+        #{topApplyMvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="centerCheckRatio != null" >
+        #{centerCheckRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="centerCheckNum != null" >
+        #{centerCheckNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.NewStockExample" resultType="java.lang.Integer" >
+    select count(*) from new_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update new_stock
+    <set >
+      <if test="record.nstockId != null" >
+        nstock_id = #{record.nstockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nstockCode != null" >
+        nstock_code = #{record.nstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nstockApcode != null" >
+        nstock_apcode = #{record.nstockApcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nstockName != null" >
+        nstock_name = #{record.nstockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyDate != null" >
+        apply_date = #{record.applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payDate != null" >
+        pay_date = #{record.payDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listDate != null" >
+        list_date = #{record.listDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuePrice != null" >
+        issue_price = #{record.issuePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuePeRatio != null" >
+        issue_pe_ratio = #{record.issuePeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issueTotal != null" >
+        issue_total = #{record.issueTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryPeRatio != null" >
+        industry_pe_ratio = #{record.industryPeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyUplimit != null" >
+        apply_uplimit = #{record.applyUplimit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.topApplyMvalue != null" >
+        top_apply_mvalue = #{record.topApplyMvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.centerCheckRatio != null" >
+        center_check_ratio = #{record.centerCheckRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.centerCheckNum != null" >
+        center_check_num = #{record.centerCheckNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update new_stock
+    set nstock_id = #{record.nstockId,jdbcType=INTEGER},
+      nstock_code = #{record.nstockCode,jdbcType=VARCHAR},
+      nstock_apcode = #{record.nstockApcode,jdbcType=VARCHAR},
+      nstock_name = #{record.nstockName,jdbcType=VARCHAR},
+      apply_date = #{record.applyDate,jdbcType=VARCHAR},
+      pay_date = #{record.payDate,jdbcType=VARCHAR},
+      list_date = #{record.listDate,jdbcType=VARCHAR},
+      issue_price = #{record.issuePrice,jdbcType=VARCHAR},
+      issue_pe_ratio = #{record.issuePeRatio,jdbcType=VARCHAR},
+      issue_total = #{record.issueTotal,jdbcType=VARCHAR},
+      industry_pe_ratio = #{record.industryPeRatio,jdbcType=VARCHAR},
+      apply_uplimit = #{record.applyUplimit,jdbcType=VARCHAR},
+      top_apply_mvalue = #{record.topApplyMvalue,jdbcType=VARCHAR},
+      center_check_ratio = #{record.centerCheckRatio,jdbcType=VARCHAR},
+      center_check_num = #{record.centerCheckNum,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.NewStock" >
+    update new_stock
+    <set >
+      <if test="nstockCode != null" >
+        nstock_code = #{nstockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nstockApcode != null" >
+        nstock_apcode = #{nstockApcode,jdbcType=VARCHAR},
+      </if>
+      <if test="nstockName != null" >
+        nstock_name = #{nstockName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        apply_date = #{applyDate,jdbcType=VARCHAR},
+      </if>
+      <if test="payDate != null" >
+        pay_date = #{payDate,jdbcType=VARCHAR},
+      </if>
+      <if test="listDate != null" >
+        list_date = #{listDate,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePrice != null" >
+        issue_price = #{issuePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="issuePeRatio != null" >
+        issue_pe_ratio = #{issuePeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="issueTotal != null" >
+        issue_total = #{issueTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="industryPeRatio != null" >
+        industry_pe_ratio = #{industryPeRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="applyUplimit != null" >
+        apply_uplimit = #{applyUplimit,jdbcType=VARCHAR},
+      </if>
+      <if test="topApplyMvalue != null" >
+        top_apply_mvalue = #{topApplyMvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="centerCheckRatio != null" >
+        center_check_ratio = #{centerCheckRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="centerCheckNum != null" >
+        center_check_num = #{centerCheckNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where nstock_id = #{nstockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.NewStock" >
+    update new_stock
+    set nstock_code = #{nstockCode,jdbcType=VARCHAR},
+      nstock_apcode = #{nstockApcode,jdbcType=VARCHAR},
+      nstock_name = #{nstockName,jdbcType=VARCHAR},
+      apply_date = #{applyDate,jdbcType=VARCHAR},
+      pay_date = #{payDate,jdbcType=VARCHAR},
+      list_date = #{listDate,jdbcType=VARCHAR},
+      issue_price = #{issuePrice,jdbcType=VARCHAR},
+      issue_pe_ratio = #{issuePeRatio,jdbcType=VARCHAR},
+      issue_total = #{issueTotal,jdbcType=VARCHAR},
+      industry_pe_ratio = #{industryPeRatio,jdbcType=VARCHAR},
+      apply_uplimit = #{applyUplimit,jdbcType=VARCHAR},
+      top_apply_mvalue = #{topApplyMvalue,jdbcType=VARCHAR},
+      center_check_ratio = #{centerCheckRatio,jdbcType=VARCHAR},
+      center_check_num = #{centerCheckNum,jdbcType=VARCHAR}
+    where nstock_id = #{nstockId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 于花蕾新增部分 2017年9月27日 -->
+  <select id="selectAllNewStock"  resultMap="BaseResultMap">
+  	select *
+  	from new_stock
+  	limit #{start}, #{pagesize}
+  </select>
+  
+   <!-- 于花蕾新增部分 2017年9月27日 -->
+  <select id="selectAllNewStockCount" resultType="int">
+  	select count(*)
+  	from new_stock
+  </select>
+  
+</mapper>

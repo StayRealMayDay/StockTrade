@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ComprehensiveInvestmentRankMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.ComprehensiveInvestmentRank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="six_rank_char" property="sixRankChar" jdbcType="VARCHAR" />
+    <result column="six_rank_num" property="sixRankNum" jdbcType="VARCHAR" />
+    <result column="institution_count" property="institutionCount" jdbcType="VARCHAR" />
+    <result column="up_institution_count" property="upInstitutionCount" jdbcType="VARCHAR" />
+    <result column="down_institution_count" property="downInstitutionCount" jdbcType="VARCHAR" />
+    <result column="hold_institution_count" property="holdInstitutionCount" jdbcType="VARCHAR" />
+    <result column="six_buy" property="sixBuy" jdbcType="VARCHAR" />
+    <result column="six_increace" property="sixIncreace" jdbcType="VARCHAR" />
+    <result column="six_neuter" property="sixNeuter" jdbcType="VARCHAR" />
+    <result column="six_decreace" property="sixDecreace" jdbcType="VARCHAR" />
+    <result column="six_sell" property="sixSell" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, six_rank_char, six_rank_num, institution_count, up_institution_count, 
+    down_institution_count, hold_institution_count, six_buy, six_increace, six_neuter, 
+    six_decreace, six_sell
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.ComprehensiveInvestmentRankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comprehensive_investment_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from comprehensive_investment_rank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comprehensive_investment_rank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.ComprehensiveInvestmentRankExample" >
+    delete from comprehensive_investment_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.ComprehensiveInvestmentRank" >
+    insert into comprehensive_investment_rank (id, stock_code, stock_name, 
+      six_rank_char, six_rank_num, institution_count, 
+      up_institution_count, down_institution_count, 
+      hold_institution_count, six_buy, six_increace, 
+      six_neuter, six_decreace, six_sell
+      )
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{sixRankChar,jdbcType=VARCHAR}, #{sixRankNum,jdbcType=VARCHAR}, #{institutionCount,jdbcType=VARCHAR}, 
+      #{upInstitutionCount,jdbcType=VARCHAR}, #{downInstitutionCount,jdbcType=VARCHAR}, 
+      #{holdInstitutionCount,jdbcType=VARCHAR}, #{sixBuy,jdbcType=VARCHAR}, #{sixIncreace,jdbcType=VARCHAR}, 
+      #{sixNeuter,jdbcType=VARCHAR}, #{sixDecreace,jdbcType=VARCHAR}, #{sixSell,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.ComprehensiveInvestmentRank" >
+    insert into comprehensive_investment_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="sixRankChar != null" >
+        six_rank_char,
+      </if>
+      <if test="sixRankNum != null" >
+        six_rank_num,
+      </if>
+      <if test="institutionCount != null" >
+        institution_count,
+      </if>
+      <if test="upInstitutionCount != null" >
+        up_institution_count,
+      </if>
+      <if test="downInstitutionCount != null" >
+        down_institution_count,
+      </if>
+      <if test="holdInstitutionCount != null" >
+        hold_institution_count,
+      </if>
+      <if test="sixBuy != null" >
+        six_buy,
+      </if>
+      <if test="sixIncreace != null" >
+        six_increace,
+      </if>
+      <if test="sixNeuter != null" >
+        six_neuter,
+      </if>
+      <if test="sixDecreace != null" >
+        six_decreace,
+      </if>
+      <if test="sixSell != null" >
+        six_sell,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="sixRankChar != null" >
+        #{sixRankChar,jdbcType=VARCHAR},
+      </if>
+      <if test="sixRankNum != null" >
+        #{sixRankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionCount != null" >
+        #{institutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="upInstitutionCount != null" >
+        #{upInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="downInstitutionCount != null" >
+        #{downInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="holdInstitutionCount != null" >
+        #{holdInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sixBuy != null" >
+        #{sixBuy,jdbcType=VARCHAR},
+      </if>
+      <if test="sixIncreace != null" >
+        #{sixIncreace,jdbcType=VARCHAR},
+      </if>
+      <if test="sixNeuter != null" >
+        #{sixNeuter,jdbcType=VARCHAR},
+      </if>
+      <if test="sixDecreace != null" >
+        #{sixDecreace,jdbcType=VARCHAR},
+      </if>
+      <if test="sixSell != null" >
+        #{sixSell,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.ComprehensiveInvestmentRankExample" resultType="java.lang.Integer" >
+    select count(*) from comprehensive_investment_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comprehensive_investment_rank
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sixRankChar != null" >
+        six_rank_char = #{record.sixRankChar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sixRankNum != null" >
+        six_rank_num = #{record.sixRankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionCount != null" >
+        institution_count = #{record.institutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upInstitutionCount != null" >
+        up_institution_count = #{record.upInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downInstitutionCount != null" >
+        down_institution_count = #{record.downInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holdInstitutionCount != null" >
+        hold_institution_count = #{record.holdInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sixBuy != null" >
+        six_buy = #{record.sixBuy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sixIncreace != null" >
+        six_increace = #{record.sixIncreace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sixNeuter != null" >
+        six_neuter = #{record.sixNeuter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sixDecreace != null" >
+        six_decreace = #{record.sixDecreace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sixSell != null" >
+        six_sell = #{record.sixSell,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comprehensive_investment_rank
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      six_rank_char = #{record.sixRankChar,jdbcType=VARCHAR},
+      six_rank_num = #{record.sixRankNum,jdbcType=VARCHAR},
+      institution_count = #{record.institutionCount,jdbcType=VARCHAR},
+      up_institution_count = #{record.upInstitutionCount,jdbcType=VARCHAR},
+      down_institution_count = #{record.downInstitutionCount,jdbcType=VARCHAR},
+      hold_institution_count = #{record.holdInstitutionCount,jdbcType=VARCHAR},
+      six_buy = #{record.sixBuy,jdbcType=VARCHAR},
+      six_increace = #{record.sixIncreace,jdbcType=VARCHAR},
+      six_neuter = #{record.sixNeuter,jdbcType=VARCHAR},
+      six_decreace = #{record.sixDecreace,jdbcType=VARCHAR},
+      six_sell = #{record.sixSell,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.ComprehensiveInvestmentRank" >
+    update comprehensive_investment_rank
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="sixRankChar != null" >
+        six_rank_char = #{sixRankChar,jdbcType=VARCHAR},
+      </if>
+      <if test="sixRankNum != null" >
+        six_rank_num = #{sixRankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionCount != null" >
+        institution_count = #{institutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="upInstitutionCount != null" >
+        up_institution_count = #{upInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="downInstitutionCount != null" >
+        down_institution_count = #{downInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="holdInstitutionCount != null" >
+        hold_institution_count = #{holdInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="sixBuy != null" >
+        six_buy = #{sixBuy,jdbcType=VARCHAR},
+      </if>
+      <if test="sixIncreace != null" >
+        six_increace = #{sixIncreace,jdbcType=VARCHAR},
+      </if>
+      <if test="sixNeuter != null" >
+        six_neuter = #{sixNeuter,jdbcType=VARCHAR},
+      </if>
+      <if test="sixDecreace != null" >
+        six_decreace = #{sixDecreace,jdbcType=VARCHAR},
+      </if>
+      <if test="sixSell != null" >
+        six_sell = #{sixSell,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.ComprehensiveInvestmentRank" >
+    update comprehensive_investment_rank
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      six_rank_char = #{sixRankChar,jdbcType=VARCHAR},
+      six_rank_num = #{sixRankNum,jdbcType=VARCHAR},
+      institution_count = #{institutionCount,jdbcType=VARCHAR},
+      up_institution_count = #{upInstitutionCount,jdbcType=VARCHAR},
+      down_institution_count = #{downInstitutionCount,jdbcType=VARCHAR},
+      hold_institution_count = #{holdInstitutionCount,jdbcType=VARCHAR},
+      six_buy = #{sixBuy,jdbcType=VARCHAR},
+      six_increace = #{sixIncreace,jdbcType=VARCHAR},
+      six_neuter = #{sixNeuter,jdbcType=VARCHAR},
+      six_decreace = #{sixDecreace,jdbcType=VARCHAR},
+      six_sell = #{sixSell,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectComprehensiveInvestmentRank" resultMap="BaseResultMap">
+  	select * from 
+  	comprehensive_investment_rank order by six_rank_num DESC
+  </select>
+</mapper>

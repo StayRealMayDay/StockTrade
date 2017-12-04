@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.PerformancePreviewMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.PerformancePreview" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="preview_type" property="previewType" jdbcType="VARCHAR" />
+    <result column="preview_abstract" property="previewAbstract" jdbcType="VARCHAR" />
+    <result column="preview_amplitude" property="previewAmplitude" jdbcType="VARCHAR" />
+    <result column="net_profit_uplimit" property="netProfitUplimit" jdbcType="VARCHAR" />
+    <result column="net_profit_downlimit" property="netProfitDownlimit" jdbcType="VARCHAR" />
+    <result column="preview_date" property="previewDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, preview_type, preview_abstract, preview_amplitude, net_profit_uplimit, 
+    net_profit_downlimit, preview_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.PerformancePreviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from performance_preview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from performance_preview
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from performance_preview
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.PerformancePreviewExample" >
+    delete from performance_preview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.PerformancePreview" >
+    insert into performance_preview (id, stock_code, stock_name, 
+      preview_type, preview_abstract, preview_amplitude, 
+      net_profit_uplimit, net_profit_downlimit, preview_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{previewType,jdbcType=VARCHAR}, #{previewAbstract,jdbcType=VARCHAR}, #{previewAmplitude,jdbcType=VARCHAR}, 
+      #{netProfitUplimit,jdbcType=VARCHAR}, #{netProfitDownlimit,jdbcType=VARCHAR}, #{previewDate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.PerformancePreview" >
+    insert into performance_preview
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="previewType != null" >
+        preview_type,
+      </if>
+      <if test="previewAbstract != null" >
+        preview_abstract,
+      </if>
+      <if test="previewAmplitude != null" >
+        preview_amplitude,
+      </if>
+      <if test="netProfitUplimit != null" >
+        net_profit_uplimit,
+      </if>
+      <if test="netProfitDownlimit != null" >
+        net_profit_downlimit,
+      </if>
+      <if test="previewDate != null" >
+        preview_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="previewType != null" >
+        #{previewType,jdbcType=VARCHAR},
+      </if>
+      <if test="previewAbstract != null" >
+        #{previewAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="previewAmplitude != null" >
+        #{previewAmplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitUplimit != null" >
+        #{netProfitUplimit,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitDownlimit != null" >
+        #{netProfitDownlimit,jdbcType=VARCHAR},
+      </if>
+      <if test="previewDate != null" >
+        #{previewDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.PerformancePreviewExample" resultType="java.lang.Integer" >
+    select count(*) from performance_preview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update performance_preview
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.previewType != null" >
+        preview_type = #{record.previewType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.previewAbstract != null" >
+        preview_abstract = #{record.previewAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.previewAmplitude != null" >
+        preview_amplitude = #{record.previewAmplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitUplimit != null" >
+        net_profit_uplimit = #{record.netProfitUplimit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitDownlimit != null" >
+        net_profit_downlimit = #{record.netProfitDownlimit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.previewDate != null" >
+        preview_date = #{record.previewDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update performance_preview
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      preview_type = #{record.previewType,jdbcType=VARCHAR},
+      preview_abstract = #{record.previewAbstract,jdbcType=VARCHAR},
+      preview_amplitude = #{record.previewAmplitude,jdbcType=VARCHAR},
+      net_profit_uplimit = #{record.netProfitUplimit,jdbcType=VARCHAR},
+      net_profit_downlimit = #{record.netProfitDownlimit,jdbcType=VARCHAR},
+      preview_date = #{record.previewDate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.PerformancePreview" >
+    update performance_preview
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="previewType != null" >
+        preview_type = #{previewType,jdbcType=VARCHAR},
+      </if>
+      <if test="previewAbstract != null" >
+        preview_abstract = #{previewAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="previewAmplitude != null" >
+        preview_amplitude = #{previewAmplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitUplimit != null" >
+        net_profit_uplimit = #{netProfitUplimit,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitDownlimit != null" >
+        net_profit_downlimit = #{netProfitDownlimit,jdbcType=VARCHAR},
+      </if>
+      <if test="previewDate != null" >
+        preview_date = #{previewDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.PerformancePreview" >
+    update performance_preview
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      preview_type = #{previewType,jdbcType=VARCHAR},
+      preview_abstract = #{previewAbstract,jdbcType=VARCHAR},
+      preview_amplitude = #{previewAmplitude,jdbcType=VARCHAR},
+      net_profit_uplimit = #{netProfitUplimit,jdbcType=VARCHAR},
+      net_profit_downlimit = #{netProfitDownlimit,jdbcType=VARCHAR},
+      preview_date = #{previewDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectPerformancePreview" resultMap="BaseResultMap">
+  	select * from
+  	performance_preview order by net_profit_uplimit desc
+  </select>
+</mapper>
