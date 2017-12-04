@@ -1,5 +1,7 @@
 package com.stock.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
 import com.stock.mapper.BlogMapper;
 import com.stock.mapper.CbMapper;
 import com.stock.mapper.CompanyMapper;
@@ -56,7 +60,6 @@ import com.stock.pojo.Stockinfo;
 import com.stock.pojo.Shares;
 import com.stock.service.StockService;
 import com.stock.service.StockinfoService;
-import com.stock.utils.Pager;
 import com.stock.utils.*;
 @Controller
 public class StockController {
@@ -705,11 +708,16 @@ public class StockController {
 			return "mypages/AstockNewsDetail";
 		}
 		
-		//于花蕾新增2017年9月29日
+		//于花蕾新增2017年12月1日
 		@RequestMapping(value = "/dzjy")
 		public String dzjy(Model model,HttpServletRequest req){
 			int count = dzjyMapper.selectAllDzjyCount();
-			int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+			String pageStr = req.getParameter("pageNum");
+			int pageNum = 1;
+			if(pageStr != null && !pageStr.equals("")){
+				pageNum = Integer.parseInt(pageStr);
+			}
+			
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			Pager pager = new Pager(count, pageNum);
 			map.put("start", pager.getStart());
@@ -721,11 +729,28 @@ public class StockController {
 			return "mypages/dzjy";
 		}
 		
+		//2017年12月1日------通过ajax请求具体某一个股票的大宗交易。。。。前台有问题，暂时不用
+		/*@RequestMapping(value = "/ajaxSelectStockDzjy",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
+		public void stockDzjy(Model model,HttpServletRequest req,HttpServletResponse rsp){
+			
+			String stockId = req.getParameter("stockId");		
+			List<Dzjy> DzjyList = dzjyMapper.selectStockDzjy(stockId);
+			System.out.println(DzjyList);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("DzjyList", DzjyList);
+			String result = JsonUtil.toJsonString(jsonObject);
+			System.out.println(result);
+			PrintWriter out;
+			try {
+				out = rsp.getWriter();
+				out.write(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
 		/**
 		 * 博客详情
-		 * @param model
-		 * @param req
-		 * @return
 		 */
 		@RequestMapping(value = "/blogDetail")
 		public String blogDetail(Model model,HttpServletRequest req){

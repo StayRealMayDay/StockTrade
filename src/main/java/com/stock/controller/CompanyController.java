@@ -33,7 +33,7 @@ import com.stock.mapper.IndustryNewsinfoMapper;
 import com.stock.mapper.IndustryStatusMapper;
 import com.stock.mapper.MarketPerformanceMapper;
 import com.stock.mapper.RankandpredictMapper;
-
+import com.stock.mapper.DzjyMapper;
 import com.stock.mapper.StockDetailMapper;
 import com.stock.mapper.StockHolderNumberMapper;
 import com.stock.mapper.StockholderBasicMapper;
@@ -48,7 +48,7 @@ import com.stock.pojo.CompanyBulletin;
 import com.stock.pojo.CompanyDetail;
 import com.stock.pojo.CompanyExecutive;
 import com.stock.pojo.CompanyNews;
-
+import com.stock.pojo.Dzjy;
 import com.stock.pojo.IndustryDistribution;
 import com.stock.pojo.IndustryNewsinfo;
 import com.stock.pojo.IndustryStatus;
@@ -83,6 +83,8 @@ public class CompanyController {
 	StockinfoMapper stockinfoMapper;
 	@Autowired
 	IndustryNewsinfoMapper industryNewsinfoMapper;
+	@Autowired
+	DzjyMapper dzjyMapper;
 	@Autowired
 	CompanyBulletinMapper companyBulletinMapper;
 	@Autowired
@@ -725,6 +727,27 @@ public class CompanyController {
 			model.addAttribute("stockinfo",stockinfo);
 			model.addAttribute("company", company);
 			return "mypages/financialAnalysis";
+		}
+		
+		
+		//2017年12月2日
+		@RequestMapping(value = "/oneDzjy")
+		public String stockDzjy(Model model,HttpServletRequest req,HttpServletResponse rsp){
+			String stockId = req.getParameter("stockId");	
+			Company company = companyMapper.selectCompanyByStockNum(stockId);
+			Stockinfo stockinfo = stockinfoMapper.selectStockByCode(stockId);
+		/*	List<String> dateList = dzjyMapper.selectDzjyDate(stockId);
+			String date = dateList.get(0);
+			List<Dzjy> DzjyList = dzjyMapper.selectStockDzjy(date,stockId);*/
+			
+			List<Dzjy> DzjyList = dzjyMapper.selectStockDzjy(stockId);
+			
+			System.out.println(DzjyList);
+			model.addAttribute("DzjyList",DzjyList );
+			model.addAttribute("stockinfo",stockinfo);
+			model.addAttribute("company", company);
+	/*		model.addAttribute("holderDate", dateList);*/
+			return "mypages/oneDzjy";
 		}
 		
 }

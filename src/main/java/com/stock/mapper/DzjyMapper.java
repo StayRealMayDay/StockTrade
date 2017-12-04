@@ -12,7 +12,7 @@ public interface DzjyMapper {
 
     int deleteByExample(DzjyExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(Dzjy record);
 
@@ -20,7 +20,7 @@ public interface DzjyMapper {
 
     List<Dzjy> selectByExample(DzjyExample example);
 
-    Dzjy selectByPrimaryKey(Integer id);
+    Dzjy selectByPrimaryKey(String id);
 
     int updateByExampleSelective(@Param("record") Dzjy record, @Param("example") DzjyExample example);
 
@@ -30,9 +30,13 @@ public interface DzjyMapper {
 
     int updateByPrimaryKey(Dzjy record);
     
-    //于花蕾 新增(2017年9月29日)
+    //于花蕾 新增(2017年12月1日)
     List<Dzjy> selectAllDzjy(HashMap<String, Integer> map);
-    //于花蕾 新增(2017年9月29日)
+    //于花蕾 新增(2017年12月1日)
     int selectAllDzjyCount();
-    
+    //于花蕾 新增(2017年12月2日)
+/*    List<Dzjy> selectStockDzjy(@Param("date") String date,@Param("stock_id") String stock_id);*/
+    List<Dzjy> selectStockDzjy(String stock_id);
+    //于花蕾 新增 12月2日
+    List<String> selectDzjyDate(String stockId); 
 }

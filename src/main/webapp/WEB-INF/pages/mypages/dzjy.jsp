@@ -13,78 +13,16 @@
 <meta charset="utf-8" />
 <title>大宗交易</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="<%=basePath %>/css/reset.css"type="text/css" media="all" />
-<link rel="stylesheet" href="<%=basePath %>/css/nivoslider.css"type="text/css" media="all" />
-<link rel="stylesheet" href="<%=basePath %>/css/prettyPhoto.css"type="text/css" media="screen" />
-<link rel="stylesheet" href="<%=basePath %>/js/style.css"type="text/css" media="screen" />
-<link rel="stylesheet" href="<%=basePath %>/css/responsive.css"type="text/css" media="all" />
 
 <!-- 于花蕾 2017年9月27 -->
-<link href="<%=basePath %>/css/bootstrap.css" rel="stylesheet"type="text/css" media="all" />
-<link href="<%=basePath %>/css/style.css" rel="stylesheet"type="text/css" media="all" />
-<link class="include" rel="stylesheet" type="text/css" href="<%=basePath %>/css/jquery.jqplot.css" />
-<script src="<%=basePath %>/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>/js/jquery.marquee.min.js"></script>
-<link href="<%=basePath %>/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-<script src="<%=basePath %>/js/jquery.flot.min.js" type="text/javascript"></script>
-<script src="<%=basePath %>/js/jquery.flot.animator.min.js" type="text/javascript"></script>
-<link href="http://fonts.googleapis.com/css?family=Muli:300,300i,400,400i" rel="stylesheet">
-<script src="<%=basePath %>/js/bootstrap.min.js"></script>
 
-<!--[if IE 7]><link rel="stylesheet" href="css/ie7.css" type="text/css" media="all" />
-	<![endif]-->
-<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-		<link rel="stylesheet" href="css/ie.css" type="text/css" media="all" />
-	<![endif]-->
-<!-- Favicons
-	================================================== -->
-<link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
-<script type="text/javascript"
-	src="<%=basePath %>/js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript"
-	src="<%=basePath %>/js/jquery.nivo.slider.pack.js"></script>
-<script type="text/javascript"
-	src="<%=basePath %>/js/jquery.carouFredSel-5.6.2.js"></script>
-<script type="text/javascript"
-	src="<%=basePath %>/js/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="<%=basePath %>/js/jquery.sticky.js"></script>
-<script type="text/javascript"
-	src="<%=basePath %>/js/jquery-scroller-v1.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>/js/kendo.web.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>/js/custom.js"></script>
-<!--[if lt IE 9]>
-	<script type="text/javascript" src="js/ie7-fixed.js"></script>
-	<![endif]-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-<script type="text/javascript">
-//init method one 
-$(document).ready(function(){ 
-trace("初始化方法进入"); 
-$("#qwertyui").css('display','block'); 
 
-}); 
-function trace(obj){ 
-console.log(obj); 
-}
-</script>
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-			$(".div2").click(function(){ 
-				$(this).next("div").slideToggle("slow")  
-				.siblings(".div3:visible").slideUp("slow");
-			});
-		});
-</script>
+<script src="<%=basePath %>/js/bootstrap.min.js"></script>
 
-<style>
-.secondary {border:1px solid #CCCCCC;height:800px;margin-left:2%;margin-top:2%;}
-</style>
-
-
+<link rel="stylesheet" href="<%=basePath %>/js/style.css"type="text/css" media="screen" />
 
 <body class="home-page">
 	<jsp:include page="/top_q.jsp" flush="true" />
@@ -108,19 +46,19 @@ console.log(obj);
 						<div id="filter-controls" class="btn-group"  style="margin-bottom: 2%">
 							<form class="form-inline">
 								<div class="form-group">
-									<label for="projectName">股票名称：</label> <input id="projectName"
-										type="text" class="form-control" placeholder="股票名称">
-
+									<label for="projectName">股票名称：</label> 
+									<input id="projectName" type="text" class="form-control" placeholder="股票名称">
 								</div>
-								<button class="btn btn-primary">搜索</button>
+								<button class="btn btn-primary" onclick="selectStockDzjy()">搜索</button>
 							</form>
 						</div>
 						
-						<div class="col-md-12 agileinfo_news_original_grids_left">
-							<table style="width: 100%; border: 1px solid #000000; text-align: center;" class="table table-striped table-hover">
+						<div class="col-md-10 agileinfo_news_original_grids_center">
+							<table style="width: 100%; border: 1px solid #000000; text-align: center;margin-left:150px" class="table table-striped table-hover">
 								<thead>
 								<tr>
 									<th style="text-align: center">序号</th>
+									<th style="text-align: center">交易时间</th>
 									<th style="text-align: center">股票代码</th>
 									<th style="text-align: center">股票简称</th>
 									<th style="text-align: center">最新价格</th>
@@ -131,19 +69,22 @@ console.log(obj);
 									<th style="text-align: center">卖方营业部</th>
 								</tr>
 								</thead>
-							<c:forEach items="${dzjyList}" var="all">
-								<tr>
-									<td>${all.id}</td>
-									<td><a href="company">${all.stockCd}</a></td>
-									<td><a href="company">${stockName}</a></td>
-									<td>${all.currentPrice }</td>
-									<td>${all.dealPrice }</td>
-									<td>${all.total }</td>
-									<td>${all.rate }</td>
-									<td>${all.buyer }</td>
-									<td>${all.saler}</td>
-								</tr>
-							</c:forEach>	
+								<tbody id="tbody2">
+									<c:forEach items="${dzjyList}" var="all" varStatus= "idx">
+										<tr>	
+											<td>${idx.index} </td>
+											<td>${all.transactionDate}</td>
+											<td><a href="company?stockNum=${all.stockId}">${all.stockId}</a></td>
+											<td><a href="company?stockNum=${all.stockId}">${all.stockName}</a></td>
+											<td>${all.latestPrice }</td>
+											<td>${all.dealPrice }</td>
+											<td>${all.dealNum }</td>
+											<td>${all.premiumRate }</td>
+											<td>${all.purchasingDepartment}</td>
+											<td>${all.salesDepartment}</td>
+										</tr>
+									</c:forEach>	
+								</tbody>
 							</table>
 						</div>
 
@@ -157,15 +98,12 @@ console.log(obj);
 									<div class="dataTables_paginate paging_bs_full"
 										id="datatable1_paginate">
 										<ul class="pagination" style="text-align: center;">
-
 											<li><a href="#">共 ${pager.recordCount} 条数据，每页
 													${pager.pageSize } 条，共 ${pager.pageCount } 页，当前是第
-													${pager.pageNum } 页</a></li>
-
+													${pager.pageNum } 页</a>
+											</li>
 										</ul>
-
 										<ul class="pagination">
-
 											<li ${pager.pageNum==1?'class="disabled"':''}><a
 												href="dzjy?pageNum=1">首页</a></li>
 											<li ${pager.pageNum==1?'class="disabled"':''}><a
@@ -179,7 +117,6 @@ console.log(obj);
 													style="width: 35px; padding: 0px; margin: -3px;" /></a></li>
 											<li><a>页 </a></li>
 											<li><a href="javascript:goPage();">跳转</a></li>
-
 										</ul>
 									</div>
 								</div>
@@ -190,6 +127,41 @@ console.log(obj);
 				</div>
 			</div>
 		</div>		
-	</div>
+	<!-- <script type="text/javascript">
+		function selectStockDzjy(){
+			var stockId = document.getElementById('projectName').value;
+			 $.ajax({
+		          type: "POST",
+		          url: "ajaxSelectStockDzjy",
+		          data: {
+		          	"stockId":stockId
+		          },
+		          dataType: "json",
+		          success: function(data) {
+		          	var dzjyList = data.DzjyList;	
+		          	if(dzjyList.length == 0){
+		          	}else{
+		          		var permissionHtml = "";
+		  				for (var i = 0; i < dzjyList.length; i++) {		  					  			
+		  					 permissionHtml = permissionHtml
+							   +'<tr>'
+		        			   +'<td><a href="company">${idx.index}</td>'
+		        			   +'<td><a href="company">'+dzjyList[i].transactionDate+'</td>'
+		          			   +'<td>'+dzjyList[i].stockId+'</td>'
+		          			   +'<td>'+dzjyList[i].stockName+'</td>'
+		          			   +'<td>'+dzjyList[i].latestPrice+'</td>'
+		          			   +'<td>'+dzjyList[i].dealPrice+'</td>'
+		          			   +'<td>'+dzjyList[i].dealNum+'</td>'
+		          			   +'<td>'+dzjyList[i].premiumRate+'</td>'
+		          			   +'<td>'+dzjyList[i].purchasingDepartment+'</td>'
+		          			   +'<td>'+dzjyList[i].salesDepartment+'</td>'
+		  				}
+		  				
+		  				$("#tbody2")[0].innerHTML = permissionHtml;   
+		          	}
+		          } 
+		      }) 	   
+		}
+	</script> -->
 </body>
 </html>

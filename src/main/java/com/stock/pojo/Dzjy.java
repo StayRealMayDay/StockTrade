@@ -1,38 +1,48 @@
 package com.stock.pojo;
 
 public class Dzjy {
-    private Integer id;
+    private String id;
 
-    private String stockCd;
+    private String transactionDate;
+
+    private String stockId;
 
     private String stockName;
 
-    private String currentPrice;
+    private String latestPrice;
 
     private String dealPrice;
 
-    private String total;
+    private String dealNum;
 
-    private String rate;
+    private String premiumRate;
 
-    private String buyer;
+    private String purchasingDepartment;
 
-    private String saler;
+    private String salesDepartment;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public String getStockCd() {
-        return stockCd;
+    public String getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setStockCd(String stockCd) {
-        this.stockCd = stockCd == null ? null : stockCd.trim();
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate == null ? null : transactionDate.trim();
+    }
+
+    public String getStockId() {
+        return stockId;
+    }
+
+    public void setStockId(String stockId) {
+        this.stockId = stockId == null ? null : stockId.trim();
     }
 
     public String getStockName() {
@@ -43,12 +53,12 @@ public class Dzjy {
         this.stockName = stockName == null ? null : stockName.trim();
     }
 
-    public String getCurrentPrice() {
-        return currentPrice;
+    public String getLatestPrice() {
+        return latestPrice;
     }
 
-    public void setCurrentPrice(String currentPrice) {
-        this.currentPrice = currentPrice == null ? null : currentPrice.trim();
+    public void setLatestPrice(String latestPrice) {
+        this.latestPrice = latestPrice == null ? null : latestPrice.trim();
     }
 
     public String getDealPrice() {
@@ -59,35 +69,35 @@ public class Dzjy {
         this.dealPrice = dealPrice == null ? null : dealPrice.trim();
     }
 
-    public String getTotal() {
-        return total;
+    public String getDealNum() {
+        return dealNum;
     }
 
-    public void setTotal(String total) {
-        this.total = total == null ? null : total.trim();
+    public void setDealNum(String dealNum) {
+        this.dealNum = dealNum == null ? null : dealNum.trim();
     }
 
-    public String getRate() {
-        return rate;
+    public String getPremiumRate() {
+        return premiumRate;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate == null ? null : rate.trim();
+    public void setPremiumRate(String premiumRate) {
+        this.premiumRate = premiumRate == null ? null : premiumRate.trim();
     }
 
-    public String getBuyer() {
-        return buyer;
+    public String getPurchasingDepartment() {
+        return purchasingDepartment;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer == null ? null : buyer.trim();
+    public void setPurchasingDepartment(String purchasingDepartment) {
+        this.purchasingDepartment = purchasingDepartment == null ? null : purchasingDepartment.trim();
     }
 
-    public String getSaler() {
-        return saler;
+    public String getSalesDepartment() {
+        return salesDepartment;
     }
 
-    public void setSaler(String saler) {
-        this.saler = saler == null ? null : saler.trim();
+    public void setSalesDepartment(String salesDepartment) {
+        this.salesDepartment = salesDepartment == null ? null : salesDepartment.trim();
     }
 }

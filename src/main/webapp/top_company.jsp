@@ -171,7 +171,7 @@ function mout(object){
 		    	<a href="#">行情走势</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		    	<a href="#">最新消息</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 		    	<a href="#">龙虎榜</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		    	<a href="#">大宗交易</a>
+		    	<a href="oneDzjy?stockId=${company.stockNum}">大宗交易</a>
 		    </li>
 		    <li style="padding-left:110px;" id="s_2" class='s_li' onmouseover='mover(2);' onmouseout='mout(2);'>
 		    	<a href="#">实时资金流向</a>&nbsp;&nbsp;|&nbsp;&nbsp;

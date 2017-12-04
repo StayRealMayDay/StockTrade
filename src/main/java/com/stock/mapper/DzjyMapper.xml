@@ -2,15 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.stock.mapper.DzjyMapper" >
   <resultMap id="BaseResultMap" type="com.stock.pojo.Dzjy" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="stock_cd" property="stockCd" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="transaction_date" property="transactionDate" jdbcType="VARCHAR" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
     <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
-    <result column="current_price" property="currentPrice" jdbcType="VARCHAR" />
+    <result column="latest_price" property="latestPrice" jdbcType="VARCHAR" />
     <result column="deal_price" property="dealPrice" jdbcType="VARCHAR" />
-    <result column="total" property="total" jdbcType="VARCHAR" />
-    <result column="rate" property="rate" jdbcType="VARCHAR" />
-    <result column="buyer" property="buyer" jdbcType="VARCHAR" />
-    <result column="saler" property="saler" jdbcType="VARCHAR" />
+    <result column="deal_num" property="dealNum" jdbcType="VARCHAR" />
+    <result column="premium_rate" property="premiumRate" jdbcType="VARCHAR" />
+    <result column="purchasing_department" property="purchasingDepartment" jdbcType="VARCHAR" />
+    <result column="sales_department" property="salesDepartment" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, stock_cd, stock_name, current_price, deal_price, total, rate, buyer, saler
+    id, transaction_date, stock_id, stock_name, latest_price, deal_price, deal_num, premium_rate, 
+    purchasing_department, sales_department
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.DzjyExample" >
     select
@@ -87,15 +89,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from dzjy
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from dzjy
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.stock.pojo.DzjyExample" >
     delete from dzjy
@@ -104,12 +106,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.stock.pojo.Dzjy" >
-    insert into dzjy (id, stock_cd, stock_name, 
-      current_price, deal_price, total, 
-      rate, buyer, saler)
-    values (#{id,jdbcType=INTEGER}, #{stockCd,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
-      #{currentPrice,jdbcType=VARCHAR}, #{dealPrice,jdbcType=VARCHAR}, #{total,jdbcType=VARCHAR}, 
-      #{rate,jdbcType=VARCHAR}, #{buyer,jdbcType=VARCHAR}, #{saler,jdbcType=VARCHAR})
+    insert into dzjy (id, transaction_date, stock_id, 
+      stock_name, latest_price, deal_price, 
+      deal_num, premium_rate, purchasing_department, 
+      sales_department)
+    values (#{id,jdbcType=VARCHAR}, #{transactionDate,jdbcType=VARCHAR}, #{stockId,jdbcType=VARCHAR}, 
+      #{stockName,jdbcType=VARCHAR}, #{latestPrice,jdbcType=VARCHAR}, #{dealPrice,jdbcType=VARCHAR}, 
+      #{dealNum,jdbcType=VARCHAR}, #{premiumRate,jdbcType=VARCHAR}, #{purchasingDepartment,jdbcType=VARCHAR}, 
+      #{salesDepartment,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.stock.pojo.Dzjy" >
     insert into dzjy
@@ -117,58 +121,64 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="stockCd != null" >
-        stock_cd,
+      <if test="transactionDate != null" >
+        transaction_date,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
       </if>
       <if test="stockName != null" >
         stock_name,
       </if>
-      <if test="currentPrice != null" >
-        current_price,
+      <if test="latestPrice != null" >
+        latest_price,
       </if>
       <if test="dealPrice != null" >
         deal_price,
       </if>
-      <if test="total != null" >
-        total,
+      <if test="dealNum != null" >
+        deal_num,
       </if>
-      <if test="rate != null" >
-        rate,
+      <if test="premiumRate != null" >
+        premium_rate,
       </if>
-      <if test="buyer != null" >
-        buyer,
+      <if test="purchasingDepartment != null" >
+        purchasing_department,
       </if>
-      <if test="saler != null" >
-        saler,
+      <if test="salesDepartment != null" >
+        sales_department,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
-      <if test="stockCd != null" >
-        #{stockCd,jdbcType=VARCHAR},
+      <if test="transactionDate != null" >
+        #{transactionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
       </if>
       <if test="stockName != null" >
         #{stockName,jdbcType=VARCHAR},
       </if>
-      <if test="currentPrice != null" >
-        #{currentPrice,jdbcType=VARCHAR},
+      <if test="latestPrice != null" >
+        #{latestPrice,jdbcType=VARCHAR},
       </if>
       <if test="dealPrice != null" >
         #{dealPrice,jdbcType=VARCHAR},
       </if>
-      <if test="total != null" >
-        #{total,jdbcType=VARCHAR},
+      <if test="dealNum != null" >
+        #{dealNum,jdbcType=VARCHAR},
       </if>
-      <if test="rate != null" >
-        #{rate,jdbcType=VARCHAR},
+      <if test="premiumRate != null" >
+        #{premiumRate,jdbcType=VARCHAR},
       </if>
-      <if test="buyer != null" >
-        #{buyer,jdbcType=VARCHAR},
+      <if test="purchasingDepartment != null" >
+        #{purchasingDepartment,jdbcType=VARCHAR},
       </if>
-      <if test="saler != null" >
-        #{saler,jdbcType=VARCHAR},
+      <if test="salesDepartment != null" >
+        #{salesDepartment,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -182,31 +192,34 @@
     update dzjy
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.stockCd != null" >
-        stock_cd = #{record.stockCd,jdbcType=VARCHAR},
+      <if test="record.transactionDate != null" >
+        transaction_date = #{record.transactionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
       </if>
       <if test="record.stockName != null" >
         stock_name = #{record.stockName,jdbcType=VARCHAR},
       </if>
-      <if test="record.currentPrice != null" >
-        current_price = #{record.currentPrice,jdbcType=VARCHAR},
+      <if test="record.latestPrice != null" >
+        latest_price = #{record.latestPrice,jdbcType=VARCHAR},
       </if>
       <if test="record.dealPrice != null" >
         deal_price = #{record.dealPrice,jdbcType=VARCHAR},
       </if>
-      <if test="record.total != null" >
-        total = #{record.total,jdbcType=VARCHAR},
+      <if test="record.dealNum != null" >
+        deal_num = #{record.dealNum,jdbcType=VARCHAR},
       </if>
-      <if test="record.rate != null" >
-        rate = #{record.rate,jdbcType=VARCHAR},
+      <if test="record.premiumRate != null" >
+        premium_rate = #{record.premiumRate,jdbcType=VARCHAR},
       </if>
-      <if test="record.buyer != null" >
-        buyer = #{record.buyer,jdbcType=VARCHAR},
+      <if test="record.purchasingDepartment != null" >
+        purchasing_department = #{record.purchasingDepartment,jdbcType=VARCHAR},
       </if>
-      <if test="record.saler != null" >
-        saler = #{record.saler,jdbcType=VARCHAR},
+      <if test="record.salesDepartment != null" >
+        sales_department = #{record.salesDepartment,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -215,15 +228,16 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update dzjy
-    set id = #{record.id,jdbcType=INTEGER},
-      stock_cd = #{record.stockCd,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=VARCHAR},
+      transaction_date = #{record.transactionDate,jdbcType=VARCHAR},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
       stock_name = #{record.stockName,jdbcType=VARCHAR},
-      current_price = #{record.currentPrice,jdbcType=VARCHAR},
+      latest_price = #{record.latestPrice,jdbcType=VARCHAR},
       deal_price = #{record.dealPrice,jdbcType=VARCHAR},
-      total = #{record.total,jdbcType=VARCHAR},
-      rate = #{record.rate,jdbcType=VARCHAR},
-      buyer = #{record.buyer,jdbcType=VARCHAR},
-      saler = #{record.saler,jdbcType=VARCHAR}
+      deal_num = #{record.dealNum,jdbcType=VARCHAR},
+      premium_rate = #{record.premiumRate,jdbcType=VARCHAR},
+      purchasing_department = #{record.purchasingDepartment,jdbcType=VARCHAR},
+      sales_department = #{record.salesDepartment,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -231,58 +245,78 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Dzjy" >
     update dzjy
     <set >
-      <if test="stockCd != null" >
-        stock_cd = #{stockCd,jdbcType=VARCHAR},
+      <if test="transactionDate != null" >
+        transaction_date = #{transactionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
       </if>
       <if test="stockName != null" >
         stock_name = #{stockName,jdbcType=VARCHAR},
       </if>
-      <if test="currentPrice != null" >
-        current_price = #{currentPrice,jdbcType=VARCHAR},
+      <if test="latestPrice != null" >
+        latest_price = #{latestPrice,jdbcType=VARCHAR},
       </if>
       <if test="dealPrice != null" >
         deal_price = #{dealPrice,jdbcType=VARCHAR},
       </if>
-      <if test="total != null" >
-        total = #{total,jdbcType=VARCHAR},
+      <if test="dealNum != null" >
+        deal_num = #{dealNum,jdbcType=VARCHAR},
       </if>
-      <if test="rate != null" >
-        rate = #{rate,jdbcType=VARCHAR},
+      <if test="premiumRate != null" >
+        premium_rate = #{premiumRate,jdbcType=VARCHAR},
       </if>
-      <if test="buyer != null" >
-        buyer = #{buyer,jdbcType=VARCHAR},
+      <if test="purchasingDepartment != null" >
+        purchasing_department = #{purchasingDepartment,jdbcType=VARCHAR},
       </if>
-      <if test="saler != null" >
-        saler = #{saler,jdbcType=VARCHAR},
+      <if test="salesDepartment != null" >
+        sales_department = #{salesDepartment,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Dzjy" >
     update dzjy
-    set stock_cd = #{stockCd,jdbcType=VARCHAR},
+    set transaction_date = #{transactionDate,jdbcType=VARCHAR},
+      stock_id = #{stockId,jdbcType=VARCHAR},
       stock_name = #{stockName,jdbcType=VARCHAR},
-      current_price = #{currentPrice,jdbcType=VARCHAR},
+      latest_price = #{latestPrice,jdbcType=VARCHAR},
       deal_price = #{dealPrice,jdbcType=VARCHAR},
-      total = #{total,jdbcType=VARCHAR},
-      rate = #{rate,jdbcType=VARCHAR},
-      buyer = #{buyer,jdbcType=VARCHAR},
-      saler = #{saler,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+      deal_num = #{dealNum,jdbcType=VARCHAR},
+      premium_rate = #{premiumRate,jdbcType=VARCHAR},
+      purchasing_department = #{purchasingDepartment,jdbcType=VARCHAR},
+      sales_department = #{salesDepartment,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
-  
-  
-   <!-- 于花蕾新增部分 2017年9月29日 -->
+   <!-- 于花蕾新增部分 2017年12月1日 -->
   <select id="selectAllDzjy"  resultMap="BaseResultMap">
   	select *
   	from dzjy
   	limit #{start}, #{pagesize}
   </select>
   
-   <!-- 于花蕾新增部分 2017年9月29日 -->
+   <!-- 于花蕾新增部分 2017年12月1日 -->
   <select id="selectAllDzjyCount" resultType="int">
-  	select count(*)
+  	select count(1)
   	from dzjy
   </select>
-  
+  <!-- 17年12月1日 -->
+<!--   <select id="selectStockDzjy" parameterType="string" resultMap="BaseResultMap">
+  	select *
+  	from dzjy
+  	where transaction_date = #{date} and stock_id = #{stock_id}
+  </select> -->
+   <!-- 于花蕾新增 2017年12月2日 -->
+	<select id="selectDzjyDate" parameterType="string" resultType="string">
+		select distinct transaction_date
+		from dzjy
+		where stock_id = #{stock_id}
+		Order by transaction_date DESC
+	</select>
+	 <!-- 17年12月1日 -->
+  <select id="selectStockDzjy" parameterType="string" resultMap="BaseResultMap">
+  	select *
+  	from dzjy
+  	where stock_id = #{stock_id}
+  </select>
 </mapper>
