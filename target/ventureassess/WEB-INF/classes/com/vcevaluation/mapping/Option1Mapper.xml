@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.Option1Mapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Option1">
+		<id column="option_id" property="option_id" jdbcType="INTEGER" />
+		<result column="optionName" property="optionName" jdbcType="VARCHAR" />
+		<result column="optionControllerAction" property="optionControllerAction" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		option_id, optionName, optionControllerAction
+	</sql>
+  <select id="selectOptionByControllerAction" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from option1 where optionControllerAction=#{optionControllerAction,jdbcType=VARCHAR}
+  </select>
+</mapper>

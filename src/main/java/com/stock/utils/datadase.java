@@ -1,8 +1,7 @@
-package com.stock.utils;
+/*package com.stock.utils;
 
 import java.util.List;
 
-import javax.ws.rs.ForbiddenException;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,3 +41,4 @@ public class datadase {
 
 	
 }
+*/

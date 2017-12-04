@@ -26,13 +26,20 @@
 				 	<p class="menu_head current" style="width:240px;"><a href="market_value?stockNum=${stockNum}">市场估值概览</a></p>
 				    <p class="menu_head current" style="width:240px;">基本估值指标</p>
 				    <div style="display:block" class=menu_body >
+<<<<<<< HEAD
 				      <a href="PE?stockNum=${stockNum}&pageNum=1">市盈率</a>
 					  <a href="PB?stockNum=${stockNum}&pageNum=1">市净率</a>
 					  <a href="PS?stockNum=${stockNum}&pageNum=1">市销率</a>
+=======
+				      <a href="PE?stockNum=${stockNum}">市盈率</a>
+					  <a href="PB?stockNum=${stockNum}">市净率</a>
+					  <a href="PS?stockNum=${stockNum}">市销率</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 				      
 				    </div>
 				    <p class="menu_head current" style="width:240px;">价值情况</p>
 				    <div style="display:block" class=menu_body >
+<<<<<<< HEAD
 				      <a href="total_value?stockNum=${stockNum}&pageNum=1">总市值</a>
 				      <a href="flow_value?stockNum=${stockNum}&pageNum=1">流通市值</a>
 				      <a href="enterprise_value?stockNum=${stockNum}&pageNum=1">企业价值</a>
@@ -41,6 +48,16 @@
 				    <div style="display:block" class=menu_body >
 				      <a href="PE_predict12?stockNum=${stockNum}&pageNum=1">预测市盈率（未来12个月）</a>
 				      <a href="dividend_rate12?stockNum=${stockNum}&pageNum=1">股息率（近12个月）</a>
+=======
+				      <a href="total_value?stockNum=${stockNum}">总市值</a>
+				      <a href="flow_value?stockNum=${stockNum}">流通市值</a>
+				      <a href="enterprise_value?stockNum=${stockNum}">企业价值</a>
+				    </div>
+				    <p class="menu_head current" style="width:240px;">其他</p>
+				    <div style="display:block" class=menu_body >
+				      <a href="PE_predict12?stockNum=${stockNum}">预测市盈率（未来12个月）</a>
+				      <a href="dividend_rate12?stockNum=${stockNum}">股息率（近12个月）</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 				    </div>
 				    
 				</div>

@@ -32,6 +32,7 @@
 			<div class="clear"></div>
 		</div><!--end:secondary-->
 		<div class="clear"></div>
+<<<<<<< HEAD
 		<div style="height:1000px">
 		<section id="page">
 		<!-- SIDEBAR -->
@@ -176,6 +177,40 @@
 			</div>
 		</div>
 	</section>
+=======
+		<div style="height:800px">
+		
+		<table style="width:100% margin-top:20px">
+			<tr>
+				<th>董事会预案公告日</th>
+				<th>预案阶段复牌日</th>
+				<th>董事征集投票权起始日</th>
+				<th>董事征集投票权截止日</th>
+				<th>股东大会公告日</th>
+				<th>现场股东大会登记起始日</th>
+			</tr>
+			<tr>
+				<td>2015-6.4</td>
+				<td>2015-6.4</td>
+				<td>2015-6.4</td>
+				<td>2015-6.4</td>
+				<td>2015-6.4</td>
+				<td>2015-6.4</td>
+				
+			</tr>
+			<!-- <a href="#">董事会预案公告日</a>
+							      <a href="#">预案阶段复牌日</a>
+							      <a href="#">董事征集投票权起始日</a>
+							      <a href="#">董事征集投票权截止日</a>
+							      <a href="#">股东大会公告日</a>
+							      <a href="#">股东大会召开日</a>
+							      <a href="#">现场股东大会登记起始日</a>
+							      <a href="#">现场股东大会登记截止日</a>
+							      <a href="#">股东大会股权登记日</a>
+							      <a href="#">获准公告日</a>
+							      <a href="#">对价支付股票上市日</a> -->
+		</table>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 		</div>
 			
 	

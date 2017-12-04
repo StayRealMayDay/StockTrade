@@ -1,6 +1,5 @@
 package com.stock.mapper;
 
-import com.stock.pojo.StockTemp;
 import com.stock.pojo.StockType;
 import com.stock.pojo.StockTypeExample;
 import java.util.List;
@@ -30,5 +29,4 @@ public interface StockTypeMapper {
     int updateByPrimaryKey(StockType record);
 
 	List<StockType> selectStockTypesByFlag(String flag);
-
 }

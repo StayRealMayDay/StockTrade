@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.StockHolderNumberMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.StockHolderNumber" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="holder_number" property="holderNumber" jdbcType="VARCHAR" />
+    <result column="change_come" property="changeCome" jdbcType="VARCHAR" />
+    <result column="avg_circulate" property="avgCirculate" jdbcType="VARCHAR" />
+    <result column="avg_circulate_change" property="avgCirculateChange" jdbcType="VARCHAR" />
+    <result column="inst_avg" property="instAvg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_id, date, price, holder_number, change_come, avg_circulate, avg_circulate_change, 
+    inst_avg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.StockHolderNumberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock_holder_number
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_holder_number
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from stock_holder_number
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.StockHolderNumberExample" >
+    delete from stock_holder_number
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.StockHolderNumber" >
+    insert into stock_holder_number (id, stock_id, date, 
+      price, holder_number, change_come, 
+      avg_circulate, avg_circulate_change, inst_avg
+      )
+    values (#{id,jdbcType=VARCHAR}, #{stockId,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{price,jdbcType=VARCHAR}, #{holderNumber,jdbcType=VARCHAR}, #{changeCome,jdbcType=VARCHAR}, 
+      #{avgCirculate,jdbcType=VARCHAR}, #{avgCirculateChange,jdbcType=VARCHAR}, #{instAvg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.StockHolderNumber" >
+    insert into stock_holder_number
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="holderNumber != null" >
+        holder_number,
+      </if>
+      <if test="changeCome != null" >
+        change_come,
+      </if>
+      <if test="avgCirculate != null" >
+        avg_circulate,
+      </if>
+      <if test="avgCirculateChange != null" >
+        avg_circulate_change,
+      </if>
+      <if test="instAvg != null" >
+        inst_avg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="holderNumber != null" >
+        #{holderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="changeCome != null" >
+        #{changeCome,jdbcType=VARCHAR},
+      </if>
+      <if test="avgCirculate != null" >
+        #{avgCirculate,jdbcType=VARCHAR},
+      </if>
+      <if test="avgCirculateChange != null" >
+        #{avgCirculateChange,jdbcType=VARCHAR},
+      </if>
+      <if test="instAvg != null" >
+        #{instAvg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.StockHolderNumberExample" resultType="java.lang.Integer" >
+    select count(*) from stock_holder_number
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stock_holder_number
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holderNumber != null" >
+        holder_number = #{record.holderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changeCome != null" >
+        change_come = #{record.changeCome,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgCirculate != null" >
+        avg_circulate = #{record.avgCirculate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgCirculateChange != null" >
+        avg_circulate_change = #{record.avgCirculateChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instAvg != null" >
+        inst_avg = #{record.instAvg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stock_holder_number
+    set id = #{record.id,jdbcType=VARCHAR},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      holder_number = #{record.holderNumber,jdbcType=VARCHAR},
+      change_come = #{record.changeCome,jdbcType=VARCHAR},
+      avg_circulate = #{record.avgCirculate,jdbcType=VARCHAR},
+      avg_circulate_change = #{record.avgCirculateChange,jdbcType=VARCHAR},
+      inst_avg = #{record.instAvg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.StockHolderNumber" >
+    update stock_holder_number
+    <set >
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="holderNumber != null" >
+        holder_number = #{holderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="changeCome != null" >
+        change_come = #{changeCome,jdbcType=VARCHAR},
+      </if>
+      <if test="avgCirculate != null" >
+        avg_circulate = #{avgCirculate,jdbcType=VARCHAR},
+      </if>
+      <if test="avgCirculateChange != null" >
+        avg_circulate_change = #{avgCirculateChange,jdbcType=VARCHAR},
+      </if>
+      <if test="instAvg != null" >
+        inst_avg = #{instAvg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.StockHolderNumber" >
+    update stock_holder_number
+    set stock_id = #{stockId,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      holder_number = #{holderNumber,jdbcType=VARCHAR},
+      change_come = #{changeCome,jdbcType=VARCHAR},
+      avg_circulate = #{avgCirculate,jdbcType=VARCHAR},
+      avg_circulate_change = #{avgCirculateChange,jdbcType=VARCHAR},
+      inst_avg = #{instAvg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <!-- 于花蕾新增 2017年11月23日 -->
+	<select id="stock_holderDetail" parameterType="string" resultMap="BaseResultMap">
+		select *
+		from stock_holder_number
+		where stock_id = #{stock_id}
+	</select>
+</mapper>

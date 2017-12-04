@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.MarketMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.Market" >
+    <id column="ma_uuid" property="maUuid" jdbcType="VARCHAR" />
+    <result column="ma_character" property="maCharacter" jdbcType="VARCHAR" />
+    <result column="ma_consumplevel" property="maConsumplevel" jdbcType="VARCHAR" />
+    <result column="ma_consumpsize" property="maConsumpsize" jdbcType="VARCHAR" />
+    <result column="ma_general" property="maGeneral" jdbcType="VARCHAR" />
+    <result column="ma_prospect" property="maProspect" jdbcType="VARCHAR" />
+    <result column="ma_environment" property="maEnvironment" jdbcType="VARCHAR" />
+    <result column="product_uuid" property="productUuid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ma_uuid, ma_character, ma_consumplevel, ma_consumpsize, ma_general, ma_prospect, 
+    ma_environment, product_uuid
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from market
+    where ma_uuid = #{maUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from market
+    where ma_uuid = #{maUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.ventureassess.pojo.Market" >
+    insert into market (ma_uuid, ma_character, ma_consumplevel, 
+      ma_consumpsize, ma_general, ma_prospect, 
+      ma_environment, product_uuid)
+    values (#{maUuid,jdbcType=VARCHAR}, #{maCharacter,jdbcType=VARCHAR}, #{maConsumplevel,jdbcType=VARCHAR}, 
+      #{maConsumpsize,jdbcType=VARCHAR}, #{maGeneral,jdbcType=VARCHAR}, #{maProspect,jdbcType=VARCHAR}, 
+      #{maEnvironment,jdbcType=VARCHAR}, #{productUuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.Market" >
+    insert into market
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="maUuid != null" >
+        ma_uuid,
+      </if>
+      <if test="maCharacter != null" >
+        ma_character,
+      </if>
+      <if test="maConsumplevel != null" >
+        ma_consumplevel,
+      </if>
+      <if test="maConsumpsize != null" >
+        ma_consumpsize,
+      </if>
+      <if test="maGeneral != null" >
+        ma_general,
+      </if>
+      <if test="maProspect != null" >
+        ma_prospect,
+      </if>
+      <if test="maEnvironment != null" >
+        ma_environment,
+      </if>
+      <if test="productUuid != null" >
+        product_uuid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="maUuid != null" >
+        #{maUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="maCharacter != null" >
+        #{maCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="maConsumplevel != null" >
+        #{maConsumplevel,jdbcType=VARCHAR},
+      </if>
+      <if test="maConsumpsize != null" >
+        #{maConsumpsize,jdbcType=VARCHAR},
+      </if>
+      <if test="maGeneral != null" >
+        #{maGeneral,jdbcType=VARCHAR},
+      </if>
+      <if test="maProspect != null" >
+        #{maProspect,jdbcType=VARCHAR},
+      </if>
+      <if test="maEnvironment != null" >
+        #{maEnvironment,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.Market" >
+    update market
+    <set >
+      <if test="maCharacter != null" >
+        ma_character = #{maCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="maConsumplevel != null" >
+        ma_consumplevel = #{maConsumplevel,jdbcType=VARCHAR},
+      </if>
+      <if test="maConsumpsize != null" >
+        ma_consumpsize = #{maConsumpsize,jdbcType=VARCHAR},
+      </if>
+      <if test="maGeneral != null" >
+        ma_general = #{maGeneral,jdbcType=VARCHAR},
+      </if>
+      <if test="maProspect != null" >
+        ma_prospect = #{maProspect,jdbcType=VARCHAR},
+      </if>
+      <if test="maEnvironment != null" >
+        ma_environment = #{maEnvironment,jdbcType=VARCHAR},
+      </if>
+      <if test="productUuid != null" >
+        product_uuid = #{productUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ma_uuid = #{maUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.Market" >
+    update market
+    set ma_character = #{maCharacter,jdbcType=VARCHAR},
+      ma_consumplevel = #{maConsumplevel,jdbcType=VARCHAR},
+      ma_consumpsize = #{maConsumpsize,jdbcType=VARCHAR},
+      ma_general = #{maGeneral,jdbcType=VARCHAR},
+      ma_prospect = #{maProspect,jdbcType=VARCHAR},
+      ma_environment = #{maEnvironment,jdbcType=VARCHAR},
+      product_uuid = #{productUuid,jdbcType=VARCHAR}
+    where ma_uuid = #{maUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

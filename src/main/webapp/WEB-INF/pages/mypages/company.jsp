@@ -110,7 +110,11 @@ console.log(obj);
 </script>
 
 
+<<<<<<< HEAD
 	<jsp:include page="/top_q.jsp" flush="true" />
+=======
+<jsp:include page="/top_company.jsp" flush="true" />
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 <!-- news-original -->
 <div class="news-original">
 <div class="container">
@@ -297,16 +301,28 @@ console.log(obj);
 							      <a href="capital_flow">资金流向</a>
 							      <a href="#">龙虎榜单</a>
 							      <a href="#">大宗交易</a>
+<<<<<<< HEAD
 							      <!-- <a href="areaSectionAll">所属板块</a>
 							      <a href="#">财务状况</a>
 							      <a href="#">驱动事件</a> -->
 							      <a href="#">重大事项</a>
 							      <!-- <a href="#">融资融券</a> -->
+=======
+							      <a href="areaSectionAll">所属板块</a>
+							      <a href="#">财务状况</a>
+							      <a href="#">驱动事件</a>
+							      <a href="#">重大事项</a>
+							      <a href="#">融资融券</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							      <a href="#">个股体检</a>
 							      <a href="#">风险评价</a>
 							    </div>
 							    
+<<<<<<< HEAD
 							    <!-- <p class="menu_head" style="width:268px">交易数据</p>
+=======
+							    <p class="menu_head" style="width:268px">交易数据</p>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							    <div style="display:none" class=menu_body >
 							      <a href="#">明细统计</a>
 							      <a href="#">大单统计</a>
@@ -316,6 +332,7 @@ console.log(obj);
 							      <a href="#">盘口分析</a>
 							      <a href="#">交易提示</a>
 							      
+<<<<<<< HEAD
 							    </div> -->
 							    <p class="menu_head" style="width:268px">资讯公告</p>
 							    <div style="display:none" class=menu_body >
@@ -323,6 +340,14 @@ console.log(obj);
 							      <a href="resolvedIndusNewsList?stocklist[]=${stocklist}&pageNum=1">行业资讯</a>
 							      <!-- <a href="#">机构评级</a> -->
 							      <a href="companyBulletinList?stockNum=${company.stockNum}&pageNum=1">个股公告</a>
+=======
+							    </div>
+							    <p class="menu_head" style="width:268px">资讯公告</p>
+							    <div style="display:none" class=menu_body >
+							      <a href="#">个股资讯</a>
+							      <a href="#">机构评级</a>
+							      <a href="#">个股公告</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							      <a href="#">个股研报</a>
 							    </div>
 							    <!-- <p class="menu_head" style="width:268px">基本资料</p>
@@ -334,21 +359,32 @@ console.log(obj);
 							      
 							    </div> -->
 							    
+<<<<<<< HEAD
 							    <!-- <p class="menu_head" style="width:268px">财务报表</p>
+=======
+							    <p class="menu_head" style="width:268px">财务报表</p>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							    <div style="display:none" class=menu_body >
 							      <a href="#">核心指标</a>
 							      <a href="#">资产负债表</a>
 							      <a href="#">利润分配表</a>
 							      <a href="#">现金流量表</a>
+<<<<<<< HEAD
 							    </div> -->
 							    
 							    <!-- <p class="menu_head" style="width:268px">报表附注</p>
+=======
+							    </div>
+							    
+							    <p class="menu_head" style="width:268px">报表附注</p>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							    <div style="display:none" class=menu_body >
 							      <a href="#">存货明细</a>
 							      <a href="#">主要供应商和客户明细</a>
 							      <a href="#">应收账款</a>
 							      <a href="#">关联方债权债务</a>
 							      <a href="#">主营业务构成</a>
+<<<<<<< HEAD
 							    </div> -->
 							    
 							    <p class="menu_head" style="width:268px">财务分析</p>
@@ -365,10 +401,29 @@ console.log(obj);
 							      <a href="z_swarning">Z值预警</a>
 							      <!-- <a href="#">EVA数据</a>
 							      <a href="#">单季度指标</a> -->
+=======
+							    </div>
+							    
+							    <p class="menu_head" style="width:268px">财务分析</p>
+							    <div style="display:none" class=menu_body >
+							      <a href="#">每股指标</a>
+							      <a href="#">盈利能力</a>
+							      <a href="#">成长能力</a>
+							      <a href="#">资本结构</a>
+							      <a href="#">收益质量</a>
+							      <a href="#">现金流量</a>
+							      <a href="#">偿债能力</a>
+							      <a href="#">营运能力</a>
+							      <a href="#">杜邦分析</a>
+							      <a href="#">Z值预警</a>
+							      <a href="#">EVA数据</a>
+							      <a href="#">单季度指标</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							    </div>
 							    
 							    <p class="menu_head" style="width:268px">盈利预测</p>
 							    <div style="display:none" class=menu_body >
+<<<<<<< HEAD
 							      <a href="profitForecast">盈利预测综合值</a>
 							      <a href="comprehensiveInvestmentRank">投资评级综合值</a>
 							      <a href="performancePreview">上市公司业绩预告</a>
@@ -379,24 +434,52 @@ console.log(obj);
 							      <a href="PB?stockNum=${company.stockNum}&pageNum=1">市净率</a>
 							      <a href="PS?stockNum=${company.stockNum}&pageNum=1">市销率</a>
 							      <a href="total_value?stockNum=${company.stockNum}&pageNum=1">总市值</a>
+=======
+							      <a href="#">盈利预测综合值</a>
+							      <a href="#">投资评级综合值</a>
+							      <a href="#">上市公司业绩预告</a>
+							      <a href="#">上市公司业绩快报</a>
+							    </div>
+							    <p class="menu_head" style="width:268px">估值指标分析</p>
+							    <div style="display:none" class=menu_body >
+							      <a href="PE?stockNum=${company.stockNum}">市盈率</a>
+							      <a href="PB?stockNum=${company.stockNum}">市净率</a>
+							      <a href="PS?stockNum=${company.stockNum}">市销率</a>
+							      <a href="total_value?stockNum=${company.stockNum}">总市值</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							    </div>
 							    
 							    
 							    <p class="menu_head" style="width:268px">风险分析</p>
 							    <div style="display:none" class=menu_body >
+<<<<<<< HEAD
 							      <a href="riskAnalysis">BETA值</a>
 							      <a href="riskAnalysis">年化收益率</a>
 							      <a href="riskAnalysis">年化波动率</a>
+=======
+							      <a href="#">BETA值</a>
+							      <a href="#">年化收益率</a>
+							      <a href="#">年化波动率</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							    </div>
 							    
 							    <p class="menu_head" style="width:268px">行情指标分析</p>
 							    <div style="display:none" class=menu_body >
+<<<<<<< HEAD
 							      <a href="dailyQuotation">日行情</a>
 							      <a href="weekQuotation">周行情</a>
 							      <a href="weekQuotation">月行情</a>
 							      <a href="yearQuotation">年行情</a>
 							    </div>
 							    <!-- <p class="menu_head" style="width:268px">技术形态分析</p>
+=======
+							      <a href="#">日行情</a>
+							      <a href="#">月行情</a>
+							      <a href="#">年行情</a>
+							      <a href="#">龙虎榜数据</a>
+							    </div>
+							    <p class="menu_head" style="width:268px">技术形态分析</p>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							    <div style="display:none" class=menu_body >
 							      <a href="#">连涨天数</a>
 							      <a href="#">连跌天数</a>
@@ -408,11 +491,19 @@ console.log(obj);
 							      <a href="#">向下有效突破</a>
 							      <a href="#">涨停打开日</a>
 							      <a href="#">跌停打开日</a>
+<<<<<<< HEAD
 							    </div> -->
 							    <%-- <p class="menu_head" style="width:268px">重要日期</p>
 							    <div style="display:none" class=menu_body >
 							      <a href="importantDays?stockNum=${company.stockNum}">重要日期</a>
 							      <a href="#">董事会预案公告日</a>
+=======
+							    </div>
+							    <p class="menu_head" style="width:268px">重要日期</p>
+							    <div style="display:none" class=menu_body >
+							      <a href="importantDays?stockNum=${company.stockNum}">重要日期</a>
+							      <!-- <a href="#">董事会预案公告日</a>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							      <a href="#">预案阶段复牌日</a>
 							      <a href="#">董事征集投票权起始日</a>
 							      <a href="#">董事征集投票权截止日</a>
@@ -422,8 +513,13 @@ console.log(obj);
 							      <a href="#">现场股东大会登记截止日</a>
 							      <a href="#">股东大会股权登记日</a>
 							      <a href="#">获准公告日</a>
+<<<<<<< HEAD
 							      <a href="#">对价支付股票上市日</a>
 							    </div> --%>
+=======
+							      <a href="#">对价支付股票上市日</a> -->
+							    </div>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							</div>
 							
 							<script type=text/javascript>
@@ -1203,6 +1299,7 @@ console.log(obj);
 					
 					<div class="w3_latest_stock"  >
 						<div style="background-color:#F0F8FF;height:30px">
+<<<<<<< HEAD
 							<h4 ><i class="fa fa-bar-chart" aria-hidden="true"></i><b>同行业市场表现排行----<a href="similarIndustry?stockNum=${stockNum }">更多</a></b></h4> 
 						</div>
 						<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
@@ -1211,12 +1308,23 @@ console.log(obj);
 							<option value="选择品牌1">选择品牌1</option>
 							<option value="选择品牌2">选择品牌2</option>
 					    </select>--%>
+=======
+							<h4 ><i class="fa fa-bar-chart" aria-hidden="true"></i><b>同行业市场表现排行----<a href="证券要闻.html">更多</a></b></h4> 
+						</div>
+						<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+						<select name="select" id="select_k1" class="xla_k">
+					   		<option value="选择品牌">选择品牌</option>
+							<option value="选择品牌1">选择品牌1</option>
+							<option value="选择品牌2">选择品牌2</option>
+					    </select>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 							<table style="width: 100%;font-size:15px" >
 											<tr >
 												<th >名称</th>
 												<th >最新价</th>
 												<th >涨幅</th>
 											</tr>
+<<<<<<< HEAD
 											<c:forEach items="${stockList}" var="v" varStatus="sta">
 												<tr>		
 													<td><a href="company?stockNum=${v.stockNum}">${v.stockName}</a></td>
@@ -1224,6 +1332,58 @@ console.log(obj);
 													<td><font color="red">${v.updownRatio }</font>  </td>
 												</tr>
 											</c:forEach>
+=======
+											<tr>		
+												<td>10:52:00-</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00-</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00-</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00-</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+											<tr>		
+												<td>10:52:00</td>
+												<td><a href="#">环球印务</a></td>
+												<td><font color="red">急速拉升</font>  </td>
+											</tr>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 											
 										</table>
 						</div>

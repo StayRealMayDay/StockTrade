@@ -44,6 +44,7 @@ import com.stock.pojo.YearQuotation;
 import com.stock.pojo.ZSwarning;
 import com.stock.service.MarketValuationService;
 import com.stock.utils.Pager;
+import com.stock.pojo.CapitalFlow;
 
 @Controller
 public class StockIndexController {
@@ -399,5 +400,7 @@ public class StockIndexController {
     	model.addAttribute("z_swarning", z_swarning);
    		return "mypages/stockIndex/z_swarning";
    	}
-    
+    	model.addAttribute("stockNum",stockNum);
+   		return "mypages/stockIndex/dividend_rate12";
+   	}
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.Eva_optionMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Eva_option">
+		<id column="option_id" property="option_id" jdbcType="INTEGER" />
+		<result column="option_name" property="option_name" jdbcType="VARCHAR" />
+		<result column="option_in_id" property="option_in_id" jdbcType="INTEGER" />
+		<result column="option_isflag" property="option_isflag" jdbcType="INTEGER" />
+		<result column="option_value" property="option_value" jdbcType="DOUBLE" />
+		<result column="option_category" property="option_category" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		option_id, option_name, option_in_id, option_isflag, option_value, option_category
+	</sql>
+
+	<insert id="insertEva_option" parameterType="com.vcevaluation.pojo.Eva_option">
+		insert into eva_option (option_name, option_in_id, option_isflag, option_value, option_category)
+		values (#{option_name,jdbcType=VARCHAR},
+		#{option_in_id,jdbcType=INTEGER}, 
+		#{option_isflag,jdbcType=INTEGER},
+		#{option_value,jdbcType=DOUBLE},
+		#{option_category,jdbcType=INTEGER})
+	</insert>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from eva_option
+	    where option_id = #{option_id,jdbcType=INTEGER}
+    </delete>
+	<select id="selectprotoOptions" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from eva_option
+	    where option_in_id = #{option_in_id,jdbcType=INTEGER}
+	</select>
+		<select id="selectInOptions" resultType="java.util.Map" parameterType="java.lang.Integer" >
+	    select *
+	    from eva_option,indicator
+	    where option_in_id = #{option_in_id,jdbcType=INTEGER} and eva_option.option_in_id = indicator.in_id
+	</select>
+	<select id="selectOptionById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from eva_option
+	    where option_id = #{option_id,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllprotoOptions" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from eva_option
+	</select>
+	<select id="selectOptionIdByValueIn" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Eva_option">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from eva_option
+	    where option_in_id = #{option_in_id,jdbcType=INTEGER} 
+	          and option_value = #{option_value,jdbcType=DOUBLE}
+	</select> 
+	<update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Eva_option" >
+	    update eva_option
+	    <set >
+	      <if test="option_name != null" >
+	        option_name = #{option_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="option_in_id != null" >
+	        option_in_id = #{option_in_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="option_isflag != null" >
+	        option_isflag = #{option_isflag,jdbcType=INTEGER},
+	      </if>
+	      <if test="option_value != null" >
+	        option_value = #{option_value,jdbcType=DOUBLE},
+	      </if>
+	      <if test="option_category != null" >
+	        option_category = #{option_category,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    where option_id = #{option_id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.ProjectMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Project">
+		<id column="pro_id" property="pro_id" jdbcType="INTEGER" />
+		<result column="pro_name" property="pro_name" jdbcType="VARCHAR" />
+		<result column="pro_type" property="pro_type" jdbcType="VARCHAR" />
+		<result column="pro_plan" property="pro_plan" jdbcType="VARCHAR" />
+		<result column="pro_scheme" property="pro_scheme" jdbcType="VARCHAR" />
+		<result column="pro_evalue" property="pro_evalue" jdbcType="DOUBLE"/>
+		<result column="pro_creater" property="pro_creater" jdbcType="INTEGER" />
+		<result column="pro_flag" property="pro_flag" jdbcType="INTEGER" />
+		<result column="pro_remark" property="pro_remark" jdbcType="VARCHAR" />
+		<result column="pro_eva_deadline" property="pro_eva_deadline" jdbcType="VARCHAR" />
+		<result column="pro_protime" property="pro_protime" jdbcType="VARCHAR" />
+		<result column="pro_times" property="pro_times" jdbcType="INTEGER" />
+		<result column="pro_capital" property="pro_capital" jdbcType="DOUBLE"/>
+		<result column="pro_fit" property="pro_fit" jdbcType="INTEGER" />
+		<result column="pro_support" property="pro_support" jdbcType="INTEGER" />
+		<result column="pro_period" property="pro_period" jdbcType="INTEGER" />
+		<result column="pro_bank" property="pro_bank" jdbcType="DOUBLE"/>
+		<result column="pro_meet" property="pro_meet" jdbcType="DOUBLE" />
+		<result column="pro_lastbenifit" property="pro_lastbenifit" jdbcType="INTEGER" />
+		<result column="pro_support_flag" property="pro_support_flag" jdbcType="INTEGER" />
+		<result column="pro_member_flag" property="pro_member_flag" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		pro_id, pro_name, pro_type, pro_plan, pro_scheme, pro_evalue, pro_creater, pro_flag, pro_remark,
+		pro_eva_deadline,pro_protime,pro_times,pro_capital,pro_fit,pro_support,pro_period,
+		pro_bank,pro_meet,pro_lastbenifit,pro_support_flag,pro_member_flag
+	</sql>
+	
+	<insert id="insertProject" parameterType="com.vcevaluation.pojo.Project">
+		insert into project (  pro_name, pro_type, pro_plan, pro_scheme, pro_evalue, pro_creater, pro_flag, pro_remark,
+		pro_eva_deadline,pro_protime,pro_times,pro_capital,pro_fit,pro_support,pro_period,
+		pro_bank,pro_meet,pro_lastbenifit,pro_support_flag,pro_member_flag)
+		values ( #{pro_name,jdbcType=VARCHAR}, 
+		#{pro_type,jdbcType=VARCHAR}, 
+		#{pro_plan,jdbcType=VARCHAR},
+		#{pro_scheme,jdbcType=VARCHAR},
+		#{pro_evalue,jdbcType=DOUBLE},
+		#{pro_creater,jdbcType=INTEGER},
+		#{pro_flag,jdbcType=INTEGER},
+		#{pro_remark,jdbcType=VARCHAR},
+		#{pro_eva_deadline,jdbcType=VARCHAR},
+		#{pro_protime,jdbcType=VARCHAR},
+		#{pro_times,jdbcType=INTEGER},
+		#{pro_capital,jdbcType=DOUBLE},
+		#{pro_fit,jdbcType=INTEGER},
+		#{pro_support,jdbcType=INTEGER},
+		#{pro_period,jdbcType=INTEGER},
+		#{pro_bank,jdbcType=DOUBLE},
+		#{pro_meet,jdbcType=DOUBLE},
+		#{pro_lastbenifit,jdbcType=INTEGER},
+		#{pro_support_flag,jdbcType=INTEGER},
+		#{pro_member_flag,jdbcType=INTEGER})
+    </insert>
+	
+	 
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from project
+	    where pro_id = #{pro_id,jdbcType=INTEGER}
+    </delete>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from project
+	    where pro_id = #{pro_id,jdbcType=INTEGER}
+	</select>
+  
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from project
+	    where pro_name = #{pro_name,jdbcType=VARCHAR}
+	</select>
+  
+    <select id="selectallProject" resultMap="BaseResultMap">
+  		select * from project 
+  		order by pro_protime DESC
+    </select>
+    
+    <select id="listAllProByPage" resultMap="BaseResultMap"  parameterType="java.util.Map" >
+	    select * from project
+	    order by pro_protime DESC
+	    limit #{start},#{pagesize} 
+    </select>
+    <!-- 根据项目状态查询项目 -->
+    <select id="selectByProflag" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * 
+  		from project 
+  		where pro_flag = #{pro_flag,jdbcType=INTEGER}
+  		order by pro_protime DESC
+    </select>
+    <select id="listByProflagPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from project 
+  		where pro_flag = #{pro_flag,jdbcType=INTEGER}
+  		order by pro_protime DESC
+  		limit #{start},#{pagesize} 
+    </select>
+     <select id="getSubPCountByUId" resultType="java.lang.Integer"  parameterType="java.lang.Integer">
+  		select count(*)
+  		from project 
+  		where pro_creater = #{pro_creater,jdbcType=INTEGER}
+    </select>
+    <select id="selectSubProByUserId1" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * 
+  		from project 
+  		where pro_creater = #{pro_creater,jdbcType=INTEGER}
+  		order by pro_protime DESC
+    </select>  
+    
+    <select id="selectSubProByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from project 
+  		where pro_creater = #{pro_creater,jdbcType=INTEGER}
+  		order by pro_protime DESC
+  		limit #{start},#{pagesize} 
+    </select>
+    <!--查询有新增评估记录的我提交的项目  -->
+    <select id="selectaddSubProByUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select  p.* 
+  		from project as p,evaluation as e
+  		where p.pro_creater = #{pro_creater,jdbcType=INTEGER} and e.eva_pro_id = p.pro_id 
+  		      and e.eva_time  >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by e.eva_time  DESC
+    </select>
+    <select id="selectaddSubProByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select DISTINCT p.* 
+  		from project as p,evaluation as e
+  		where p.pro_creater = #{pro_creater,jdbcType=INTEGER} and e.eva_pro_id = p.pro_id 
+  		      and e.eva_time  >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by e.eva_time  DESC
+    </select>
+    <!--查询有新增评估记录的我提交的项目（分页）  -->
+    <select id="listaddSubProByUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select DISTINCT p.* 
+  		from project as p,evaluation as e
+  		where p.pro_creater = #{pro_creater,jdbcType=INTEGER} and e.eva_pro_id = p.pro_id 
+  		      and e.eva_time  >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by e.eva_time  DESC
+  		limit #{start},#{pagesize}
+    </select>
+    <!--查询有新增评估记录的我评估过的项目  -->
+    <select id="selectaddEvaProByUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select p.* 
+  		from project as p,evaluation as e
+  		where e.eva_ex_id = #{eva_ex_id,jdbcType=INTEGER} and e.eva_pro_id = p.pro_id
+  		      and e.eva_time  >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by e.eva_time  DESC
+    </select>
+    <select id="selectaddEvaProByUserId" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select DISTINCT p.* 
+  		from project as p,evaluation as e
+  		where e.eva_ex_id = #{eva_ex_id,jdbcType=INTEGER} and e.eva_pro_id = p.pro_id
+  		      and e.eva_time  >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by e.eva_time  DESC
+    </select>
+    <!--查询有新增评估记录的我评估过的项目 （分页） -->
+    <select id="listaddEvaProByUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select DISTINCT p.* 
+  		from project as p,evaluation as e
+  		where e.eva_ex_id = #{eva_ex_id,jdbcType=INTEGER} and e.eva_pro_id = p.pro_id
+  		      and e.eva_time  >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by e.eva_time  DESC
+    </select>
+    <select id="selectaddPro" parameterType="java.lang.String" resultMap="BaseResultMap">
+  		select *
+        from project
+        where pro_protime >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by pro_protime DESC 
+    </select> 
+    <select id="listaddPro" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select *
+        from project
+        where pro_protime >= #{last_logout_time,jdbcType=VARCHAR}
+  		order by pro_protime DESC 
+  		limit #{start},#{pagesize} 
+    </select> 
+    
+    <!-- 联合查询 -->
+	  <select id="listProjects"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	  select 
+  	    <include refid="Base_Column_List" />
+  	  from project
+  	   <where>
+  	     <if test="pro_flag!=null"> 
+          pro_flag=#{pro_flag}
+         </if>
+           <if test="pro_name!=null"> 
+          and pro_name LIKE "%"#{pro_name}"%"
+          </if>
+          <if test="pro_protime!=null"> 
+          and pro_protime LIKE "%"#{pro_protime}"%"
+          </if>
+          <if test="pro_eva_deadline!=null"> 
+          and pro_eva_deadline LIKE "%"#{pro_eva_deadline}"%"
+          </if> 
+     </where>
+     </select>
+	<update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Project" >
+	    update project
+	    <set >
+	      <if test="pro_name != null" >
+	        pro_name = #{pro_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_type != null" >
+	        pro_type = #{pro_type,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_plan != null" >
+	        pro_plan = #{pro_plan,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_scheme != null" >
+	        pro_scheme = #{pro_scheme,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_evalue != null" >
+	        pro_evalue = #{pro_evalue,jdbcType=DOUBLE},
+	      </if>
+	      <if test="pro_creater != null" >
+	        pro_creater = #{pro_creater,jdbcType=INTEGER},
+	      </if>
+	      <if test="pro_flag != null" >
+	        pro_flag = #{pro_flag,jdbcType=INTEGER},
+	      </if>
+	      <if test="pro_remark != null" >
+	        pro_remark = #{pro_remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_eva_deadline != null" >
+	        pro_eva_deadline = #{pro_eva_deadline,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_protime != null" >
+	        pro_protime = #{pro_protime,jdbcType=VARCHAR},
+	      </if>
+	      <if test="pro_times != null" >
+	        pro_times = #{pro_times,jdbcType=INTEGER},
+	      </if>
+	      <if test="pro_capital != null" >
+	        pro_capital = #{pro_capital,jdbcType=DOUBLE},
+	      </if>
+	       <if test="pro_fit != null" >
+	        pro_fit = #{pro_fit,jdbcType=INTEGER},
+	      </if>
+	      <if test="pro_support != null" >
+	        pro_support = #{pro_support,jdbcType=INTEGER},
+	      </if>
+	      <if test="pro_period != null" >
+	        pro_period = #{pro_period,jdbcType=INTEGER},
+	      </if>
+	       <if test="pro_bank != null" >
+	        pro_bank = #{pro_bank,jdbcType=DOUBLE},
+	      </if>
+	      <if test="pro_meet != null" >
+	        pro_meet = #{pro_meet,jdbcType=DOUBLE},
+	      </if>
+	      <if test="pro_lastbenifit != null" >
+	        pro_lastbenifit = #{pro_lastbenifit,jdbcType=INTEGER},
+	      </if>
+	      <if test="pro_support_flag != null" >
+	        pro_support_flag = #{pro_support_flag,jdbcType=INTEGER},
+	      </if>
+	      <if test="pro_member_flag != null" >
+	        pro_member_flag = #{pro_member_flag,jdbcType=INTEGER},
+	      </if>
+	    </set>
+	    where pro_id = #{pro_id,jdbcType=INTEGER}
+	</update>
+	  <delete id="deleteProjectById" parameterType="java.lang.Integer">
+		delete from project
+		where pro_id = #{pro_id,jdbcType=INTEGER}
+	</delete>
+	
+</mapper>

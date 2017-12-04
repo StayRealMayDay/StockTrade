@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ventureassess.mapper.AuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.ventureassess.pojo.Authority" >
+    <id column="au_uuid" property="auUuid" jdbcType="VARCHAR" />
+    <result column="au_name" property="auName" jdbcType="VARCHAR" />
+    <result column="au_description" property="auDescription" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    au_uuid, au_name, au_description
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where au_uuid = #{auUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from authority
+    where au_uuid = #{auUuid,jdbcType=VARCHAR}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.ventureassess.pojo.Authority" >
+    insert into authority (au_uuid, au_name, au_description
+      )
+    values (#{auUuid,jdbcType=VARCHAR}, #{auName,jdbcType=VARCHAR}, #{auDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ventureassess.pojo.Authority" >
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="auUuid != null" >
+        au_uuid,
+      </if>
+      <if test="auName != null" >
+        au_name,
+      </if>
+      <if test="auDescription != null" >
+        au_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="auUuid != null" >
+        #{auUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="auName != null" >
+        #{auName,jdbcType=VARCHAR},
+      </if>
+      <if test="auDescription != null" >
+        #{auDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.ventureassess.pojo.Authority" >
+    update authority
+    <set >
+      <if test="auName != null" >
+        au_name = #{auName,jdbcType=VARCHAR},
+      </if>
+      <if test="auDescription != null" >
+        au_description = #{auDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where au_uuid = #{auUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ventureassess.pojo.Authority" >
+    update authority
+    set au_name = #{auName,jdbcType=VARCHAR},
+      au_description = #{auDescription,jdbcType=VARCHAR}
+    where au_uuid = #{auUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
