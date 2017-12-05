@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ProfitabilityMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Profitability" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="net_asset_yieldROE_TTM" property="netAssetYieldroeTtm" jdbcType="VARCHAR" />
+    <result column="total_asset_reward_rateROA_TTM" property="totalAssetRewardRateroaTtm" jdbcType="VARCHAR" />
+    <result column="total_asset_net_rateROA_TTM" property="totalAssetNetRateroaTtm" jdbcType="VARCHAR" />
+    <result column="return_capitalROIC_TTM" property="returnCapitalroicTtm" jdbcType="VARCHAR" />
+    <result column="net_sales_rate_TTM" property="netSalesRateTtm" jdbcType="VARCHAR" />
+    <result column="gross_margin_sales_TTM" property="grossMarginSalesTtm" jdbcType="VARCHAR" />
+    <result column="net_profit/total_income_TTM" property="netProfitTotalIncomeTtm" jdbcType="VARCHAR" />
+    <result column="oprate_profit/total_income_TTM" property="oprateProfitTotalIncomeTtm" jdbcType="VARCHAR" />
+    <result column="total_cost/total_income_TTM" property="totalCostTotalIncomeTtm" jdbcType="VARCHAR" />
+    <result column="sales/total_income_TTM" property="salesTotalIncomeTtm" jdbcType="VARCHAR" />
+    <result column="management/total_income_TTM" property="managementTotalIncomeTtm" jdbcType="VARCHAR" />
+    <result column="finacial/total_income_TTM" property="finacialTotalIncomeTtm" jdbcType="VARCHAR" />
+    <result column="asset_loss/total_income_TTM" property="assetLossTotalIncomeTtm" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, net_asset_yieldROE_TTM, total_asset_reward_rateROA_TTM, 
+    total_asset_net_rateROA_TTM, return_capitalROIC_TTM, net_sales_rate_TTM, gross_margin_sales_TTM, 
+    net_profit/total_income_TTM, oprate_profit/total_income_TTM, total_cost/total_income_TTM, 
+    sales/total_income_TTM, management/total_income_TTM, finacial/total_income_TTM, asset_loss/total_income_TTM
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.ProfitabilityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from profitability
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from profitability
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from profitability
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.ProfitabilityExample" >
+    delete from profitability
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Profitability" >
+    insert into profitability (id, stock_code, stock_name, 
+      net_asset_yieldROE_TTM, total_asset_reward_rateROA_TTM, 
+      total_asset_net_rateROA_TTM, return_capitalROIC_TTM, 
+      net_sales_rate_TTM, gross_margin_sales_TTM, net_profit/total_income_TTM, 
+      oprate_profit/total_income_TTM, total_cost/total_income_TTM, 
+      sales/total_income_TTM, management/total_income_TTM, 
+      finacial/total_income_TTM, asset_loss/total_income_TTM
+      )
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{netAssetYieldroeTtm,jdbcType=VARCHAR}, #{totalAssetRewardRateroaTtm,jdbcType=VARCHAR}, 
+      #{totalAssetNetRateroaTtm,jdbcType=VARCHAR}, #{returnCapitalroicTtm,jdbcType=VARCHAR}, 
+      #{netSalesRateTtm,jdbcType=VARCHAR}, #{grossMarginSalesTtm,jdbcType=VARCHAR}, #{netProfitTotalIncomeTtm,jdbcType=VARCHAR}, 
+      #{oprateProfitTotalIncomeTtm,jdbcType=VARCHAR}, #{totalCostTotalIncomeTtm,jdbcType=VARCHAR}, 
+      #{salesTotalIncomeTtm,jdbcType=VARCHAR}, #{managementTotalIncomeTtm,jdbcType=VARCHAR}, 
+      #{finacialTotalIncomeTtm,jdbcType=VARCHAR}, #{assetLossTotalIncomeTtm,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Profitability" >
+    insert into profitability
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="netAssetYieldroeTtm != null" >
+        net_asset_yieldROE_TTM,
+      </if>
+      <if test="totalAssetRewardRateroaTtm != null" >
+        total_asset_reward_rateROA_TTM,
+      </if>
+      <if test="totalAssetNetRateroaTtm != null" >
+        total_asset_net_rateROA_TTM,
+      </if>
+      <if test="returnCapitalroicTtm != null" >
+        return_capitalROIC_TTM,
+      </if>
+      <if test="netSalesRateTtm != null" >
+        net_sales_rate_TTM,
+      </if>
+      <if test="grossMarginSalesTtm != null" >
+        gross_margin_sales_TTM,
+      </if>
+      <if test="netProfitTotalIncomeTtm != null" >
+        net_profit/total_income_TTM,
+      </if>
+      <if test="oprateProfitTotalIncomeTtm != null" >
+        oprate_profit/total_income_TTM,
+      </if>
+      <if test="totalCostTotalIncomeTtm != null" >
+        total_cost/total_income_TTM,
+      </if>
+      <if test="salesTotalIncomeTtm != null" >
+        sales/total_income_TTM,
+      </if>
+      <if test="managementTotalIncomeTtm != null" >
+        management/total_income_TTM,
+      </if>
+      <if test="finacialTotalIncomeTtm != null" >
+        finacial/total_income_TTM,
+      </if>
+      <if test="assetLossTotalIncomeTtm != null" >
+        asset_loss/total_income_TTM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYieldroeTtm != null" >
+        #{netAssetYieldroeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetRewardRateroaTtm != null" >
+        #{totalAssetRewardRateroaTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetNetRateroaTtm != null" >
+        #{totalAssetNetRateroaTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="returnCapitalroicTtm != null" >
+        #{returnCapitalroicTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="netSalesRateTtm != null" >
+        #{netSalesRateTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="grossMarginSalesTtm != null" >
+        #{grossMarginSalesTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitTotalIncomeTtm != null" >
+        #{netProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="oprateProfitTotalIncomeTtm != null" >
+        #{oprateProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCostTotalIncomeTtm != null" >
+        #{totalCostTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="salesTotalIncomeTtm != null" >
+        #{salesTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="managementTotalIncomeTtm != null" >
+        #{managementTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="finacialTotalIncomeTtm != null" >
+        #{finacialTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="assetLossTotalIncomeTtm != null" >
+        #{assetLossTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.ProfitabilityExample" resultType="java.lang.Integer" >
+    select count(*) from profitability
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update profitability
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netAssetYieldroeTtm != null" >
+        net_asset_yieldROE_TTM = #{record.netAssetYieldroeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAssetRewardRateroaTtm != null" >
+        total_asset_reward_rateROA_TTM = #{record.totalAssetRewardRateroaTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAssetNetRateroaTtm != null" >
+        total_asset_net_rateROA_TTM = #{record.totalAssetNetRateroaTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnCapitalroicTtm != null" >
+        return_capitalROIC_TTM = #{record.returnCapitalroicTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netSalesRateTtm != null" >
+        net_sales_rate_TTM = #{record.netSalesRateTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grossMarginSalesTtm != null" >
+        gross_margin_sales_TTM = #{record.grossMarginSalesTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitTotalIncomeTtm != null" >
+        net_profit/total_income_TTM = #{record.netProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oprateProfitTotalIncomeTtm != null" >
+        oprate_profit/total_income_TTM = #{record.oprateProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalCostTotalIncomeTtm != null" >
+        total_cost/total_income_TTM = #{record.totalCostTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesTotalIncomeTtm != null" >
+        sales/total_income_TTM = #{record.salesTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managementTotalIncomeTtm != null" >
+        management/total_income_TTM = #{record.managementTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finacialTotalIncomeTtm != null" >
+        finacial/total_income_TTM = #{record.finacialTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetLossTotalIncomeTtm != null" >
+        asset_loss/total_income_TTM = #{record.assetLossTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update profitability
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      net_asset_yieldROE_TTM = #{record.netAssetYieldroeTtm,jdbcType=VARCHAR},
+      total_asset_reward_rateROA_TTM = #{record.totalAssetRewardRateroaTtm,jdbcType=VARCHAR},
+      total_asset_net_rateROA_TTM = #{record.totalAssetNetRateroaTtm,jdbcType=VARCHAR},
+      return_capitalROIC_TTM = #{record.returnCapitalroicTtm,jdbcType=VARCHAR},
+      net_sales_rate_TTM = #{record.netSalesRateTtm,jdbcType=VARCHAR},
+      gross_margin_sales_TTM = #{record.grossMarginSalesTtm,jdbcType=VARCHAR},
+      net_profit/total_income_TTM = #{record.netProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      oprate_profit/total_income_TTM = #{record.oprateProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      total_cost/total_income_TTM = #{record.totalCostTotalIncomeTtm,jdbcType=VARCHAR},
+      sales/total_income_TTM = #{record.salesTotalIncomeTtm,jdbcType=VARCHAR},
+      management/total_income_TTM = #{record.managementTotalIncomeTtm,jdbcType=VARCHAR},
+      finacial/total_income_TTM = #{record.finacialTotalIncomeTtm,jdbcType=VARCHAR},
+      asset_loss/total_income_TTM = #{record.assetLossTotalIncomeTtm,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Profitability" >
+    update profitability
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYieldroeTtm != null" >
+        net_asset_yieldROE_TTM = #{netAssetYieldroeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetRewardRateroaTtm != null" >
+        total_asset_reward_rateROA_TTM = #{totalAssetRewardRateroaTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetNetRateroaTtm != null" >
+        total_asset_net_rateROA_TTM = #{totalAssetNetRateroaTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="returnCapitalroicTtm != null" >
+        return_capitalROIC_TTM = #{returnCapitalroicTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="netSalesRateTtm != null" >
+        net_sales_rate_TTM = #{netSalesRateTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="grossMarginSalesTtm != null" >
+        gross_margin_sales_TTM = #{grossMarginSalesTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitTotalIncomeTtm != null" >
+        net_profit/total_income_TTM = #{netProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="oprateProfitTotalIncomeTtm != null" >
+        oprate_profit/total_income_TTM = #{oprateProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalCostTotalIncomeTtm != null" >
+        total_cost/total_income_TTM = #{totalCostTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="salesTotalIncomeTtm != null" >
+        sales/total_income_TTM = #{salesTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="managementTotalIncomeTtm != null" >
+        management/total_income_TTM = #{managementTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="finacialTotalIncomeTtm != null" >
+        finacial/total_income_TTM = #{finacialTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+      <if test="assetLossTotalIncomeTtm != null" >
+        asset_loss/total_income_TTM = #{assetLossTotalIncomeTtm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Profitability" >
+    update profitability
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      net_asset_yieldROE_TTM = #{netAssetYieldroeTtm,jdbcType=VARCHAR},
+      total_asset_reward_rateROA_TTM = #{totalAssetRewardRateroaTtm,jdbcType=VARCHAR},
+      total_asset_net_rateROA_TTM = #{totalAssetNetRateroaTtm,jdbcType=VARCHAR},
+      return_capitalROIC_TTM = #{returnCapitalroicTtm,jdbcType=VARCHAR},
+      net_sales_rate_TTM = #{netSalesRateTtm,jdbcType=VARCHAR},
+      gross_margin_sales_TTM = #{grossMarginSalesTtm,jdbcType=VARCHAR},
+      net_profit/total_income_TTM = #{netProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      oprate_profit/total_income_TTM = #{oprateProfitTotalIncomeTtm,jdbcType=VARCHAR},
+      total_cost/total_income_TTM = #{totalCostTotalIncomeTtm,jdbcType=VARCHAR},
+      sales/total_income_TTM = #{salesTotalIncomeTtm,jdbcType=VARCHAR},
+      management/total_income_TTM = #{managementTotalIncomeTtm,jdbcType=VARCHAR},
+      finacial/total_income_TTM = #{finacialTotalIncomeTtm,jdbcType=VARCHAR},
+      asset_loss/total_income_TTM = #{assetLossTotalIncomeTtm,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectProbability" resultMap="BaseResultMap">
+  	select * from
+  	profitability order by net_asset_yieldROE_TTM desc
+  </select>
+</mapper>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.StockTempMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.StockTemp" >
+    <id column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="stock_num" property="stockNum" jdbcType="VARCHAR" />
+    <result column="current_price" property="currentPrice" jdbcType="VARCHAR" />
+    <result column="updown_ratio" property="updownRatio" jdbcType="VARCHAR" />
+    <result column="updown_price" property="updownPrice" jdbcType="VARCHAR" />
+    <result column="up_speed" property="upSpeed" jdbcType="VARCHAR" />
+    <result column="turnover_rate" property="turnoverRate" jdbcType="VARCHAR" />
+    <result column="equivalent_ratio" property="equivalentRatio" jdbcType="VARCHAR" />
+    <result column="amplitude" property="amplitude" jdbcType="VARCHAR" />
+    <result column="turn_volume" property="turnVolume" jdbcType="VARCHAR" />
+    <result column="floating_stock" property="floatingStock" jdbcType="VARCHAR" />
+    <result column="circulation_market_value" property="circulationMarketValue" jdbcType="VARCHAR" />
+    <result column="pe_ratio" property="peRatio" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <association property="company" javaType="com.stock.pojo.Company">
+    	<result column="stock_num" property="stockNum" jdbcType="VARCHAR" />
+    	<result column="industry" property="industry" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stock_id, stock_name, stock_num, current_price, updown_ratio, updown_price, up_speed, 
+    turnover_rate, equivalent_ratio, amplitude, turn_volume, floating_stock, circulation_market_value, 
+    pe_ratio, time, id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.StockTempExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock_temp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_temp
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from stock_temp
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.StockTempExample" >
+    delete from stock_temp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.StockTemp" >
+    insert into stock_temp (stock_id, stock_name, stock_num, 
+      current_price, updown_ratio, updown_price, 
+      up_speed, turnover_rate, equivalent_ratio, 
+      amplitude, turn_volume, floating_stock, 
+      circulation_market_value, pe_ratio, time, 
+      id)
+    values (#{stockId,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, #{stockNum,jdbcType=VARCHAR}, 
+      #{currentPrice,jdbcType=VARCHAR}, #{updownRatio,jdbcType=VARCHAR}, #{updownPrice,jdbcType=VARCHAR}, 
+      #{upSpeed,jdbcType=VARCHAR}, #{turnoverRate,jdbcType=VARCHAR}, #{equivalentRatio,jdbcType=VARCHAR}, 
+      #{amplitude,jdbcType=VARCHAR}, #{turnVolume,jdbcType=VARCHAR}, #{floatingStock,jdbcType=VARCHAR}, 
+      #{circulationMarketValue,jdbcType=VARCHAR}, #{peRatio,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{id,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.StockTemp" >
+    insert into stock_temp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="currentPrice != null" >
+        current_price,
+      </if>
+      <if test="updownRatio != null" >
+        updown_ratio,
+      </if>
+      <if test="updownPrice != null" >
+        updown_price,
+      </if>
+      <if test="upSpeed != null" >
+        up_speed,
+      </if>
+      <if test="turnoverRate != null" >
+        turnover_rate,
+      </if>
+      <if test="equivalentRatio != null" >
+        equivalent_ratio,
+      </if>
+      <if test="amplitude != null" >
+        amplitude,
+      </if>
+      <if test="turnVolume != null" >
+        turn_volume,
+      </if>
+      <if test="floatingStock != null" >
+        floating_stock,
+      </if>
+      <if test="circulationMarketValue != null" >
+        circulation_market_value,
+      </if>
+      <if test="peRatio != null" >
+        pe_ratio,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPrice != null" >
+        #{currentPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="updownRatio != null" >
+        #{updownRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="updownPrice != null" >
+        #{updownPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="upSpeed != null" >
+        #{upSpeed,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverRate != null" >
+        #{turnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="equivalentRatio != null" >
+        #{equivalentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        #{amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="turnVolume != null" >
+        #{turnVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingStock != null" >
+        #{floatingStock,jdbcType=VARCHAR},
+      </if>
+      <if test="circulationMarketValue != null" >
+        #{circulationMarketValue,jdbcType=VARCHAR},
+      </if>
+      <if test="peRatio != null" >
+        #{peRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.StockTempExample" resultType="java.lang.Integer" >
+    select count(*) from stock_temp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stock_temp
+    <set >
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockNum != null" >
+        stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentPrice != null" >
+        current_price = #{record.currentPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updownRatio != null" >
+        updown_ratio = #{record.updownRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updownPrice != null" >
+        updown_price = #{record.updownPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upSpeed != null" >
+        up_speed = #{record.upSpeed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnoverRate != null" >
+        turnover_rate = #{record.turnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equivalentRatio != null" >
+        equivalent_ratio = #{record.equivalentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amplitude != null" >
+        amplitude = #{record.amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnVolume != null" >
+        turn_volume = #{record.turnVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floatingStock != null" >
+        floating_stock = #{record.floatingStock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.circulationMarketValue != null" >
+        circulation_market_value = #{record.circulationMarketValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peRatio != null" >
+        pe_ratio = #{record.peRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stock_temp
+    set stock_id = #{record.stockId,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      current_price = #{record.currentPrice,jdbcType=VARCHAR},
+      updown_ratio = #{record.updownRatio,jdbcType=VARCHAR},
+      updown_price = #{record.updownPrice,jdbcType=VARCHAR},
+      up_speed = #{record.upSpeed,jdbcType=VARCHAR},
+      turnover_rate = #{record.turnoverRate,jdbcType=VARCHAR},
+      equivalent_ratio = #{record.equivalentRatio,jdbcType=VARCHAR},
+      amplitude = #{record.amplitude,jdbcType=VARCHAR},
+      turn_volume = #{record.turnVolume,jdbcType=VARCHAR},
+      floating_stock = #{record.floatingStock,jdbcType=VARCHAR},
+      circulation_market_value = #{record.circulationMarketValue,jdbcType=VARCHAR},
+      pe_ratio = #{record.peRatio,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.StockTemp" >
+    update stock_temp
+    <set >
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPrice != null" >
+        current_price = #{currentPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="updownRatio != null" >
+        updown_ratio = #{updownRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="updownPrice != null" >
+        updown_price = #{updownPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="upSpeed != null" >
+        up_speed = #{upSpeed,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverRate != null" >
+        turnover_rate = #{turnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="equivalentRatio != null" >
+        equivalent_ratio = #{equivalentRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        amplitude = #{amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="turnVolume != null" >
+        turn_volume = #{turnVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="floatingStock != null" >
+        floating_stock = #{floatingStock,jdbcType=VARCHAR},
+      </if>
+      <if test="circulationMarketValue != null" >
+        circulation_market_value = #{circulationMarketValue,jdbcType=VARCHAR},
+      </if>
+      <if test="peRatio != null" >
+        pe_ratio = #{peRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.StockTemp" >
+    update stock_temp
+    set stock_name = #{stockName,jdbcType=VARCHAR},
+      stock_num = #{stockNum,jdbcType=VARCHAR},
+      current_price = #{currentPrice,jdbcType=VARCHAR},
+      updown_ratio = #{updownRatio,jdbcType=VARCHAR},
+      updown_price = #{updownPrice,jdbcType=VARCHAR},
+      up_speed = #{upSpeed,jdbcType=VARCHAR},
+      turnover_rate = #{turnoverRate,jdbcType=VARCHAR},
+      equivalent_ratio = #{equivalentRatio,jdbcType=VARCHAR},
+      amplitude = #{amplitude,jdbcType=VARCHAR},
+      turn_volume = #{turnVolume,jdbcType=VARCHAR},
+      floating_stock = #{floatingStock,jdbcType=VARCHAR},
+      circulation_market_value = #{circulationMarketValue,jdbcType=VARCHAR},
+      pe_ratio = #{peRatio,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      id = #{id,jdbcType=VARCHAR}
+    where stock_id = #{stockId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectTop10" resultMap="BaseResultMap" parameterType="string">
+  	select *
+  	from stock_temp a,company b
+  	where a.stock_num=b.stock_num and a.stock_num in (SELECT stock_num from company where b.industry=#{industry})
+  	order by updown_ratio DESC limit 10 
+  </select>
+  
+  <select id="selectAllSimIndustry" resultMap="BaseResultMap" parameterType="string">
+  	select *
+  	from stock_temp a,company b
+  	where a.stock_num=b.stock_num and a.stock_num in (SELECT stock_num from company where b.industry=#{industry})
+  	order by updown_ratio DESC
+  </select>
+  
+  <select id="selectAllStockTemp" resultMap="BaseResultMap" >
+  	select *
+  	from stock_temp
+  	order by CAST(updown_ratio AS DECIMAL ) desc
+  </select>
+</mapper>

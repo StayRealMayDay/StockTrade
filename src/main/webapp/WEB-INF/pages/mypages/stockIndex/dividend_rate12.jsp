@@ -32,6 +32,152 @@
 			<div class="clear"></div>
 		</div><!--end:secondary-->
 		<div class="clear"></div>
+<<<<<<< HEAD
+		<div style="height:1000px">
+		<section id="page">
+		<!-- SIDEBAR -->
+		<!-- /SIDEBAR -->
+		<div id="main-content">
+			<div class="container">
+				<div class="row">
+					<div id="content" class="col-lg-12">
+						<!-- PAGE HEADER-->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="page-header">
+									<!-- STYLER -->
+
+									<!-- /STYLER -->
+									<!-- BREADCRUMBS -->
+									<ul class="breadcrumb">
+										<li><i class="fa fa-home"></i> <a href="index">首页</a>
+										</li>
+										<li><a href="company?stockNum=${stockNum}">个股</a></li>
+										<li>股息率(近12个月)</li>
+									</ul>
+									<!-- /BREADCRUMBS -->
+								</div>
+							</div>
+
+						</div>
+						<!-- /PAGE HEADER -->
+						<div id="filter-controls" class="btn-group">
+							<form class="form-inline " action="comapny">
+								<div class="form-group">
+									<label for="projectName">股票代码：</label> <input id="stockNum" name="stockNum"
+										type="text" class="form-control" placeholder="股票代码">
+
+								</div>
+								<button style="margin-top: 5%" class="btn btn-primary">搜索</button>
+							</form>
+							<hr>
+							<!-- <div>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label>全选</label> <input
+									type="checkbox"> <label>全不选</label> <input
+									type="checkbox">
+								<button class="btn btn-primary">批量删除</button>
+							</div> -->
+						</div>
+						<table id="datatable1" cellpadding="0" cellspacing="0" border="0"
+							class="datatable table table-striped table-bordered table-hover dataTable"
+							aria-describedby="datatable1_info" style="width:92%">
+							<thead>
+								<tr role="row">
+									<th class="sorting_asc" role="columnheader" tabindex="0"
+										aria-controls="datatable1" rowspan="1" colspan="1"
+										aria-sort="ascending"
+										aria-label="Rendering engine: activate to sort column descending"
+										style="width: 58.333px;"><input type="checkbox" /></th>
+									<th class="sorting_asc" role="columnheader" tabindex="0"
+										aria-controls="datatable1" rowspan="1" colspan="1"
+										aria-sort="ascending"
+										aria-label="Rendering engine: activate to sort column descending"
+										style="width: 258.333px;">股票名称</th>
+									
+									<th class="hidden-xs sorting" role="columnheader" tabindex="0"
+										aria-controls="datatable1" rowspan="1" colspan="1"
+										aria-label="Platform(s): activate to sort column ascending"
+										style="width: 128.333px;">股票代码</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="datatable1" rowspan="1" colspan="1"
+										aria-label="Engine version: activate to sort column ascending"
+										style="width: 124.333px;">股息率（近12个月）</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="datatable1" rowspan="1" colspan="1"
+										aria-label="Engine version: activate to sort column ascending"
+										style="width: 164.333px;">当前价格</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="datatable1" rowspan="1" colspan="1"
+										aria-label="Engine version: activate to sort column ascending"
+										style="width: 114.333px;">涨跌幅(%)</th>
+									
+								</tr>
+							</thead>
+
+							
+							<tbody role="alert" aria-live="polite" aria-relevant="all">
+								<c:forEach var="v" items="${dividendRate}" varStatus="">
+									<tr class="gradeA odd">
+										<td class=" sorting_1"><input type="checkbox"></td>
+										<td>${v.stockName}</td>
+										<%-- <td class="hidden-xs ">${v.userUuid}</td> --%>
+										<td >${v.stockCode}</td>
+										<td ><font color="red">${v.dividendRate12}</font></td>
+										<td >${v.stocktemp.currentPrice}</td>
+										<td >${v.stocktemp.updownRatio}</td>
+										
+									</tr>
+									<input type="hidden" name="pageNum" value="${pager.pageNum}">
+								</c:forEach>
+
+							</tbody>
+						</table>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<%-- <div >
+									<div class="dataTables_info" id="datatable1_info">显示 1 to
+										${pager.pageSize } 总共 ${pager.recordCount }条</div>
+								</div> --%>
+								<div >
+									<div class="dataTables_paginate paging_bs_full"
+										id="datatable1_paginate">
+										<ul class="pagination" style="text-align: center;">
+
+											<li><a href="#">共 ${pager.recordCount} 条数据，每页
+													${pager.pageSize } 条，共 ${pager.pageCount } 页，当前是第
+													${pager.pageNum } 页</a></li>
+
+										</ul>
+
+										<ul class="pagination">
+
+											<li ${pager.pageNum==1?'class="disabled"':''}><a
+												href="dividend_rate12?stockNum=${stockNum}&pageNum=1">首页</a></li>
+											<li ${pager.pageNum==1?'class="disabled"':''}><a
+												href="dividend_rate12?stockNum=${stockNum}&pageNum=${pager.pageNum-1 }">上页</a></li>
+											<li ${pager.pageNum==pager.pageCount?'class="disabled"':''}><a
+												href="dividend_rate12?stockNum=${stockNum}&pageNum=${pager.pageNum+1 }">下页</a></li>
+											<li ${pager.pageNum==pager.pageCount?'class="disabled"':''}><a
+												href="dividend_rate12?stockNum=${stockNum}&pageNum=${pager.pageCount }">末页</a></li>
+											<li><a>转到 </a></li>
+											<li><a><input id="changePage" type="text"
+													style="width: 35px; padding: 0px; margin: -3px;" /></a></li>
+											<li><a>页 </a></li>
+											<li><a href="javascript:goPage();">跳转</a></li>
+
+										</ul>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+=======
 		<div style="height:800px">
 		
 		<table style="width:100% margin-top:20px">
@@ -64,6 +210,7 @@
 							      <a href="#">获准公告日</a>
 							      <a href="#">对价支付股票上市日</a> -->
 		</table>
+>>>>>>> 1f954cd3a87f9476c956a0672c1e7f4c0b586a35
 		</div>
 			
 	

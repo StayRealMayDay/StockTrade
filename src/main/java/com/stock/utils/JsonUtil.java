@@ -1,4 +1,11 @@
 package com.stock.utils;
+import org.json.JSONException;   
+import org.json.JSONObject;  
+/*public class JsonUtil {
+    public static  String getJsonStr(Object object){
+    	JSONObject json = JSONObject.
+    	return"";
+    }*/
 /*import org.json.JSONException;   
 import org.json.JSONObject;  
 public class JsonUtil {
@@ -10,7 +17,6 @@ public class JsonUtil {
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 
 public class JsonUtil {
 	public static <T> T toBean(String text, Class<T> clazz) throws Exception {
@@ -28,7 +34,7 @@ public class JsonUtil {
 		return jsonString;
 	}
 
-	public static JSONObject toJson(String text) {
+	public static com.alibaba.fastjson.JSONObject toJson(String text) {
 		return JSON.parseObject(text);
 	}
 }

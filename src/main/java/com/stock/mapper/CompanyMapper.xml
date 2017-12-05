@@ -19,6 +19,7 @@
     <result column="es_not_profit" property="esNotProfit" jdbcType="VARCHAR" />
     <result column="total_capital" property="totalCapital" jdbcType="VARCHAR" />
     <result column="floating_stock" property="floatingStock" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Example_Where_Clause" >

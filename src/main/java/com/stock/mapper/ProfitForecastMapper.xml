@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ProfitForecastMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.ProfitForecast" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="forecast_institution_count" property="forecastInstitutionCount" jdbcType="VARCHAR" />
+    <result column="forecast_ave_per_share" property="forecastAvePerShare" jdbcType="VARCHAR" />
+    <result column="forecast_sd_per_share" property="forecastSdPerShare" jdbcType="VARCHAR" />
+    <result column="forecast_ave_net_profit" property="forecastAveNetProfit" jdbcType="VARCHAR" />
+    <result column="forecast_sd_net_profit" property="forecastSdNetProfit" jdbcType="VARCHAR" />
+    <result column="main_ave_income" property="mainAveIncome" jdbcType="VARCHAR" />
+    <result column="main_sd_income" property="mainSdIncome" jdbcType="VARCHAR" />
+    <result column="ave_EBIT" property="aveEbit" jdbcType="VARCHAR" />
+    <result column="sd_EBIT" property="sdEbit" jdbcType="VARCHAR" />
+    <result column="ave_cash_flow" property="aveCashFlow" jdbcType="VARCHAR" />
+    <result column="sd_cash_flow" property="sdCashFlow" jdbcType="VARCHAR" />
+    <result column="ave_BPS" property="aveBps" jdbcType="VARCHAR" />
+    <result column="sd_BPS" property="sdBps" jdbcType="VARCHAR" />
+    <result column="ave_profit_total" property="aveProfitTotal" jdbcType="VARCHAR" />
+    <result column="sd_profit_total" property="sdProfitTotal" jdbcType="VARCHAR" />
+    <result column="ave_ncapital_ROE" property="aveNcapitalRoe" jdbcType="VARCHAR" />
+    <result column="sd_ncapital_ROE" property="sdNcapitalRoe" jdbcType="VARCHAR" />
+    <result column="ave_tcapital_ROA" property="aveTcapitalRoa" jdbcType="VARCHAR" />
+    <result column="sd_tcapital_ROA" property="sdTcapitalRoa" jdbcType="VARCHAR" />
+    <result column="ave_operation_profit" property="aveOperationProfit" jdbcType="VARCHAR" />
+    <result column="sd_operation_profit" property="sdOperationProfit" jdbcType="VARCHAR" />
+    <result column="onemonth_net_down" property="onemonthNetDown" jdbcType="VARCHAR" />
+    <result column="onemonth_net_up" property="onemonthNetUp" jdbcType="VARCHAR" />
+    <result column="onemonth_net_keep" property="onemonthNetKeep" jdbcType="VARCHAR" />
+    <result column="net_profit_growth_rate" property="netProfitGrowthRate" jdbcType="VARCHAR" />
+    <result column="main_income_growth_rate" property="mainIncomeGrowthRate" jdbcType="VARCHAR" />
+    <result column="net_profit_growth_rate_compound" property="netProfitGrowthRateCompound" jdbcType="VARCHAR" />
+    <result column="main_income_growth_rate_compound" property="mainIncomeGrowthRateCompound" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, forecast_institution_count, forecast_ave_per_share, forecast_sd_per_share, 
+    forecast_ave_net_profit, forecast_sd_net_profit, main_ave_income, main_sd_income, 
+    ave_EBIT, sd_EBIT, ave_cash_flow, sd_cash_flow, ave_BPS, sd_BPS, ave_profit_total, 
+    sd_profit_total, ave_ncapital_ROE, sd_ncapital_ROE, ave_tcapital_ROA, sd_tcapital_ROA, 
+    ave_operation_profit, sd_operation_profit, onemonth_net_down, onemonth_net_up, onemonth_net_keep, 
+    net_profit_growth_rate, main_income_growth_rate, net_profit_growth_rate_compound, 
+    main_income_growth_rate_compound
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.ProfitForecastExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from profit_forecast
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from profit_forecast
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from profit_forecast
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.ProfitForecastExample" >
+    delete from profit_forecast
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.ProfitForecast" >
+    insert into profit_forecast (id, stock_code, stock_name, 
+      forecast_institution_count, forecast_ave_per_share, 
+      forecast_sd_per_share, forecast_ave_net_profit, 
+      forecast_sd_net_profit, main_ave_income, main_sd_income, 
+      ave_EBIT, sd_EBIT, ave_cash_flow, 
+      sd_cash_flow, ave_BPS, sd_BPS, 
+      ave_profit_total, sd_profit_total, ave_ncapital_ROE, 
+      sd_ncapital_ROE, ave_tcapital_ROA, sd_tcapital_ROA, 
+      ave_operation_profit, sd_operation_profit, 
+      onemonth_net_down, onemonth_net_up, onemonth_net_keep, 
+      net_profit_growth_rate, main_income_growth_rate, 
+      net_profit_growth_rate_compound, main_income_growth_rate_compound
+      )
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{forecastInstitutionCount,jdbcType=VARCHAR}, #{forecastAvePerShare,jdbcType=VARCHAR}, 
+      #{forecastSdPerShare,jdbcType=VARCHAR}, #{forecastAveNetProfit,jdbcType=VARCHAR}, 
+      #{forecastSdNetProfit,jdbcType=VARCHAR}, #{mainAveIncome,jdbcType=VARCHAR}, #{mainSdIncome,jdbcType=VARCHAR}, 
+      #{aveEbit,jdbcType=VARCHAR}, #{sdEbit,jdbcType=VARCHAR}, #{aveCashFlow,jdbcType=VARCHAR}, 
+      #{sdCashFlow,jdbcType=VARCHAR}, #{aveBps,jdbcType=VARCHAR}, #{sdBps,jdbcType=VARCHAR}, 
+      #{aveProfitTotal,jdbcType=VARCHAR}, #{sdProfitTotal,jdbcType=VARCHAR}, #{aveNcapitalRoe,jdbcType=VARCHAR}, 
+      #{sdNcapitalRoe,jdbcType=VARCHAR}, #{aveTcapitalRoa,jdbcType=VARCHAR}, #{sdTcapitalRoa,jdbcType=VARCHAR}, 
+      #{aveOperationProfit,jdbcType=VARCHAR}, #{sdOperationProfit,jdbcType=VARCHAR}, 
+      #{onemonthNetDown,jdbcType=VARCHAR}, #{onemonthNetUp,jdbcType=VARCHAR}, #{onemonthNetKeep,jdbcType=VARCHAR}, 
+      #{netProfitGrowthRate,jdbcType=VARCHAR}, #{mainIncomeGrowthRate,jdbcType=VARCHAR}, 
+      #{netProfitGrowthRateCompound,jdbcType=VARCHAR}, #{mainIncomeGrowthRateCompound,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.ProfitForecast" >
+    insert into profit_forecast
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="forecastInstitutionCount != null" >
+        forecast_institution_count,
+      </if>
+      <if test="forecastAvePerShare != null" >
+        forecast_ave_per_share,
+      </if>
+      <if test="forecastSdPerShare != null" >
+        forecast_sd_per_share,
+      </if>
+      <if test="forecastAveNetProfit != null" >
+        forecast_ave_net_profit,
+      </if>
+      <if test="forecastSdNetProfit != null" >
+        forecast_sd_net_profit,
+      </if>
+      <if test="mainAveIncome != null" >
+        main_ave_income,
+      </if>
+      <if test="mainSdIncome != null" >
+        main_sd_income,
+      </if>
+      <if test="aveEbit != null" >
+        ave_EBIT,
+      </if>
+      <if test="sdEbit != null" >
+        sd_EBIT,
+      </if>
+      <if test="aveCashFlow != null" >
+        ave_cash_flow,
+      </if>
+      <if test="sdCashFlow != null" >
+        sd_cash_flow,
+      </if>
+      <if test="aveBps != null" >
+        ave_BPS,
+      </if>
+      <if test="sdBps != null" >
+        sd_BPS,
+      </if>
+      <if test="aveProfitTotal != null" >
+        ave_profit_total,
+      </if>
+      <if test="sdProfitTotal != null" >
+        sd_profit_total,
+      </if>
+      <if test="aveNcapitalRoe != null" >
+        ave_ncapital_ROE,
+      </if>
+      <if test="sdNcapitalRoe != null" >
+        sd_ncapital_ROE,
+      </if>
+      <if test="aveTcapitalRoa != null" >
+        ave_tcapital_ROA,
+      </if>
+      <if test="sdTcapitalRoa != null" >
+        sd_tcapital_ROA,
+      </if>
+      <if test="aveOperationProfit != null" >
+        ave_operation_profit,
+      </if>
+      <if test="sdOperationProfit != null" >
+        sd_operation_profit,
+      </if>
+      <if test="onemonthNetDown != null" >
+        onemonth_net_down,
+      </if>
+      <if test="onemonthNetUp != null" >
+        onemonth_net_up,
+      </if>
+      <if test="onemonthNetKeep != null" >
+        onemonth_net_keep,
+      </if>
+      <if test="netProfitGrowthRate != null" >
+        net_profit_growth_rate,
+      </if>
+      <if test="mainIncomeGrowthRate != null" >
+        main_income_growth_rate,
+      </if>
+      <if test="netProfitGrowthRateCompound != null" >
+        net_profit_growth_rate_compound,
+      </if>
+      <if test="mainIncomeGrowthRateCompound != null" >
+        main_income_growth_rate_compound,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastInstitutionCount != null" >
+        #{forecastInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastAvePerShare != null" >
+        #{forecastAvePerShare,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastSdPerShare != null" >
+        #{forecastSdPerShare,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastAveNetProfit != null" >
+        #{forecastAveNetProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastSdNetProfit != null" >
+        #{forecastSdNetProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAveIncome != null" >
+        #{mainAveIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="mainSdIncome != null" >
+        #{mainSdIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="aveEbit != null" >
+        #{aveEbit,jdbcType=VARCHAR},
+      </if>
+      <if test="sdEbit != null" >
+        #{sdEbit,jdbcType=VARCHAR},
+      </if>
+      <if test="aveCashFlow != null" >
+        #{aveCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCashFlow != null" >
+        #{sdCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="aveBps != null" >
+        #{aveBps,jdbcType=VARCHAR},
+      </if>
+      <if test="sdBps != null" >
+        #{sdBps,jdbcType=VARCHAR},
+      </if>
+      <if test="aveProfitTotal != null" >
+        #{aveProfitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="sdProfitTotal != null" >
+        #{sdProfitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="aveNcapitalRoe != null" >
+        #{aveNcapitalRoe,jdbcType=VARCHAR},
+      </if>
+      <if test="sdNcapitalRoe != null" >
+        #{sdNcapitalRoe,jdbcType=VARCHAR},
+      </if>
+      <if test="aveTcapitalRoa != null" >
+        #{aveTcapitalRoa,jdbcType=VARCHAR},
+      </if>
+      <if test="sdTcapitalRoa != null" >
+        #{sdTcapitalRoa,jdbcType=VARCHAR},
+      </if>
+      <if test="aveOperationProfit != null" >
+        #{aveOperationProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="sdOperationProfit != null" >
+        #{sdOperationProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="onemonthNetDown != null" >
+        #{onemonthNetDown,jdbcType=VARCHAR},
+      </if>
+      <if test="onemonthNetUp != null" >
+        #{onemonthNetUp,jdbcType=VARCHAR},
+      </if>
+      <if test="onemonthNetKeep != null" >
+        #{onemonthNetKeep,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitGrowthRate != null" >
+        #{netProfitGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="mainIncomeGrowthRate != null" >
+        #{mainIncomeGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitGrowthRateCompound != null" >
+        #{netProfitGrowthRateCompound,jdbcType=VARCHAR},
+      </if>
+      <if test="mainIncomeGrowthRateCompound != null" >
+        #{mainIncomeGrowthRateCompound,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.ProfitForecastExample" resultType="java.lang.Integer" >
+    select count(*) from profit_forecast
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update profit_forecast
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forecastInstitutionCount != null" >
+        forecast_institution_count = #{record.forecastInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forecastAvePerShare != null" >
+        forecast_ave_per_share = #{record.forecastAvePerShare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forecastSdPerShare != null" >
+        forecast_sd_per_share = #{record.forecastSdPerShare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forecastAveNetProfit != null" >
+        forecast_ave_net_profit = #{record.forecastAveNetProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.forecastSdNetProfit != null" >
+        forecast_sd_net_profit = #{record.forecastSdNetProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainAveIncome != null" >
+        main_ave_income = #{record.mainAveIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainSdIncome != null" >
+        main_sd_income = #{record.mainSdIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveEbit != null" >
+        ave_EBIT = #{record.aveEbit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdEbit != null" >
+        sd_EBIT = #{record.sdEbit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveCashFlow != null" >
+        ave_cash_flow = #{record.aveCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdCashFlow != null" >
+        sd_cash_flow = #{record.sdCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveBps != null" >
+        ave_BPS = #{record.aveBps,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdBps != null" >
+        sd_BPS = #{record.sdBps,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveProfitTotal != null" >
+        ave_profit_total = #{record.aveProfitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdProfitTotal != null" >
+        sd_profit_total = #{record.sdProfitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveNcapitalRoe != null" >
+        ave_ncapital_ROE = #{record.aveNcapitalRoe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdNcapitalRoe != null" >
+        sd_ncapital_ROE = #{record.sdNcapitalRoe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveTcapitalRoa != null" >
+        ave_tcapital_ROA = #{record.aveTcapitalRoa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdTcapitalRoa != null" >
+        sd_tcapital_ROA = #{record.sdTcapitalRoa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveOperationProfit != null" >
+        ave_operation_profit = #{record.aveOperationProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdOperationProfit != null" >
+        sd_operation_profit = #{record.sdOperationProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onemonthNetDown != null" >
+        onemonth_net_down = #{record.onemonthNetDown,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onemonthNetUp != null" >
+        onemonth_net_up = #{record.onemonthNetUp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onemonthNetKeep != null" >
+        onemonth_net_keep = #{record.onemonthNetKeep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitGrowthRate != null" >
+        net_profit_growth_rate = #{record.netProfitGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainIncomeGrowthRate != null" >
+        main_income_growth_rate = #{record.mainIncomeGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitGrowthRateCompound != null" >
+        net_profit_growth_rate_compound = #{record.netProfitGrowthRateCompound,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mainIncomeGrowthRateCompound != null" >
+        main_income_growth_rate_compound = #{record.mainIncomeGrowthRateCompound,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update profit_forecast
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      forecast_institution_count = #{record.forecastInstitutionCount,jdbcType=VARCHAR},
+      forecast_ave_per_share = #{record.forecastAvePerShare,jdbcType=VARCHAR},
+      forecast_sd_per_share = #{record.forecastSdPerShare,jdbcType=VARCHAR},
+      forecast_ave_net_profit = #{record.forecastAveNetProfit,jdbcType=VARCHAR},
+      forecast_sd_net_profit = #{record.forecastSdNetProfit,jdbcType=VARCHAR},
+      main_ave_income = #{record.mainAveIncome,jdbcType=VARCHAR},
+      main_sd_income = #{record.mainSdIncome,jdbcType=VARCHAR},
+      ave_EBIT = #{record.aveEbit,jdbcType=VARCHAR},
+      sd_EBIT = #{record.sdEbit,jdbcType=VARCHAR},
+      ave_cash_flow = #{record.aveCashFlow,jdbcType=VARCHAR},
+      sd_cash_flow = #{record.sdCashFlow,jdbcType=VARCHAR},
+      ave_BPS = #{record.aveBps,jdbcType=VARCHAR},
+      sd_BPS = #{record.sdBps,jdbcType=VARCHAR},
+      ave_profit_total = #{record.aveProfitTotal,jdbcType=VARCHAR},
+      sd_profit_total = #{record.sdProfitTotal,jdbcType=VARCHAR},
+      ave_ncapital_ROE = #{record.aveNcapitalRoe,jdbcType=VARCHAR},
+      sd_ncapital_ROE = #{record.sdNcapitalRoe,jdbcType=VARCHAR},
+      ave_tcapital_ROA = #{record.aveTcapitalRoa,jdbcType=VARCHAR},
+      sd_tcapital_ROA = #{record.sdTcapitalRoa,jdbcType=VARCHAR},
+      ave_operation_profit = #{record.aveOperationProfit,jdbcType=VARCHAR},
+      sd_operation_profit = #{record.sdOperationProfit,jdbcType=VARCHAR},
+      onemonth_net_down = #{record.onemonthNetDown,jdbcType=VARCHAR},
+      onemonth_net_up = #{record.onemonthNetUp,jdbcType=VARCHAR},
+      onemonth_net_keep = #{record.onemonthNetKeep,jdbcType=VARCHAR},
+      net_profit_growth_rate = #{record.netProfitGrowthRate,jdbcType=VARCHAR},
+      main_income_growth_rate = #{record.mainIncomeGrowthRate,jdbcType=VARCHAR},
+      net_profit_growth_rate_compound = #{record.netProfitGrowthRateCompound,jdbcType=VARCHAR},
+      main_income_growth_rate_compound = #{record.mainIncomeGrowthRateCompound,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.ProfitForecast" >
+    update profit_forecast
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastInstitutionCount != null" >
+        forecast_institution_count = #{forecastInstitutionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastAvePerShare != null" >
+        forecast_ave_per_share = #{forecastAvePerShare,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastSdPerShare != null" >
+        forecast_sd_per_share = #{forecastSdPerShare,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastAveNetProfit != null" >
+        forecast_ave_net_profit = #{forecastAveNetProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="forecastSdNetProfit != null" >
+        forecast_sd_net_profit = #{forecastSdNetProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAveIncome != null" >
+        main_ave_income = #{mainAveIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="mainSdIncome != null" >
+        main_sd_income = #{mainSdIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="aveEbit != null" >
+        ave_EBIT = #{aveEbit,jdbcType=VARCHAR},
+      </if>
+      <if test="sdEbit != null" >
+        sd_EBIT = #{sdEbit,jdbcType=VARCHAR},
+      </if>
+      <if test="aveCashFlow != null" >
+        ave_cash_flow = #{aveCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCashFlow != null" >
+        sd_cash_flow = #{sdCashFlow,jdbcType=VARCHAR},
+      </if>
+      <if test="aveBps != null" >
+        ave_BPS = #{aveBps,jdbcType=VARCHAR},
+      </if>
+      <if test="sdBps != null" >
+        sd_BPS = #{sdBps,jdbcType=VARCHAR},
+      </if>
+      <if test="aveProfitTotal != null" >
+        ave_profit_total = #{aveProfitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="sdProfitTotal != null" >
+        sd_profit_total = #{sdProfitTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="aveNcapitalRoe != null" >
+        ave_ncapital_ROE = #{aveNcapitalRoe,jdbcType=VARCHAR},
+      </if>
+      <if test="sdNcapitalRoe != null" >
+        sd_ncapital_ROE = #{sdNcapitalRoe,jdbcType=VARCHAR},
+      </if>
+      <if test="aveTcapitalRoa != null" >
+        ave_tcapital_ROA = #{aveTcapitalRoa,jdbcType=VARCHAR},
+      </if>
+      <if test="sdTcapitalRoa != null" >
+        sd_tcapital_ROA = #{sdTcapitalRoa,jdbcType=VARCHAR},
+      </if>
+      <if test="aveOperationProfit != null" >
+        ave_operation_profit = #{aveOperationProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="sdOperationProfit != null" >
+        sd_operation_profit = #{sdOperationProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="onemonthNetDown != null" >
+        onemonth_net_down = #{onemonthNetDown,jdbcType=VARCHAR},
+      </if>
+      <if test="onemonthNetUp != null" >
+        onemonth_net_up = #{onemonthNetUp,jdbcType=VARCHAR},
+      </if>
+      <if test="onemonthNetKeep != null" >
+        onemonth_net_keep = #{onemonthNetKeep,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitGrowthRate != null" >
+        net_profit_growth_rate = #{netProfitGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="mainIncomeGrowthRate != null" >
+        main_income_growth_rate = #{mainIncomeGrowthRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitGrowthRateCompound != null" >
+        net_profit_growth_rate_compound = #{netProfitGrowthRateCompound,jdbcType=VARCHAR},
+      </if>
+      <if test="mainIncomeGrowthRateCompound != null" >
+        main_income_growth_rate_compound = #{mainIncomeGrowthRateCompound,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.ProfitForecast" >
+    update profit_forecast
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      forecast_institution_count = #{forecastInstitutionCount,jdbcType=VARCHAR},
+      forecast_ave_per_share = #{forecastAvePerShare,jdbcType=VARCHAR},
+      forecast_sd_per_share = #{forecastSdPerShare,jdbcType=VARCHAR},
+      forecast_ave_net_profit = #{forecastAveNetProfit,jdbcType=VARCHAR},
+      forecast_sd_net_profit = #{forecastSdNetProfit,jdbcType=VARCHAR},
+      main_ave_income = #{mainAveIncome,jdbcType=VARCHAR},
+      main_sd_income = #{mainSdIncome,jdbcType=VARCHAR},
+      ave_EBIT = #{aveEbit,jdbcType=VARCHAR},
+      sd_EBIT = #{sdEbit,jdbcType=VARCHAR},
+      ave_cash_flow = #{aveCashFlow,jdbcType=VARCHAR},
+      sd_cash_flow = #{sdCashFlow,jdbcType=VARCHAR},
+      ave_BPS = #{aveBps,jdbcType=VARCHAR},
+      sd_BPS = #{sdBps,jdbcType=VARCHAR},
+      ave_profit_total = #{aveProfitTotal,jdbcType=VARCHAR},
+      sd_profit_total = #{sdProfitTotal,jdbcType=VARCHAR},
+      ave_ncapital_ROE = #{aveNcapitalRoe,jdbcType=VARCHAR},
+      sd_ncapital_ROE = #{sdNcapitalRoe,jdbcType=VARCHAR},
+      ave_tcapital_ROA = #{aveTcapitalRoa,jdbcType=VARCHAR},
+      sd_tcapital_ROA = #{sdTcapitalRoa,jdbcType=VARCHAR},
+      ave_operation_profit = #{aveOperationProfit,jdbcType=VARCHAR},
+      sd_operation_profit = #{sdOperationProfit,jdbcType=VARCHAR},
+      onemonth_net_down = #{onemonthNetDown,jdbcType=VARCHAR},
+      onemonth_net_up = #{onemonthNetUp,jdbcType=VARCHAR},
+      onemonth_net_keep = #{onemonthNetKeep,jdbcType=VARCHAR},
+      net_profit_growth_rate = #{netProfitGrowthRate,jdbcType=VARCHAR},
+      main_income_growth_rate = #{mainIncomeGrowthRate,jdbcType=VARCHAR},
+      net_profit_growth_rate_compound = #{netProfitGrowthRateCompound,jdbcType=VARCHAR},
+      main_income_growth_rate_compound = #{mainIncomeGrowthRateCompound,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectProfitForecast" resultMap="BaseResultMap">
+  	select * from
+  	profit_forecast order by  main_ave_income  DESC
+  </select>
+</mapper>

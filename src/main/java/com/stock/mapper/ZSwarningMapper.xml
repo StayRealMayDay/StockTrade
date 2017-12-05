@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.ZSwarningMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.ZSwarning" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="z_value" property="zValue" jdbcType="VARCHAR" />
+    <result column="x1" property="x1" jdbcType="VARCHAR" />
+    <result column="x2" property="x2" jdbcType="VARCHAR" />
+    <result column="x3" property="x3" jdbcType="VARCHAR" />
+    <result column="x4" property="x4" jdbcType="VARCHAR" />
+    <result column="x5" property="x5" jdbcType="VARCHAR" />
+    <result column="z_describe" property="zDescribe" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, z_value, x1, x2, x3, x4, x5, z_describe
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.ZSwarningExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from z_swarning
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from z_swarning
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from z_swarning
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.ZSwarningExample" >
+    delete from z_swarning
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.ZSwarning" >
+    insert into z_swarning (id, stock_code, stock_name, 
+      z_value, x1, x2, x3, 
+      x4, x5, z_describe)
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{zValue,jdbcType=VARCHAR}, #{x1,jdbcType=VARCHAR}, #{x2,jdbcType=VARCHAR}, #{x3,jdbcType=VARCHAR}, 
+      #{x4,jdbcType=VARCHAR}, #{x5,jdbcType=VARCHAR}, #{zDescribe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.ZSwarning" >
+    insert into z_swarning
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="zValue != null" >
+        z_value,
+      </if>
+      <if test="x1 != null" >
+        x1,
+      </if>
+      <if test="x2 != null" >
+        x2,
+      </if>
+      <if test="x3 != null" >
+        x3,
+      </if>
+      <if test="x4 != null" >
+        x4,
+      </if>
+      <if test="x5 != null" >
+        x5,
+      </if>
+      <if test="zDescribe != null" >
+        z_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="zValue != null" >
+        #{zValue,jdbcType=VARCHAR},
+      </if>
+      <if test="x1 != null" >
+        #{x1,jdbcType=VARCHAR},
+      </if>
+      <if test="x2 != null" >
+        #{x2,jdbcType=VARCHAR},
+      </if>
+      <if test="x3 != null" >
+        #{x3,jdbcType=VARCHAR},
+      </if>
+      <if test="x4 != null" >
+        #{x4,jdbcType=VARCHAR},
+      </if>
+      <if test="x5 != null" >
+        #{x5,jdbcType=VARCHAR},
+      </if>
+      <if test="zDescribe != null" >
+        #{zDescribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.ZSwarningExample" resultType="java.lang.Integer" >
+    select count(*) from z_swarning
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update z_swarning
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zValue != null" >
+        z_value = #{record.zValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x1 != null" >
+        x1 = #{record.x1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x2 != null" >
+        x2 = #{record.x2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x3 != null" >
+        x3 = #{record.x3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x4 != null" >
+        x4 = #{record.x4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x5 != null" >
+        x5 = #{record.x5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zDescribe != null" >
+        z_describe = #{record.zDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update z_swarning
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      z_value = #{record.zValue,jdbcType=VARCHAR},
+      x1 = #{record.x1,jdbcType=VARCHAR},
+      x2 = #{record.x2,jdbcType=VARCHAR},
+      x3 = #{record.x3,jdbcType=VARCHAR},
+      x4 = #{record.x4,jdbcType=VARCHAR},
+      x5 = #{record.x5,jdbcType=VARCHAR},
+      z_describe = #{record.zDescribe,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.ZSwarning" >
+    update z_swarning
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="zValue != null" >
+        z_value = #{zValue,jdbcType=VARCHAR},
+      </if>
+      <if test="x1 != null" >
+        x1 = #{x1,jdbcType=VARCHAR},
+      </if>
+      <if test="x2 != null" >
+        x2 = #{x2,jdbcType=VARCHAR},
+      </if>
+      <if test="x3 != null" >
+        x3 = #{x3,jdbcType=VARCHAR},
+      </if>
+      <if test="x4 != null" >
+        x4 = #{x4,jdbcType=VARCHAR},
+      </if>
+      <if test="x5 != null" >
+        x5 = #{x5,jdbcType=VARCHAR},
+      </if>
+      <if test="zDescribe != null" >
+        z_describe = #{zDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.ZSwarning" >
+    update z_swarning
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      z_value = #{zValue,jdbcType=VARCHAR},
+      x1 = #{x1,jdbcType=VARCHAR},
+      x2 = #{x2,jdbcType=VARCHAR},
+      x3 = #{x3,jdbcType=VARCHAR},
+      x4 = #{x4,jdbcType=VARCHAR},
+      x5 = #{x5,jdbcType=VARCHAR},
+      z_describe = #{zDescribe,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectZSwarning" resultMap="BaseResultMap">
+  	select * from
+  	z_swarning order by z_value desc
+  </select>
+</mapper>

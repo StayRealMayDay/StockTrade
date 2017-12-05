@@ -1,7 +1,4 @@
 package com.stock.controller;
-
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -36,9 +33,13 @@ import com.stock.mapper.RankandpredictMapper;
 import com.stock.mapper.DzjyMapper;
 import com.stock.mapper.StockDetailMapper;
 import com.stock.mapper.StockHolderNumberMapper;
+import com.stock.mapper.StockTempMapper;
 import com.stock.mapper.StockholderBasicMapper;
 import com.stock.mapper.StockholderRelativeMapper;
 import com.stock.mapper.StockinfoMapper;
+
+import com.stock.mapper.StockDetailMapper;
+import com.stock.mapper.StockHolderNumberMapper;
 import com.stock.mapper.TopStockCirculationHolderMapper;
 import com.stock.mapper.TopStockHolderMapper;
 import com.stock.mapper.TotalShareStructureMapper;
@@ -54,6 +55,10 @@ import com.stock.pojo.IndustryNewsinfo;
 import com.stock.pojo.IndustryStatus;
 import com.stock.pojo.MarketPerformance;
 import com.stock.pojo.Rankandpredict;
+import com.stock.pojo.StockTemp;
+import com.stock.pojo.StockholderBasic;
+import com.stock.pojo.StockholderRelative;
+import com.stock.pojo.Stockinfo;
 
 import com.stock.pojo.StockDetail;
 import com.stock.pojo.StockHolderNumber;
@@ -98,6 +103,8 @@ public class CompanyController {
 	@Autowired
 	RankandpredictMapper rankandpredictMapper;
 	@Autowired
+	StockTempMapper stockTempMapper;
+	
 	StockHolderNumberMapper stockHolderNumberMapper;
 	@Autowired
 	TopStockCirculationHolderMapper topStockCirculationMapper;
@@ -148,6 +155,9 @@ public class CompanyController {
 		List<CapitalFlow> capitalFlowInlist = capitalFlowMapper.selectFlowIn();
 		List<CapitalFlow> capitalFlowOutlist = capitalFlowMapper.selectFlowOut();
 		Rankandpredict rankAndPredict = rankandpredictMapper.selectAll(stockNum);
+		List<StockTemp> stockList = stockTempMapper.selectTop10(industry);
+		model.addAttribute("stockList", stockList);
+		model.addAttribute("rankAndPredict",rankAndPredict );
 		model.addAttribute("rankAndPredict",rankAndPredict );
 		System.out.println("评级数量"+rankAndPredict);
 		model.addAttribute("stockinfo",stockinfo );
@@ -162,6 +172,16 @@ public class CompanyController {
 		return "mypages/company";
 	}
 	
+	
+	@RequestMapping(value = "/similarIndustry")
+	public String similarIndustry(Model model,HttpServletRequest req){
+		String stockNum = req.getParameter("stockNum");
+		String industry = companyMapper.selecResolvedIndustry(stockNum);
+		List<StockTemp> stockListSim = stockTempMapper.selectAllSimIndustry(industry);
+		model.addAttribute("stockListSim", stockListSim);
+		return "mypages/similarIndustry";
+		
+	}
 	
 		@RequestMapping(value = "/industryChain")
 		public String industryChain(Model model,HttpServletRequest req){

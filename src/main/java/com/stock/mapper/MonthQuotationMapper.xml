@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.MonthQuotationMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.MonthQuotation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="previous_close" property="previousClose" jdbcType="VARCHAR" />
+    <result column="open" property="open" jdbcType="VARCHAR" />
+    <result column="highest" property="highest" jdbcType="VARCHAR" />
+    <result column="lowest" property="lowest" jdbcType="VARCHAR" />
+    <result column="close" property="close" jdbcType="VARCHAR" />
+    <result column="highest_close" property="highestClose" jdbcType="VARCHAR" />
+    <result column="lowest_close" property="lowestClose" jdbcType="VARCHAR" />
+    <result column="ave_price" property="avePrice" jdbcType="VARCHAR" />
+    <result column="ave_close" property="aveClose" jdbcType="VARCHAR" />
+    <result column="updown_ratio" property="updownRatio" jdbcType="VARCHAR" />
+    <result column="updown" property="updown" jdbcType="VARCHAR" />
+    <result column="turn_volume" property="turnVolume" jdbcType="VARCHAR" />
+    <result column="turn_price" property="turnPrice" jdbcType="VARCHAR" />
+    <result column="turnover_rate" property="turnoverRate" jdbcType="VARCHAR" />
+    <result column="ave_turnover_rate" property="aveTurnoverRate" jdbcType="VARCHAR" />
+    <result column="amplitude" property="amplitude" jdbcType="VARCHAR" />
+    <result column="updown_ratio_dapan" property="updownRatioDapan" jdbcType="VARCHAR" />
+    <result column="over_dapan_days" property="overDapanDays" jdbcType="VARCHAR" />
+    <result column="highest_date" property="highestDate" jdbcType="VARCHAR" />
+    <result column="lowest_date" property="lowestDate" jdbcType="VARCHAR" />
+    <result column="highest_close_date" property="highestCloseDate" jdbcType="VARCHAR" />
+    <result column="lowest_close_date" property="lowestCloseDate" jdbcType="VARCHAR" />
+    <result column="highest_updown_date" property="highestUpdownDate" jdbcType="VARCHAR" />
+    <result column="lowest_updown_date" property="lowestUpdownDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, previous_close, open, highest, lowest, close, highest_close, 
+    lowest_close, ave_price, ave_close, updown_ratio, updown, turn_volume, turn_price, 
+    turnover_rate, ave_turnover_rate, amplitude, updown_ratio_dapan, over_dapan_days, 
+    highest_date, lowest_date, highest_close_date, lowest_close_date, highest_updown_date, 
+    lowest_updown_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.MonthQuotationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from month_quotation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from month_quotation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from month_quotation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.MonthQuotationExample" >
+    delete from month_quotation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.MonthQuotation" >
+    insert into month_quotation (id, stock_code, stock_name, 
+      previous_close, open, highest, 
+      lowest, close, highest_close, 
+      lowest_close, ave_price, ave_close, 
+      updown_ratio, updown, turn_volume, 
+      turn_price, turnover_rate, ave_turnover_rate, 
+      amplitude, updown_ratio_dapan, over_dapan_days, 
+      highest_date, lowest_date, highest_close_date, 
+      lowest_close_date, highest_updown_date, lowest_updown_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{previousClose,jdbcType=VARCHAR}, #{open,jdbcType=VARCHAR}, #{highest,jdbcType=VARCHAR}, 
+      #{lowest,jdbcType=VARCHAR}, #{close,jdbcType=VARCHAR}, #{highestClose,jdbcType=VARCHAR}, 
+      #{lowestClose,jdbcType=VARCHAR}, #{avePrice,jdbcType=VARCHAR}, #{aveClose,jdbcType=VARCHAR}, 
+      #{updownRatio,jdbcType=VARCHAR}, #{updown,jdbcType=VARCHAR}, #{turnVolume,jdbcType=VARCHAR}, 
+      #{turnPrice,jdbcType=VARCHAR}, #{turnoverRate,jdbcType=VARCHAR}, #{aveTurnoverRate,jdbcType=VARCHAR}, 
+      #{amplitude,jdbcType=VARCHAR}, #{updownRatioDapan,jdbcType=VARCHAR}, #{overDapanDays,jdbcType=VARCHAR}, 
+      #{highestDate,jdbcType=VARCHAR}, #{lowestDate,jdbcType=VARCHAR}, #{highestCloseDate,jdbcType=VARCHAR}, 
+      #{lowestCloseDate,jdbcType=VARCHAR}, #{highestUpdownDate,jdbcType=VARCHAR}, #{lowestUpdownDate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.MonthQuotation" >
+    insert into month_quotation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="previousClose != null" >
+        previous_close,
+      </if>
+      <if test="open != null" >
+        open,
+      </if>
+      <if test="highest != null" >
+        highest,
+      </if>
+      <if test="lowest != null" >
+        lowest,
+      </if>
+      <if test="close != null" >
+        close,
+      </if>
+      <if test="highestClose != null" >
+        highest_close,
+      </if>
+      <if test="lowestClose != null" >
+        lowest_close,
+      </if>
+      <if test="avePrice != null" >
+        ave_price,
+      </if>
+      <if test="aveClose != null" >
+        ave_close,
+      </if>
+      <if test="updownRatio != null" >
+        updown_ratio,
+      </if>
+      <if test="updown != null" >
+        updown,
+      </if>
+      <if test="turnVolume != null" >
+        turn_volume,
+      </if>
+      <if test="turnPrice != null" >
+        turn_price,
+      </if>
+      <if test="turnoverRate != null" >
+        turnover_rate,
+      </if>
+      <if test="aveTurnoverRate != null" >
+        ave_turnover_rate,
+      </if>
+      <if test="amplitude != null" >
+        amplitude,
+      </if>
+      <if test="updownRatioDapan != null" >
+        updown_ratio_dapan,
+      </if>
+      <if test="overDapanDays != null" >
+        over_dapan_days,
+      </if>
+      <if test="highestDate != null" >
+        highest_date,
+      </if>
+      <if test="lowestDate != null" >
+        lowest_date,
+      </if>
+      <if test="highestCloseDate != null" >
+        highest_close_date,
+      </if>
+      <if test="lowestCloseDate != null" >
+        lowest_close_date,
+      </if>
+      <if test="highestUpdownDate != null" >
+        highest_updown_date,
+      </if>
+      <if test="lowestUpdownDate != null" >
+        lowest_updown_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="previousClose != null" >
+        #{previousClose,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=VARCHAR},
+      </if>
+      <if test="highest != null" >
+        #{highest,jdbcType=VARCHAR},
+      </if>
+      <if test="lowest != null" >
+        #{lowest,jdbcType=VARCHAR},
+      </if>
+      <if test="close != null" >
+        #{close,jdbcType=VARCHAR},
+      </if>
+      <if test="highestClose != null" >
+        #{highestClose,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestClose != null" >
+        #{lowestClose,jdbcType=VARCHAR},
+      </if>
+      <if test="avePrice != null" >
+        #{avePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="aveClose != null" >
+        #{aveClose,jdbcType=VARCHAR},
+      </if>
+      <if test="updownRatio != null" >
+        #{updownRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="updown != null" >
+        #{updown,jdbcType=VARCHAR},
+      </if>
+      <if test="turnVolume != null" >
+        #{turnVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="turnPrice != null" >
+        #{turnPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverRate != null" >
+        #{turnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="aveTurnoverRate != null" >
+        #{aveTurnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        #{amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="updownRatioDapan != null" >
+        #{updownRatioDapan,jdbcType=VARCHAR},
+      </if>
+      <if test="overDapanDays != null" >
+        #{overDapanDays,jdbcType=VARCHAR},
+      </if>
+      <if test="highestDate != null" >
+        #{highestDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestDate != null" >
+        #{lowestDate,jdbcType=VARCHAR},
+      </if>
+      <if test="highestCloseDate != null" >
+        #{highestCloseDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestCloseDate != null" >
+        #{lowestCloseDate,jdbcType=VARCHAR},
+      </if>
+      <if test="highestUpdownDate != null" >
+        #{highestUpdownDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestUpdownDate != null" >
+        #{lowestUpdownDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.MonthQuotationExample" resultType="java.lang.Integer" >
+    select count(*) from month_quotation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update month_quotation
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.previousClose != null" >
+        previous_close = #{record.previousClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.open != null" >
+        open = #{record.open,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highest != null" >
+        highest = #{record.highest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowest != null" >
+        lowest = #{record.lowest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.close != null" >
+        close = #{record.close,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highestClose != null" >
+        highest_close = #{record.highestClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowestClose != null" >
+        lowest_close = #{record.lowestClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avePrice != null" >
+        ave_price = #{record.avePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveClose != null" >
+        ave_close = #{record.aveClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updownRatio != null" >
+        updown_ratio = #{record.updownRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updown != null" >
+        updown = #{record.updown,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnVolume != null" >
+        turn_volume = #{record.turnVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnPrice != null" >
+        turn_price = #{record.turnPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnoverRate != null" >
+        turnover_rate = #{record.turnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aveTurnoverRate != null" >
+        ave_turnover_rate = #{record.aveTurnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amplitude != null" >
+        amplitude = #{record.amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updownRatioDapan != null" >
+        updown_ratio_dapan = #{record.updownRatioDapan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overDapanDays != null" >
+        over_dapan_days = #{record.overDapanDays,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highestDate != null" >
+        highest_date = #{record.highestDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowestDate != null" >
+        lowest_date = #{record.lowestDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highestCloseDate != null" >
+        highest_close_date = #{record.highestCloseDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowestCloseDate != null" >
+        lowest_close_date = #{record.lowestCloseDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.highestUpdownDate != null" >
+        highest_updown_date = #{record.highestUpdownDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lowestUpdownDate != null" >
+        lowest_updown_date = #{record.lowestUpdownDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update month_quotation
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      previous_close = #{record.previousClose,jdbcType=VARCHAR},
+      open = #{record.open,jdbcType=VARCHAR},
+      highest = #{record.highest,jdbcType=VARCHAR},
+      lowest = #{record.lowest,jdbcType=VARCHAR},
+      close = #{record.close,jdbcType=VARCHAR},
+      highest_close = #{record.highestClose,jdbcType=VARCHAR},
+      lowest_close = #{record.lowestClose,jdbcType=VARCHAR},
+      ave_price = #{record.avePrice,jdbcType=VARCHAR},
+      ave_close = #{record.aveClose,jdbcType=VARCHAR},
+      updown_ratio = #{record.updownRatio,jdbcType=VARCHAR},
+      updown = #{record.updown,jdbcType=VARCHAR},
+      turn_volume = #{record.turnVolume,jdbcType=VARCHAR},
+      turn_price = #{record.turnPrice,jdbcType=VARCHAR},
+      turnover_rate = #{record.turnoverRate,jdbcType=VARCHAR},
+      ave_turnover_rate = #{record.aveTurnoverRate,jdbcType=VARCHAR},
+      amplitude = #{record.amplitude,jdbcType=VARCHAR},
+      updown_ratio_dapan = #{record.updownRatioDapan,jdbcType=VARCHAR},
+      over_dapan_days = #{record.overDapanDays,jdbcType=VARCHAR},
+      highest_date = #{record.highestDate,jdbcType=VARCHAR},
+      lowest_date = #{record.lowestDate,jdbcType=VARCHAR},
+      highest_close_date = #{record.highestCloseDate,jdbcType=VARCHAR},
+      lowest_close_date = #{record.lowestCloseDate,jdbcType=VARCHAR},
+      highest_updown_date = #{record.highestUpdownDate,jdbcType=VARCHAR},
+      lowest_updown_date = #{record.lowestUpdownDate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.MonthQuotation" >
+    update month_quotation
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="previousClose != null" >
+        previous_close = #{previousClose,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null" >
+        open = #{open,jdbcType=VARCHAR},
+      </if>
+      <if test="highest != null" >
+        highest = #{highest,jdbcType=VARCHAR},
+      </if>
+      <if test="lowest != null" >
+        lowest = #{lowest,jdbcType=VARCHAR},
+      </if>
+      <if test="close != null" >
+        close = #{close,jdbcType=VARCHAR},
+      </if>
+      <if test="highestClose != null" >
+        highest_close = #{highestClose,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestClose != null" >
+        lowest_close = #{lowestClose,jdbcType=VARCHAR},
+      </if>
+      <if test="avePrice != null" >
+        ave_price = #{avePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="aveClose != null" >
+        ave_close = #{aveClose,jdbcType=VARCHAR},
+      </if>
+      <if test="updownRatio != null" >
+        updown_ratio = #{updownRatio,jdbcType=VARCHAR},
+      </if>
+      <if test="updown != null" >
+        updown = #{updown,jdbcType=VARCHAR},
+      </if>
+      <if test="turnVolume != null" >
+        turn_volume = #{turnVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="turnPrice != null" >
+        turn_price = #{turnPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="turnoverRate != null" >
+        turnover_rate = #{turnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="aveTurnoverRate != null" >
+        ave_turnover_rate = #{aveTurnoverRate,jdbcType=VARCHAR},
+      </if>
+      <if test="amplitude != null" >
+        amplitude = #{amplitude,jdbcType=VARCHAR},
+      </if>
+      <if test="updownRatioDapan != null" >
+        updown_ratio_dapan = #{updownRatioDapan,jdbcType=VARCHAR},
+      </if>
+      <if test="overDapanDays != null" >
+        over_dapan_days = #{overDapanDays,jdbcType=VARCHAR},
+      </if>
+      <if test="highestDate != null" >
+        highest_date = #{highestDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestDate != null" >
+        lowest_date = #{lowestDate,jdbcType=VARCHAR},
+      </if>
+      <if test="highestCloseDate != null" >
+        highest_close_date = #{highestCloseDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestCloseDate != null" >
+        lowest_close_date = #{lowestCloseDate,jdbcType=VARCHAR},
+      </if>
+      <if test="highestUpdownDate != null" >
+        highest_updown_date = #{highestUpdownDate,jdbcType=VARCHAR},
+      </if>
+      <if test="lowestUpdownDate != null" >
+        lowest_updown_date = #{lowestUpdownDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.MonthQuotation" >
+    update month_quotation
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      previous_close = #{previousClose,jdbcType=VARCHAR},
+      open = #{open,jdbcType=VARCHAR},
+      highest = #{highest,jdbcType=VARCHAR},
+      lowest = #{lowest,jdbcType=VARCHAR},
+      close = #{close,jdbcType=VARCHAR},
+      highest_close = #{highestClose,jdbcType=VARCHAR},
+      lowest_close = #{lowestClose,jdbcType=VARCHAR},
+      ave_price = #{avePrice,jdbcType=VARCHAR},
+      ave_close = #{aveClose,jdbcType=VARCHAR},
+      updown_ratio = #{updownRatio,jdbcType=VARCHAR},
+      updown = #{updown,jdbcType=VARCHAR},
+      turn_volume = #{turnVolume,jdbcType=VARCHAR},
+      turn_price = #{turnPrice,jdbcType=VARCHAR},
+      turnover_rate = #{turnoverRate,jdbcType=VARCHAR},
+      ave_turnover_rate = #{aveTurnoverRate,jdbcType=VARCHAR},
+      amplitude = #{amplitude,jdbcType=VARCHAR},
+      updown_ratio_dapan = #{updownRatioDapan,jdbcType=VARCHAR},
+      over_dapan_days = #{overDapanDays,jdbcType=VARCHAR},
+      highest_date = #{highestDate,jdbcType=VARCHAR},
+      lowest_date = #{lowestDate,jdbcType=VARCHAR},
+      highest_close_date = #{highestCloseDate,jdbcType=VARCHAR},
+      lowest_close_date = #{lowestCloseDate,jdbcType=VARCHAR},
+      highest_updown_date = #{highestUpdownDate,jdbcType=VARCHAR},
+      lowest_updown_date = #{lowestUpdownDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectMonthQuotation" resultMap="BaseResultMap">
+  	select * 
+  	from month_quotation order by updown_ratio
+  </select>
+</mapper>

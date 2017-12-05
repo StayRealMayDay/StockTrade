@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.DuPontAnalysisMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.DuPontAnalysis" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="net_asset_yield" property="netAssetYield" jdbcType="VARCHAR" />
+    <result column="equity_multiplier" property="equityMultiplier" jdbcType="VARCHAR" />
+    <result column="total_asset_turnover" property="totalAssetTurnover" jdbcType="VARCHAR" />
+    <result column="net_profit_parent_company" property="netProfitParentCompany" jdbcType="VARCHAR" />
+    <result column="net_profit/total_income" property="netProfitTotalIncome" jdbcType="VARCHAR" />
+    <result column="net_profit/total_profit" property="netProfitTotalProfit" jdbcType="VARCHAR" />
+    <result column="total_profit/before_income_tax" property="totalProfitBeforeIncomeTax" jdbcType="VARCHAR" />
+    <result column="before_income_tax/total_income" property="beforeIncomeTaxTotalIncome" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, net_asset_yield, equity_multiplier, total_asset_turnover, 
+    net_profit_parent_company, net_profit/total_income, net_profit/total_profit, total_profit/before_income_tax, 
+    before_income_tax/total_income
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.DuPontAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from du_pont_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from du_pont_analysis
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from du_pont_analysis
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.DuPontAnalysisExample" >
+    delete from du_pont_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.DuPontAnalysis" >
+    insert into du_pont_analysis (id, stock_code, stock_name, 
+      net_asset_yield, equity_multiplier, total_asset_turnover, 
+      net_profit_parent_company, net_profit/total_income, 
+      net_profit/total_profit, total_profit/before_income_tax, 
+      before_income_tax/total_income)
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{netAssetYield,jdbcType=VARCHAR}, #{equityMultiplier,jdbcType=VARCHAR}, #{totalAssetTurnover,jdbcType=VARCHAR}, 
+      #{netProfitParentCompany,jdbcType=VARCHAR}, #{netProfitTotalIncome,jdbcType=VARCHAR}, 
+      #{netProfitTotalProfit,jdbcType=VARCHAR}, #{totalProfitBeforeIncomeTax,jdbcType=VARCHAR}, 
+      #{beforeIncomeTaxTotalIncome,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.DuPontAnalysis" >
+    insert into du_pont_analysis
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="netAssetYield != null" >
+        net_asset_yield,
+      </if>
+      <if test="equityMultiplier != null" >
+        equity_multiplier,
+      </if>
+      <if test="totalAssetTurnover != null" >
+        total_asset_turnover,
+      </if>
+      <if test="netProfitParentCompany != null" >
+        net_profit_parent_company,
+      </if>
+      <if test="netProfitTotalIncome != null" >
+        net_profit/total_income,
+      </if>
+      <if test="netProfitTotalProfit != null" >
+        net_profit/total_profit,
+      </if>
+      <if test="totalProfitBeforeIncomeTax != null" >
+        total_profit/before_income_tax,
+      </if>
+      <if test="beforeIncomeTaxTotalIncome != null" >
+        before_income_tax/total_income,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYield != null" >
+        #{netAssetYield,jdbcType=VARCHAR},
+      </if>
+      <if test="equityMultiplier != null" >
+        #{equityMultiplier,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetTurnover != null" >
+        #{totalAssetTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitParentCompany != null" >
+        #{netProfitParentCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitTotalIncome != null" >
+        #{netProfitTotalIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitTotalProfit != null" >
+        #{netProfitTotalProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalProfitBeforeIncomeTax != null" >
+        #{totalProfitBeforeIncomeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeIncomeTaxTotalIncome != null" >
+        #{beforeIncomeTaxTotalIncome,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.DuPontAnalysisExample" resultType="java.lang.Integer" >
+    select count(*) from du_pont_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update du_pont_analysis
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netAssetYield != null" >
+        net_asset_yield = #{record.netAssetYield,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equityMultiplier != null" >
+        equity_multiplier = #{record.equityMultiplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAssetTurnover != null" >
+        total_asset_turnover = #{record.totalAssetTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitParentCompany != null" >
+        net_profit_parent_company = #{record.netProfitParentCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitTotalIncome != null" >
+        net_profit/total_income = #{record.netProfitTotalIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitTotalProfit != null" >
+        net_profit/total_profit = #{record.netProfitTotalProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalProfitBeforeIncomeTax != null" >
+        total_profit/before_income_tax = #{record.totalProfitBeforeIncomeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beforeIncomeTaxTotalIncome != null" >
+        before_income_tax/total_income = #{record.beforeIncomeTaxTotalIncome,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update du_pont_analysis
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      net_asset_yield = #{record.netAssetYield,jdbcType=VARCHAR},
+      equity_multiplier = #{record.equityMultiplier,jdbcType=VARCHAR},
+      total_asset_turnover = #{record.totalAssetTurnover,jdbcType=VARCHAR},
+      net_profit_parent_company = #{record.netProfitParentCompany,jdbcType=VARCHAR},
+      net_profit/total_income = #{record.netProfitTotalIncome,jdbcType=VARCHAR},
+      net_profit/total_profit = #{record.netProfitTotalProfit,jdbcType=VARCHAR},
+      total_profit/before_income_tax = #{record.totalProfitBeforeIncomeTax,jdbcType=VARCHAR},
+      before_income_tax/total_income = #{record.beforeIncomeTaxTotalIncome,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.DuPontAnalysis" >
+    update du_pont_analysis
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYield != null" >
+        net_asset_yield = #{netAssetYield,jdbcType=VARCHAR},
+      </if>
+      <if test="equityMultiplier != null" >
+        equity_multiplier = #{equityMultiplier,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetTurnover != null" >
+        total_asset_turnover = #{totalAssetTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitParentCompany != null" >
+        net_profit_parent_company = #{netProfitParentCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitTotalIncome != null" >
+        net_profit/total_income = #{netProfitTotalIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitTotalProfit != null" >
+        net_profit/total_profit = #{netProfitTotalProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="totalProfitBeforeIncomeTax != null" >
+        total_profit/before_income_tax = #{totalProfitBeforeIncomeTax,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeIncomeTaxTotalIncome != null" >
+        before_income_tax/total_income = #{beforeIncomeTaxTotalIncome,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.DuPontAnalysis" >
+    update du_pont_analysis
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      net_asset_yield = #{netAssetYield,jdbcType=VARCHAR},
+      equity_multiplier = #{equityMultiplier,jdbcType=VARCHAR},
+      total_asset_turnover = #{totalAssetTurnover,jdbcType=VARCHAR},
+      net_profit_parent_company = #{netProfitParentCompany,jdbcType=VARCHAR},
+      net_profit/total_income = #{netProfitTotalIncome,jdbcType=VARCHAR},
+      net_profit/total_profit = #{netProfitTotalProfit,jdbcType=VARCHAR},
+      total_profit/before_income_tax = #{totalProfitBeforeIncomeTax,jdbcType=VARCHAR},
+      before_income_tax/total_income = #{beforeIncomeTaxTotalIncome,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectDuPontAnalysis" resultMap="BaseResultMap">
+  	select * from
+  	du_pont_analysis order by net_asset_yield desc
+  </select>
+</mapper>

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.GrowthAbilityMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.GrowthAbility" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="operate_total_income_compound_rate" property="operateTotalIncomeCompoundRate" jdbcType="VARCHAR" />
+    <result column="net_profit_compound_rate" property="netProfitCompoundRate" jdbcType="VARCHAR" />
+    <result column="capital_total_year0" property="capitalTotalYear0" jdbcType="VARCHAR" />
+    <result column="per_share_net_capital_year0" property="perShareNetCapitalYear0" jdbcType="VARCHAR" />
+    <result column="operate_total_income_Nyear" property="operateTotalIncomeNyear" jdbcType="VARCHAR" />
+    <result column="operate_profit_Nyear" property="operateProfitNyear" jdbcType="VARCHAR" />
+    <result column="net_profit_Nyear" property="netProfitNyear" jdbcType="VARCHAR" />
+    <result column="net_asset_yield_Nyear" property="netAssetYieldNyear" jdbcType="VARCHAR" />
+    <result column="operate_total_income_year" property="operateTotalIncomeYear" jdbcType="VARCHAR" />
+    <result column="operate_income_year" property="operateIncomeYear" jdbcType="VARCHAR" />
+    <result column="operate_cost" property="operateCost" jdbcType="VARCHAR" />
+    <result column="gross_profit_year" property="grossProfitYear" jdbcType="VARCHAR" />
+    <result column="operate_profit_year" property="operateProfitYear" jdbcType="VARCHAR" />
+    <result column="total_profit_year" property="totalProfitYear" jdbcType="VARCHAR" />
+    <result column="net_profit_year" property="netProfitYear" jdbcType="VARCHAR" />
+    <result column="net_asset_yield_diminish_year" property="netAssetYieldDiminishYear" jdbcType="VARCHAR" />
+    <result column="net_asset_year" property="netAssetYear" jdbcType="VARCHAR" />
+    <result column="total_liabilities_year" property="totalLiabilitiesYear" jdbcType="VARCHAR" />
+    <result column="total_asset_year" property="totalAssetYear" jdbcType="VARCHAR" />
+    <result column="accounts_receivable" property="accountsReceivable" jdbcType="VARCHAR" />
+    <result column="net_cash_flow" property="netCashFlow" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_code, stock_name, operate_total_income_compound_rate, net_profit_compound_rate, 
+    capital_total_year0, per_share_net_capital_year0, operate_total_income_Nyear, operate_profit_Nyear, 
+    net_profit_Nyear, net_asset_yield_Nyear, operate_total_income_year, operate_income_year, 
+    operate_cost, gross_profit_year, operate_profit_year, total_profit_year, net_profit_year, 
+    net_asset_yield_diminish_year, net_asset_year, total_liabilities_year, total_asset_year, 
+    accounts_receivable, net_cash_flow
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.GrowthAbilityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from growth_ability
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from growth_ability
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from growth_ability
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.GrowthAbilityExample" >
+    delete from growth_ability
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.GrowthAbility" >
+    insert into growth_ability (id, stock_code, stock_name, 
+      operate_total_income_compound_rate, net_profit_compound_rate, 
+      capital_total_year0, per_share_net_capital_year0, 
+      operate_total_income_Nyear, operate_profit_Nyear, 
+      net_profit_Nyear, net_asset_yield_Nyear, operate_total_income_year, 
+      operate_income_year, operate_cost, gross_profit_year, 
+      operate_profit_year, total_profit_year, net_profit_year, 
+      net_asset_yield_diminish_year, net_asset_year, 
+      total_liabilities_year, total_asset_year, accounts_receivable, 
+      net_cash_flow)
+    values (#{id,jdbcType=INTEGER}, #{stockCode,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{operateTotalIncomeCompoundRate,jdbcType=VARCHAR}, #{netProfitCompoundRate,jdbcType=VARCHAR}, 
+      #{capitalTotalYear0,jdbcType=VARCHAR}, #{perShareNetCapitalYear0,jdbcType=VARCHAR}, 
+      #{operateTotalIncomeNyear,jdbcType=VARCHAR}, #{operateProfitNyear,jdbcType=VARCHAR}, 
+      #{netProfitNyear,jdbcType=VARCHAR}, #{netAssetYieldNyear,jdbcType=VARCHAR}, #{operateTotalIncomeYear,jdbcType=VARCHAR}, 
+      #{operateIncomeYear,jdbcType=VARCHAR}, #{operateCost,jdbcType=VARCHAR}, #{grossProfitYear,jdbcType=VARCHAR}, 
+      #{operateProfitYear,jdbcType=VARCHAR}, #{totalProfitYear,jdbcType=VARCHAR}, #{netProfitYear,jdbcType=VARCHAR}, 
+      #{netAssetYieldDiminishYear,jdbcType=VARCHAR}, #{netAssetYear,jdbcType=VARCHAR}, 
+      #{totalLiabilitiesYear,jdbcType=VARCHAR}, #{totalAssetYear,jdbcType=VARCHAR}, #{accountsReceivable,jdbcType=VARCHAR}, 
+      #{netCashFlow,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.GrowthAbility" >
+    insert into growth_ability
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="operateTotalIncomeCompoundRate != null" >
+        operate_total_income_compound_rate,
+      </if>
+      <if test="netProfitCompoundRate != null" >
+        net_profit_compound_rate,
+      </if>
+      <if test="capitalTotalYear0 != null" >
+        capital_total_year0,
+      </if>
+      <if test="perShareNetCapitalYear0 != null" >
+        per_share_net_capital_year0,
+      </if>
+      <if test="operateTotalIncomeNyear != null" >
+        operate_total_income_Nyear,
+      </if>
+      <if test="operateProfitNyear != null" >
+        operate_profit_Nyear,
+      </if>
+      <if test="netProfitNyear != null" >
+        net_profit_Nyear,
+      </if>
+      <if test="netAssetYieldNyear != null" >
+        net_asset_yield_Nyear,
+      </if>
+      <if test="operateTotalIncomeYear != null" >
+        operate_total_income_year,
+      </if>
+      <if test="operateIncomeYear != null" >
+        operate_income_year,
+      </if>
+      <if test="operateCost != null" >
+        operate_cost,
+      </if>
+      <if test="grossProfitYear != null" >
+        gross_profit_year,
+      </if>
+      <if test="operateProfitYear != null" >
+        operate_profit_year,
+      </if>
+      <if test="totalProfitYear != null" >
+        total_profit_year,
+      </if>
+      <if test="netProfitYear != null" >
+        net_profit_year,
+      </if>
+      <if test="netAssetYieldDiminishYear != null" >
+        net_asset_yield_diminish_year,
+      </if>
+      <if test="netAssetYear != null" >
+        net_asset_year,
+      </if>
+      <if test="totalLiabilitiesYear != null" >
+        total_liabilities_year,
+      </if>
+      <if test="totalAssetYear != null" >
+        total_asset_year,
+      </if>
+      <if test="accountsReceivable != null" >
+        accounts_receivable,
+      </if>
+      <if test="netCashFlow != null" >
+        net_cash_flow,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTotalIncomeCompoundRate != null" >
+        #{operateTotalIncomeCompoundRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitCompoundRate != null" >
+        #{netProfitCompoundRate,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalTotalYear0 != null" >
+        #{capitalTotalYear0,jdbcType=VARCHAR},
+      </if>
+      <if test="perShareNetCapitalYear0 != null" >
+        #{perShareNetCapitalYear0,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTotalIncomeNyear != null" >
+        #{operateTotalIncomeNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateProfitNyear != null" >
+        #{operateProfitNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitNyear != null" >
+        #{netProfitNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYieldNyear != null" >
+        #{netAssetYieldNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTotalIncomeYear != null" >
+        #{operateTotalIncomeYear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateIncomeYear != null" >
+        #{operateIncomeYear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateCost != null" >
+        #{operateCost,jdbcType=VARCHAR},
+      </if>
+      <if test="grossProfitYear != null" >
+        #{grossProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateProfitYear != null" >
+        #{operateProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="totalProfitYear != null" >
+        #{totalProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitYear != null" >
+        #{netProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYieldDiminishYear != null" >
+        #{netAssetYieldDiminishYear,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYear != null" >
+        #{netAssetYear,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLiabilitiesYear != null" >
+        #{totalLiabilitiesYear,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetYear != null" >
+        #{totalAssetYear,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsReceivable != null" >
+        #{accountsReceivable,jdbcType=VARCHAR},
+      </if>
+      <if test="netCashFlow != null" >
+        #{netCashFlow,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.GrowthAbilityExample" resultType="java.lang.Integer" >
+    select count(*) from growth_ability
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update growth_ability
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateTotalIncomeCompoundRate != null" >
+        operate_total_income_compound_rate = #{record.operateTotalIncomeCompoundRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitCompoundRate != null" >
+        net_profit_compound_rate = #{record.netProfitCompoundRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capitalTotalYear0 != null" >
+        capital_total_year0 = #{record.capitalTotalYear0,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perShareNetCapitalYear0 != null" >
+        per_share_net_capital_year0 = #{record.perShareNetCapitalYear0,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateTotalIncomeNyear != null" >
+        operate_total_income_Nyear = #{record.operateTotalIncomeNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateProfitNyear != null" >
+        operate_profit_Nyear = #{record.operateProfitNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitNyear != null" >
+        net_profit_Nyear = #{record.netProfitNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netAssetYieldNyear != null" >
+        net_asset_yield_Nyear = #{record.netAssetYieldNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateTotalIncomeYear != null" >
+        operate_total_income_year = #{record.operateTotalIncomeYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateIncomeYear != null" >
+        operate_income_year = #{record.operateIncomeYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateCost != null" >
+        operate_cost = #{record.operateCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grossProfitYear != null" >
+        gross_profit_year = #{record.grossProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operateProfitYear != null" >
+        operate_profit_year = #{record.operateProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalProfitYear != null" >
+        total_profit_year = #{record.totalProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netProfitYear != null" >
+        net_profit_year = #{record.netProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netAssetYieldDiminishYear != null" >
+        net_asset_yield_diminish_year = #{record.netAssetYieldDiminishYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netAssetYear != null" >
+        net_asset_year = #{record.netAssetYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalLiabilitiesYear != null" >
+        total_liabilities_year = #{record.totalLiabilitiesYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAssetYear != null" >
+        total_asset_year = #{record.totalAssetYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountsReceivable != null" >
+        accounts_receivable = #{record.accountsReceivable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netCashFlow != null" >
+        net_cash_flow = #{record.netCashFlow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update growth_ability
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_code = #{record.stockCode,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      operate_total_income_compound_rate = #{record.operateTotalIncomeCompoundRate,jdbcType=VARCHAR},
+      net_profit_compound_rate = #{record.netProfitCompoundRate,jdbcType=VARCHAR},
+      capital_total_year0 = #{record.capitalTotalYear0,jdbcType=VARCHAR},
+      per_share_net_capital_year0 = #{record.perShareNetCapitalYear0,jdbcType=VARCHAR},
+      operate_total_income_Nyear = #{record.operateTotalIncomeNyear,jdbcType=VARCHAR},
+      operate_profit_Nyear = #{record.operateProfitNyear,jdbcType=VARCHAR},
+      net_profit_Nyear = #{record.netProfitNyear,jdbcType=VARCHAR},
+      net_asset_yield_Nyear = #{record.netAssetYieldNyear,jdbcType=VARCHAR},
+      operate_total_income_year = #{record.operateTotalIncomeYear,jdbcType=VARCHAR},
+      operate_income_year = #{record.operateIncomeYear,jdbcType=VARCHAR},
+      operate_cost = #{record.operateCost,jdbcType=VARCHAR},
+      gross_profit_year = #{record.grossProfitYear,jdbcType=VARCHAR},
+      operate_profit_year = #{record.operateProfitYear,jdbcType=VARCHAR},
+      total_profit_year = #{record.totalProfitYear,jdbcType=VARCHAR},
+      net_profit_year = #{record.netProfitYear,jdbcType=VARCHAR},
+      net_asset_yield_diminish_year = #{record.netAssetYieldDiminishYear,jdbcType=VARCHAR},
+      net_asset_year = #{record.netAssetYear,jdbcType=VARCHAR},
+      total_liabilities_year = #{record.totalLiabilitiesYear,jdbcType=VARCHAR},
+      total_asset_year = #{record.totalAssetYear,jdbcType=VARCHAR},
+      accounts_receivable = #{record.accountsReceivable,jdbcType=VARCHAR},
+      net_cash_flow = #{record.netCashFlow,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.GrowthAbility" >
+    update growth_ability
+    <set >
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTotalIncomeCompoundRate != null" >
+        operate_total_income_compound_rate = #{operateTotalIncomeCompoundRate,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitCompoundRate != null" >
+        net_profit_compound_rate = #{netProfitCompoundRate,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalTotalYear0 != null" >
+        capital_total_year0 = #{capitalTotalYear0,jdbcType=VARCHAR},
+      </if>
+      <if test="perShareNetCapitalYear0 != null" >
+        per_share_net_capital_year0 = #{perShareNetCapitalYear0,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTotalIncomeNyear != null" >
+        operate_total_income_Nyear = #{operateTotalIncomeNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateProfitNyear != null" >
+        operate_profit_Nyear = #{operateProfitNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitNyear != null" >
+        net_profit_Nyear = #{netProfitNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYieldNyear != null" >
+        net_asset_yield_Nyear = #{netAssetYieldNyear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTotalIncomeYear != null" >
+        operate_total_income_year = #{operateTotalIncomeYear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateIncomeYear != null" >
+        operate_income_year = #{operateIncomeYear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateCost != null" >
+        operate_cost = #{operateCost,jdbcType=VARCHAR},
+      </if>
+      <if test="grossProfitYear != null" >
+        gross_profit_year = #{grossProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="operateProfitYear != null" >
+        operate_profit_year = #{operateProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="totalProfitYear != null" >
+        total_profit_year = #{totalProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="netProfitYear != null" >
+        net_profit_year = #{netProfitYear,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYieldDiminishYear != null" >
+        net_asset_yield_diminish_year = #{netAssetYieldDiminishYear,jdbcType=VARCHAR},
+      </if>
+      <if test="netAssetYear != null" >
+        net_asset_year = #{netAssetYear,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLiabilitiesYear != null" >
+        total_liabilities_year = #{totalLiabilitiesYear,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAssetYear != null" >
+        total_asset_year = #{totalAssetYear,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsReceivable != null" >
+        accounts_receivable = #{accountsReceivable,jdbcType=VARCHAR},
+      </if>
+      <if test="netCashFlow != null" >
+        net_cash_flow = #{netCashFlow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.GrowthAbility" >
+    update growth_ability
+    set stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      operate_total_income_compound_rate = #{operateTotalIncomeCompoundRate,jdbcType=VARCHAR},
+      net_profit_compound_rate = #{netProfitCompoundRate,jdbcType=VARCHAR},
+      capital_total_year0 = #{capitalTotalYear0,jdbcType=VARCHAR},
+      per_share_net_capital_year0 = #{perShareNetCapitalYear0,jdbcType=VARCHAR},
+      operate_total_income_Nyear = #{operateTotalIncomeNyear,jdbcType=VARCHAR},
+      operate_profit_Nyear = #{operateProfitNyear,jdbcType=VARCHAR},
+      net_profit_Nyear = #{netProfitNyear,jdbcType=VARCHAR},
+      net_asset_yield_Nyear = #{netAssetYieldNyear,jdbcType=VARCHAR},
+      operate_total_income_year = #{operateTotalIncomeYear,jdbcType=VARCHAR},
+      operate_income_year = #{operateIncomeYear,jdbcType=VARCHAR},
+      operate_cost = #{operateCost,jdbcType=VARCHAR},
+      gross_profit_year = #{grossProfitYear,jdbcType=VARCHAR},
+      operate_profit_year = #{operateProfitYear,jdbcType=VARCHAR},
+      total_profit_year = #{totalProfitYear,jdbcType=VARCHAR},
+      net_profit_year = #{netProfitYear,jdbcType=VARCHAR},
+      net_asset_yield_diminish_year = #{netAssetYieldDiminishYear,jdbcType=VARCHAR},
+      net_asset_year = #{netAssetYear,jdbcType=VARCHAR},
+      total_liabilities_year = #{totalLiabilitiesYear,jdbcType=VARCHAR},
+      total_asset_year = #{totalAssetYear,jdbcType=VARCHAR},
+      accounts_receivable = #{accountsReceivable,jdbcType=VARCHAR},
+      net_cash_flow = #{netCashFlow,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectGrowthAbility" resultMap="BaseResultMap">
+  	select * from
+  	growth_ability order by operate_total_income_compound_rate desc
+  </select>
+</mapper>
