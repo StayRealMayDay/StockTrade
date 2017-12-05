@@ -1,4 +1,4 @@
-/*package com.stock.utils;
+package com.stock.utils;
 
 import java.util.List;
 
@@ -41,4 +41,3 @@ public class datadase {
 
 	
 }
-*/

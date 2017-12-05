@@ -440,66 +440,6 @@ console.log(obj);
 					   </div>
 						
 						
-						<div class="clearfix"></div>
-						<nav class="agileinfo_news_original_grids" >
-							<ul class="nav nav-tabs nav-tabs1 " style="background-color:#E0F2FA ;width:100%" role="tablist">
-								<li style="font-size:18px;width:20%">个股资金</li>
-								<li role="presentation" class="active">
-									<a href="#jingliuru" id="brief_tab" role="tab" data-toggle="tab" aria-controls="briefTab">净流入排名</a>
-								</li>
-								<li role="presentation">
-									<a href="#zhuli" id="leader_tab" role="tab" data-toggle="tab" aria-controls="leaderTab">主力净流入排名</a>
-								</li>
-								<li role="presentation">
-									<a href="#tedadanactive" id="industry_tab" role="tab" data-toggle="tab" aria-controls="industryTab">特大单主动流入排名</a>
-								</li>
-								<li role="presentation">
-									<a href="#tedadanpassitive" id="industry_tab" role="tab" data-toggle="tab" aria-controls="industryTab">特大单被动流入排名</a>
-								</li>
-								<li role="presentation">
-									<a href="#dadanactive" id="industry_tab" role="tab" data-toggle="tab" aria-controls="industryTab">大单主动流入排名</a>
-								</li>
-								<li role="presentation">
-									<a href="#dadanpassitive" id="industry_tab" role="tab" data-toggle="tab" aria-controls="industryTab">大单被动流入排名</a>
-								</li>
-							</ul>
-						</nav>
-						
-						<div role="tabpanel" class="tab-pane" id="jingliuru" aria-labelledby="brief_tab">
-									<div class="w3l_stocks">
-										<div>
-											<div style="height:20px"></div>
-											<table style="font-size:20px;align:center;width:90%">
-															<tr>
-																<th></th>
-																<th>板块名称</th>
-																<th>均价</th>
-																<th>涨跌幅</th>
-																<th>流入资金/万</th>
-																<th>流出资金/万</th>
-																<th>净流入/万</th>
-																<th>净流出/万</th>
-															</tr>
-															<tr style="text-align:centre">
-																<td></td><td>15:00</td><td >16.30</td><td>1591</td><td>卖出</td><td >16.30</td><td>1591</td><td>卖出</td>
-															</tr>
-															<tr>
-																<td></td><td>15:00</td><td>16.30</td><td>1591</td><td>卖出</td><td >16.30</td><td>1591</td><td>卖出</td>
-															</tr>
-															<tr>
-																<td></td><td>15:00</td><td>16.30</td><td>1591</td><td>卖出</td><td >16.30</td><td>1591</td><td>卖出</td>
-															</tr>
-															<tr>
-																<td></td><td>15:00</td><td>16.30</td><td>1591</td><td>卖出</td><td >16.30</td><td>1591</td><td>卖出</td>
-															</tr>
-															<tr>
-																<td></td><td>15:00</td><td>16.30</td><td>1591</td><td>卖出</td><td >16.30</td><td>1591</td><td>卖出</td>
-															</tr>
-															
-														</table>
-										</div>
-									</div>
-						</div>
 						
 					</div>
 				</div>

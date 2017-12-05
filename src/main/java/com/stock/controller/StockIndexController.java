@@ -400,7 +400,6 @@ public class StockIndexController {
     	model.addAttribute("z_swarning", z_swarning);
    		return "mypages/stockIndex/z_swarning";
    	}
-    	model.addAttribute("stockNum",stockNum);
-   		return "mypages/stockIndex/dividend_rate12";
-   	}
+    
+
 }
