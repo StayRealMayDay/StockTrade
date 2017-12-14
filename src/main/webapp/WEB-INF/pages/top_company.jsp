@@ -155,7 +155,7 @@ function mout(object){
 		    <li class="m_line"><img src="images/line1.gif" /></li>
 		    <li id="m_3" class='m_li' onmouseover='mover(3);' onmouseout='mout(3);'><a href="company_detail?beiDou=${company.stockNum}">公司资料</a></li>
 		    <li class="m_line"><img src="images/line1.gif" /></li>
-		    <li id="m_4" class='m_li' onmouseover='mover(4);' onmouseout='mout(4);'><a href="shareholderEquity?stockNum=${company.stockNum}" target="_blank">股东股本</a></li>
+		    <li id="m_4" class='m_li' onmouseover='mover(4);' onmouseout='mout(4);'><a href="shareholderEquity?stockNum=${company.stockNum}">股东股本</a></li>
 		    <li class="m_line"><img src="images/line1.gif" /></li>
 		    <li id="m_5" class='m_li' onmouseover='mover(5);' onmouseout='mout(5);'><a href="financialAnalysis?stockNum=${company.stockNum}">财务分析</a></li>
 		    <li class="m_line"><img src="images/line1.gif" /></li>
@@ -186,10 +186,10 @@ function mout(object){
 		    </li>
 		    <li style="padding-left:300px;" id="s_4" class='s_li' onmouseover='mover(4);' onmouseout='mout(4);'>
 		    	
-		    	<a href="shareholderEquity?stockNum=${company.stockNum}">股东人数</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		    	<a href="shareholderEquity?stockNum=${company.stockNum}">十大流通股东</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		    	<a href="shareholderEquity?stockNum=${company.stockNum}">十大股东</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-		    	<a href="shareholderEquity?stockNum=${company.stockNum}">总股本构成</a>
+		    	<a href="#">股东人数</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		    	<a href="#">十大流通股东</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		    	<a href="#">十大股东</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		    	<a href="#" target="_blank">总股本构成</a>
 		    </li>
 		    <li style="padding-left:350px;" id="s_5" class='s_li' onmouseover='mover(5);' onmouseout='mout(5);'>
 		    	<a href="#">财务指数</a>&nbsp;&nbsp;|&nbsp;&nbsp;

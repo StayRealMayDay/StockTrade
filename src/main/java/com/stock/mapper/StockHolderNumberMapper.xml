@@ -276,8 +276,7 @@
   
    <!-- 于花蕾新增 2017年11月23日 -->
 	<select id="stock_holderDetail" parameterType="string" resultMap="BaseResultMap">
-		select *
-		from stock_holder_number
+		select * from stock_holder_number
 		where stock_id = #{stock_id}
 	</select>
 </mapper>

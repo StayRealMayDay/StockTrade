@@ -250,7 +250,7 @@
 									<th style="border-left:1px solid;border-top:1px solid;">指标\日期</th>
 								</tr>
 							</table>
-							<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;width:118px;background-color:#EBEBEB;">
+							<table clasn   s="tbody" style="border-right:1px solid;border-bottom:1px solid;width:118px;background-color:#EBEBEB;">
 								<tr style="height:35px;">
 									<th style="border-left:1px solid;border-top:1px solid;">股东总人数（户）</th>
 								</tr>

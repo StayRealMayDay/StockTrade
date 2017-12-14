@@ -1,11 +1,17 @@
 package com.stock.controller;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +61,7 @@ import com.stock.pojo.Nodes;
 import com.stock.pojo.ScrapyNews;
 import com.stock.pojo.Stock;
 import com.stock.pojo.StockAndCompany;
+import com.stock.pojo.StockHolderNumber;
 import com.stock.pojo.StockType;
 import com.stock.pojo.Stockinfo;
 import com.stock.pojo.Shares;
@@ -708,7 +715,7 @@ public class StockController {
 			return "mypages/AstockNewsDetail";
 		}
 		
-		//于花蕾新增2017年12月1日
+		//于花蕾新增2017年12月7日+8号新增部分
 		@RequestMapping(value = "/dzjy")
 		public String dzjy(Model model,HttpServletRequest req){
 			int count = dzjyMapper.selectAllDzjyCount();
@@ -717,27 +724,257 @@ public class StockController {
 			if(pageStr != null && !pageStr.equals("")){
 				pageNum = Integer.parseInt(pageStr);
 			}
-			
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			Pager pager = new Pager(count, pageNum);
-			map.put("start", pager.getStart());
-			map.put("pagesize", pager.getPageSize());
-			
-			List<Dzjy> dzjyList = dzjyMapper.selectAllDzjy(map);
-			model.addAttribute("dzjyList", dzjyList);
-			model.addAttribute("pager", pager);
-			return "mypages/dzjy";
+			List<String> topDatelist = dzjyMapper.selectTopTenDate();
+			//根据10个日期去拿到大宗交易的数据
+			List<Dzjy> topDzjyData = dzjyMapper.selectTopData(topDatelist);
+			//用于存交易金额
+			List<String> topDzjySum = new ArrayList<>();
+			List<String> addDzjySum = new ArrayList<>();
+			List<String> lowDzjySum = new ArrayList<>();
+			List<String> addRate = new ArrayList<>();
+			List<String> lowRate = new ArrayList<>();
+			for(int i = 0;i < topDatelist.size(); i++){
+				float sum = 0;
+				float addsum = 0;
+				float lowsum = 0;
+				String tempDate = topDatelist.get(i);
+				for(int j = 0 ; j < topDzjyData.size(); j ++){
+					if(tempDate.equals(topDzjyData.get(j).getTransactionDate())){
+						float temp1 = Float.parseFloat(topDzjyData.get(j).getDealNum());
+						float temp2 = Float.parseFloat(topDzjyData.get(j).getDealPrice());
+						float temp = temp1 * temp2;
+						sum += temp;
+						String s = "-";
+						Boolean utemp1 = (topDzjyData.get(j).getPremiumRate()).startsWith(s);
+						if(utemp1){
+							lowsum += temp;
+						}else {
+							addsum += temp;
+						}
+						topDzjyData.remove(j);
+						j--;
+					}else {
+						continue;
+					}
+				topDzjySum.add(String.valueOf(sum));
+				addDzjySum.add(String.valueOf(addsum));
+				lowDzjySum.add(String.valueOf(lowsum));
+				float add = addsum/sum;
+				float low = (1-add);
+				addRate.add(String.valueOf(add));
+				lowRate.add(String.valueOf(low));
+			}
+		}
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		Pager pager = new Pager(count, pageNum);
+		map.put("start", pager.getStart());
+		map.put("pagesize", pager.getPageSize());
+		List<Dzjy> dzjyList = dzjyMapper.selectAllDzjy(map);
+		
+		
+		//买方活跃营业部+所有数据
+		List<String> pursing = dzjyMapper.selectDepartmentPursing(topDatelist);
+		List<Dzjy> topTenPursing = dzjyMapper.selectTopTenDepartmentPursing(topDatelist);
+		//卖方活跃营业部
+		List<String> saling = dzjyMapper.selectDepartmentSale(topDatelist);
+		List<Dzjy> topTenSaling = dzjyMapper.selectTopTenDepartmentSale(topDatelist);
+	
+		//先统计、再计算前10个买方活跃营业部
+		List<Integer> purse = new ArrayList<>();
+		List<String> stockNum = new ArrayList<>();
+		List<Integer> stockSumPurse = new ArrayList<>();
+		List<Float> stockMuchPurse = new ArrayList<>();
+		Map<String, List<Float>> purseResult = new LinkedHashMap<>();
+		for(int i = 0 ;i < pursing.size(); i++){
+			int k1 = 0;//用于记录近10日活跃次数
+			int k2 = 0;//用于记录近10日股票成交数量
+			float k3 = 0;//用于记录近10日股票成交额
+			List<Float> all = new ArrayList<>();
+			for(int j = 0; j <topTenPursing.size();j++){
+				String temp1 = topTenPursing.get(j).getPurchasingDepartment();
+				if((pursing.get(i)).equals(temp1)){
+					k1++;
+					if(!stockNum.contains(topTenPursing.get(j).getStockId())){
+						stockNum.add(topTenPursing.get(j).getStockId());
+						k2++;
+					}
+					float temp2 = Float.parseFloat(topTenPursing.get(j).getDealNum());
+					float temp3 = Float.parseFloat(topTenPursing.get(j).getDealPrice());
+					k3 += temp2*temp3;
+					topTenPursing.remove(j);
+					j--;
+				}else{
+					continue;
+				}
+			}
+			purse.add(k1);
+			stockSumPurse.add(k2);
+			stockMuchPurse.add(k3);
+			all.add((float)k1);
+			all.add((float)k2);
+			all.add(k3);
+			purseResult.put(pursing.get(i),all);
+		}
+		//这里将map.entrySet()转换成list
+		List<Map.Entry<String,List<Float>>> llist = new ArrayList<Map.Entry<String,List<Float>>>(purseResult.entrySet());
+		  //然后通过比较器来实现排序
+        Collections.sort(llist,new Comparator<Map.Entry<String,List<Float>>>() {
+            //升序排序
+			@Override
+			public int compare(Entry<String, List<Float>> o1, Entry<String, List<Float>> o2) {
+				// TODO Auto-generated method stub
+				List<Float> s1 = o1.getValue();  
+	            List<Float> s2 = o2.getValue();
+				return (s2.get(0)).compareTo(s1.get(0));
+			}    
+        });
+       Map<String, List<Float>> mapResult1 = new LinkedHashMap<>();
+        for(int i =0; i < 15;i++){//15是首页输出个数
+        	mapResult1.put(llist.get(i).getKey(),llist.get(i).getValue());
+        }
+         
+		//先统计、再计算前10个卖方活跃营业部
+		List<Integer> sale = new ArrayList<>();
+		List<String> stockNumSale = new ArrayList<>();
+		List<Integer> stockSumSale = new ArrayList<>();
+		List<Float> stockMuchSale = new ArrayList<>();
+		Map<String, List<Float>> saleResult = new LinkedHashMap<String, List<Float>>();
+		for(int i = 0 ;i < saling.size(); i++){
+			int k1 = 0;//用于记录近10日活跃次数
+			int k2 = 0;//用于记录近10日股票成交数量
+			float k3 = 0;//用于记录近10日股票成交额
+			List<Float> all = new ArrayList<>();
+			for(int j = 0; j <topTenSaling.size();j++){
+				String temp1 = topTenSaling.get(j).getSalesDepartment();
+				if((saling.get(i)).equals(temp1)){
+					k1++;
+					if(!stockNumSale.contains(topTenSaling.get(j).getStockId())){
+						stockNumSale.add(topTenSaling.get(j).getStockId());
+						k2++;
+					}
+					float temp2 = Float.parseFloat(topTenSaling.get(j).getDealNum());
+					float temp3 = Float.parseFloat(topTenSaling.get(j).getDealPrice());
+					k3 += temp2*temp3;
+					topTenSaling.remove(j);
+					j--;
+				}else{
+					continue;
+				}
+			}
+			sale.add(k1);
+			stockSumSale.add(k2);
+			stockMuchSale.add(k3);
+			all.add((float)k1);
+			all.add((float)k2);
+			all.add(k3);
+			saleResult.put(saling.get(i),all);
+		}
+		//这里将map.entrySet()转换成list
+		List<Map.Entry<String,List<Float>>> list = new ArrayList<Map.Entry<String,List<Float>>>(saleResult.entrySet());
+		  //然后通过比较器来实现排序
+        Collections.sort(list,new Comparator<Map.Entry<String,List<Float>>>() {
+            //升序排序
+			@Override
+			public int compare(Entry<String, List<Float>> o1, Entry<String, List<Float>> o2) {
+				// TODO Auto-generated method stub
+				List<Float> s1 = o1.getValue();  
+	            List<Float> s2 = o2.getValue();
+				return (s2.get(0)).compareTo(s1.get(0));
+			}    
+        });
+       Map<String, List<Float>> mapResult2 = new LinkedHashMap<>();
+        for(int i =0; i < 15;i++){//15是首页输出个数
+        	mapResult2.put(list.get(i).getKey(),list.get(i).getValue());
+        }
+		//根据营业部名称去拿近10日成交股票金额(万)、股票多少支
+		model.addAttribute("topDatelist",topDatelist );
+		model.addAttribute("topDzjySum",topDzjySum );
+		model.addAttribute("addDzjySum",addDzjySum );
+		model.addAttribute("lowDzjySum",lowDzjySum );
+		model.addAttribute("addRate",addRate );
+		model.addAttribute("lowRate", lowRate);
+		model.addAttribute("dzjyList", dzjyList);
+		model.addAttribute("pager", pager);
+		model.addAttribute("mapResult2",mapResult2);
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("map2", mapResult2);
+		model.addAttribute("map2",jsonObject2);
+		model.addAttribute("mapResult1",mapResult1);
+		JSONObject jsonObject1 = new JSONObject();
+		jsonObject1.put("map1", mapResult1);
+		model.addAttribute("map1",jsonObject1);
+		return "mypages/dzjy";
+	}
+		
+		
+		//2017年12月7日新增  第一次生成图
+		@RequestMapping(value = "/dzjySum",produces="application/json;charset=UTF-8")
+		@ResponseBody
+		public  Map<Object,Object> getdzjySumGraph(HttpServletRequest req, Model model,HttpServletResponse rsp){
+			//首先拿到50个最近的日期
+			List<String> topDatelist = dzjyMapper.selectTopDzjyDate();
+			//根据50个日期去拿到大宗交易的数据
+			List<Dzjy> topDzjyData = dzjyMapper.selectTopData(topDatelist);
+			//用于存交易金额
+			List<String> topDzjySum = new ArrayList<>();
+			Map<String, String> map = new LinkedHashMap<>();
+			for(int i = 0;i < topDatelist.size(); i++){
+				float sum = 0;
+				String tempDate = topDatelist.get(i);
+				for(int j = 0 ; j < topDzjyData.size(); j ++){
+					if(tempDate.equals(topDzjyData.get(j).getTransactionDate())){
+						float temp1 = Float.parseFloat(topDzjyData.get(j).getDealNum());
+						float temp2 = Float.parseFloat(topDzjyData.get(j).getDealPrice());
+						sum += temp1 * temp2;
+						topDzjyData.remove(j);
+						j--;
+					}else {
+						continue;
+					}
+				}
+				topDzjySum.add(String.valueOf(sum));
+			}
+			Map<Object, Object> map2 = new LinkedHashMap<>();
+			map2.put("date", topDatelist);
+			map2.put("sumMap", topDzjySum);
+			System.out.println(map2);
+			return map2;
 		}
 		
-		//2017年12月1日------通过ajax请求具体某一个股票的大宗交易。。。。前台有问题，暂时不用
-		/*@RequestMapping(value = "/ajaxSelectStockDzjy",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
+		//2017年12月7日  异步生成图
+		@RequestMapping(value = "/ajaxSelectDzjyData",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
 		public void stockDzjy(Model model,HttpServletRequest req,HttpServletResponse rsp){
-			
-			String stockId = req.getParameter("stockId");		
-			List<Dzjy> DzjyList = dzjyMapper.selectStockDzjy(stockId);
-			System.out.println(DzjyList);
+		
+			String startDate = req.getParameter("startDate");		
+			String endDate = req.getParameter("endDate");	
+			List<String> topDatelist = dzjyMapper.ajaxSelectData(startDate, endDate);
+			//根据日期去拿到大宗交易的数据
+			List<Dzjy> topDzjyData = dzjyMapper.selectTopData(topDatelist);
+			//用于存交易金额
+			List<String> topDzjySum = new ArrayList<>();
+			Map<String, String> map = new LinkedHashMap<>();
+			for(int i = 0;i < topDatelist.size(); i++){
+				float sum = 0;
+				String tempDate = topDatelist.get(i);
+				for(int j = 0 ; j < topDzjyData.size(); j ++){
+					if(tempDate.equals(topDzjyData.get(j).getTransactionDate())){
+						float temp1 = Float.parseFloat(topDzjyData.get(j).getDealNum());
+						float temp2 = Float.parseFloat(topDzjyData.get(j).getDealPrice());
+						sum += temp1 * temp2;
+						topDzjyData.remove(j);
+						j--;
+					}else {
+						continue;
+					}
+				}
+				topDzjySum.add(String.valueOf(sum));
+			}
+			Map<Object, Object> map2 = new LinkedHashMap<>();
+			map2.put("date", topDatelist);
+			map2.put("sumMap", topDzjySum);
+			System.out.println(map2);
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("DzjyList", DzjyList);
+			jsonObject.put("map2", map2);
 			String result = JsonUtil.toJsonString(jsonObject);
 			System.out.println(result);
 			PrintWriter out;
@@ -748,7 +985,7 @@ public class StockController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
+		}
 		/**
 		 * 博客详情
 		 */

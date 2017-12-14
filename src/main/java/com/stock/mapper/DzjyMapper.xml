@@ -294,29 +294,80 @@
   	from dzjy
   	limit #{start}, #{pagesize}
   </select>
-  
    <!-- 于花蕾新增部分 2017年12月1日 -->
   <select id="selectAllDzjyCount" resultType="int">
   	select count(1)
   	from dzjy
   </select>
-  <!-- 17年12月1日 -->
-<!--   <select id="selectStockDzjy" parameterType="string" resultMap="BaseResultMap">
-  	select *
-  	from dzjy
-  	where transaction_date = #{date} and stock_id = #{stock_id}
-  </select> -->
-   <!-- 于花蕾新增 2017年12月2日 -->
-	<select id="selectDzjyDate" parameterType="string" resultType="string">
-		select distinct transaction_date
-		from dzjy
-		where stock_id = #{stock_id}
-		Order by transaction_date DESC
-	</select>
-	 <!-- 17年12月1日 -->
+  <!-- 于花蕾新增部分 2017年12月1日 -->
   <select id="selectStockDzjy" parameterType="string" resultMap="BaseResultMap">
   	select *
   	from dzjy
   	where stock_id = #{stock_id}
+  	order by transaction_date DESC
+  </select>
+  <!-- 于花蕾新增部分 2017年12月7日 -->
+  <select id="selectTopData" resultMap="BaseResultMap">
+  	select * 
+	from dzjy
+	where transaction_date in
+    <foreach collection="list" item="date" index="index" open="(" close=")" separator=",">
+        #{date} 
+    </foreach>
+  </select>
+  <select id="selectTopDzjyDate" parameterType="string" resultType="string">
+		select distinct transaction_date
+		from dzjy
+		Order by transaction_date DESC
+		limit 0,30
+  </select>
+ <!-- &lt;&gt;于花蕾新增部分 2017年12月7日   -->
+ <select id="ajaxSelectData" resultType="string">
+ 	select distinct transaction_date
+		from dzjy
+		where transaction_date &gt; #{startdate} and transaction_date &lt; #{enddate}
+		Order by transaction_date DESC
+ </select>
+ <select id="selectTopTenDate" parameterType="string" resultType="string">
+		select distinct transaction_date
+		from dzjy
+		Order by transaction_date DESC
+		limit 0,10
+  </select>
+   <!-- 于花蕾新增部分 2017年12月8日  -->
+   <select id="selectTopTenDepartmentSale" resultMap="BaseResultMap">
+		select purchasing_department,sales_department,deal_num,deal_price,stock_name,stock_id
+		from dzjy
+		where transaction_date in
+	    <foreach collection="list" item="date" index="index" open="(" close=")" separator=",">
+	        #{date} 
+	    </foreach>
+  </select>
+  <!-- 于花蕾新增部分 2017年12月8日  -->
+   <select id="selectDepartmentSale"  resultType="string">
+		select distinct sales_department
+		from dzjy
+		where transaction_date in
+	    <foreach collection="list" item="date" index="index" open="(" close=")" separator=",">
+	        #{date} 
+	    </foreach>
+  </select>
+   <!-- 于花蕾新增部分 2017年12月8日   -->
+   <select id="selectTopTenDepartmentPursing" resultMap="BaseResultMap">
+		select purchasing_department,sales_department,deal_num,deal_price,stock_name,stock_id
+		from dzjy
+		where transaction_date in
+	    <foreach collection="list" item="date" index="index" open="(" close=")" separator=",">
+	        #{date} 
+	    </foreach>
+  </select>
+  <!-- 于花蕾新增部分 2017年12月8日  -->
+  <select id="selectDepartmentPursing"  resultType="string">
+		select distinct purchasing_department
+		from dzjy
+		where transaction_date in
+	    <foreach collection="list" item="date" index="index" open="(" close=")" separator=",">
+	        #{date} 
+	    </foreach>
   </select>
 </mapper>

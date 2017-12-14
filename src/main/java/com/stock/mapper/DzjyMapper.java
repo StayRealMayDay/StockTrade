@@ -1,5 +1,6 @@
 package com.stock.mapper;
 
+import com.stock.pojo.Company;
 import com.stock.pojo.Dzjy;
 import com.stock.pojo.DzjyExample;
 
@@ -39,4 +40,20 @@ public interface DzjyMapper {
     List<Dzjy> selectStockDzjy(String stock_id);
     //于花蕾 新增 12月2日
     List<String> selectDzjyDate(String stockId); 
+    //于花蕾新增 12月7日
+    List<String> selectTopDzjyDate();
+    //12月7日
+    List<Dzjy> selectTopData(List<String> dates);
+    //12月7日
+    List<String> ajaxSelectData(@Param("startdate") String startdate,@Param("enddate") String enddate);
+    //12月7日
+    List<String> selectTopTenDate();
+    //12月8日
+    List<Dzjy> selectTopTenDepartmentSale(List<String> dates);
+    //12月8日
+    List<Dzjy> selectTopTenDepartmentPursing(List<String> dates);
+   //12月8ri 
+    List<String> selectDepartmentSale(List<String> dates);
+    //12月8日
+    List<String> selectDepartmentPursing(List<String> dates);
 }

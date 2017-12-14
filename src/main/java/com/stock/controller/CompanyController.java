@@ -37,9 +37,6 @@ import com.stock.mapper.StockTempMapper;
 import com.stock.mapper.StockholderBasicMapper;
 import com.stock.mapper.StockholderRelativeMapper;
 import com.stock.mapper.StockinfoMapper;
-
-import com.stock.mapper.StockDetailMapper;
-import com.stock.mapper.StockHolderNumberMapper;
 import com.stock.mapper.TopStockCirculationHolderMapper;
 import com.stock.mapper.TopStockHolderMapper;
 import com.stock.mapper.TotalShareStructureMapper;
@@ -62,9 +59,6 @@ import com.stock.pojo.Stockinfo;
 
 import com.stock.pojo.StockDetail;
 import com.stock.pojo.StockHolderNumber;
-import com.stock.pojo.StockholderBasic;
-import com.stock.pojo.StockholderRelative;
-import com.stock.pojo.Stockinfo;
 import com.stock.pojo.TopStockCirculationHolder;
 import com.stock.pojo.TopStockHolder;
 import com.stock.pojo.TotalShareStructure;
@@ -104,7 +98,7 @@ public class CompanyController {
 	RankandpredictMapper rankandpredictMapper;
 	@Autowired
 	StockTempMapper stockTempMapper;
-	
+	@Autowired
 	StockHolderNumberMapper stockHolderNumberMapper;
 	@Autowired
 	TopStockCirculationHolderMapper topStockCirculationMapper;
@@ -438,8 +432,7 @@ public class CompanyController {
 			Company company = companyMapper.selectCompanyByStockNum(stockNum);
 			Stockinfo stockinfo = stockinfoMapper.selectStockByCode(stockNum);
 			System.out.println(company);
-			List<StockHolderNumber> holderNumDetail = stockHolderNumberMapper.stock_holderDetail(stockNum);
-			
+			List<StockHolderNumber> holderNumDetail = stockHolderNumberMapper.stock_holderDetail(stockNum);	
 			List<String> holderDate = topStockCirculationMapper.topStockCircuDate(stockNum);
 			String date = holderDate.get(0);
 			List<TopStockCirculationHolder> topCircuList = topStockCirculationMapper.topStockDateOne(date,stockNum);
