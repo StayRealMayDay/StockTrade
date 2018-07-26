@@ -356,9 +356,33 @@
 	<!--于花蕾新增 2017年11月30日  -->
 	<select id="selectOutStock" parameterType="string" resultMap="BaseResultMap">
 		select 
-		stock_id,stock_held,stock_held_rate,change_before,holder_num,holder_change,stock_propotion_rate,
+		stock_id,stock_held,stock_held_rate,change_before,holder_num,holder_change,stock_propotion_rate,date,
 		real_increase,stock_type
 		from top_stock_holder
-		where date = #{date} and institution_name = #{institution_name}
+		where date = #{date} and institution_name like "%"#{institution_name}"%"
 	</select>
+	
+	<!--于花蕾新增 2017年12月24日  -->
+	<select id="selectInvestionAllTwo" parameterType="string" resultMap="BaseResultMap">
+		select 
+		stock_id,stock_held,stock_held_rate,change_before,holder_num,holder_change,stock_propotion_rate,date,
+		real_increase,stock_type
+		from top_stock_holder
+		where institution_name like "%"#{institution_name}"%"
+	</select>
+	
+	<!-- 于花蕾新增 2017年11月28日 -->
+	<select id="topSomeDate" parameterType="string" resultType="string">
+		select distinct date
+		from top_stock_holder
+		where institution_name like "%"#{institution_name}"%"
+		Order by date
+	</select>
+	
+	<!-- 于花蕾 测数据 -->
+	<select id="formalTest" parameterType="string" resultType="string">
+		select distinct stock_id
+		from top_stock_holder
+	</select>
+	
 </mapper>

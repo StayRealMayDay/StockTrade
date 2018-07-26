@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.LonghubangMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Longhubang" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="net_purchase" property="netPurchase" jdbcType="VARCHAR" />
+    <result column="net_totalTurnover" property="netTotalturnover" jdbcType="VARCHAR" />
+    <result column="close_price" property="closePrice" jdbcType="VARCHAR" />
+    <result column="quote_change" property="quoteChange" jdbcType="VARCHAR" />
+    <result column="list_reason" property="listReason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, date, stock_id, stock_name, net_purchase, net_totalTurnover, close_price, quote_change, 
+    list_reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.LonghubangExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from longhubang
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from longhubang
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from longhubang
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.LonghubangExample" >
+    delete from longhubang
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Longhubang" >
+    insert into longhubang (id, date, stock_id, 
+      stock_name, net_purchase, net_totalTurnover, 
+      close_price, quote_change, list_reason
+      )
+    values (#{id,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{stockId,jdbcType=VARCHAR}, 
+      #{stockName,jdbcType=VARCHAR}, #{netPurchase,jdbcType=VARCHAR}, #{netTotalturnover,jdbcType=VARCHAR}, 
+      #{closePrice,jdbcType=VARCHAR}, #{quoteChange,jdbcType=VARCHAR}, #{listReason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Longhubang" >
+    insert into longhubang
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="netPurchase != null" >
+        net_purchase,
+      </if>
+      <if test="netTotalturnover != null" >
+        net_totalTurnover,
+      </if>
+      <if test="closePrice != null" >
+        close_price,
+      </if>
+      <if test="quoteChange != null" >
+        quote_change,
+      </if>
+      <if test="listReason != null" >
+        list_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="netPurchase != null" >
+        #{netPurchase,jdbcType=VARCHAR},
+      </if>
+      <if test="netTotalturnover != null" >
+        #{netTotalturnover,jdbcType=VARCHAR},
+      </if>
+      <if test="closePrice != null" >
+        #{closePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="quoteChange != null" >
+        #{quoteChange,jdbcType=VARCHAR},
+      </if>
+      <if test="listReason != null" >
+        #{listReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.LonghubangExample" resultType="java.lang.Integer" >
+    select count(*) from longhubang
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update longhubang
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netPurchase != null" >
+        net_purchase = #{record.netPurchase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netTotalturnover != null" >
+        net_totalTurnover = #{record.netTotalturnover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closePrice != null" >
+        close_price = #{record.closePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quoteChange != null" >
+        quote_change = #{record.quoteChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.listReason != null" >
+        list_reason = #{record.listReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update longhubang
+    set id = #{record.id,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      net_purchase = #{record.netPurchase,jdbcType=VARCHAR},
+      net_totalTurnover = #{record.netTotalturnover,jdbcType=VARCHAR},
+      close_price = #{record.closePrice,jdbcType=VARCHAR},
+      quote_change = #{record.quoteChange,jdbcType=VARCHAR},
+      list_reason = #{record.listReason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Longhubang" >
+    update longhubang
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="netPurchase != null" >
+        net_purchase = #{netPurchase,jdbcType=VARCHAR},
+      </if>
+      <if test="netTotalturnover != null" >
+        net_totalTurnover = #{netTotalturnover,jdbcType=VARCHAR},
+      </if>
+      <if test="closePrice != null" >
+        close_price = #{closePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="quoteChange != null" >
+        quote_change = #{quoteChange,jdbcType=VARCHAR},
+      </if>
+      <if test="listReason != null" >
+        list_reason = #{listReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Longhubang" >
+    update longhubang
+    set date = #{date,jdbcType=VARCHAR},
+      stock_id = #{stockId,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      net_purchase = #{netPurchase,jdbcType=VARCHAR},
+      net_totalTurnover = #{netTotalturnover,jdbcType=VARCHAR},
+      close_price = #{closePrice,jdbcType=VARCHAR},
+      quote_change = #{quoteChange,jdbcType=VARCHAR},
+      list_reason = #{listReason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 12月１４日　取出所有的日期 -->
+  <select id="selectAllDate" resultType="string">
+  	select distinct date
+  	from longhubang
+  	order by date DESC
+  </select>
+   <!-- 12月１４日　默认情况下只取出最新一个日期的内容 -->
+  <select id="selectSomeDateData" resultMap="BaseResultMap">
+  	select *
+  	from longhubang
+  	where date = #{date}
+  	order by date DESC
+  </select>
+  <!-- 12月15日 -->
+  <select id="selectDataOfThree" resultMap="BaseResultMap">
+ 	select *
+	from longhubang
+	where date in
+	<foreach collection="list" item="date" index="index" open="(" close=")" separator=",">
+       #{date} 
+   </foreach>
+ </select>
+</mapper>

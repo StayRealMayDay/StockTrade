@@ -35,4 +35,11 @@ public interface TopStockHolderMapper {
     List<TopStockHolder> topStockDateTwo(@Param("date") String date,@Param("stock_id") String stock_id);
     
     List<TopStockHolder> selectOutStock(@Param("date") String date,@Param("institution_name") String institution_name);
+    //12月24日
+    List<TopStockHolder> selectInvestionAllTwo(String institution_name);
+    
+    //12月28
+    List<String> topSomeDate(String institution_name);
+    //测试用的部分
+    List<String> formalTest();
 }

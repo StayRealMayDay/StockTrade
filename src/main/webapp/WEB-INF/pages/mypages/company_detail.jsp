@@ -575,7 +575,6 @@ jQuery(document).ready(function($) {
 												<!-- 词云 -->
 												<script type="text/javascript" src="js/script.js"></script>
 												<div id="tagbox" style="width:50%;margin-left:160px">
-
 													<ul>
 														<c:forEach items="${concepts}" var="concepts">
 															<li><a href="relationConcept?conc=${concepts}&pageNum=1">${concepts }</a></li>

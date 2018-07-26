@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.StocklirunMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Stocklirun" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="allComeIn" property="allcomein" jdbcType="VARCHAR" />
+    <result column="comeIn" property="comein" jdbcType="VARCHAR" />
+    <result column="allYingYeChengBen" property="allyingyechengben" jdbcType="VARCHAR" />
+    <result column="yingYeChengBen" property="yingyechengben" jdbcType="VARCHAR" />
+    <result column="allLiRun" property="alllirun" jdbcType="VARCHAR" />
+    <result column="jingLiRun" property="jinglirun" jdbcType="VARCHAR" />
+    <result column="eachShouYi" property="eachshouyi" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_id, date, type, allComeIn, comeIn, allYingYeChengBen, yingYeChengBen, allLiRun, 
+    jingLiRun, eachShouYi
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.StocklirunExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stocklirun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stocklirun
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stocklirun
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.StocklirunExample" >
+    delete from stocklirun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Stocklirun" >
+    insert into stocklirun (id, stock_id, date, 
+      type, allComeIn, comeIn, 
+      allYingYeChengBen, yingYeChengBen, allLiRun, 
+      jingLiRun, eachShouYi)
+    values (#{id,jdbcType=INTEGER}, #{stockId,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{allcomein,jdbcType=VARCHAR}, #{comein,jdbcType=VARCHAR}, 
+      #{allyingyechengben,jdbcType=VARCHAR}, #{yingyechengben,jdbcType=VARCHAR}, #{alllirun,jdbcType=VARCHAR}, 
+      #{jinglirun,jdbcType=VARCHAR}, #{eachshouyi,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Stocklirun" >
+    insert into stocklirun
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="allcomein != null" >
+        allComeIn,
+      </if>
+      <if test="comein != null" >
+        comeIn,
+      </if>
+      <if test="allyingyechengben != null" >
+        allYingYeChengBen,
+      </if>
+      <if test="yingyechengben != null" >
+        yingYeChengBen,
+      </if>
+      <if test="alllirun != null" >
+        allLiRun,
+      </if>
+      <if test="jinglirun != null" >
+        jingLiRun,
+      </if>
+      <if test="eachshouyi != null" >
+        eachShouYi,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="allcomein != null" >
+        #{allcomein,jdbcType=VARCHAR},
+      </if>
+      <if test="comein != null" >
+        #{comein,jdbcType=VARCHAR},
+      </if>
+      <if test="allyingyechengben != null" >
+        #{allyingyechengben,jdbcType=VARCHAR},
+      </if>
+      <if test="yingyechengben != null" >
+        #{yingyechengben,jdbcType=VARCHAR},
+      </if>
+      <if test="alllirun != null" >
+        #{alllirun,jdbcType=VARCHAR},
+      </if>
+      <if test="jinglirun != null" >
+        #{jinglirun,jdbcType=VARCHAR},
+      </if>
+      <if test="eachshouyi != null" >
+        #{eachshouyi,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.StocklirunExample" resultType="java.lang.Integer" >
+    select count(*) from stocklirun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update stocklirun
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allcomein != null" >
+        allComeIn = #{record.allcomein,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comein != null" >
+        comeIn = #{record.comein,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allyingyechengben != null" >
+        allYingYeChengBen = #{record.allyingyechengben,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yingyechengben != null" >
+        yingYeChengBen = #{record.yingyechengben,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alllirun != null" >
+        allLiRun = #{record.alllirun,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jinglirun != null" >
+        jingLiRun = #{record.jinglirun,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eachshouyi != null" >
+        eachShouYi = #{record.eachshouyi,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update stocklirun
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      allComeIn = #{record.allcomein,jdbcType=VARCHAR},
+      comeIn = #{record.comein,jdbcType=VARCHAR},
+      allYingYeChengBen = #{record.allyingyechengben,jdbcType=VARCHAR},
+      yingYeChengBen = #{record.yingyechengben,jdbcType=VARCHAR},
+      allLiRun = #{record.alllirun,jdbcType=VARCHAR},
+      jingLiRun = #{record.jinglirun,jdbcType=VARCHAR},
+      eachShouYi = #{record.eachshouyi,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Stocklirun" >
+    update stocklirun
+    <set >
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="allcomein != null" >
+        allComeIn = #{allcomein,jdbcType=VARCHAR},
+      </if>
+      <if test="comein != null" >
+        comeIn = #{comein,jdbcType=VARCHAR},
+      </if>
+      <if test="allyingyechengben != null" >
+        allYingYeChengBen = #{allyingyechengben,jdbcType=VARCHAR},
+      </if>
+      <if test="yingyechengben != null" >
+        yingYeChengBen = #{yingyechengben,jdbcType=VARCHAR},
+      </if>
+      <if test="alllirun != null" >
+        allLiRun = #{alllirun,jdbcType=VARCHAR},
+      </if>
+      <if test="jinglirun != null" >
+        jingLiRun = #{jinglirun,jdbcType=VARCHAR},
+      </if>
+      <if test="eachshouyi != null" >
+        eachShouYi = #{eachshouyi,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Stocklirun" >
+    update stocklirun
+    set stock_id = #{stockId,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      allComeIn = #{allcomein,jdbcType=VARCHAR},
+      comeIn = #{comein,jdbcType=VARCHAR},
+      allYingYeChengBen = #{allyingyechengben,jdbcType=VARCHAR},
+      yingYeChengBen = #{yingyechengben,jdbcType=VARCHAR},
+      allLiRun = #{alllirun,jdbcType=VARCHAR},
+      jingLiRun = #{jinglirun,jdbcType=VARCHAR},
+      eachShouYi = #{eachshouyi,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="stockLiRun" parameterType="string" resultMap="BaseResultMap">
+  	select * from stocklirun
+  	where stock_id = #{stock_id} and type = 'A'
+  	order by date ASC
+  </select>
+</mapper>

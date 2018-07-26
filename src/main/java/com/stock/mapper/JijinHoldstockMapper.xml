@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.JijinHoldstockMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.JijinHoldstock" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="dateStop" property="datestop" jdbcType="VARCHAR" />
+    <result column="jiJin_id" property="jijinId" jdbcType="VARCHAR" />
+    <result column="jiJin_name" property="jijinName" jdbcType="VARCHAR" />
+    <result column="guanliCompany" property="guanlicompany" jdbcType="VARCHAR" />
+    <result column="holdStockNum" property="holdstocknum" jdbcType="VARCHAR" />
+    <result column="holdeStockRate" property="holdestockrate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_id, dateStop, jiJin_id, jiJin_name, guanliCompany, holdStockNum, holdeStockRate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.JijinHoldstockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jiJin_holdStock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jiJin_holdStock
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jiJin_holdStock
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.JijinHoldstockExample" >
+    delete from jiJin_holdStock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.JijinHoldstock" >
+    insert into jiJin_holdStock (id, stock_id, dateStop, 
+      jiJin_id, jiJin_name, guanliCompany, 
+      holdStockNum, holdeStockRate)
+    values (#{id,jdbcType=INTEGER}, #{stockId,jdbcType=VARCHAR}, #{datestop,jdbcType=VARCHAR}, 
+      #{jijinId,jdbcType=VARCHAR}, #{jijinName,jdbcType=VARCHAR}, #{guanlicompany,jdbcType=VARCHAR}, 
+      #{holdstocknum,jdbcType=VARCHAR}, #{holdestockrate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.JijinHoldstock" >
+    insert into jiJin_holdStock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="datestop != null" >
+        dateStop,
+      </if>
+      <if test="jijinId != null" >
+        jiJin_id,
+      </if>
+      <if test="jijinName != null" >
+        jiJin_name,
+      </if>
+      <if test="guanlicompany != null" >
+        guanliCompany,
+      </if>
+      <if test="holdstocknum != null" >
+        holdStockNum,
+      </if>
+      <if test="holdestockrate != null" >
+        holdeStockRate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="datestop != null" >
+        #{datestop,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinId != null" >
+        #{jijinId,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinName != null" >
+        #{jijinName,jdbcType=VARCHAR},
+      </if>
+      <if test="guanlicompany != null" >
+        #{guanlicompany,jdbcType=VARCHAR},
+      </if>
+      <if test="holdstocknum != null" >
+        #{holdstocknum,jdbcType=VARCHAR},
+      </if>
+      <if test="holdestockrate != null" >
+        #{holdestockrate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.JijinHoldstockExample" resultType="java.lang.Integer" >
+    select count(*) from jiJin_holdStock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jiJin_holdStock
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datestop != null" >
+        dateStop = #{record.datestop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jijinId != null" >
+        jiJin_id = #{record.jijinId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jijinName != null" >
+        jiJin_name = #{record.jijinName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guanlicompany != null" >
+        guanliCompany = #{record.guanlicompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holdstocknum != null" >
+        holdStockNum = #{record.holdstocknum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holdestockrate != null" >
+        holdeStockRate = #{record.holdestockrate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jiJin_holdStock
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      dateStop = #{record.datestop,jdbcType=VARCHAR},
+      jiJin_id = #{record.jijinId,jdbcType=VARCHAR},
+      jiJin_name = #{record.jijinName,jdbcType=VARCHAR},
+      guanliCompany = #{record.guanlicompany,jdbcType=VARCHAR},
+      holdStockNum = #{record.holdstocknum,jdbcType=VARCHAR},
+      holdeStockRate = #{record.holdestockrate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.JijinHoldstock" >
+    update jiJin_holdStock
+    <set >
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="datestop != null" >
+        dateStop = #{datestop,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinId != null" >
+        jiJin_id = #{jijinId,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinName != null" >
+        jiJin_name = #{jijinName,jdbcType=VARCHAR},
+      </if>
+      <if test="guanlicompany != null" >
+        guanliCompany = #{guanlicompany,jdbcType=VARCHAR},
+      </if>
+      <if test="holdstocknum != null" >
+        holdStockNum = #{holdstocknum,jdbcType=VARCHAR},
+      </if>
+      <if test="holdestockrate != null" >
+        holdeStockRate = #{holdestockrate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.JijinHoldstock" >
+    update jiJin_holdStock
+    set stock_id = #{stockId,jdbcType=VARCHAR},
+      dateStop = #{datestop,jdbcType=VARCHAR},
+      jiJin_id = #{jijinId,jdbcType=VARCHAR},
+      jiJin_name = #{jijinName,jdbcType=VARCHAR},
+      guanliCompany = #{guanlicompany,jdbcType=VARCHAR},
+      holdStockNum = #{holdstocknum,jdbcType=VARCHAR},
+      holdeStockRate = #{holdestockrate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectJiJinName" resultType="string">
+  	select distinct jiJin_name 
+  	from jiJin_holdStock
+  </select>
+  
+</mapper>

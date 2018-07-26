@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.NewtopcirculationMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Newtopcirculation" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="stock_num" property="stockNum" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="stockHolderName" property="stockholdername" jdbcType="VARCHAR" />
+    <result column="ratio" property="ratio" jdbcType="VARCHAR" />
+    <result column="nowHaving" property="nowhaving" jdbcType="VARCHAR" />
+    <result column="changeBefore" property="changebefore" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="jiJin_id" property="jijinId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_num, date, stockHolderName, ratio, nowHaving, changeBefore, time, jiJin_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.NewtopcirculationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from newtopcirculation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from newtopcirculation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from newtopcirculation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.NewtopcirculationExample" >
+    delete from newtopcirculation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Newtopcirculation" >
+    insert into newtopcirculation (id, stock_num, date, 
+      stockHolderName, ratio, nowHaving, 
+      changeBefore, time, jiJin_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{stockNum,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{stockholdername,jdbcType=VARCHAR}, #{ratio,jdbcType=VARCHAR}, #{nowhaving,jdbcType=VARCHAR}, 
+      #{changebefore,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{jijinId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Newtopcirculation" >
+    insert into newtopcirculation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="stockholdername != null" >
+        stockHolderName,
+      </if>
+      <if test="ratio != null" >
+        ratio,
+      </if>
+      <if test="nowhaving != null" >
+        nowHaving,
+      </if>
+      <if test="changebefore != null" >
+        changeBefore,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="jijinId != null" >
+        jiJin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholdername != null" >
+        #{stockholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null" >
+        #{ratio,jdbcType=VARCHAR},
+      </if>
+      <if test="nowhaving != null" >
+        #{nowhaving,jdbcType=VARCHAR},
+      </if>
+      <if test="changebefore != null" >
+        #{changebefore,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinId != null" >
+        #{jijinId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.NewtopcirculationExample" resultType="java.lang.Integer" >
+    select count(*) from newtopcirculation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update newtopcirculation
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockNum != null" >
+        stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockholdername != null" >
+        stockHolderName = #{record.stockholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ratio != null" >
+        ratio = #{record.ratio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nowhaving != null" >
+        nowHaving = #{record.nowhaving,jdbcType=VARCHAR},
+      </if>
+      <if test="record.changebefore != null" >
+        changeBefore = #{record.changebefore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jijinId != null" >
+        jiJin_id = #{record.jijinId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update newtopcirculation
+    set id = #{record.id,jdbcType=VARCHAR},
+      stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=VARCHAR},
+      stockHolderName = #{record.stockholdername,jdbcType=VARCHAR},
+      ratio = #{record.ratio,jdbcType=VARCHAR},
+      nowHaving = #{record.nowhaving,jdbcType=VARCHAR},
+      changeBefore = #{record.changebefore,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      jiJin_id = #{record.jijinId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Newtopcirculation" >
+    update newtopcirculation
+    <set >
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholdername != null" >
+        stockHolderName = #{stockholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null" >
+        ratio = #{ratio,jdbcType=VARCHAR},
+      </if>
+      <if test="nowhaving != null" >
+        nowHaving = #{nowhaving,jdbcType=VARCHAR},
+      </if>
+      <if test="changebefore != null" >
+        changeBefore = #{changebefore,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinId != null" >
+        jiJin_id = #{jijinId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Newtopcirculation" >
+    update newtopcirculation
+    set stock_num = #{stockNum,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      stockHolderName = #{stockholdername,jdbcType=VARCHAR},
+      ratio = #{ratio,jdbcType=VARCHAR},
+      nowHaving = #{nowhaving,jdbcType=VARCHAR},
+      changeBefore = #{changebefore,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      jiJin_id = #{jijinId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+    <!-- 取出一个股东相关的所有日期 -->
+  <!-- 于花蕾 2017年12月24 -->
+	<select id="topNewCircuDate" parameterType="string" resultType="string">
+		select distinct date
+		from newtopcirculation
+		where stockHolderName like "%"#{institution_name}"%"
+		Order by date
+	</select>
+	<!--于花蕾新增 2017年11月30日  -->
+	<select id="selectNewCircuStock" parameterType="string" resultMap="BaseResultMap">
+		select 
+		stock_num,ratio,nowHaving,changeBefore,date
+		from newtopcirculation
+		where date = #{date} and stockHolderName like "%"#{institution_name}"%"
+	</select>
+	
+	<select id="txtGenerationOne" resultType="string">
+		select distinct stockHolderName 
+		from newtopcirculation
+		where jiJin_id = '0'
+	</select>
+	
+	<select id="stockerHaveJiJinId" resultType="string">
+		select distinct jiJin_id 
+		from newtopcirculation
+		where jiJin_id &lt;&gt; '0'
+	</select>
+	
+	
+	<select id="byJiJinIdFindStockNumDe" resultType="string">
+		select stock_num from newtopcirculation
+		where jiJin_id = #{jiJinId}
+	</select>
+	
+	<select id="byJiJinIdAndYearFindStockNumDe" resultType="string">
+		select stock_num from newtopcirculation
+		where jiJin_id = #{jiJinId} and date like '%${year}%'
+	</select>
+	
+	
+	<select id="byJiJinIdFindStockNum" resultType="string">
+		select distinct stock_num from newtopcirculation
+		where jiJin_id = #{jiJinId}
+	</select>
+		
+	<select id="byJiJinIdAndYearFindStockNum" resultType="string">
+		select distinct stock_num from newtopcirculation
+		where jiJin_id = #{jiJinId} and date like '%${year}%'
+	</select>
+	
+	<select id="txtGenerationTwo" resultType="string">
+		select stock_num from newtopcirculation
+		where stockHolderName = #{institution_name} and jiJin_id = '0'
+	</select>
+	<!-- 清洗数据 -->
+	<update id="uniformJiJinName" parameterType="string">
+		update newtopcirculation
+		set  jiJin_id= #{jiJinId,jdbcType=VARCHAR}
+		where stockHolderName like '%${institution_name}%' and  INSTR(RIGHT(stockHolderName,8),'基金')>0
+	</update>
+  	
+   <select id="stockNum" resultType="string">
+  	select distinct stock_num
+  	from newtopcirculation
+  </select>
+  
+  <select id="jiJindate_TouZi"  parameterType="string" resultType="string">
+  	select distinct date
+  	from newtopcirculation
+  	where jiJin_id = #{jiJinId}
+  	Order by date
+  </select>
+  
+   <select id="jiJinYearAddId"  parameterType="string" resultMap="BaseResultMap">
+  	select *
+  	from newtopcirculation
+  	where jiJin_id = #{jiJinId} and date like '%${date}%'
+  </select>
+  
+  
+  <!-- 关于非基金 -->
+    <select id="notJiJindate_TouZi"  parameterType="string" resultType="string">
+  	select distinct date
+  	from newtopcirculation
+  	where  stockHolderName= #{stockHolder}
+  	Order by date
+  </select>
+  
+  <select id="byNotJiJinIdFindStockNumDe" resultType="string">
+	select stock_num from newtopcirculation
+	where stockHolderName= #{stockHolder}
+  </select>
+  
+  <select id="byNotJiJinIdFindStockNum" resultType="string">
+		select distinct stock_num from newtopcirculation
+		where stockHolderName= #{stockHolder}
+</select>
+  
+   <select id="selectStockNum" resultType="string">
+		select distinct stock_num from newtopcirculation
+	</select>
+  <select id="topNewCircuDateByNum" parameterType="string" resultType="string">
+		select distinct date
+		from newtopcirculation
+		where stock_num like "%"#{stock_num}"%"
+		Order by date
+	</select>
+  
+</mapper>

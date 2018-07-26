@@ -370,4 +370,25 @@
 	        #{date} 
 	    </foreach>
   </select>
+  <!-- 于花蕾新增部分 2017年12月14日  -->
+  <select id="selectDepartmentPur"  resultType="string">
+	select distinct purchasing_department
+	from dzjy
+  </select>
+  <!-- 于花蕾新增部分 2017年12月14日  -->
+  <select id="selectDepartPartOne"  resultMap="BaseResultMap">
+	select *
+	from dzjy
+	where purchasing_department like "%"#{departmentLike}"%"
+	order by transaction_date desc
+	limit 0,20
+  </select>
+  <!-- 于花蕾新增部分 2017年12月14日  -->
+   <select id="selectDepartPartTwo" resultMap="BaseResultMap">
+	select *
+	from dzjy
+	where sales_department like "%"#{departmentLike}"%"
+	order by transaction_date DESC
+	limit 0,20
+  </select>
 </mapper>

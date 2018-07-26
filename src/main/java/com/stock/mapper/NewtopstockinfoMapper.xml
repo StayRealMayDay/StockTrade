@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.NewtopstockinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Newtopstockinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_num" property="stockNum" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_eng" property="companyEng" jdbcType="VARCHAR" />
+    <result column="industry_id" property="industryId" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="chengLi_day" property="chengliDay" jdbcType="VARCHAR" />
+    <result column="shangshi_day" property="shangshiDay" jdbcType="VARCHAR" />
+    <result column="faxing_Price" property="faxingPrice" jdbcType="VARCHAR" />
+    <result column="faxing_Num" property="faxingNum" jdbcType="VARCHAR" />
+    <result column="faxing_Day" property="faxingDay" jdbcType="VARCHAR" />
+    <result column="shichang_Type" property="shichangType" jdbcType="VARCHAR" />
+    <result column="faxing_yijia" property="faxingYijia" jdbcType="VARCHAR" />
+    <result column="company_huodong" property="companyHuodong" jdbcType="VARCHAR" />
+    <result column="menLei" property="menlei" jdbcType="VARCHAR" />
+    <result column="chengji_Year" property="chengjiYear" jdbcType="VARCHAR" />
+    <result column="shangshi_Year" property="shangshiYear" jdbcType="VARCHAR" />
+    <result column="company_area" property="companyArea" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_num, stock_name, company_name, company_eng, industry_id, industry, chengLi_day, 
+    shangshi_day, faxing_Price, faxing_Num, faxing_Day, shichang_Type, faxing_yijia, 
+    company_huodong, menLei, chengji_Year, shangshi_Year, company_area
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.NewtopstockinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from newtopStockInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from newtopStockInfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from newtopStockInfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.NewtopstockinfoExample" >
+    delete from newtopStockInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Newtopstockinfo" >
+    insert into newtopStockInfo (id, stock_num, stock_name, 
+      company_name, company_eng, industry_id, 
+      industry, chengLi_day, shangshi_day, 
+      faxing_Price, faxing_Num, faxing_Day, 
+      shichang_Type, faxing_yijia, company_huodong, 
+      menLei, chengji_Year, shangshi_Year, 
+      company_area)
+    values (#{id,jdbcType=INTEGER}, #{stockNum,jdbcType=VARCHAR}, #{stockName,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyEng,jdbcType=VARCHAR}, #{industryId,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{chengliDay,jdbcType=VARCHAR}, #{shangshiDay,jdbcType=VARCHAR}, 
+      #{faxingPrice,jdbcType=VARCHAR}, #{faxingNum,jdbcType=VARCHAR}, #{faxingDay,jdbcType=VARCHAR}, 
+      #{shichangType,jdbcType=VARCHAR}, #{faxingYijia,jdbcType=VARCHAR}, #{companyHuodong,jdbcType=VARCHAR}, 
+      #{menlei,jdbcType=VARCHAR}, #{chengjiYear,jdbcType=VARCHAR}, #{shangshiYear,jdbcType=VARCHAR}, 
+      #{companyArea,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Newtopstockinfo" >
+    insert into newtopStockInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyEng != null" >
+        company_eng,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="chengliDay != null" >
+        chengLi_day,
+      </if>
+      <if test="shangshiDay != null" >
+        shangshi_day,
+      </if>
+      <if test="faxingPrice != null" >
+        faxing_Price,
+      </if>
+      <if test="faxingNum != null" >
+        faxing_Num,
+      </if>
+      <if test="faxingDay != null" >
+        faxing_Day,
+      </if>
+      <if test="shichangType != null" >
+        shichang_Type,
+      </if>
+      <if test="faxingYijia != null" >
+        faxing_yijia,
+      </if>
+      <if test="companyHuodong != null" >
+        company_huodong,
+      </if>
+      <if test="menlei != null" >
+        menLei,
+      </if>
+      <if test="chengjiYear != null" >
+        chengji_Year,
+      </if>
+      <if test="shangshiYear != null" >
+        shangshi_Year,
+      </if>
+      <if test="companyArea != null" >
+        company_area,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEng != null" >
+        #{companyEng,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="chengliDay != null" >
+        #{chengliDay,jdbcType=VARCHAR},
+      </if>
+      <if test="shangshiDay != null" >
+        #{shangshiDay,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingPrice != null" >
+        #{faxingPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingNum != null" >
+        #{faxingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingDay != null" >
+        #{faxingDay,jdbcType=VARCHAR},
+      </if>
+      <if test="shichangType != null" >
+        #{shichangType,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingYijia != null" >
+        #{faxingYijia,jdbcType=VARCHAR},
+      </if>
+      <if test="companyHuodong != null" >
+        #{companyHuodong,jdbcType=VARCHAR},
+      </if>
+      <if test="menlei != null" >
+        #{menlei,jdbcType=VARCHAR},
+      </if>
+      <if test="chengjiYear != null" >
+        #{chengjiYear,jdbcType=VARCHAR},
+      </if>
+      <if test="shangshiYear != null" >
+        #{shangshiYear,jdbcType=VARCHAR},
+      </if>
+      <if test="companyArea != null" >
+        #{companyArea,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.NewtopstockinfoExample" resultType="java.lang.Integer" >
+    select count(*) from newtopStockInfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update newtopStockInfo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockNum != null" >
+        stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockName != null" >
+        stock_name = #{record.stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyEng != null" >
+        company_eng = #{record.companyEng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryId != null" >
+        industry_id = #{record.industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        industry = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chengliDay != null" >
+        chengLi_day = #{record.chengliDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shangshiDay != null" >
+        shangshi_day = #{record.shangshiDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faxingPrice != null" >
+        faxing_Price = #{record.faxingPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faxingNum != null" >
+        faxing_Num = #{record.faxingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faxingDay != null" >
+        faxing_Day = #{record.faxingDay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shichangType != null" >
+        shichang_Type = #{record.shichangType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faxingYijia != null" >
+        faxing_yijia = #{record.faxingYijia,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyHuodong != null" >
+        company_huodong = #{record.companyHuodong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menlei != null" >
+        menLei = #{record.menlei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chengjiYear != null" >
+        chengji_Year = #{record.chengjiYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shangshiYear != null" >
+        shangshi_Year = #{record.shangshiYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyArea != null" >
+        company_area = #{record.companyArea,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update newtopStockInfo
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      stock_name = #{record.stockName,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_eng = #{record.companyEng,jdbcType=VARCHAR},
+      industry_id = #{record.industryId,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR},
+      chengLi_day = #{record.chengliDay,jdbcType=VARCHAR},
+      shangshi_day = #{record.shangshiDay,jdbcType=VARCHAR},
+      faxing_Price = #{record.faxingPrice,jdbcType=VARCHAR},
+      faxing_Num = #{record.faxingNum,jdbcType=VARCHAR},
+      faxing_Day = #{record.faxingDay,jdbcType=VARCHAR},
+      shichang_Type = #{record.shichangType,jdbcType=VARCHAR},
+      faxing_yijia = #{record.faxingYijia,jdbcType=VARCHAR},
+      company_huodong = #{record.companyHuodong,jdbcType=VARCHAR},
+      menLei = #{record.menlei,jdbcType=VARCHAR},
+      chengji_Year = #{record.chengjiYear,jdbcType=VARCHAR},
+      shangshi_Year = #{record.shangshiYear,jdbcType=VARCHAR},
+      company_area = #{record.companyArea,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Newtopstockinfo" >
+    update newtopStockInfo
+    <set >
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEng != null" >
+        company_eng = #{companyEng,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        industry_id = #{industryId,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="chengliDay != null" >
+        chengLi_day = #{chengliDay,jdbcType=VARCHAR},
+      </if>
+      <if test="shangshiDay != null" >
+        shangshi_day = #{shangshiDay,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingPrice != null" >
+        faxing_Price = #{faxingPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingNum != null" >
+        faxing_Num = #{faxingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingDay != null" >
+        faxing_Day = #{faxingDay,jdbcType=VARCHAR},
+      </if>
+      <if test="shichangType != null" >
+        shichang_Type = #{shichangType,jdbcType=VARCHAR},
+      </if>
+      <if test="faxingYijia != null" >
+        faxing_yijia = #{faxingYijia,jdbcType=VARCHAR},
+      </if>
+      <if test="companyHuodong != null" >
+        company_huodong = #{companyHuodong,jdbcType=VARCHAR},
+      </if>
+      <if test="menlei != null" >
+        menLei = #{menlei,jdbcType=VARCHAR},
+      </if>
+      <if test="chengjiYear != null" >
+        chengji_Year = #{chengjiYear,jdbcType=VARCHAR},
+      </if>
+      <if test="shangshiYear != null" >
+        shangshi_Year = #{shangshiYear,jdbcType=VARCHAR},
+      </if>
+      <if test="companyArea != null" >
+        company_area = #{companyArea,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Newtopstockinfo" >
+    update newtopStockInfo
+    set stock_num = #{stockNum,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_eng = #{companyEng,jdbcType=VARCHAR},
+      industry_id = #{industryId,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      chengLi_day = #{chengliDay,jdbcType=VARCHAR},
+      shangshi_day = #{shangshiDay,jdbcType=VARCHAR},
+      faxing_Price = #{faxingPrice,jdbcType=VARCHAR},
+      faxing_Num = #{faxingNum,jdbcType=VARCHAR},
+      faxing_Day = #{faxingDay,jdbcType=VARCHAR},
+      shichang_Type = #{shichangType,jdbcType=VARCHAR},
+      faxing_yijia = #{faxingYijia,jdbcType=VARCHAR},
+      company_huodong = #{companyHuodong,jdbcType=VARCHAR},
+      menLei = #{menlei,jdbcType=VARCHAR},
+      chengji_Year = #{chengjiYear,jdbcType=VARCHAR},
+      shangshi_Year = #{shangshiYear,jdbcType=VARCHAR},
+      company_area = #{companyArea,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="stockName" resultType="string" parameterType="string">
+  	select stock_name from newtopStockInfo
+  	where stock_num = #{stockNum}
+  </select>
+  
+   <select id="getStockAll" resultMap="BaseResultMap" parameterType="string" >
+  	 select *
+      from newtopStockInfo
+      where stock_num = #{stockNum}
+  </select>
+  
+   <select id="getStockNameArray" resultMap="BaseResultMap">
+      select distinct stock_num,stock_name,industry
+      from newtopStockInfo
+      where stock_num in
+      <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+          #{stockId}
+      </foreach>
+  </select>
+  
+  <select id="getjiJinIndustryMen" resultType="string">
+    select distinct menLei
+    from newtopStockInfo
+    where stock_num in
+    <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+        #{stockId}
+    </foreach>
+  </select>
+  
+   <select id="getjiJinIndustryMenDe" resultType="string">
+    select menLei
+    from newtopStockInfo
+    where stock_num in
+    <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+        #{stockId}
+    </foreach>
+  </select>
+  
+   <select id="getjiJinIndustryDa" resultType="string">
+    select distinct industry
+    from newtopStockInfo
+    where stock_num in
+    <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+        #{stockId}
+    </foreach>
+  </select>
+  
+  <select id="getjiJinIndustryDaDe" resultType="string">
+    select industry
+    from newtopStockInfo
+    where stock_num in
+    <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+        #{stockId}
+    </foreach>
+  </select>
+  
+  <select id="getjiJinArea" resultType="string">
+    select distinct company_area
+    from newtopStockInfo
+    where stock_num in
+    <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+        #{stockId}
+    </foreach>
+  </select>
+  
+  <select id="getjiJinAreaDe" resultType="string">
+    select company_area
+    from newtopStockInfo
+    where stock_num in
+    <foreach collection="list" item="stockId" index="index" open="(" close=")" separator=",">
+        #{stockId}
+    </foreach>
+  </select>
+</mapper>

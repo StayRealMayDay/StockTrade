@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.HoldinglevelrelationshipMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Holdinglevelrelationship" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="stock_id" property="stockId" jdbcType="VARCHAR" />
+    <result column="controlShareholder" property="controlshareholder" jdbcType="VARCHAR" />
+    <result column="controlShareholderInfor" property="controlshareholderinfor" jdbcType="VARCHAR" />
+    <result column="actualController" property="actualcontroller" jdbcType="VARCHAR" />
+    <result column="actualControllerInfor" property="actualcontrollerinfor" jdbcType="VARCHAR" />
+    <result column="finalControl" property="finalcontrol" jdbcType="VARCHAR" />
+    <result column="finalControlInfor" property="finalcontrolinfor" jdbcType="VARCHAR" />
+    <result column="institutionNameFrom" property="institutionnamefrom" jdbcType="VARCHAR" />
+    <result column="institutionNameTo" property="institutionnameto" jdbcType="VARCHAR" />
+    <result column="holdValue" property="holdvalue" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_id, controlShareholder, controlShareholderInfor, actualController, actualControllerInfor, 
+    finalControl, finalControlInfor, institutionNameFrom, institutionNameTo, holdValue, 
+    time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.HoldinglevelrelationshipExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from holdinglevelrelationship
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from holdinglevelrelationship
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from holdinglevelrelationship
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.HoldinglevelrelationshipExample" >
+    delete from holdinglevelrelationship
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.Holdinglevelrelationship" >
+    insert into holdinglevelrelationship (id, stock_id, controlShareholder, 
+      controlShareholderInfor, actualController, 
+      actualControllerInfor, finalControl, finalControlInfor, 
+      institutionNameFrom, institutionNameTo, 
+      holdValue, time)
+    values (#{id,jdbcType=VARCHAR}, #{stockId,jdbcType=VARCHAR}, #{controlshareholder,jdbcType=VARCHAR}, 
+      #{controlshareholderinfor,jdbcType=VARCHAR}, #{actualcontroller,jdbcType=VARCHAR}, 
+      #{actualcontrollerinfor,jdbcType=VARCHAR}, #{finalcontrol,jdbcType=VARCHAR}, #{finalcontrolinfor,jdbcType=VARCHAR}, 
+      #{institutionnamefrom,jdbcType=VARCHAR}, #{institutionnameto,jdbcType=VARCHAR}, 
+      #{holdvalue,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.Holdinglevelrelationship" >
+    insert into holdinglevelrelationship
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="controlshareholder != null" >
+        controlShareholder,
+      </if>
+      <if test="controlshareholderinfor != null" >
+        controlShareholderInfor,
+      </if>
+      <if test="actualcontroller != null" >
+        actualController,
+      </if>
+      <if test="actualcontrollerinfor != null" >
+        actualControllerInfor,
+      </if>
+      <if test="finalcontrol != null" >
+        finalControl,
+      </if>
+      <if test="finalcontrolinfor != null" >
+        finalControlInfor,
+      </if>
+      <if test="institutionnamefrom != null" >
+        institutionNameFrom,
+      </if>
+      <if test="institutionnameto != null" >
+        institutionNameTo,
+      </if>
+      <if test="holdvalue != null" >
+        holdValue,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null" >
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlshareholder != null" >
+        #{controlshareholder,jdbcType=VARCHAR},
+      </if>
+      <if test="controlshareholderinfor != null" >
+        #{controlshareholderinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="actualcontroller != null" >
+        #{actualcontroller,jdbcType=VARCHAR},
+      </if>
+      <if test="actualcontrollerinfor != null" >
+        #{actualcontrollerinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="finalcontrol != null" >
+        #{finalcontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="finalcontrolinfor != null" >
+        #{finalcontrolinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionnamefrom != null" >
+        #{institutionnamefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionnameto != null" >
+        #{institutionnameto,jdbcType=VARCHAR},
+      </if>
+      <if test="holdvalue != null" >
+        #{holdvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.HoldinglevelrelationshipExample" resultType="java.lang.Integer" >
+    select count(*) from holdinglevelrelationship
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update holdinglevelrelationship
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockId != null" >
+        stock_id = #{record.stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlshareholder != null" >
+        controlShareholder = #{record.controlshareholder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlshareholderinfor != null" >
+        controlShareholderInfor = #{record.controlshareholderinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualcontroller != null" >
+        actualController = #{record.actualcontroller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actualcontrollerinfor != null" >
+        actualControllerInfor = #{record.actualcontrollerinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalcontrol != null" >
+        finalControl = #{record.finalcontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finalcontrolinfor != null" >
+        finalControlInfor = #{record.finalcontrolinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionnamefrom != null" >
+        institutionNameFrom = #{record.institutionnamefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institutionnameto != null" >
+        institutionNameTo = #{record.institutionnameto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holdvalue != null" >
+        holdValue = #{record.holdvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update holdinglevelrelationship
+    set id = #{record.id,jdbcType=VARCHAR},
+      stock_id = #{record.stockId,jdbcType=VARCHAR},
+      controlShareholder = #{record.controlshareholder,jdbcType=VARCHAR},
+      controlShareholderInfor = #{record.controlshareholderinfor,jdbcType=VARCHAR},
+      actualController = #{record.actualcontroller,jdbcType=VARCHAR},
+      actualControllerInfor = #{record.actualcontrollerinfor,jdbcType=VARCHAR},
+      finalControl = #{record.finalcontrol,jdbcType=VARCHAR},
+      finalControlInfor = #{record.finalcontrolinfor,jdbcType=VARCHAR},
+      institutionNameFrom = #{record.institutionnamefrom,jdbcType=VARCHAR},
+      institutionNameTo = #{record.institutionnameto,jdbcType=VARCHAR},
+      holdValue = #{record.holdvalue,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.Holdinglevelrelationship" >
+    update holdinglevelrelationship
+    <set >
+      <if test="stockId != null" >
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlshareholder != null" >
+        controlShareholder = #{controlshareholder,jdbcType=VARCHAR},
+      </if>
+      <if test="controlshareholderinfor != null" >
+        controlShareholderInfor = #{controlshareholderinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="actualcontroller != null" >
+        actualController = #{actualcontroller,jdbcType=VARCHAR},
+      </if>
+      <if test="actualcontrollerinfor != null" >
+        actualControllerInfor = #{actualcontrollerinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="finalcontrol != null" >
+        finalControl = #{finalcontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="finalcontrolinfor != null" >
+        finalControlInfor = #{finalcontrolinfor,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionnamefrom != null" >
+        institutionNameFrom = #{institutionnamefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionnameto != null" >
+        institutionNameTo = #{institutionnameto,jdbcType=VARCHAR},
+      </if>
+      <if test="holdvalue != null" >
+        holdValue = #{holdvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Holdinglevelrelationship" >
+    update holdinglevelrelationship
+    set stock_id = #{stockId,jdbcType=VARCHAR},
+      controlShareholder = #{controlshareholder,jdbcType=VARCHAR},
+      controlShareholderInfor = #{controlshareholderinfor,jdbcType=VARCHAR},
+      actualController = #{actualcontroller,jdbcType=VARCHAR},
+      actualControllerInfor = #{actualcontrollerinfor,jdbcType=VARCHAR},
+      finalControl = #{finalcontrol,jdbcType=VARCHAR},
+      finalControlInfor = #{finalcontrolinfor,jdbcType=VARCHAR},
+      institutionNameFrom = #{institutionnamefrom,jdbcType=VARCHAR},
+      institutionNameTo = #{institutionnameto,jdbcType=VARCHAR},
+      holdValue = #{holdvalue,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="stockCountTest" resultType="string">
+  	select distinct stock_id 
+  	from holdinglevelrelationship
+  </select>
+  <select id="selectOnlyOneFirm" parameterType="string" resultMap="BaseResultMap">
+  	select * from holdinglevelrelationship
+  	where stock_id = #{stockNum}
+  </select>
+  <select id="selectAllFirm"  resultMap="BaseResultMap">
+  	select institutionNameFrom,institutionNameTo
+  	from holdinglevelrelationship
+  </select>
+</mapper>

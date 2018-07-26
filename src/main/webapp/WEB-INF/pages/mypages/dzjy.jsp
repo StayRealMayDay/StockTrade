@@ -77,130 +77,15 @@
 }
 </style>
 <script src="<%=basePath %>/js/yui-min.js"></script>
-<script>
-YUI({
-    modules: {
-        'trip-calendar': {
-            fullpath: 'js/trip-calendar.js',
-            type    : 'js',
-            requires: ['trip-calendar-css']
-        },
-        'trip-calendar-css': {
-            fullpath: 'js/trip-calendar.css',
-            type    : 'css'
-        }
-    }
-}).use('trip-calendar', function(Y) {
-    
-    var oCal = new Y.TripCalendar({
-        maxDate         : new Date,     //最小时间限制
-        triggerNode     : '#J_DepDate', //第一个触节点
-        finalTriggerNode: '#J_EndDate'  //最后一个触发节点
-    }); 
-    //校验
-    Y.one('#J_Search').on('submit', function(e) {
-        e.halt();
-        var rDate    = /^((19|2[01])\d{2})-(0?[1-9]|1[012])-(0?[1-9]|[12]\d|3[01])$/;
-            oDepDate = Y.one('#J_DepDate'),
-            oEndDate = Y.one('#J_EndDate'),
-            sDepDate = oDepDate.get('value'),
-            sEndDate = oEndDate.get('value'), 
-            aMessage = ['请选择开始日期', '请选择截至日期', '截至时间不能早于开始时间，请重新选择', '日期格式错误'],
-            iError   = -1;   
-            switch(!0) {
-                case !sDepDate:
-                    oDepDate.focus();
-                    iError = 0;
-                    break;
-                case !rDate.test(sDepDate):
-                    oDepDate.focus();
-                    iError = 3;
-                    break;
-                case !sEndDate:
-                    oEndDate.focus();
-                    iError = 1;
-                    break;
-                case !rDate.test(sEndDate):
-                    oEndDate.focus();
-                    iError = 3;
-                    break;
-                case sDepDate.replace(/-/g, '') > sEndDate.replace(/-/g, ''):
-                    oEndDate.focus();
-                    iError = 2;
-                    break;
-            };
-            if(iError > -1) {
-                this.set('message', aMessage[iError]).showMessage();                
-            }
-            else {
-              /*   alert('开始时间：' + sDepDate + '\n截至时间：' + sEndDate); */
-                var myChart = echarts.init(document.getElementById('myEchart'));
-                $.ajax({
-                    type: "POST",
-                    url: "ajaxSelectDzjyData",
-                    data: {
-                    	"startDate":sDepDate,
-                    	"endDate":sEndDate
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                    	var map = data.map2;
-                    	option = {
-                	     		title: {
-                			    text: '某短时间内两市(沪市、深市)大宗交易总金额）'
-                			    },
-                    		    color: ['#3398DB'],
-                    		    tooltip : {
-                    		        trigger: 'axis',
-                    		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                    		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    		        }
-                    		    },
-                    		    grid: {
-                    		        left: '3%',
-                    		        right: '4%',
-                    		        bottom: '3%',
-                    		        containLabel: true
-                    		    },
-                    		    xAxis : [
-                    		        {
-                    		            type : 'category',
-                    		            data : map.date,
-                    		            axisTick: {
-                    		                alignWithLabel: true
-                    		            }
-                    		        }
-                    		    ],
-                    		    yAxis : [
-                    		        {
-                    		            type : 'value'
-                    		        }
-                    		    ],
-                    		    series : [
-                    		        {
-                    		            name:'累计成交金额',
-                    		            type:'bar',
-                    		            barWidth: '60%',
-                    		            data:map.sumMap
-                    		        }
-                    		    ]
-                    		};
-            				 myChart.setOption(option);
-                    	} 
-                }) 	     
-            }
-    }, oCal);
-});
-</script>
 </head>
-
 <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
 <script src="<%=basePath %>/js/jquery-1.11.1.min.js"></script>
+
 <script src="<%=basePath %>/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/echarts.min.js"></script>
 <link rel="stylesheet" href="<%=basePath %>/js/style.css"type="text/css" media="screen" />
-
+<link href="<%=basePath %>/css/component.css" rel="stylesheet">
 <body class="home-page">
 	<jsp:include page="/top_q.jsp" flush="true" />
 	<div >
@@ -219,7 +104,7 @@ YUI({
 						</div>
 					</div> -->
 					<div>
-						<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px;margin-left:120px">个股大宗交易----The All</div>
+						<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px;margin-left:120px">个股大宗交易----The All</div>
 						<div class="col-md-11 agileinfo_news_original_grids_center">
 							<table style="width: 100%; border: 1px solid #000000; text-align: center;margin:10px 0px 10px 150px" class="table table-striped table-hover">
 								<thead>
@@ -292,7 +177,7 @@ YUI({
 						</div>
 					</div>
 					<div class="clearfix"></div>
-					<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px;margin-left:120px">两市(沪市、深市)大宗交易总数</div>
+					<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px;margin-left:120px">两市(沪市、深市)大宗交易总数</div>
 					<div style="margin-left:120px">
 						<div id="search">
 						  <form id="J_Search" target="_blank">
@@ -342,7 +227,7 @@ YUI({
 							</tbody>
 						</table>
 					</div>
-					<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px;margin:10px auto auto 120px">大宗交易活跃营业部一览</div>
+					<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px;margin:10px auto auto 120px">大宗交易活跃营业部一览</div>
 					<div>
 						<div style="margin:10px auto auto 120px;width:820px;height:350px;float:left" id="graphPurse"></div> <!-- ehchart图 -->
 						<div style="margin:10px auto auto 30px;float:left;width:820px;height:350px" id="graphSale"></div> 
@@ -393,7 +278,46 @@ YUI({
 								</tbody>
 							</table>
 						</div>
+						<div class="clearfix"></div>
 					</div>
+					<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px;margin:10px auto 10px 120px">营业部查询</div>
+					<table class="tbody" style="width:90%;margin-left:140px"> 
+	                  <tr class="gradeX" id="" style="height:32px;"> 
+	                      <c:forEach items="${cutdepartment}" var="user" varStatus="num"> 
+	                         <td style="text-align:center"> 
+		                          <c:if test="${num.index%12==0&&num.index!=0}"> 
+		                              <tr> </tr><td> 
+		                          </c:if> 
+	                          	 <%--  <a href="javascript:;" onclick="selectApartmentDetail('${user}')">${user}</a>  --%>
+	                          	 <a href="javascript:;" onclick="selectApartmentDetail('${user}')">${user}</a>
+	                          </td> 
+	                      </c:forEach> 
+	                  </tr> 
+		            </table> 
+		            <div class="md-modal md-effect-1" id="modal-1">
+					    <div class="md-content">
+					      <h3 style="height:20px;border:2px;margin:2px" id="modalhead"></h3>
+					      <div>
+					       	<div style="width:100%"> <!-- style="padding-left:135px" -->
+						       	<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;width:100%;font-size:10px">
+									<tr style="height:30px;background-color:#EBEBEB"> 
+										<th style="border-left:1px solid;border-top:1px solid;width:13%;font-size:10px">交易时间</th>
+										<th style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">股票代码</th>
+										<th style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">股票简称</th>
+										<th style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">成交价格</th>
+										<th style="border-left:1px solid;border-top:1px solid;width:8%;font-size:10px">成交量(万股)</th>
+										<th style="border-left:1px solid;border-top:1px solid;width:5%;text-align:center;font-size:10px">溢价率</th>
+										<th style="border-left:1px solid;border-top:1px solid;width:25%;text-align:center;font-size:10px">买方营业部</th>
+										<th style="border-left:1px solid;border-top:1px solid;width:25%;text-align:center;font-size:10px">卖方营业部</th>
+									</tr>
+									<tbody id="tbody3"></tbody>
+								</table>
+							</div>
+							<div style="height:20px"></div>
+					      	<button class="md-close btn-sm btn-primary" id="closeBtn" onclick="closeDiv()">Close me!</button>
+					      </div>
+					    </div>
+					  </div>
 				</div>
 			</div>
 		</div>
@@ -603,5 +527,169 @@ option = {
 		    ]
 		};
 	myChart3.setOption(option);
+</script>
+<script>
+	function closeDiv(){
+		$("#modal-1").removeClass("md-show");
+	}
+
+	 //弹出得模态框得填充
+     function selectApartmentDetail(apartmentName){
+    	 $("#modal-1").addClass("md-show");
+    	  $.ajax({
+              type: "POST",
+              url: "ajaxSelectApartmentDetail",
+              data: {
+              	"apartmentName":apartmentName,
+              },
+              dataType: "json",
+              success: function(data) {
+              	var listDetail = data.apartmentDetail;	
+              	if(listDetail.length == 0){
+
+              	}else{
+              		var modalheadHtml ="";
+              		modalheadHtml = ' 关于  '+apartmentName+' 的各子公司的大宗交易情况';
+              		$("#modalhead")[0].innerHTML = modalheadHtml; 
+              		var permissionHtml = "";
+      				for (var i = 0; i < listDetail.length; i++) {
+      					 permissionHtml = permissionHtml
+      					   +'<tr class="gradeX" id="" style="height:25px">'
+              			   +'<td style="border-left:1px solid;border-top:1px solid;width:13%;text-align:center;font-size:10px">'+listDetail[i].transactionDate+'</td>'
+              			   +'<td style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">'+listDetail[i].stockId+'</td>'
+              			   +'<td style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">'+listDetail[i].stockName+'</td>'
+              			   +'<td style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">'+listDetail[i].dealPrice+'</td>'
+            			   +'<td style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">'+listDetail[i].dealNum+'</td>'
+            			   +'<td style="border-left:1px solid;border-top:1px solid;width:8%;text-align:center;font-size:10px">'+listDetail[i].premiumRate+'</td>'
+            			   +'<td style="border-left:1px solid;border-top:1px solid;width:25%;text-align:center;font-size:10px">'+listDetail[i].purchasingDepartment+'</td>'
+              			   +'<td style="border-left:1px solid;border-top:1px solid;width:25%;text-align:center;font-size:10px">'+listDetail[i].salesDepartment+'</td></tr>'
+    					$("#tbody3")[0].innerHTML = permissionHtml;    
+      				}
+              	}
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+              	//这个error函数调试时非常有用，如果解析不正确，将会弹出错误框
+              	alert(XMLHttpRequest.responseText); 
+              alert(XMLHttpRequest.status);
+              alert(XMLHttpRequest.readyState);
+              alert(textStatus); // parser error;
+              }   
+          }) 	  
+         }
+</script>
+<script>
+YUI({
+    modules: {
+        'trip-calendar': {
+            fullpath: 'js/trip-calendar.js',
+            type    : 'js',
+            requires: ['trip-calendar-css']
+        },
+        'trip-calendar-css': {
+            fullpath: 'js/trip-calendar.css',
+            type    : 'css'
+        }
+    }
+}).use('trip-calendar', function(Y) {
+    
+    var oCal = new Y.TripCalendar({
+        maxDate         : new Date,     //最小时间限制
+        triggerNode     : '#J_DepDate', //第一个触节点
+        finalTriggerNode: '#J_EndDate'  //最后一个触发节点
+    }); 
+    //校验
+    Y.one('#J_Search').on('submit', function(e) {
+        e.halt();
+        var rDate    = /^((19|2[01])\d{2})-(0?[1-9]|1[012])-(0?[1-9]|[12]\d|3[01])$/;
+            oDepDate = Y.one('#J_DepDate'),
+            oEndDate = Y.one('#J_EndDate'),
+            sDepDate = oDepDate.get('value'),
+            sEndDate = oEndDate.get('value'), 
+            aMessage = ['请选择开始日期', '请选择截至日期', '截至时间不能早于开始时间，请重新选择', '日期格式错误'],
+            iError   = -1;   
+            switch(!0) {
+                case !sDepDate:
+                    oDepDate.focus();
+                    iError = 0;
+                    break;
+                case !rDate.test(sDepDate):
+                    oDepDate.focus();
+                    iError = 3;
+                    break;
+                case !sEndDate:
+                    oEndDate.focus();
+                    iError = 1;
+                    break;
+                case !rDate.test(sEndDate):
+                    oEndDate.focus();
+                    iError = 3;
+                    break;
+                case sDepDate.replace(/-/g, '') > sEndDate.replace(/-/g, ''):
+                    oEndDate.focus();
+                    iError = 2;
+                    break;
+            };
+            if(iError > -1) {
+                this.set('message', aMessage[iError]).showMessage();                
+            }
+            else {
+              /*   alert('开始时间：' + sDepDate + '\n截至时间：' + sEndDate); */
+                var myChart = echarts.init(document.getElementById('myEchart'));
+                $.ajax({
+                    type: "POST",
+                    url: "ajaxSelectDzjyData",
+                    data: {
+                    	"startDate":sDepDate,
+                    	"endDate":sEndDate
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                    	var map = data.map2;
+                    	option = {
+                	     		title: {
+                			    text: '某短时间内两市(沪市、深市)大宗交易总金额）'
+                			    },
+                    		    color: ['#3398DB'],
+                    		    tooltip : {
+                    		        trigger: 'axis',
+                    		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    		        }
+                    		    },
+                    		    grid: {
+                    		        left: '3%',
+                    		        right: '4%',
+                    		        bottom: '3%',
+                    		        containLabel: true
+                    		    },
+                    		    xAxis : [
+                    		        {
+                    		            type : 'category',
+                    		            data : map.date,
+                    		            axisTick: {
+                    		                alignWithLabel: true
+                    		            }
+                    		        }
+                    		    ],
+                    		    yAxis : [
+                    		        {
+                    		            type : 'value'
+                    		        }
+                    		    ],
+                    		    series : [
+                    		        {
+                    		            name:'累计成交金额',
+                    		            type:'bar',
+                    		            barWidth: '60%',
+                    		            data:map.sumMap
+                    		        }
+                    		    ]
+                    		};
+            				 myChart.setOption(option);
+                    	} 
+                }) 	     
+            }
+    }, oCal);
+});
 </script>
 </html>

@@ -26,11 +26,11 @@ perspective effects (not including the modals and the overlay).
 	position: fixed;
 	top: 290px;
 	left: 50%;
-	width: 60%;
+	width: 70%;
 	max-width: 800px;
 	min-width: 320px;
-	height: 540px;
 	z-index: 9999999;
+	height:500px;
 	visibility: hidden;
 	-webkit-transform: translateX(-50%) translateY(-50%);
 	-moz-transform: translateX(-50%) translateY(-50%);

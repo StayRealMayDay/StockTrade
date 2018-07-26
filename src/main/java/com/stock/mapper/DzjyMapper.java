@@ -56,4 +56,10 @@ public interface DzjyMapper {
     List<String> selectDepartmentSale(List<String> dates);
     //12月8日
     List<String> selectDepartmentPursing(List<String> dates);
+    //12月14日
+    List<String> selectDepartmentPur();
+    //12月１４日
+    List<Dzjy> selectDepartPartOne(String departmentLike);
+    //12月１４日
+    List<Dzjy> selectDepartPartTwo(String departmentLike);
 }

@@ -39,7 +39,9 @@ public interface CompanyMapper {
 	List<Company> selectCompanyByCon(String conception);
 	
 	Company selectCompanyByStockNum(String stockNum);
-
+	
+	Company selectCompanyByStockName(String stockName);
+	
 	List<Company> selectCompanyByConAll();
 
 	List<Company> selectCompanyByAreaAll();
@@ -62,4 +64,6 @@ public interface CompanyMapper {
 	List<Company> selecResolvedIndustryCount(String industry);
 	//于花蕾11月30日
 	List<Company> getStockNameArray(List<String> stockIds);
+	//18年1月6日
+	String nameTransferTOId(String stock_name);
 }

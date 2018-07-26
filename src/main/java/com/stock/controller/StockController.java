@@ -7,15 +7,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.math.transform.FastFourierTransformer;
+import org.apache.lucene.search.FieldCache.FloatParser;
+import org.aspectj.weaver.patterns.FormalBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +39,9 @@ import com.stock.mapper.DdzzMapper;
 import com.stock.mapper.DzjyMapper;
 import com.stock.mapper.EdgesMapper;
 import com.stock.mapper.EeoMapper;
+import com.stock.mapper.HoldinglevelrelationshipMapper;
 import com.stock.mapper.IndustryDistributionMapper;
+import com.stock.mapper.LonghubangMapper;
 import com.stock.mapper.NewStockMapper;
 import com.stock.mapper.NewsTypeMapper;
 import com.stock.mapper.NodesMapper;
@@ -43,6 +52,8 @@ import com.stock.mapper.StockAndCompanyMapper;
 import com.stock.mapper.StockMapper;
 import com.stock.mapper.StockTypeMapper;
 import com.stock.mapper.StockinfoMapper;
+import com.stock.mapper.TopStockCirculationHolderMapper;
+import com.stock.mapper.TopStockHolderMapper;
 import com.stock.pojo.Blog;
 import com.stock.pojo.Cb;
 import com.stock.pojo.Company;
@@ -55,15 +66,19 @@ import com.stock.pojo.Dzjy;
 import com.stock.pojo.Edges;
 import com.stock.pojo.Eeo;
 import com.stock.pojo.IndustryDistribution;
+import com.stock.pojo.Longhubang;
 import com.stock.pojo.NewStock;
 import com.stock.pojo.NewsType;
 import com.stock.pojo.Nodes;
 import com.stock.pojo.ScrapyNews;
 import com.stock.pojo.Stock;
 import com.stock.pojo.StockAndCompany;
+import com.stock.pojo.StockDetail;
 import com.stock.pojo.StockHolderNumber;
 import com.stock.pojo.StockType;
 import com.stock.pojo.Stockinfo;
+import com.stock.pojo.TopStockCirculationHolder;
+import com.stock.pojo.TopStockHolder;
 import com.stock.pojo.Shares;
 import com.stock.service.StockService;
 import com.stock.service.StockinfoService;
@@ -110,7 +125,14 @@ public class StockController {
 	EdgesMapper edgesMapper;
 	@Autowired
 	IndustryDistributionMapper industryDistributionMapper;
-	
+	@Autowired
+	LonghubangMapper longhubangMapper;
+	@Autowired
+	TopStockCirculationHolderMapper topStockCirculationHolderMapper;
+	@Autowired
+	TopStockHolderMapper topStockHolderMapper;
+	@Autowired
+	HoldinglevelrelationshipMapper holdinglevelrelationshipMapper;
 	/**
 	 *展示企业关系图 
 	 */
@@ -126,8 +148,19 @@ public class StockController {
 	 */
 	@RequestMapping(value = "/china")
 	public String china(HttpServletRequest request,Model model){
-		String stock = request.getParameter("stock");
-		model.addAttribute("stock", stock);
+		/*String stock = request.getParameter("stock");
+		model.addAttribute("stock", stock);*/
+		List<String> circulation = topStockCirculationHolderMapper.circulationTest();
+		List<String> level = holdinglevelrelationshipMapper.stockCountTest();
+		List<String> all = new ArrayList<>();
+		for(int i = 0; i < circulation.size(); i++){
+			String temp= circulation.get(i);
+			if(level.contains(temp)){
+				continue;
+			}
+			all.add('\"'+temp+'\"');
+		}
+		System.out.println(all);
 		return "mypages/china"; 
 	}
 	
@@ -832,7 +865,6 @@ public class StockController {
         for(int i =0; i < 15;i++){//15是首页输出个数
         	mapResult1.put(llist.get(i).getKey(),llist.get(i).getValue());
         }
-         
 		//先统计、再计算前10个卖方活跃营业部
 		List<Integer> sale = new ArrayList<>();
 		List<String> stockNumSale = new ArrayList<>();
@@ -886,7 +918,41 @@ public class StockController {
         for(int i =0; i < 15;i++){//15是首页输出个数
         	mapResult2.put(list.get(i).getKey(),list.get(i).getValue());
         }
-		//根据营业部名称去拿近10日成交股票金额(万)、股票多少支
+        //营业部信息
+        List<String> department = dzjyMapper.selectDepartmentPur();
+        System.out.println(department);
+        //合并某些信息
+        List<String> cutDepartment = new ArrayList<>();
+        for(int i = 0; i < department.size(); i++){
+        	String temp = department.get(i);
+        	Matcher matcher=Pattern.compile("证券").matcher(temp);
+        	if(matcher.find()){  
+        	     System.out.println(matcher.start());  
+        	     int p = matcher.start()+2;
+        	     temp = temp.substring(0, p);
+        	 }
+        	else{
+        		continue;
+        	}
+        	if (cutDepartment.size() == 0) {
+				cutDepartment.add(temp);
+				continue;
+			}
+        	if (temp.length()>10) {
+				continue;
+			}
+        	for(int j = 0 ; j < cutDepartment.size();j++){
+    	    	 if(temp.equals(cutDepartment.get(j))){
+    	    		 break;
+    	    	 }else {
+					if (j == cutDepartment.size() - 1) {
+						cutDepartment.add(temp);
+					}else{
+						continue;
+					}
+				}
+    	     }
+        }
 		model.addAttribute("topDatelist",topDatelist );
 		model.addAttribute("topDzjySum",topDzjySum );
 		model.addAttribute("addDzjySum",addDzjySum );
@@ -903,9 +969,9 @@ public class StockController {
 		JSONObject jsonObject1 = new JSONObject();
 		jsonObject1.put("map1", mapResult1);
 		model.addAttribute("map1",jsonObject1);
+		model.addAttribute("cutdepartment",cutDepartment );
 		return "mypages/dzjy";
 	}
-		
 		
 		//2017年12月7日新增  第一次生成图
 		@RequestMapping(value = "/dzjySum",produces="application/json;charset=UTF-8")
@@ -939,6 +1005,27 @@ public class StockController {
 			map2.put("sumMap", topDzjySum);
 			System.out.println(map2);
 			return map2;
+		}
+		
+		
+		@RequestMapping(value = "/ajaxSelectApartmentDetail",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
+		public void shareholderDetail(Model model,HttpServletRequest req,HttpServletResponse rsp){
+			String roleIdTwo = req.getParameter("apartmentName");
+			List<Dzjy> apartmentDetail = dzjyMapper.selectDepartPartOne(roleIdTwo);
+			List<Dzjy> apartmentDetailTwo = dzjyMapper.selectDepartPartTwo(roleIdTwo);
+			apartmentDetail.addAll(apartmentDetailTwo);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("apartmentDetail", apartmentDetail);
+			String result = JsonUtil.toJsonString(jsonObject);
+			System.out.println(result);
+			PrintWriter out;
+			try {
+				out = rsp.getWriter();
+				out.write(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		//2017年12月7日  异步生成图
@@ -986,6 +1073,160 @@ public class StockController {
 				e.printStackTrace();
 			}
 		}
+		/**
+		 * 2017年１２月１４日　　龙虎榜单页面
+		 */
+		@RequestMapping(value = "/longhubang")
+		public String longHuBang(Model model,HttpServletRequest req){
+			List<String> allDate = longhubangMapper.selectAllDate();
+			String temp = allDate.get(0);
+			List<Longhubang> latestInfo = longhubangMapper.selectSomeDateData(temp);
+			//三日龙虎榜单的显示
+			List<String> threeDate = new ArrayList<>();
+			threeDate.add(allDate.get(0));
+			threeDate.add(allDate.get(1));
+			threeDate.add(allDate.get(2));
+			List<Longhubang> dataOfThree = longhubangMapper.selectDataOfThree(threeDate);
+			Map<String, Integer> threeDaylist = new LinkedHashMap<>();
+			Map<String,Object> threeMoneylist = new LinkedHashMap<>();
+			
+			for(int i = 0 ; i <dataOfThree.size();i++){
+				Float[] money = new Float[]{(float) 0.0,(float) 0.0,(float) 0.0,(float) 0.0,(float) 0.0,(float) 0.0};
+				String t = dataOfThree.get(i).getStockName();
+				Float[] o = (Float[]) threeMoneylist.get(t);
+				if (threeDaylist.containsKey(t)) {
+					threeDaylist.put(t, threeDaylist.get(t) + 1);	
+				} else {
+					threeDaylist.put(t, 1);
+				}
+				String ll = dataOfThree.get(i).getNetPurchase();
+				String tt = dataOfThree.get(i).getNetTotalturnover();
+				money[4] = Float.parseFloat(ll)/((Float.parseFloat(tt)/100));//总成交额
+				money[0] = (float)threeDaylist.get(t);
+				if(dataOfThree.get(i).getNetPurchase().startsWith("-")){
+					//净卖出额
+					String one = dataOfThree.get(i).getNetPurchase().substring(1);
+				    if(o != null){
+				    	money[2] = o[2] + Float.parseFloat(one);
+				    	money[3] = o[1] - money[2];
+				    	money[1] = o[1];
+				    	money[4] += o[4];
+				    	money[5] = money[3]/money[4];
+				    }else {
+						money[2] = Float.parseFloat(one);
+					}
+				    
+				}else{
+					//净买入额
+					String two = dataOfThree.get(i).getNetPurchase();
+					 if(o != null){
+					    	money[1] = o[1] + Float.parseFloat(two);
+					    	money[3] = money[1] - o[2];
+					    	money[2] = o[2];
+					    	money[4] += o[4];
+					    	money[5] = money[3]/money[4];
+					    }else {
+							money[1] = Float.parseFloat(two);
+						}
+					
+				}
+				threeMoneylist.put(t,money);
+			}
+			model.addAttribute("threeMoneylist",threeMoneylist );
+	        model.addAttribute("mapResult2",threeDaylist);
+			model.addAttribute("latestInfo",latestInfo);
+			return "mypages/longhubang";
+		}
+		//2017年12月14日  异步查询  龙虎榜单
+		@RequestMapping(value = "/ajaxSelectSomeData",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
+		public void longhuSomeData(Model model,HttpServletRequest req,HttpServletResponse rsp){
+		
+			String startDate = req.getParameter("startDate");		
+			List<Longhubang> someData = longhubangMapper.selectSomeDateData(startDate);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("someData", someData);
+			String result = JsonUtil.toJsonString(jsonObject);
+			System.out.println(result);
+			PrintWriter out;
+			try {
+				out = rsp.getWriter();
+				out.write(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//2017年12月17日新增
+		@RequestMapping(value = "/ajaxSelectlgb",method={org.springframework.web.bind.annotation.RequestMethod.POST},produces="application/json;charset=UTF-8")
+		public void shareholderother(Model model,HttpServletRequest req,HttpServletResponse rsp){
+			
+			String roleId = req.getParameter("roleId");
+			int temp = Integer.parseInt(roleId);
+			List<String> allDate = longhubangMapper.selectAllDate();
+			List<String> threeDate = new ArrayList<>();
+			for(int i = 0; i < temp;i++){
+				threeDate.add(allDate.get(i));
+			}
+			List<Longhubang> dataOfThree = longhubangMapper.selectDataOfThree(threeDate);
+			Map<String, Integer> threeDaylist = new LinkedHashMap<>();
+			Map<String,Object> threeMoneylist = new LinkedHashMap<>();
+			
+			for(int i = 0 ; i <dataOfThree.size();i++){
+				Float[] money = new Float[]{(float) 0.0,(float) 0.0,(float) 0.0,(float) 0.0,(float) 0.0,(float) 0.0};
+				String t = dataOfThree.get(i).getStockName();
+				Float[] o = (Float[]) threeMoneylist.get(t);
+				if (threeDaylist.containsKey(t)) {
+					threeDaylist.put(t, threeDaylist.get(t) + 1);	
+				} else {
+					threeDaylist.put(t, 1);
+				}
+				String ll = dataOfThree.get(i).getNetPurchase();
+				String tt = dataOfThree.get(i).getNetTotalturnover();
+				money[4] = Float.parseFloat(ll)/((Float.parseFloat(tt)/100));//总成交额
+				money[0] = (float)threeDaylist.get(t);
+				if(dataOfThree.get(i).getNetPurchase().startsWith("-")){
+					//净卖出额
+					String one = dataOfThree.get(i).getNetPurchase().substring(1);
+				    if(o != null){
+				    	money[2] = o[2] + Float.parseFloat(one);
+				    	money[3] = o[1] - money[2];
+				    	money[1] = o[1];
+				    	money[4] += o[4];
+				    	money[5] = money[3]/money[4];
+				    }else {
+						money[2] = Float.parseFloat(one);
+					}
+				    
+				}else{
+					//净买入额
+					String two = dataOfThree.get(i).getNetPurchase();
+					 if(o != null){
+					    	money[1] = o[1] + Float.parseFloat(two);
+					    	money[3] = money[1] - o[2];
+					    	money[2] = o[2];
+					    	money[4] += o[4];
+					    	money[5] = money[3]/money[4];
+					    }else {
+							money[1] = Float.parseFloat(two);
+						}
+					
+				}
+				threeMoneylist.put(t,money);
+			}
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("threeMoneylist", threeMoneylist);
+			String result = JsonUtil.toJsonString(jsonObject);	
+			System.out.println(result);
+			PrintWriter out;
+			try {
+				out = rsp.getWriter();
+				out.write(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		/**
 		 * 博客详情
 		 */

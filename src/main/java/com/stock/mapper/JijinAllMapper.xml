@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.JijinAllMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.JijinAll" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="jiji_bianHao" property="jijiBianhao" jdbcType="VARCHAR" />
+    <result column="jiji_jiancheng" property="jijiJiancheng" jdbcType="VARCHAR" />
+    <result column="jijin_hanzi" property="jijinHanzi" jdbcType="VARCHAR" />
+    <result column="jijin_type" property="jijinType" jdbcType="VARCHAR" />
+    <result column="jijin_Eng" property="jijinEng" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, jiji_bianHao, jiji_jiancheng, jijin_hanzi, jijin_type, jijin_Eng
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.JijinAllExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jijin_All
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jijin_All
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jijin_All
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.JijinAllExample" >
+    delete from jijin_All
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.JijinAll" >
+    insert into jijin_All (id, jiji_bianHao, jiji_jiancheng, 
+      jijin_hanzi, jijin_type, jijin_Eng
+      )
+    values (#{id,jdbcType=INTEGER}, #{jijiBianhao,jdbcType=VARCHAR}, #{jijiJiancheng,jdbcType=VARCHAR}, 
+      #{jijinHanzi,jdbcType=VARCHAR}, #{jijinType,jdbcType=VARCHAR}, #{jijinEng,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.JijinAll" >
+    insert into jijin_All
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jijiBianhao != null" >
+        jiji_bianHao,
+      </if>
+      <if test="jijiJiancheng != null" >
+        jiji_jiancheng,
+      </if>
+      <if test="jijinHanzi != null" >
+        jijin_hanzi,
+      </if>
+      <if test="jijinType != null" >
+        jijin_type,
+      </if>
+      <if test="jijinEng != null" >
+        jijin_Eng,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jijiBianhao != null" >
+        #{jijiBianhao,jdbcType=VARCHAR},
+      </if>
+      <if test="jijiJiancheng != null" >
+        #{jijiJiancheng,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinHanzi != null" >
+        #{jijinHanzi,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinType != null" >
+        #{jijinType,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinEng != null" >
+        #{jijinEng,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.JijinAllExample" resultType="java.lang.Integer" >
+    select count(*) from jijin_All
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jijin_All
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.jijiBianhao != null" >
+        jiji_bianHao = #{record.jijiBianhao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jijiJiancheng != null" >
+        jiji_jiancheng = #{record.jijiJiancheng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jijinHanzi != null" >
+        jijin_hanzi = #{record.jijinHanzi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jijinType != null" >
+        jijin_type = #{record.jijinType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jijinEng != null" >
+        jijin_Eng = #{record.jijinEng,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jijin_All
+    set id = #{record.id,jdbcType=INTEGER},
+      jiji_bianHao = #{record.jijiBianhao,jdbcType=VARCHAR},
+      jiji_jiancheng = #{record.jijiJiancheng,jdbcType=VARCHAR},
+      jijin_hanzi = #{record.jijinHanzi,jdbcType=VARCHAR},
+      jijin_type = #{record.jijinType,jdbcType=VARCHAR},
+      jijin_Eng = #{record.jijinEng,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.JijinAll" >
+    update jijin_All
+    <set >
+      <if test="jijiBianhao != null" >
+        jiji_bianHao = #{jijiBianhao,jdbcType=VARCHAR},
+      </if>
+      <if test="jijiJiancheng != null" >
+        jiji_jiancheng = #{jijiJiancheng,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinHanzi != null" >
+        jijin_hanzi = #{jijinHanzi,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinType != null" >
+        jijin_type = #{jijinType,jdbcType=VARCHAR},
+      </if>
+      <if test="jijinEng != null" >
+        jijin_Eng = #{jijinEng,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.JijinAll" >
+    update jijin_All
+    set jiji_bianHao = #{jijiBianhao,jdbcType=VARCHAR},
+      jiji_jiancheng = #{jijiJiancheng,jdbcType=VARCHAR},
+      jijin_hanzi = #{jijinHanzi,jdbcType=VARCHAR},
+      jijin_type = #{jijinType,jdbcType=VARCHAR},
+      jijin_Eng = #{jijinEng,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

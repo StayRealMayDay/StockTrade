@@ -22,6 +22,7 @@
 <script type="text/javascript" src="<%=basePath %>/js/easing.js"></script>
 <script src="<%=basePath %>/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/echarts.min.js"></script>
+<script src="<%=basePath %>/js/bootstrap.min.js "></script>
 <!-- start-smoth-scrolling -->
 </head>
 <body class="home-page">
@@ -159,7 +160,7 @@
 	<div class="agileinfo_news_original_grids">
 		<div class="col-md-12 agileinfo_news_original_grids_left">
 			<div class="company_holder" style="border:1px solid #EBEBEB">
-				<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px">股东人数</div>
+				<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px">股东人数</div>
 					<div style="margin:10px">
 						<div>
 							<!-- 用于展示柱状图 -->
@@ -181,6 +182,8 @@
 								            }
 								        }
 								    },
+								    roam: true,
+								    draggable : true,
 								    toolbox: {
 								        feature: {
 								            dataView: {show: true, readOnly: false},
@@ -209,9 +212,9 @@
 							           }, {
 							               type: 'value',
 							               name: '股价',
-							               min: 0,
+							              /*  min: 0,
 							               max: 70,
-							               interval: 10,
+							               interval: 10, */
 							               splitLine: {
 							                   show: true,
 							                   lineStyle: {
@@ -269,14 +272,14 @@
 							</table>
 						</div>
 						<div class="data_tbody" style="left:117px;">
-							<table class="top_head" style="border-right:1px solid;border-bottom:1px solid;">
+							<table class="top_head" style="border-right:1px solid;border-bottom:1px solid;width:89%">
 								<tr style="width: 100%;height:30px">
 									<c:forEach items="${holderNumDetail}" var="num">
 										<th style="border-left:1px solid;border-top:1px solid;width:130px;text-align:center">${num.date}</th>
 									</c:forEach>
 								</tr>
 							</table>
-							<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;">
+							<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;width:89%">
 								<tr style="height:35px;"> 
 									<c:forEach items="${holderNumDetail}" var="num">
 										<th style="border-left:1px solid;border-top:1px solid;width:130px;text-align:center">${num.holderNumber}</th>
@@ -310,7 +313,7 @@
 			</div>
 			</div>
 			<div class="company_holder"  style="border:1px solid #EBEBEB;border-top:10px">
-				<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px">十大流动股东</div>
+				<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px">十大流动股东</div>
 				<div style="margin:10px">
 					<div style="display:block">
 						<label style="width: 10%">选择日期：</label> 
@@ -339,10 +342,11 @@
 									<c:forEach items="${topCircuList}" var="list">
 										<tr class="gradeX" id="" style="height:35px">
 											<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">
-												<c:if test="${list.holderChange == '退出' }">
+												<%-- <c:if test="${list.holderChange == '退出' }">
 													<a href="javascript:;" onclick="selectOutCircuStock('${list.institutionName}')">${list.institutionName}</a>
 												</c:if>
-												<c:if test="${list.holderChange != '退出' }">${list.institutionName}</c:if>
+												<c:if test="${list.holderChange != '退出' }">${list.institutionName}</c:if> --%>
+												<a href="javascript:;" onclick="selectOutCircuStock('${list.institutionName}')">${list.institutionName}</a>
 											</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${list.holderNum}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${list.holderChange}</td>
@@ -381,16 +385,22 @@
 							      	<button class="md-close btn-sm btn-primary" id="closeBtn" onclick="closeDiv()">Close me!</button>
 							      </div>
 							    </div>
-							  </div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- 用于显示某一时间段的某一个公司的投资股票图 -->
-			<div id="outStockGraph" style="height:350px;width:100%;border:1px solid #EBEBEB;display:none"></div>
-					
+			<div id="outStockGraph" style="height:650px;width:100%;border:1px solid #EBEBEB;display:none;">
+				<a href="detailsInvestment" style="float:right;height:20px;width:15%" id="writeOne">查看更多投资变化详情</a>
+				<div class="clearfix"></div>
+				<div id="outStockGraphIn" style="height:650px;float:left;width:75%"></div>
+				<div id="outStockGroupInner" style="height:650px;float:left;width:25%;"></div>
+			</div>	
+			
+			
 			<div class="company_holder"  style="border:1px solid #EBEBEB">
-				<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px">十大股东</div>
+				<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px">十大股东</div>
 				<div style="margin:10px">
 					<div style="display:block">
 						<label style="width: 10%">选择日期：</label> 
@@ -417,10 +427,11 @@
 									<c:forEach items="${topList}" var="toplist">
 										<tr class="gradeX" id="" style="height:35px">
 											<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">
-												<c:if test="${toplist.holderChange == '退出' }">
+												<%-- <c:if test="${toplist.holderChange == '退出' }">
 													<a href="javascript:;" onclick="selectOutStock('${toplist.institutionName}')">${toplist.institutionName}</a>
 												</c:if>
-												<c:if test="${toplist.holderChange != '退出' }">${toplist.institutionName}</c:if>											
+												<c:if test="${toplist.holderChange != '退出' }">${toplist.institutionName}</c:if> --%>	
+												<a href="javascript:;" onclick="selectOutStock('${toplist.institutionName}')">${toplist.institutionName}</a>										
 											</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${toplist.holderNum}</td>
 											<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">${toplist.holderChange}</td>
@@ -445,14 +456,19 @@
 				
 			</div>
 			<!-- 用于显示某一时间段的某一个公司的投资股票图 -->
-			<div id="outStockGraphTwo" style="height:350px;width:100%;border:1px solid #EBEBEB;display:none"></div>
+			<div id="outStockGraphTwo" style="height:650px;width:100%;border:1px solid #EBEBEB;display:none;">
+				<a href="detailsInvestment" style="float:right;height:20px;width:15%" id="writeTwo">查看更多投资变化详情</a>
+				<div class="clearfix"></div>
+				<div id="outStockGraphTwoIn" style="height:650px;float:left;width:75%"></div>
+				<div id="outStockGroupTwoInner" style="height:650px;float:left;width:25%;"></div>
+			</div>	
 					
 			<div class="company_holder"  style="border:1px solid #EBEBEB">
-				<div class="title" style="height:40px;border:1px solid;background-color:#D4D4D4;padding:6px">总股本结构</div>
+				<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px">总股本结构</div>
 				<div style="margin:10px">
 					<div role="tabpanel">
 					<div class="table-a" style="width:100%;padding:13px 10px 0px 18px;">
-						<div class="left_head" style="width:118px;float:left;height:180px">
+						<div class="left_head" style="float:left;height:180px">
 							<table class="top_head" style="border-right:1px solid;border-bottom:1px solid;width:118px;background-color:#EBEBEB"">
 								<tr style="height:30px"> 
 									<th style="border-left:1px solid;border-top:1px solid;">股份构成</th>
@@ -477,14 +493,14 @@
 							</table>
 						</div>
 						<div class="data_tbody" style="left:117px;">
-							<table class="top_head" style="border-right:1px solid;border-bottom:1px solid;">
-								<tr style="width: 100%;height:30px">
+							<table class="top_head" style="border-right:1px solid;border-bottom:1px solid;width:89%">
+								<tr style="width:100%;height:30px">
 									<c:forEach items="${totalStructure}" var="tructure">
 										<th style="border-left:1px solid;border-top:1px solid;width:130px;text-align:center">${tructure.date}</th>
 									</c:forEach>
 								</tr>
 							</table>
-							<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;">
+							<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;width:89%">
 								<tr style="height:35px;"> 
 									<c:forEach items="${totalStructure}" var="tructure">
 										<th style="border-left:1px solid;border-top:1px solid;width:130px;text-align:center">${tructure.stockTotal}</th>
@@ -515,30 +531,112 @@
 					</div>
 				</div>
 				</div>
-			</div>	
+			</div>
+			
+			<div class="company_holder"  style="border:1px solid #EBEBEB">
+				<div class="title" style="height:40px;border:1px solid;background-color:#4DA0CE;padding:6px">控股层级关系</div>
+				<div class="table-a" style="width:100%;padding:13px 10px 0px 18px;margin:10px"">
+					<div class="left_head">
+						<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;width:89%;">
+							<tr style="height:35px;">
+								<td style="border-left:1px solid;border-top:1px solid;font-size:18px">
+									<span>控制股东:   </span><span>${controller }</span>（${controllerInfo}）</td>
+							</tr>
+							<tr style="height:35px">
+								<td style="border-left:1px solid;border-top:1px solid;font-size:18px">
+									<span>实际控制人：   </span><span>${realController }</span>（${realControllerInfo }）</td>
+							</tr>
+							<tr style="height:35px">
+								<td style="border-left:1px solid;border-top:1px solid;font-size:18px"> 
+									<span>最终控制人：   </span><span>${finalController }</span>（${finalControllerInfo }）</td>
+							</tr>
+						</table>
+					</div>
+					<div class="data_tbody" style="margin:20px auto 50px auto">
+						<table class="tbody" style="border-right:1px solid;border-bottom:1px solid;width:89%">
+							<c:forEach items="${classLevel}" var="tructure">
+								<tr style="height:35px;"> 
+									<td style="border-left:1px solid;border-top:1px solid;width:130px;text-align:center;font-size:12px"> ${tructure.institutionnamefrom}</td>	
+									<td style="border-left:1px solid;border-top:1px solid;width:130px;text-align:center;font-size:12px">持有其 ${tructure.holdvalue}</td>	
+									<td style="border-left:1px solid;border-top:1px solid;width:130px;text-align:center;font-size:12px"> ${tructure.institutionnameto}</td>							
+								</tr>
+							</c:forEach>
+						</table>
+						<div id="holdValueGraph" style="height:450px;width:100%;"></div>	
+						<script type="text/javascript">
+							var holdChart = echarts.init(document.getElementById("holdValueGraph"));
+							var mapList = ${mapList}.mapList;
+							var nodeList = mapList.nodeList;
+							var edgeList = mapList.edgeslist;
+							option = {  			           
+			                       force:{
+			                      	edgeLength:[20,80] 
+			                       },
+			                       animationDuration: 1500,
+			                       animationEasingUpdate: 'quinticInOut',
+			                       series: [{
+			                           type: 'graph',
+			                           layout: 'force',
+			                           force: {
+			                               initLayout:'circular',
+			                               edgeLength: 300,
+			                               repulsion: 600,
+			                               gravity: 0.2,
+			                               layoutAnimation : true
+			                           },
+			                           data:nodeList,
+			                           lineStyle: {
+			                               normal: {
+			                                   color: "target",
+			                                   width: 2,
+			                                   curveness: 0.3
+			                               }
+			                           },
+			                           edges: edgeList,
+			                           edgeLabel: {
+			 								normal: {
+			 									show: true,
+			 									textStyle: {
+			 										fontSize: 14
+			 									},	
+			 								formatter:function(params){//触发之后返回的参数，这个函数是关
+			 										  if (params.data.info !=undefined) {//如果触发节点
+			 			               		              return  params.data.info;//返回标签
+			 			               		            }else {//如果触发边
+			 			               		              return  params.data.info;
+			 			               		            }	
+			 									}
+			 	               		          } 
+			 							},
+			                           symbolSize:20,
+			                           focusNodeAdjacency: true,
+			                           roam: true,
+			                           draggable: true,
+			                           label: {
+			                               normal: {
+			                                   textStyle: {
+			                                       color: ["#327df8"],
+			                                       fontSize: 15
+			                                   },
+			                                   show: true,
+			                                   position: 'right',
+			                                   formatter: '{c}'
+			                               }
+			                           },
+			                           edgeSymbol:['none', 'arrow'],
+			                       }]
+			                   };
+							holdChart.setOption(option);
+						</script>
+					</div>
+				</div>
+			</div>
+				
 		</div>
 	</div>
 </div>
-</div>
-	
+</div>	
 <!-- //news-original -->
- <!--footer--> 
-	<div class="footer ">
-		<div class="container ">
-			<ul class="agileits_w3layouts_footer_info ">
-				<li><a href="index.jsp ">Home</a><i>|</i></li>
-				<li><a href="news.jsp ">Markets</a><i>|</i></li>
-				<li><a href="funds.jsp ">mutual funds</a><i>|</i></li>
-				<li><a href="commodities.jsp ">commodities</a><i>|</i></li>
-				<li><a href="portfolio.jsp ">portfolio</a><i>|</i></li>
-				<li><a href="about.jsp ">About Us</a><i>|</i></li>
-				<li><a href="ipo.jsp ">IPO</a><i>|</i></li>
-				<li><a href="sitemap.jsp ">sitemap</a></li>
-			</ul>
-			<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank " href="http://sc.chinaz.com/moban/ ">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-		</div>
-	</div>
-<!-- //footer -->
 <!-- stacked-graph -->
 	<script type="text/javascript " src="<%=basePath %>/js/raphael.js "></script>
     <script type="text/javascript " src="<%=basePath %>/js/jquery.enumerable.js "></script>
@@ -566,7 +664,6 @@
     </script>
 <!-- //stacked-graph -->
 <!-- Bootstrap Core JavaScript -->
-<script src="<%=basePath %>/js/bootstrap.min.js "></script>
 <script>
 $(document).ready(function(){
     $(".dropdown ").hover(            
@@ -600,10 +697,6 @@ $(document).ready(function(){
           success: function(data) {
         	var mapList = data.mapList;
           	var topCircuList = mapList.topCircuList;
- 			/* var first = mapList.listInfo[0];
- 			var second = mapList.listInfo[1];
- 			var third = mapList.listInfo[2]; */
- 			
           	if(topCircuList.length == 0){
           	}else{	
           		var threeInforHtml ='前十大股东累计持有'+mapList.listInfo[0]+'亿股，累计占总股本比：'+mapList.listInfo[1]+'，较上期变化：'+mapList.listInfo[2]+'万股';
@@ -613,11 +706,12 @@ $(document).ready(function(){
   					 permissionHtml = permissionHtml
   					   +'<tr class="gradeX" id="" style="height:35px">'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">'
-          			   if(topCircuList[i].holderChange == '退出'){
+          			   /* if(topCircuList[i].holderChange == '退出'){
           				 permissionHtml += '<a href="javascript:;" onclick="selectOutCircuStock(\''+topCircuList[i].institutionName+'\')">'+topCircuList[i].institutionName+'</a></td>'
           			   }else{
           				 permissionHtml += topCircuList[i].institutionName+'</td>';  
-          			   }  
+          			   }   */
+          			 permissionHtml += '<a href="javascript:;" onclick="selectOutCircuStock(\''+topCircuList[i].institutionName+'\')">'+topCircuList[i].institutionName+'</a></td>'
           			   permissionHtml +=
           			   '<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topCircuList[i].holderNum+'</td>'
           			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topCircuList[i].holderChange+'</td>'
@@ -636,7 +730,7 @@ $(document).ready(function(){
           	}
           }
       }) 	   
-     } 
+     }    
     //显示流通公司投资股票的关系图
      function selectOutCircuStock(institutionName){
 		if($("#outStockGraph").css("display") == "none"){
@@ -644,6 +738,7 @@ $(document).ready(function(){
 		}else{
 			$('#outStockGraph').css('display','none');
 		}
+		$('#writeOne').attr('href','detailsInvestment?institutionName='+institutionName);
 		 var element = document.getElementById("roleId");
          var roleId = element.options[element.selectedIndex].value;
          $.ajax({
@@ -655,110 +750,146 @@ $(document).ready(function(){
              },
              dataType: "json",
              success: function(data) {
-            	var myChart = echarts.init(document.getElementById("outStockGraph"));
-             	var mapList = data.mapList;	
-             	var edgeList = [];
-             	var nodeList = [];
-             	if(mapList.length == 0){
-             	}else{
-             		edgeList = mapList.edgeslist;//边 
-             		var infors= [];
-             		for(var i = 0; i < edgeList.length; i++){
-             			var r= edgeList[i].info;
-             			infors[i] =r;
-             		}
-             		nodeList = mapList.stockNamelist;//点	
-             	}
-             	
-             	option = {
-                        toolbox: {
-                            show: true,
-                            feature: {
-                                dataView: {
-                                    show: true,
-                                    readOnly: true
-                                },
-                                restore: {
-                                    show: true
-                                },
-                                saveAsImage: {
-                                    show: true
-                                }
-                            }
-                        },
-                        animationDuration: 1500,
-                        animationEasingUpdate: 'quinticInOut',
-                        series: [{
-                            type: 'graph',
-                            layout: 'force',
+              	var myChart = echarts.init(document.getElementById("outStockGraphIn"));
+              	var myChartTwo = echarts.init(document.getElementById("outStockGroupInner"));
+               	var mapList = data.mapList;	
+               	var edgeList = [];//边
+               	var nodeList = [];//点
+                var categories = [];//类目
+                var a=[0,0,0,0,0];
+                
+                 categories[0] = {name: '新进'};
+                 categories[1] = {name: '不变'};
+                 categories[2] = {name: '退出'};
+                 categories[3] = {name: '增持'};
+                 categories[4] = {name: '减持'};
+                 categories[5] = {name: '核心'};
+               	
+           		edgeList = mapList.edgeslist;//边 
+           		nodeList = mapList.stockNamelist;//复杂点
+           		var infors= [];
+           		for(var i = 0; i < edgeList.length; i++){
+           			var r= edgeList[i].info;
+           			infors[i] =r;
+           		}
+               	for(var i = 0; i < nodeList.length-1; i++){
+               		if((nodeList[i].category) == 0){
+               			a[0]++;
+               		}else if((nodeList[i].category) == 1){
+               			a[1]++
+               		}else if((nodeList[i].category) == 2){
+               			a[2]++;
+               		}else if((nodeList[i].category) == 3){
+               			a[3]++;
+               		}else if((nodeList[i].category) == 4){
+               			a[4]++;
+               		}
+               	}      	
+               	option = {
+               		 title: {
+               			left: 'center',               		 
+               	        text: institutionName + '   持股变化',
+               	        subtext: roleId + ' 时期'
+               	    },	  
+            		legend: [{
+            			 top: 45,
+                         data: categories.map(function (a) {
+                             return a.name;
+                         })
+                       }],
+                       force:{
+                      	edgeLength:[20,80] 
+                       },
+                       animationDuration: 1500,
+                       animationEasingUpdate: 'quinticInOut',
+                       series: [{
+                           type: 'graph',
+                           layout: 'force',
+                           force: {
+                               initLayout:'circular',
+                               edgeLength: 300,
+                               repulsion: 600,
+                               gravity: 0.2,
+                               layoutAnimation : true
+                           },
+                           data:nodeList,
+                           lineStyle: {
+                               normal: {
+                                   color: "target",
+                                   width: 2,
+                                   curveness: 0.3
+                               }
+                           },
+                           edges: edgeList,
+                           // categories: category,
+                           categories: categories,
+                           symbolSize:20,
+                           edgeLabel: {
+							normal: {
+								show: true,
+								textStyle: {
+									fontSize: 14
+								},	
+							formatter:function(params){//触发之后返回的参数，这个函数是关
+									  if (params.data.info !=undefined) {//如果触发节点
+		               		              return  params.data.info;//返回标签
+		               		            }else {//如果触发边
+		               		              return  params.data.info;
+		               		            }	
+								}
+               		          } 
+						},
+                           focusNodeAdjacency: true,
+                           roam: true,
+                           label: {
+                               normal: {
+                                   textStyle: {
+                                       color: ["#327df8"],
+                                       fontSize: 15
+                                   },
+                                   show: true,
+                                   position: 'right',
+                                   formatter: '{c}'
+                               }
+                           },
+                           edgeSymbol:['none', 'arrow'],
+                       }]
+                   };
+                   myChart.setOption(option);
+                   options = {
+                 	    tooltip : {
+                 	        trigger: 'item',
+                 	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                 	    },
+                 	    
+                 	    series : [
+                 	        {
+                 	            name: institutionName,
+                 	            type: 'pie',
+                 	            radius : '55%',
+                 	            center: ['50%', '60%'],
+                 	            data:[
+                 	                {value:a[0], name:'新进'},
+                 	                {value:a[1], name:'不变'},
+                 	                {value:a[2], name:'退出'},
+                 	                {value:a[3], name:'增持'},
+                 	                {value:a[4], name:'减持'}
+                 	            ],
+                 	            itemStyle: {
+                 	                emphasis: {
+                 	                    shadowBlur: 10,
+                 	                    shadowOffsetX: 0,
+                 	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                 	                }
+                 	            }
+                 	        }
+                 	    ]
+                 	};
+                   myChartTwo.setOption(options);
+               }
 
-                            force: {
-                                initLayout:'circular',
-                                edgeLength: 50,
-                                repulsion: 50,
-                                gravity: 0.2,
-                                layoutAnimation : true
-                            },
-                            data: nodeList,
-                            edges: edgeList,
-                            // categories: category,
-                            edgeLabel: {
-								normal: {
-									show: true,
-									textStyle: {
-										fontSize: 14
-									},
-									
-								formatter:function(params){//触发之后返回的参数，这个函数是关
-										  if (params.data.info !=undefined) {//如果触发节点
-			               		              return '状态:'+ params.data.info;//返回标签
-			               		            }else {//如果触发边
-			               		              return '状态:'+params.data.info;
-			               		            }	
-									}
-	             		          
-	               		          } 
-							},
-                            focusNodeAdjacency: true,
-                            roam: true,
-                            label: {
-                                normal: {
-                                    textStyle: {
-                                        color: ["#327df8"],
-                                        fontSize: 15
-                                    },
-                                    show: true,
-                                    position: 'middle',
-                                    formatter: '{c}'
-                                }
-                            },
-                            edgeSymbol:['none', 'arrow'],
-                           /*  lineStyle: {
-                                normal: {
-                                    color: {
-                                        type: 'linear',
-                                        x: 0,
-                                        y: 0,
-                                        x2: 0,
-                                        y2: 1,
-                                        colorStops: [{
-                                            offset: 0, color: 'black' // 0% 处的颜色
-                                        }, {
-                                            offset: 1, color: 'blue' // 100% 处的颜色
-                                        }],
-                                        globalCoord: false // 缺省为 false
-                                    },
-                                    width: 2
-                                }
-                            } */
-                        }]
-                    };
-                    myChart.setOption(option)
-             }
-
-         }) 	 
-     }
-     
+          }) 	 
+      }
    //显示公司投资股票的关系图
      function selectOutStock(institutionName){
 		if($("#outStockGraphTwo").css("display") == "none"){
@@ -766,6 +897,7 @@ $(document).ready(function(){
 		}else{
 			$('#outStockGraphTwo').css('display','none');
 		}
+		$('#writeTwo').attr('href','detailsInvestmentTwo?institutionName='+institutionName);
 		 var element = document.getElementById("roleIdTwo");
          var roleId = element.options[element.selectedIndex].value;
          $.ajax({
@@ -777,43 +909,60 @@ $(document).ready(function(){
              },
              dataType: "json",
              success: function(data) {
-             	var myChart = echarts.init(document.getElementById("outStockGraphTwo"));
+             	var myChart = echarts.init(document.getElementById("outStockGraphTwoIn"));
+              	var myChartTwo = echarts.init(document.getElementById("outStockGroupTwoInner"));
               	var mapList = data.mapList;	
-              	var edgeList = [];
-              	var nodeList = [];
-              	if(mapList.length == 0){
-              	}else{
-              		edgeList = mapList.edgeslist;//边 
-              		var infors= [];
-              		for(var i = 0; i < edgeList.length; i++){
-              			var r= edgeList[i].info;
-              			infors[i] =r;
-              		}
-              		nodeList = mapList.stockNamelist;//点	
-              	}
+              	var edgeList = [];//边
+              	var nodeList = [];//点
+                var categories = [];//类目
+                var a=[0,0,0,0,0];
+                categories[0] = {name: '新进'};
+                categories[1] = {name: '不变'};
+                categories[2] = {name: '退出'};
+                categories[3] = {name: '增持'};
+                categories[4] = {name: '减持'};
+                categories[5] = {name: '核心'};
               	
+           		edgeList = mapList.edgeslist;//边 
+           		nodeList = mapList.stockNamelist;//复杂点
+           		var infors= [];
+           		for(var i = 0; i < edgeList.length; i++){
+           			var r= edgeList[i].info;
+           			infors[i] =r;
+           		}
+           		for(var i = 0; i < nodeList.length-1; i++){
+               		if((nodeList[i].category) == 0){
+               			a[0]++;
+               		}else if((nodeList[i].category) == 1){
+               			a[1]++
+               		}else if((nodeList[i].category) == 2){
+               			a[2]++;
+               		}else if((nodeList[i].category) == 3){
+               			a[3]++;
+               		}else if((nodeList[i].category) == 4){
+               			a[4]++;
+               		}
+               	}          
               	option = {
-                         toolbox: {
-                             show: true,
-                             feature: {
-                                 dataView: {
-                                     show: true,
-                                     readOnly: true
-                                 },
-                                 restore: {
-                                     show: true
-                                 },
-                                 saveAsImage: {
-                                     show: true
-                                 }
-                             }
+              			 title: {
+                    			left: 'center',               		 
+                    	        text: institutionName + '   持股变化',
+                    	        subtext: roleId + ' 时期'
+                    	    },	
+                         legend: [{
+                        	 top:40,
+                             data: categories.map(function (a) {
+                                 return a.name;
+                             })
+                         }],
+                         force:{
+                        	edgeLength:[20,80] 
                          },
                          animationDuration: 1500,
                          animationEasingUpdate: 'quinticInOut',
                          series: [{
                              type: 'graph',
                              layout: 'force',
-
                              force: {
                                  initLayout:'circular',
                                  edgeLength: 50,
@@ -821,24 +970,30 @@ $(document).ready(function(){
                                  gravity: 0.2,
                                  layoutAnimation : true
                              },
-                             data: nodeList,
+                             data:nodeList,
+                             lineStyle: {
+                                 normal: {
+                                     color: "target",
+                                     width: 2,
+                                     curveness: 0.3
+                                 }
+                             },
                              edges: edgeList,
                              // categories: category,
+                             categories: categories,
                              edgeLabel: {
  								normal: {
  									show: true,
  									textStyle: {
  										fontSize: 14
- 									},
- 									
+ 									},	
  								formatter:function(params){//触发之后返回的参数，这个函数是关
  										  if (params.data.info !=undefined) {//如果触发节点
- 			               		              return '状态:'+ params.data.info;//返回标签
+ 			               		              return  params.data.info;//返回标签
  			               		            }else {//如果触发边
- 			               		              return '状态:'+params.data.info;
+ 			               		              return  params.data.info;
  			               		            }	
  									}
- 	             		          
  	               		          } 
  							},
                              focusNodeAdjacency: true,
@@ -855,35 +1010,44 @@ $(document).ready(function(){
                                  }
                              },
                              edgeSymbol:['none', 'arrow'],
-                            /*  lineStyle: {
-                                 normal: {
-                                     color: {
-                                         type: 'linear',
-                                         x: 0,
-                                         y: 0,
-                                         x2: 0,
-                                         y2: 1,
-                                         colorStops: [{
-                                             offset: 0, color: 'black' // 0% 处的颜色
-                                         }, {
-                                             offset: 1, color: 'blue' // 100% 处的颜色
-                                         }],
-                                         globalCoord: false // 缺省为 false
-                                     },
-                                     width: 2
-                                 }
-                             } */
                          }]
                      };
-                     myChart.setOption(option)
-              	
-              	
+                     myChart.setOption(option);
+                     options = {
+                     	    tooltip : {
+                     	        trigger: 'item',
+                     	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                     	    },
+                     	    
+                     	    series : [
+                     	        {
+                     	            name: institutionName,
+                     	            type: 'pie',
+                     	            radius : '55%',
+                     	            center: ['50%', '60%'],
+                     	            data:[
+                     	                {value:a[0], name:'新进'},
+                     	                {value:a[1], name:'不变'},
+                     	                {value:a[2], name:'退出'},
+                     	                {value:a[3], name:'增持'},
+                     	                {value:a[4], name:'减持'}
+                     	            ],
+                     	            itemStyle: {
+                     	                emphasis: {
+                     	                    shadowBlur: 10,
+                     	                    shadowOffsetX: 0,
+                     	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                     	                }
+                     	            }
+                     	        }
+                     	    ]
+                     	};
+                       myChartTwo.setOption(options);
               }
 
          }) 	 
      }
-    
-     
+   
      function selectRoleTwo() {
          var element = document.getElementById("roleIdTwo");
          var roleId = element.options[element.selectedIndex].value;
@@ -898,36 +1062,28 @@ $(document).ready(function(){
           dataType: "json",
           success: function(data) {
           	var topList = data.topList;	
-          	if(topList.length == 0){
-
-          	}else{
-          		var permissionHtml = "";
-  				for (var i = 0; i < topList.length; i++) {
-  					
-  					 permissionHtml = permissionHtml
-					   +'<tr class="gradeX" id="" style="height:35px">'
-        			   +'<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">'
-        			   if(topList[i].holderChange == '退出'){
-        				 permissionHtml += '<a href="javascript:;" onclick="selectOutStock(\''+topList[i].institutionName+'\')">'+topList[i].institutionName+'</a></td>'
-        			   }else{
-        				 permissionHtml += topList[i].institutionName+'</td>';  
-        			   }  
-        			   permissionHtml +=
-        			   '<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].holderNum+'</td>'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].holderChange+'</td>'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].stockPropotionRate+'</td>'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].realIncrease+'</td>'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].stockType+'</td>'
-          			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'
-        			   if(topList[i].holderChange != '退出'){
-        				  permissionHtml += '<a href="javascript:;" class="md-trigger btn btn-primary btn-sm" onclick="selectStockDetail(\''+topList[i].stockDetailId+'\',\''+topList[i].institutionName+'\',\''+'${company.stockName}'+'\')">查看详情</a></td></tr>';
-                          /* onclick="selectStockDetail(\''+topCircuList[i].stockDetailId+'\',\''+topCircuList[i].institutionName+'\',\''+${company.stockName}+'\')">查看详情</ a></td></tr>';*/
-        			   }else{
-        				 permissionHtml += '';
-        			   }  
-					$("#tbody2")[0].innerHTML = permissionHtml;    
-  				}
-          	}
+       		var permissionHtml = "";
+			for (var i = 0; i < topList.length; i++) {				
+				 permissionHtml = permissionHtml
+		           +'<tr class="gradeX" id="" style="height:35px">'
+     			   +'<td style="border-left:1px solid;border-top:1px solid;width:30%;text-align:center">'
+     	
+     			   permissionHtml += '<a href="javascript:;" onclick="selectOutStock(\''+topList[i].institutionName+'\')">'+topList[i].institutionName+'</a></td>'
+     			   permissionHtml +=
+     			   '<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].holderNum+'</td>'
+       			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].holderChange+'</td>'
+       			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].stockPropotionRate+'</td>'
+       			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].realIncrease+'</td>'
+       			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'+topList[i].stockType+'</td>'
+       			   +'<td style="border-left:1px solid;border-top:1px solid;width:10%;text-align:center">'
+     			   if(topList[i].holderChange != '退出'){
+     				  permissionHtml += '<a href="javascript:;" class="md-trigger btn btn-primary btn-sm" onclick="selectStockDetail(\''+topList[i].stockDetailId+'\',\''+topList[i].institutionName+'\',\''+'${company.stockName}'+'\')">查看详情</a></td></tr>';
+                       /* onclick="selectStockDetail(\''+topCircuList[i].stockDetailId+'\',\''+topCircuList[i].institutionName+'\',\''+${company.stockName}+'\')">查看详情</ a></td></tr>';*/
+     			   }else{
+     				 permissionHtml += '';
+     			   }  
+		     $("#tbody2")[0].innerHTML = permissionHtml;    
+			}
           } 
       }) 	   
      }

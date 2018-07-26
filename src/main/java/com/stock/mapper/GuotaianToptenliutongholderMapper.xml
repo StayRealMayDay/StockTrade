@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.GuotaianToptenliutongholderMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.GuotaianToptenliutongholder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stock_num" property="stockNum" jdbcType="VARCHAR" />
+    <result column="stopTime" property="stoptime" jdbcType="VARCHAR" />
+    <result column="stockHolderName" property="stockholdername" jdbcType="VARCHAR" />
+    <result column="havingSum" property="havingsum" jdbcType="VARCHAR" />
+    <result column="guFenXingZhi" property="gufenxingzhi" jdbcType="VARCHAR" />
+    <result column="chiGuPaiMing" property="chigupaiming" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stock_num, stopTime, stockHolderName, havingSum, guFenXingZhi, chiGuPaiMing
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.GuotaianToptenliutongholderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from guoTaiAn_topTenLiuTongHolder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from guoTaiAn_topTenLiuTongHolder
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from guoTaiAn_topTenLiuTongHolder
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.GuotaianToptenliutongholderExample" >
+    delete from guoTaiAn_topTenLiuTongHolder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.GuotaianToptenliutongholder" >
+    insert into guoTaiAn_topTenLiuTongHolder (id, stock_num, stopTime, 
+      stockHolderName, havingSum, guFenXingZhi, 
+      chiGuPaiMing)
+    values (#{id,jdbcType=INTEGER}, #{stockNum,jdbcType=VARCHAR}, #{stoptime,jdbcType=VARCHAR}, 
+      #{stockholdername,jdbcType=VARCHAR}, #{havingsum,jdbcType=VARCHAR}, #{gufenxingzhi,jdbcType=VARCHAR}, 
+      #{chigupaiming,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.GuotaianToptenliutongholder" >
+    insert into guoTaiAn_topTenLiuTongHolder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="stoptime != null" >
+        stopTime,
+      </if>
+      <if test="stockholdername != null" >
+        stockHolderName,
+      </if>
+      <if test="havingsum != null" >
+        havingSum,
+      </if>
+      <if test="gufenxingzhi != null" >
+        guFenXingZhi,
+      </if>
+      <if test="chigupaiming != null" >
+        chiGuPaiMing,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stoptime != null" >
+        #{stoptime,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholdername != null" >
+        #{stockholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="havingsum != null" >
+        #{havingsum,jdbcType=VARCHAR},
+      </if>
+      <if test="gufenxingzhi != null" >
+        #{gufenxingzhi,jdbcType=VARCHAR},
+      </if>
+      <if test="chigupaiming != null" >
+        #{chigupaiming,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.GuotaianToptenliutongholderExample" resultType="java.lang.Integer" >
+    select count(*) from guoTaiAn_topTenLiuTongHolder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update guoTaiAn_topTenLiuTongHolder
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockNum != null" >
+        stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stoptime != null" >
+        stopTime = #{record.stoptime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockholdername != null" >
+        stockHolderName = #{record.stockholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.havingsum != null" >
+        havingSum = #{record.havingsum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gufenxingzhi != null" >
+        guFenXingZhi = #{record.gufenxingzhi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chigupaiming != null" >
+        chiGuPaiMing = #{record.chigupaiming,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update guoTaiAn_topTenLiuTongHolder
+    set id = #{record.id,jdbcType=INTEGER},
+      stock_num = #{record.stockNum,jdbcType=VARCHAR},
+      stopTime = #{record.stoptime,jdbcType=VARCHAR},
+      stockHolderName = #{record.stockholdername,jdbcType=VARCHAR},
+      havingSum = #{record.havingsum,jdbcType=VARCHAR},
+      guFenXingZhi = #{record.gufenxingzhi,jdbcType=VARCHAR},
+      chiGuPaiMing = #{record.chigupaiming,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.GuotaianToptenliutongholder" >
+    update guoTaiAn_topTenLiuTongHolder
+    <set >
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stoptime != null" >
+        stopTime = #{stoptime,jdbcType=VARCHAR},
+      </if>
+      <if test="stockholdername != null" >
+        stockHolderName = #{stockholdername,jdbcType=VARCHAR},
+      </if>
+      <if test="havingsum != null" >
+        havingSum = #{havingsum,jdbcType=VARCHAR},
+      </if>
+      <if test="gufenxingzhi != null" >
+        guFenXingZhi = #{gufenxingzhi,jdbcType=VARCHAR},
+      </if>
+      <if test="chigupaiming != null" >
+        chiGuPaiMing = #{chigupaiming,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.GuotaianToptenliutongholder" >
+    update guoTaiAn_topTenLiuTongHolder
+    set stock_num = #{stockNum,jdbcType=VARCHAR},
+      stopTime = #{stoptime,jdbcType=VARCHAR},
+      stockHolderName = #{stockholdername,jdbcType=VARCHAR},
+      havingSum = #{havingsum,jdbcType=VARCHAR},
+      guFenXingZhi = #{gufenxingzhi,jdbcType=VARCHAR},
+      chiGuPaiMing = #{chigupaiming,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  	<select id="txtGenerationOne" resultType="string">
+		select distinct stockHolderName 
+		from guoTaiAn_topTenLiuTongHolder
+	</select>
+  
+  <select id="txtGenerationTwo" resultType="string">
+		select stock_num from guoTaiAn_topTenLiuTongHolder
+		where stockHolderName = #{institution_name}
+	</select>
+  
+</mapper>

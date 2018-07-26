@@ -33,4 +33,16 @@ public interface TopStockCirculationHolderMapper {
     List<TopStockCirculationHolder> topStockDateOne(@Param("date") String date,@Param("stock_id") String stock_id);
     //11月30日
     List<TopStockCirculationHolder> selectCircuOutStock(@Param("date") String date,@Param("institution_name") String institution_name);
+    //12月24日
+    List<TopStockCirculationHolder> selectInvestionAllOne(String institution_name);
+    //12月28
+    List<String> topSomeCircuDate(String institution_name);
+    //18年1月6日
+    List<String> similarPrepare(@Param("first") String stockId,@Param("second") String holderChange ,@Param("third") String date);
+    //18年1月6日
+    List<String> similarPrepareCut(@Param("first") String stockId,@Param("second") String holderChange);
+    //18年1月6日
+    List<String> similarPrepareAdd(@Param("first") String stockId,@Param("second") String holderChange);
+    //测试用的部分
+    List<String> circulationTest();
 }

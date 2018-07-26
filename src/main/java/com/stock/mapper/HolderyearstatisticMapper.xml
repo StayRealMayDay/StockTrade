@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.stock.mapper.HolderyearstatisticMapper" >
+  <resultMap id="BaseResultMap" type="com.stock.pojo.Holderyearstatistic" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="stockHolder" property="stockholder" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="industryDaLeiSum" property="industrydaleisum" jdbcType="INTEGER" />
+    <result column="industryMenLeiSum" property="industrymenleisum" jdbcType="INTEGER" />
+    <result column="huRate" property="hurate" jdbcType="REAL" />
+    <result column="shenRate" property="shenrate" jdbcType="REAL" />
+    <result column="xingWeiSum" property="xingweisum" jdbcType="INTEGER" />
+    <result column="stockSum" property="stocksum" jdbcType="INTEGER" />
+    <result column="sumTouZiXingWei" property="sumtouzixingwei" jdbcType="VARCHAR" />
+    <result column="sumStockGeShu" property="sumstockgeshu" jdbcType="VARCHAR" />
+    <result column="sumOfMenLei" property="sumofmenlei" jdbcType="VARCHAR" />
+    <result column="sumOfDalei" property="sumofdalei" jdbcType="VARCHAR" />
+    <result column="threeProprorty" property="threeproprorty" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.stock.pojo.HolderyearstatisticWithBLOBs" extends="BaseResultMap" >
+    <result column="stockDe" property="stockde" jdbcType="LONGVARCHAR" />
+    <result column="stock" property="stock" jdbcType="LONGVARCHAR" />
+    <result column="industryDaLei" property="industrydalei" jdbcType="LONGVARCHAR" />
+    <result column="industryDaLeiDe" property="industrydaleide" jdbcType="LONGVARCHAR" />
+    <result column="industryMenLei" property="industrymenlei" jdbcType="LONGVARCHAR" />
+    <result column="industryMenLeiDe" property="industrymenleide" jdbcType="LONGVARCHAR" />
+    <result column="stockAreaDe" property="stockareade" jdbcType="LONGVARCHAR" />
+    <result column="stockArea" property="stockarea" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, num, stockHolder, year, industryDaLeiSum, industryMenLeiSum, huRate, shenRate, 
+    xingWeiSum, stockSum, sumTouZiXingWei, sumStockGeShu, sumOfMenLei, sumOfDalei, threeProprorty
+  </sql>
+  <sql id="Blob_Column_List" >
+    stockDe, stock, industryDaLei, industryDaLeiDe, industryMenLei, industryMenLeiDe, 
+    stockAreaDe, stockArea
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.stock.pojo.HolderyearstatisticExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from holderYearStatistic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.stock.pojo.HolderyearstatisticExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from holderYearStatistic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from holderYearStatistic
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from holderYearStatistic
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stock.pojo.HolderyearstatisticExample" >
+    delete from holderYearStatistic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stock.pojo.HolderyearstatisticWithBLOBs" >
+    insert into holderYearStatistic (id, num, stockHolder, 
+      year, industryDaLeiSum, industryMenLeiSum, 
+      huRate, shenRate, xingWeiSum, 
+      stockSum, sumTouZiXingWei, sumStockGeShu, 
+      sumOfMenLei, sumOfDalei, threeProprorty, 
+      stockDe, stock, industryDaLei, 
+      industryDaLeiDe, industryMenLei, 
+      industryMenLeiDe, stockAreaDe, 
+      stockArea)
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{stockholder,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{industrydaleisum,jdbcType=INTEGER}, #{industrymenleisum,jdbcType=INTEGER}, 
+      #{hurate,jdbcType=REAL}, #{shenrate,jdbcType=REAL}, #{xingweisum,jdbcType=INTEGER}, 
+      #{stocksum,jdbcType=INTEGER}, #{sumtouzixingwei,jdbcType=VARCHAR}, #{sumstockgeshu,jdbcType=VARCHAR}, 
+      #{sumofmenlei,jdbcType=VARCHAR}, #{sumofdalei,jdbcType=VARCHAR}, #{threeproprorty,jdbcType=VARCHAR}, 
+      #{stockde,jdbcType=LONGVARCHAR}, #{stock,jdbcType=LONGVARCHAR}, #{industrydalei,jdbcType=LONGVARCHAR}, 
+      #{industrydaleide,jdbcType=LONGVARCHAR}, #{industrymenlei,jdbcType=LONGVARCHAR}, 
+      #{industrymenleide,jdbcType=LONGVARCHAR}, #{stockareade,jdbcType=LONGVARCHAR}, 
+      #{stockarea,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stock.pojo.HolderyearstatisticWithBLOBs" >
+    insert into holderYearStatistic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="stockholder != null" >
+        stockHolder,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="industrydaleisum != null" >
+        industryDaLeiSum,
+      </if>
+      <if test="industrymenleisum != null" >
+        industryMenLeiSum,
+      </if>
+      <if test="hurate != null" >
+        huRate,
+      </if>
+      <if test="shenrate != null" >
+        shenRate,
+      </if>
+      <if test="xingweisum != null" >
+        xingWeiSum,
+      </if>
+      <if test="stocksum != null" >
+        stockSum,
+      </if>
+      <if test="sumtouzixingwei != null" >
+        sumTouZiXingWei,
+      </if>
+      <if test="sumstockgeshu != null" >
+        sumStockGeShu,
+      </if>
+      <if test="sumofmenlei != null" >
+        sumOfMenLei,
+      </if>
+      <if test="sumofdalei != null" >
+        sumOfDalei,
+      </if>
+      <if test="threeproprorty != null" >
+        threeProprorty,
+      </if>
+      <if test="stockde != null" >
+        stockDe,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="industrydalei != null" >
+        industryDaLei,
+      </if>
+      <if test="industrydaleide != null" >
+        industryDaLeiDe,
+      </if>
+      <if test="industrymenlei != null" >
+        industryMenLei,
+      </if>
+      <if test="industrymenleide != null" >
+        industryMenLeiDe,
+      </if>
+      <if test="stockareade != null" >
+        stockAreaDe,
+      </if>
+      <if test="stockarea != null" >
+        stockArea,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="stockholder != null" >
+        #{stockholder,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="industrydaleisum != null" >
+        #{industrydaleisum,jdbcType=INTEGER},
+      </if>
+      <if test="industrymenleisum != null" >
+        #{industrymenleisum,jdbcType=INTEGER},
+      </if>
+      <if test="hurate != null" >
+        #{hurate,jdbcType=REAL},
+      </if>
+      <if test="shenrate != null" >
+        #{shenrate,jdbcType=REAL},
+      </if>
+      <if test="xingweisum != null" >
+        #{xingweisum,jdbcType=INTEGER},
+      </if>
+      <if test="stocksum != null" >
+        #{stocksum,jdbcType=INTEGER},
+      </if>
+      <if test="sumtouzixingwei != null" >
+        #{sumtouzixingwei,jdbcType=VARCHAR},
+      </if>
+      <if test="sumstockgeshu != null" >
+        #{sumstockgeshu,jdbcType=VARCHAR},
+      </if>
+      <if test="sumofmenlei != null" >
+        #{sumofmenlei,jdbcType=VARCHAR},
+      </if>
+      <if test="sumofdalei != null" >
+        #{sumofdalei,jdbcType=VARCHAR},
+      </if>
+      <if test="threeproprorty != null" >
+        #{threeproprorty,jdbcType=VARCHAR},
+      </if>
+      <if test="stockde != null" >
+        #{stockde,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrydalei != null" >
+        #{industrydalei,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrydaleide != null" >
+        #{industrydaleide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrymenlei != null" >
+        #{industrymenlei,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrymenleide != null" >
+        #{industrymenleide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stockareade != null" >
+        #{stockareade,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stockarea != null" >
+        #{stockarea,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stock.pojo.HolderyearstatisticExample" resultType="java.lang.Integer" >
+    select count(*) from holderYearStatistic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update holderYearStatistic
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockholder != null" >
+        stockHolder = #{record.stockholder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null" >
+        year = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industrydaleisum != null" >
+        industryDaLeiSum = #{record.industrydaleisum,jdbcType=INTEGER},
+      </if>
+      <if test="record.industrymenleisum != null" >
+        industryMenLeiSum = #{record.industrymenleisum,jdbcType=INTEGER},
+      </if>
+      <if test="record.hurate != null" >
+        huRate = #{record.hurate,jdbcType=REAL},
+      </if>
+      <if test="record.shenrate != null" >
+        shenRate = #{record.shenrate,jdbcType=REAL},
+      </if>
+      <if test="record.xingweisum != null" >
+        xingWeiSum = #{record.xingweisum,jdbcType=INTEGER},
+      </if>
+      <if test="record.stocksum != null" >
+        stockSum = #{record.stocksum,jdbcType=INTEGER},
+      </if>
+      <if test="record.sumtouzixingwei != null" >
+        sumTouZiXingWei = #{record.sumtouzixingwei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumstockgeshu != null" >
+        sumStockGeShu = #{record.sumstockgeshu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumofmenlei != null" >
+        sumOfMenLei = #{record.sumofmenlei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sumofdalei != null" >
+        sumOfDalei = #{record.sumofdalei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.threeproprorty != null" >
+        threeProprorty = #{record.threeproprorty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stockde != null" >
+        stockDe = #{record.stockde,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.stock != null" >
+        stock = #{record.stock,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.industrydalei != null" >
+        industryDaLei = #{record.industrydalei,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.industrydaleide != null" >
+        industryDaLeiDe = #{record.industrydaleide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.industrymenlei != null" >
+        industryMenLei = #{record.industrymenlei,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.industrymenleide != null" >
+        industryMenLeiDe = #{record.industrymenleide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.stockareade != null" >
+        stockAreaDe = #{record.stockareade,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.stockarea != null" >
+        stockArea = #{record.stockarea,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update holderYearStatistic
+    set id = #{record.id,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=INTEGER},
+      stockHolder = #{record.stockholder,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=VARCHAR},
+      industryDaLeiSum = #{record.industrydaleisum,jdbcType=INTEGER},
+      industryMenLeiSum = #{record.industrymenleisum,jdbcType=INTEGER},
+      huRate = #{record.hurate,jdbcType=REAL},
+      shenRate = #{record.shenrate,jdbcType=REAL},
+      xingWeiSum = #{record.xingweisum,jdbcType=INTEGER},
+      stockSum = #{record.stocksum,jdbcType=INTEGER},
+      sumTouZiXingWei = #{record.sumtouzixingwei,jdbcType=VARCHAR},
+      sumStockGeShu = #{record.sumstockgeshu,jdbcType=VARCHAR},
+      sumOfMenLei = #{record.sumofmenlei,jdbcType=VARCHAR},
+      sumOfDalei = #{record.sumofdalei,jdbcType=VARCHAR},
+      threeProprorty = #{record.threeproprorty,jdbcType=VARCHAR},
+      stockDe = #{record.stockde,jdbcType=LONGVARCHAR},
+      stock = #{record.stock,jdbcType=LONGVARCHAR},
+      industryDaLei = #{record.industrydalei,jdbcType=LONGVARCHAR},
+      industryDaLeiDe = #{record.industrydaleide,jdbcType=LONGVARCHAR},
+      industryMenLei = #{record.industrymenlei,jdbcType=LONGVARCHAR},
+      industryMenLeiDe = #{record.industrymenleide,jdbcType=LONGVARCHAR},
+      stockAreaDe = #{record.stockareade,jdbcType=LONGVARCHAR},
+      stockArea = #{record.stockarea,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update holderYearStatistic
+    set id = #{record.id,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=INTEGER},
+      stockHolder = #{record.stockholder,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=VARCHAR},
+      industryDaLeiSum = #{record.industrydaleisum,jdbcType=INTEGER},
+      industryMenLeiSum = #{record.industrymenleisum,jdbcType=INTEGER},
+      huRate = #{record.hurate,jdbcType=REAL},
+      shenRate = #{record.shenrate,jdbcType=REAL},
+      xingWeiSum = #{record.xingweisum,jdbcType=INTEGER},
+      stockSum = #{record.stocksum,jdbcType=INTEGER},
+      sumTouZiXingWei = #{record.sumtouzixingwei,jdbcType=VARCHAR},
+      sumStockGeShu = #{record.sumstockgeshu,jdbcType=VARCHAR},
+      sumOfMenLei = #{record.sumofmenlei,jdbcType=VARCHAR},
+      sumOfDalei = #{record.sumofdalei,jdbcType=VARCHAR},
+      threeProprorty = #{record.threeproprorty,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stock.pojo.HolderyearstatisticWithBLOBs" >
+    update holderYearStatistic
+    <set >
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="stockholder != null" >
+        stockHolder = #{stockholder,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="industrydaleisum != null" >
+        industryDaLeiSum = #{industrydaleisum,jdbcType=INTEGER},
+      </if>
+      <if test="industrymenleisum != null" >
+        industryMenLeiSum = #{industrymenleisum,jdbcType=INTEGER},
+      </if>
+      <if test="hurate != null" >
+        huRate = #{hurate,jdbcType=REAL},
+      </if>
+      <if test="shenrate != null" >
+        shenRate = #{shenrate,jdbcType=REAL},
+      </if>
+      <if test="xingweisum != null" >
+        xingWeiSum = #{xingweisum,jdbcType=INTEGER},
+      </if>
+      <if test="stocksum != null" >
+        stockSum = #{stocksum,jdbcType=INTEGER},
+      </if>
+      <if test="sumtouzixingwei != null" >
+        sumTouZiXingWei = #{sumtouzixingwei,jdbcType=VARCHAR},
+      </if>
+      <if test="sumstockgeshu != null" >
+        sumStockGeShu = #{sumstockgeshu,jdbcType=VARCHAR},
+      </if>
+      <if test="sumofmenlei != null" >
+        sumOfMenLei = #{sumofmenlei,jdbcType=VARCHAR},
+      </if>
+      <if test="sumofdalei != null" >
+        sumOfDalei = #{sumofdalei,jdbcType=VARCHAR},
+      </if>
+      <if test="threeproprorty != null" >
+        threeProprorty = #{threeproprorty,jdbcType=VARCHAR},
+      </if>
+      <if test="stockde != null" >
+        stockDe = #{stockde,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrydalei != null" >
+        industryDaLei = #{industrydalei,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrydaleide != null" >
+        industryDaLeiDe = #{industrydaleide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrymenlei != null" >
+        industryMenLei = #{industrymenlei,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="industrymenleide != null" >
+        industryMenLeiDe = #{industrymenleide,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stockareade != null" >
+        stockAreaDe = #{stockareade,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="stockarea != null" >
+        stockArea = #{stockarea,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.stock.pojo.HolderyearstatisticWithBLOBs" >
+    update holderYearStatistic
+    set num = #{num,jdbcType=INTEGER},
+      stockHolder = #{stockholder,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      industryDaLeiSum = #{industrydaleisum,jdbcType=INTEGER},
+      industryMenLeiSum = #{industrymenleisum,jdbcType=INTEGER},
+      huRate = #{hurate,jdbcType=REAL},
+      shenRate = #{shenrate,jdbcType=REAL},
+      xingWeiSum = #{xingweisum,jdbcType=INTEGER},
+      stockSum = #{stocksum,jdbcType=INTEGER},
+      sumTouZiXingWei = #{sumtouzixingwei,jdbcType=VARCHAR},
+      sumStockGeShu = #{sumstockgeshu,jdbcType=VARCHAR},
+      sumOfMenLei = #{sumofmenlei,jdbcType=VARCHAR},
+      sumOfDalei = #{sumofdalei,jdbcType=VARCHAR},
+      threeProprorty = #{threeproprorty,jdbcType=VARCHAR},
+      stockDe = #{stockde,jdbcType=LONGVARCHAR},
+      stock = #{stock,jdbcType=LONGVARCHAR},
+      industryDaLei = #{industrydalei,jdbcType=LONGVARCHAR},
+      industryDaLeiDe = #{industrydaleide,jdbcType=LONGVARCHAR},
+      industryMenLei = #{industrymenlei,jdbcType=LONGVARCHAR},
+      industryMenLeiDe = #{industrymenleide,jdbcType=LONGVARCHAR},
+      stockAreaDe = #{stockareade,jdbcType=LONGVARCHAR},
+      stockArea = #{stockarea,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stock.pojo.Holderyearstatistic" >
+    update holderYearStatistic
+    set num = #{num,jdbcType=INTEGER},
+      stockHolder = #{stockholder,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      industryDaLeiSum = #{industrydaleisum,jdbcType=INTEGER},
+      industryMenLeiSum = #{industrymenleisum,jdbcType=INTEGER},
+      huRate = #{hurate,jdbcType=REAL},
+      shenRate = #{shenrate,jdbcType=REAL},
+      xingWeiSum = #{xingweisum,jdbcType=INTEGER},
+      stockSum = #{stocksum,jdbcType=INTEGER},
+      sumTouZiXingWei = #{sumtouzixingwei,jdbcType=VARCHAR},
+      sumStockGeShu = #{sumstockgeshu,jdbcType=VARCHAR},
+      sumOfMenLei = #{sumofmenlei,jdbcType=VARCHAR},
+      sumOfDalei = #{sumofdalei,jdbcType=VARCHAR},
+      threeProprorty = #{threeproprorty,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <update id="jiJinAddFour" parameterType="string">
+	update holderYearStatistic
+	set industryDaLeiDe= #{daleiDe,jdbcType=LONGVARCHAR},industryMenLeiDe= #{menleiDe,jdbcType=LONGVARCHAR},
+		stockAreaDe = #{areaDe,jdbcType=LONGVARCHAR}, stockArea = #{area,jdbcType=LONGVARCHAR}
+	where stockHolder like '%${jiJinId}%' and year = #{year}
+</update>
+
+<select id="perfertOne" parameterType="string" resultMap="ResultMapWithBLOBs">
+	select * from holderYearStatistic where stockHolder = #{stockHolder}
+	order by year desc
+</select>
+</mapper>

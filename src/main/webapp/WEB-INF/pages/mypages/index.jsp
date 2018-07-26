@@ -176,7 +176,7 @@ $(document).ready(function(){
 					<!-- <li><a href="#">涨停温度计</a></li>
 					<li><a href="#">涨停强度</a></li>
 					<li><a href="#">大盘温度计</a></li> -->
-					<li><a href="#">龙虎榜</a></li>
+					<li><a href="longhubang">龙虎榜</a></li>
 					<li><a href="dzjy?pageNum=1">大宗交易</a></li>
 					<li><a href="newStock?pageNum=1">新股申购</a></li>
 					<li><a href="#">高送转选股</a></li>

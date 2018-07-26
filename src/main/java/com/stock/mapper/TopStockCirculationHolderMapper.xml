@@ -356,9 +356,54 @@
 	<!--于花蕾新增 2017年11月30日  -->
 	<select id="selectCircuOutStock" parameterType="string" resultMap="BaseResultMap">
 		select 
-		stock_id,stock_held,stock_held_rate,change_before,holder_num,holder_change,stock_propotion_rate,
+		stock_id,stock_held,stock_held_rate,change_before,holder_num,holder_change,stock_propotion_rate,date,
 		real_increase,stock_type
 		from top_stock_circulation_holder
-		where date = #{date} and institution_name = #{institution_name}
+		where date = #{date} and institution_name like "%"#{institution_name}"%"
+	</select>
+	
+	<!--于花蕾新增 2017年12月24日  -->
+	<select id="selectInvestionAllOne" parameterType="string" resultMap="BaseResultMap">
+		select 
+		stock_id,stock_held,stock_held_rate,change_before,holder_num,holder_change,stock_propotion_rate,date,
+		real_increase,stock_type
+		from top_stock_circulation_holder
+		where institution_name like "%"#{institution_name}"%"
+	</select>
+	<!-- 于花蕾 2017年12月24 -->
+	<select id="topSomeCircuDate" parameterType="string" resultType="string">
+		select distinct date
+		from top_stock_circulation_holder
+		where institution_name like "%"#{institution_name}"%"
+		Order by date
+	</select>
+	
+	<!-- 于花蕾 2018年1月6 -->
+	<select id="similarPrepare"  resultType="string">
+		select distinct institution_name
+		from top_stock_circulation_holder
+		where stock_id = #{first} and holder_change = #{second} and date = #{third}
+	</select>
+	
+	<!-- 于花蕾 2018年1月6 -->
+	<select id="similarPrepareCut"  resultType="string">
+		select distinct institution_name
+		from top_stock_circulation_holder
+		where stock_id = #{first} and date = #{second} and holder_change &lt;&gt; "不变" and
+		holder_change &lt;&gt; "新进" and holder_change &lt;&gt; "退出" and holder_change &lt; 0
+	</select>
+	
+	<!-- 于花蕾 2018年1月6 -->
+	<select id="similarPrepareAdd"  resultType="string">
+		select distinct institution_name
+		from top_stock_circulation_holder
+		where stock_id = #{first} and date = #{second} and holder_change &lt;&gt; "不变" and
+		holder_change &lt;&gt; "新进" and holder_change &lt;&gt; "退出" and holder_change &gt; 0
+	</select>
+	
+	<!-- 于花蕾 测试部分 -->
+	<select id="circulationTest"  resultType="string">
+		select distinct stock_id
+		from top_stock_circulation_holder
 	</select>
 </mapper>
